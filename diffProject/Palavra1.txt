@@ -1,7 +1,0 @@
-a g
-b h ijk 
-c
-d l
-em
-fn
-w
