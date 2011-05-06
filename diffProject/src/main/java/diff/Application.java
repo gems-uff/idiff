@@ -29,7 +29,6 @@ public class Application {
         System.out.println('\n');
         System.out.println("RESULT : ");
         print(teste1, teste2);
-        int x = 1;
     }
     //TODO - RETIRAR: Apenas para debug
 
