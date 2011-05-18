@@ -147,7 +147,6 @@ public class Main extends javax.swing.JFrame {
         runMenuBar.setAction(actionMap.get("runProjectMB")); // NOI18N
         ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(Main.class);
         runMenuBar.setIcon(resourceMap.getIcon("runMenuBar.icon")); // NOI18N
-        runMenuBar.setToolTipText("Compare");
         runMenuBar.setBorder(null);
         mainButtonGroup.add(runMenuBar);
         runMenuBar.setFocusable(false);
@@ -158,7 +157,7 @@ public class Main extends javax.swing.JFrame {
 
         fileSelectionMenuBar.setAction(actionMap.get("fileSelectionMB")); // NOI18N
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
-        fileSelectionMenuBar.setToolTipText("File Selection");
+        fileSelectionMenuBar.setBorderPainted(false);
         mainButtonGroup.add(fileSelectionMenuBar);
         fileSelectionMenuBar.setFocusable(false);
         fileSelectionMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -168,7 +167,7 @@ public class Main extends javax.swing.JFrame {
 
         overviewMenuBar.setAction(actionMap.get("showOverView")); // NOI18N
         overviewMenuBar.setIcon(resourceMap.getIcon("overviewMenuBar.icon")); // NOI18N
-        overviewMenuBar.setToolTipText("Overview");
+        overviewMenuBar.setBorderPainted(false);
         mainButtonGroup.add(overviewMenuBar);
         overviewMenuBar.setFocusable(false);
         overviewMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
