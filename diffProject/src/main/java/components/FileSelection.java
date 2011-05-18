@@ -20,7 +20,7 @@ public class FileSelection extends javax.swing.JFrame {
 
     /** Creates new form FileSelection */
     public FileSelection() {
-        initComponents();        
+        initComponents();
         setLocationRelativeTo(null);
     }
 
@@ -33,14 +33,15 @@ public class FileSelection extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup = new javax.swing.ButtonGroup();
         fileTextField2 = new javax.swing.JTextField();
         file1 = new javax.swing.JLabel();
         file2 = new javax.swing.JLabel();
         fileTextField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
+        configurationsButton = new javax.swing.JButton();
+        okButton = new javax.swing.JButton();
         fileButton1 = new javax.swing.JButton();
         fileButton2 = new javax.swing.JButton();
 
@@ -52,10 +53,10 @@ public class FileSelection extends javax.swing.JFrame {
         fileTextField2.setText("Select directory or file for comparison...");
         fileTextField2.setName("fileTextField2"); // NOI18N
 
-        file1.setText("Artifact 2:");
+        file1.setText("File 2: ");
         file1.setName("file1"); // NOI18N
 
-        file2.setText("Artifact 1:");
+        file2.setText("File 1: ");
         file2.setName("file2"); // NOI18N
 
         fileTextField.setBackground(resourceMap.getColor("jTextField1.background")); // NOI18N
@@ -66,20 +67,39 @@ public class FileSelection extends javax.swing.JFrame {
 
         jSeparator1.setName("jSeparator1"); // NOI18N
 
-        jButton3.setText("Close");
-        jButton3.setName("jButton3"); // NOI18N
-
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(FileSelection.class, this);
-        jButton1.setAction(actionMap.get("configurations")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
+        closeButton.setAction(actionMap.get("close")); // NOI18N
+        closeButton.setIcon(resourceMap.getIcon("closeButton.icon")); // NOI18N
+        closeButton.setToolTipText("Close");
+        closeButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        closeButton.setBorderPainted(false);
+        buttonGroup.add(closeButton);
+        closeButton.setContentAreaFilled(false);
+        closeButton.setName("closeButton"); // NOI18N
 
-        jButton2.setText("OK");
-        jButton2.setName("jButton2"); // NOI18N
+        configurationsButton.setAction(actionMap.get("configurations")); // NOI18N
+        configurationsButton.setIcon(resourceMap.getIcon("configurationsButton.icon")); // NOI18N
+        configurationsButton.setText("");
+        configurationsButton.setToolTipText("Configurations");
+        configurationsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        configurationsButton.setBorderPainted(false);
+        buttonGroup.add(configurationsButton);
+        configurationsButton.setContentAreaFilled(false);
+        configurationsButton.setName("configurationsButton"); // NOI18N
+
+        okButton.setAction(actionMap.get("loadFiles")); // NOI18N
+        okButton.setIcon(resourceMap.getIcon("okButton.icon")); // NOI18N
+        okButton.setToolTipText("OK");
+        okButton.setBorder(null);
+        buttonGroup.add(okButton);
+        okButton.setContentAreaFilled(false);
+        okButton.setName("okButton"); // NOI18N
 
         fileButton1.setAction(actionMap.get("searchFile")); // NOI18N
         fileButton1.setIcon(resourceMap.getIcon("fileButton1.icon")); // NOI18N
         fileButton1.setBorder(null);
         fileButton1.setBorderPainted(false);
+        buttonGroup.add(fileButton1);
         fileButton1.setContentAreaFilled(false);
         fileButton1.setName("fileButton1"); // NOI18N
 
@@ -87,6 +107,7 @@ public class FileSelection extends javax.swing.JFrame {
         fileButton2.setIcon(resourceMap.getIcon("fileButton2.icon")); // NOI18N
         fileButton2.setBorder(null);
         fileButton2.setBorderPainted(false);
+        buttonGroup.add(fileButton2);
         fileButton2.setContentAreaFilled(false);
         fileButton2.setName("fileButton2"); // NOI18N
 
@@ -96,32 +117,32 @@ public class FileSelection extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(jButton2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jButton1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jButton3))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(file1)
                             .add(file2))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(fileTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
-                            .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
+                            .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                            .add(fileTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(fileButton1)
-                            .add(fileButton2))))
+                            .add(fileButton2)))
+                    .add(layout.createSequentialGroup()
+                        .add(configurationsButton)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 271, Short.MAX_VALUE)
+                        .add(closeButton)
+                        .add(18, 18, 18)
+                        .add(okButton)
+                        .add(6, 6, 6)))
                 .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(fileButton1)
                     .add(layout.createSequentialGroup()
@@ -141,11 +162,11 @@ public class FileSelection extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton3)
-                    .add(jButton1)
-                    .add(jButton2))
-                .addContainerGap())
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(closeButton)
+                    .add(okButton)
+                    .add(configurationsButton))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,7 +186,7 @@ public class FileSelection extends javax.swing.JFrame {
 
     @Action
     public void searchFile() {
-       java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
             public void run() {
@@ -173,8 +194,19 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
     }
-    
-        @Action
+
+    @Action
+    public void loadFiles() {
+        // TODO implementar
+        System.out.println("Load Files...");
+    }
+
+    @Action
+    public void close() {
+        this.setVisible(false);
+    }
+
+    @Action
     public void configurations() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -184,18 +216,17 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
     }
-        
-        
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JButton configurationsButton;
     private javax.swing.JLabel file1;
     private javax.swing.JLabel file2;
     private javax.swing.JButton fileButton1;
     private javax.swing.JButton fileButton2;
     private javax.swing.JTextField fileTextField;
     private javax.swing.JTextField fileTextField2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
 }

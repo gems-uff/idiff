@@ -26,6 +26,8 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
@@ -59,10 +61,13 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new JLabel();
         mainButtonGroup = new ButtonGroup();
         toolBar = new JToolBar();
+        jSeparator4 = new Separator();
         runMenuBar = new JButton();
-        separator = new Separator();
-        fileSelectionMenuBar = new JButton();
         jSeparator1 = new Separator();
+        fileSelectionMenuBar = new JButton();
+        jSeparator3 = new Separator();
+        overviewMenuBar = new JButton();
+        jSeparator2 = new Separator();
         mainSplitPane = new JSplitPane();
         detailsScrollPane = new JScrollPane();
         detailsTextPane = new JTextPane();
@@ -136,28 +141,40 @@ public class Main extends javax.swing.JFrame {
 
         toolBar.setRollover(true);
         toolBar.setName("Menu Bar"); // NOI18N
+        toolBar.add(jSeparator4);
 
         ActionMap actionMap = Application.getInstance().getContext().getActionMap(Main.class, this);
-        runMenuBar.setAction(actionMap.get("runProject")); // NOI18N
+        runMenuBar.setAction(actionMap.get("runProjectMB")); // NOI18N
         ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(Main.class);
         runMenuBar.setIcon(resourceMap.getIcon("runMenuBar.icon")); // NOI18N
-        runMenuBar.setText("");
+        runMenuBar.setToolTipText("Compare");
+        runMenuBar.setBorder(null);
         mainButtonGroup.add(runMenuBar);
         runMenuBar.setFocusable(false);
         runMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
         runMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
         toolBar.add(runMenuBar);
-        toolBar.add(separator);
+        toolBar.add(jSeparator1);
 
-        fileSelectionMenuBar.setAction(actionMap.get("fileSelection")); // NOI18N
+        fileSelectionMenuBar.setAction(actionMap.get("fileSelectionMB")); // NOI18N
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
-        fileSelectionMenuBar.setText("");
+        fileSelectionMenuBar.setToolTipText("File Selection");
         mainButtonGroup.add(fileSelectionMenuBar);
         fileSelectionMenuBar.setFocusable(false);
         fileSelectionMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
         fileSelectionMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
         toolBar.add(fileSelectionMenuBar);
-        toolBar.add(jSeparator1);
+        toolBar.add(jSeparator3);
+
+        overviewMenuBar.setAction(actionMap.get("showOverView")); // NOI18N
+        overviewMenuBar.setIcon(resourceMap.getIcon("overviewMenuBar.icon")); // NOI18N
+        overviewMenuBar.setToolTipText("Overview");
+        mainButtonGroup.add(overviewMenuBar);
+        overviewMenuBar.setFocusable(false);
+        overviewMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
+        overviewMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
+        toolBar.add(overviewMenuBar);
+        toolBar.add(jSeparator2);
 
         mainSplitPane.setDividerLocation(500);
         mainSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -264,7 +281,7 @@ public class Main extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.UNRELATED)
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -283,14 +300,38 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
+    // TODO implementar
 
     @Action
     public void runProject() {
         System.out.println("Run Project Action Executed");
     }
+    // TODO implementar
+
+    @Action
+    public void runProjectMB() {
+        System.out.println("Run Project Action Executed");
+    }
+    // TODO implementar
+
+    @Action
+    public void showOverView() {
+        System.out.println("Show OverView");
+    }
 
     @Action
     public void fileSelection() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new FileSelection().setVisible(true);
+            }
+        });
+    }
+
+    @Action
+    public void fileSelectionMB() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
@@ -365,14 +406,17 @@ public class Main extends javax.swing.JFrame {
     private JMenuItem fileSelectionSubMenu;
     private JLabel jLabel1;
     private Separator jSeparator1;
+    private Separator jSeparator2;
+    private Separator jSeparator3;
+    private Separator jSeparator4;
     private ButtonGroup mainButtonGroup;
     private JMenu mainMenu;
     private JSplitPane mainSplitPane;
     private JMenuBar menuBar;
     private JButton noButton;
+    private JButton overviewMenuBar;
     private JButton runMenuBar;
     private JMenuItem runSubMenu;
-    private Separator separator;
     private JSplitPane splitPaneLeft;
     private JSplitPane splitPaneRight;
     private JSplitPane splitPaneUp;

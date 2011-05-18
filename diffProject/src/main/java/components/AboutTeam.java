@@ -31,75 +31,75 @@ public class AboutTeam extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        studentPanel = new javax.swing.JPanel();
+        studentName = new javax.swing.JLabel();
+        uff = new javax.swing.JLabel();
+        professorPanel = new javax.swing.JPanel();
+        professorName = new javax.swing.JLabel();
+        university = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About Team");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Student"));
-        jPanel1.setName("jPanel1"); // NOI18N
+        studentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Student"));
+        studentPanel.setName("studentPanel"); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 1, 12));
-        jLabel1.setText("Fernanda Floriano Silva");
-        jLabel1.setName("jLabel1"); // NOI18N
+        studentName.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        studentName.setText("Fernanda Floriano Silva");
+        studentName.setName("studentName"); // NOI18N
 
-        jLabel4.setText("Fluminense Federal University (UFF). ");
-        jLabel4.setName("jLabel4"); // NOI18N
+        uff.setText("Fluminense Federal University (UFF). ");
+        uff.setName("uff"); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jLabel1)
-            .add(jLabel4)
+        org.jdesktop.layout.GroupLayout studentPanelLayout = new org.jdesktop.layout.GroupLayout(studentPanel);
+        studentPanel.setLayout(studentPanelLayout);
+        studentPanelLayout.setHorizontalGroup(
+            studentPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(studentName)
+            .add(uff)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .add(jLabel1)
+        studentPanelLayout.setVerticalGroup(
+            studentPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(studentPanelLayout.createSequentialGroup()
+                .add(studentName)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabel4)
+                .add(uff)
                 .addContainerGap(6, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Professor"));
-        jPanel2.setName("jPanel2"); // NOI18N
+        professorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Professor"));
+        professorPanel.setName("professorPanel"); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("sansserif", 1, 12));
-        jLabel2.setText("Leonardo Gresta Paulino Murta");
-        jLabel2.setName("jLabel2"); // NOI18N
+        professorName.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        professorName.setText("Leonardo Gresta Paulino Murta");
+        professorName.setName("professorName"); // NOI18N
 
-        jLabel5.setText("Assistant Professor, IC/UFF ");
-        jLabel5.setName("jLabel5"); // NOI18N
+        university.setText("Assistant Professor, IC/UFF ");
+        university.setName("university"); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel2)
-                    .add(jLabel5))
+        org.jdesktop.layout.GroupLayout professorPanelLayout = new org.jdesktop.layout.GroupLayout(professorPanel);
+        professorPanel.setLayout(professorPanelLayout);
+        professorPanelLayout.setHorizontalGroup(
+            professorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(professorPanelLayout.createSequentialGroup()
+                .add(professorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(professorName)
+                    .add(university))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
+        professorPanelLayout.setVerticalGroup(
+            professorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(professorPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel2)
+                .add(professorName)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabel5)
+                .add(university)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/timeMenu.png"))); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
+        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/timeMenu.png"))); // NOI18N
+        image.setName("image"); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,20 +108,20 @@ public class AboutTeam extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jLabel3)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(image)
+                    .add(studentPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(professorPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel3)
+                .add(image)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(studentPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(professorPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -140,12 +140,12 @@ public class AboutTeam extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel image;
+    private javax.swing.JLabel professorName;
+    private javax.swing.JPanel professorPanel;
+    private javax.swing.JLabel studentName;
+    private javax.swing.JPanel studentPanel;
+    private javax.swing.JLabel uff;
+    private javax.swing.JLabel university;
     // End of variables declaration//GEN-END:variables
 }

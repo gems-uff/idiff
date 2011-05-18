@@ -10,6 +10,8 @@
  */
 package components;
 
+import org.jdesktop.application.Action;
+
 /**
  *
  * @author Sisi
@@ -18,7 +20,7 @@ public class Configurations extends javax.swing.JFrame {
 
     /** Creates new form Configurations */
     public Configurations() {
-        initComponents();        
+        initComponents();
         setLocationRelativeTo(null);
     }
 
@@ -31,110 +33,118 @@ public class Configurations extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buttonGroup = new javax.swing.ButtonGroup();
+        granularityPanel = new javax.swing.JPanel();
+        directoryCheckBox = new javax.swing.JCheckBox();
+        fileCheckBox = new javax.swing.JCheckBox();
+        lineCheckBox = new javax.swing.JCheckBox();
+        wordCheckBox = new javax.swing.JCheckBox();
+        characterCheckBox = new javax.swing.JCheckBox();
+        image = new javax.swing.JLabel();
+        okButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Parameters");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Granularity analyzed "));
-        jPanel1.setName("jPanel1"); // NOI18N
+        granularityPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Granularity analyzed "));
+        granularityPanel.setName("granularityPanel"); // NOI18N
 
-        jCheckBox1.setText("Directory");
-        jCheckBox1.setName("jCheckBox1"); // NOI18N
+        directoryCheckBox.setText("Directory");
+        directoryCheckBox.setName("directoryCheckBox"); // NOI18N
 
-        jCheckBox2.setText("File");
-        jCheckBox2.setName("jCheckBox2"); // NOI18N
+        fileCheckBox.setText("File");
+        fileCheckBox.setName("fileCheckBox"); // NOI18N
 
-        jCheckBox3.setText("Line");
-        jCheckBox3.setName("jCheckBox3"); // NOI18N
+        lineCheckBox.setText("Line");
+        lineCheckBox.setName("lineCheckBox"); // NOI18N
 
-        jCheckBox4.setText("Word");
-        jCheckBox4.setName("jCheckBox4"); // NOI18N
+        wordCheckBox.setText("Word");
+        wordCheckBox.setName("wordCheckBox"); // NOI18N
 
-        jCheckBox5.setText("Character");
-        jCheckBox5.setName("jCheckBox5"); // NOI18N
+        characterCheckBox.setText("Character");
+        characterCheckBox.setName("characterCheckBox"); // NOI18N
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/configurations.png"))); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(Configurations.class);
+        image.setIcon(resourceMap.getIcon("image.icon")); // NOI18N
+        image.setName("image"); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+        org.jdesktop.layout.GroupLayout granularityPanelLayout = new org.jdesktop.layout.GroupLayout(granularityPanel);
+        granularityPanel.setLayout(granularityPanelLayout);
+        granularityPanelLayout.setHorizontalGroup(
+            granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(granularityPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jCheckBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jCheckBox3))
+                .add(granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(granularityPanelLayout.createSequentialGroup()
+                        .add(granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(directoryCheckBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(lineCheckBox))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 6, Short.MAX_VALUE)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jCheckBox2)
-                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                .add(jLabel1)
-                                .add(jCheckBox4)))
+                        .add(granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(fileCheckBox)
+                            .add(granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(image)
+                                .add(wordCheckBox)))
                         .add(51, 51, 51))
-                    .add(jCheckBox5))
+                    .add(characterCheckBox))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+        granularityPanelLayout.setVerticalGroup(
+            granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(granularityPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jCheckBox1)
-                    .add(jCheckBox2))
+                .add(granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(directoryCheckBox)
+                    .add(fileCheckBox))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jCheckBox4)
-                    .add(jCheckBox3))
+                .add(granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(wordCheckBox)
+                    .add(lineCheckBox))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jCheckBox5)
-                    .add(jLabel1))
+                .add(granularityPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(characterCheckBox)
+                    .add(image))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("OK");
-        jButton1.setName("jButton1"); // NOI18N
+        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(Configurations.class, this);
+        okButton.setAction(actionMap.get("ok")); // NOI18N
+        okButton.setIcon(resourceMap.getIcon("okButton.icon")); // NOI18N
+        okButton.setToolTipText("OK");
+        okButton.setBorderPainted(false);
+        okButton.setContentAreaFilled(false);
+        okButton.setName("okButton"); // NOI18N
 
-        jButton2.setText("Close");
-        jButton2.setName("jButton2"); // NOI18N
+        closeButton.setAction(actionMap.get("close")); // NOI18N
+        closeButton.setIcon(resourceMap.getIcon("closeButton.icon")); // NOI18N
+        closeButton.setToolTipText("Close");
+        closeButton.setContentAreaFilled(false);
+        closeButton.setName("closeButton"); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(43, 43, 43)
-                        .add(jButton1)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(closeButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton2))
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(okButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(granularityPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(granularityPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton2)
-                    .add(jButton1))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(okButton)
+                    .add(closeButton))
                 .addContainerGap())
         );
 
@@ -152,15 +162,27 @@ public class Configurations extends javax.swing.JFrame {
             }
         });
     }
+
+    @Action
+    public void ok() {
+        // TODO implementar
+        System.out.println("ok click...");
+    }
+
+    @Action
+    public void close() {
+        this.setVisible(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.ButtonGroup buttonGroup;
+    private javax.swing.JCheckBox characterCheckBox;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JCheckBox directoryCheckBox;
+    private javax.swing.JCheckBox fileCheckBox;
+    private javax.swing.JPanel granularityPanel;
+    private javax.swing.JLabel image;
+    private javax.swing.JCheckBox lineCheckBox;
+    private javax.swing.JButton okButton;
+    private javax.swing.JCheckBox wordCheckBox;
     // End of variables declaration//GEN-END:variables
 }
