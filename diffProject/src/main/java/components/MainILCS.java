@@ -31,10 +31,10 @@ import org.jdesktop.layout.LayoutStyle;
  *
  * @author Fernanda Floriano Silva
  */
-public class Main extends javax.swing.JFrame {
+public class MainILCS extends javax.swing.JFrame {
 
-    /** Creates new form Main */
-    public Main() {
+    /** Creates new form MainILCS */
+    public MainILCS() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -136,9 +136,9 @@ public class Main extends javax.swing.JFrame {
         toolBar.setName("Menu Bar"); // NOI18N
         toolBar.add(jSeparator4);
 
-        ActionMap actionMap = Application.getInstance().getContext().getActionMap(Main.class, this);
+        ActionMap actionMap = Application.getInstance().getContext().getActionMap(MainILCS.class, this);
         runMenuBar.setAction(actionMap.get("runProjectMB")); // NOI18N
-        ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(Main.class);
+        ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(MainILCS.class);
         runMenuBar.setIcon(resourceMap.getIcon("runMenuBar.icon")); // NOI18N
         runMenuBar.setToolTipText(resourceMap.getString("runMenuBar.toolTipText")); // NOI18N
         runMenuBar.setBorder(null);
@@ -291,7 +291,7 @@ public class Main extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                new Main().setVisible(true);
+                new MainILCS().setVisible(true);
             }
         });
     }
