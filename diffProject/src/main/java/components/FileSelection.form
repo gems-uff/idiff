@@ -27,18 +27,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="file1" min="-2" max="-2" attributes="0"/>
-                          <Component id="file2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="fileTextField" pref="406" max="32767" attributes="0"/>
-                          <Component id="fileTextField2" alignment="0" pref="406" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="file2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="fileTextField" pref="485" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="file1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="fileTextField2" pref="485" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -48,7 +51,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="configurationsButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="271" max="32767" attributes="0"/>
+                      <EmptySpace pref="356" max="32767" attributes="0"/>
                       <Component id="closeButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="okButton" min="-2" max="-2" attributes="0"/>
@@ -57,21 +60,22 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Component id="jSeparator1" alignment="1" pref="498" max="32767" attributes="0"/>
+          <Component id="jSeparator1" alignment="1" pref="583" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="fileButton1" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="fileTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="file2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
+                  <Component id="fileButton1" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -79,22 +83,22 @@
                       <Component id="fileButton2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="fileTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="file1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="fileTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="closeButton" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="okButton" alignment="1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="okButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="closeButton" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="configurationsButton" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -141,6 +145,7 @@
           <action class="components.FileSelection" id="close" methodName="close"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="closeButton.icon"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="closeButton.toolTipText"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
             <BevelBorder/>
@@ -179,6 +184,7 @@
           <action class="components.FileSelection" id="loadFiles" methodName="loadFiles"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="okButton.icon"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="okButton.toolTipText"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -195,6 +201,7 @@
           <action class="components.FileSelection" id="searchFile" methodName="searchFile"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="fileButton1.icon"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="fileButton1.toolTipText"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
@@ -212,6 +219,7 @@
           <action class="components.FileSelection" id="searchFile" methodName="searchFile"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="fileButton2.icon"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="fileButton2.toolTipText"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>

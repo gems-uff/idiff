@@ -1,20 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * Configurations.java
- *
- * Created on 14/05/2011, 22:57:29
- */
 package components;
 
 import org.jdesktop.application.Action;
 
 /**
  *
- * @author Sisi
+ * @author Fernanda Floriano Silva
  */
 public class Configurations extends javax.swing.JFrame {
 
@@ -111,14 +101,14 @@ public class Configurations extends javax.swing.JFrame {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(Configurations.class, this);
         okButton.setAction(actionMap.get("ok")); // NOI18N
         okButton.setIcon(resourceMap.getIcon("okButton.icon")); // NOI18N
-        okButton.setToolTipText("OK");
+        okButton.setToolTipText(resourceMap.getString("okButton.toolTipText")); // NOI18N
         okButton.setBorderPainted(false);
         okButton.setContentAreaFilled(false);
         okButton.setName("okButton"); // NOI18N
 
         closeButton.setAction(actionMap.get("close")); // NOI18N
         closeButton.setIcon(resourceMap.getIcon("closeButton.icon")); // NOI18N
-        closeButton.setToolTipText("Close");
+        closeButton.setToolTipText(resourceMap.getString("closeButton.toolTipText")); // NOI18N
         closeButton.setContentAreaFilled(false);
         closeButton.setName("closeButton"); // NOI18N
 
@@ -157,6 +147,7 @@ public class Configurations extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new Configurations().setVisible(true);
             }

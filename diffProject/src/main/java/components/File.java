@@ -1,20 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * File.java
- *
- * Created on 15/05/2011, 00:26:52
- */
 package components;
 
 import javax.swing.UIManager;
 
 /**
  *
- * @author Sisi
+ * @author Fernanda Floriano Silva
  */
 public class File extends javax.swing.JFrame {
 

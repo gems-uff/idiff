@@ -1,8 +1,3 @@
-/*
- * Main.java
- *
- * Created on 14/05/2011, 12:43:40
- */
 package components;
 
 import java.awt.Cursor;
@@ -26,8 +21,6 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
@@ -147,6 +140,7 @@ public class Main extends javax.swing.JFrame {
         runMenuBar.setAction(actionMap.get("runProjectMB")); // NOI18N
         ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(Main.class);
         runMenuBar.setIcon(resourceMap.getIcon("runMenuBar.icon")); // NOI18N
+        runMenuBar.setToolTipText(resourceMap.getString("runMenuBar.toolTipText")); // NOI18N
         runMenuBar.setBorder(null);
         mainButtonGroup.add(runMenuBar);
         runMenuBar.setFocusable(false);
@@ -157,6 +151,7 @@ public class Main extends javax.swing.JFrame {
 
         fileSelectionMenuBar.setAction(actionMap.get("fileSelectionMB")); // NOI18N
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
+        fileSelectionMenuBar.setToolTipText(resourceMap.getString("fileSelectionMenuBar.toolTipText")); // NOI18N
         fileSelectionMenuBar.setBorderPainted(false);
         mainButtonGroup.add(fileSelectionMenuBar);
         fileSelectionMenuBar.setFocusable(false);
@@ -167,6 +162,7 @@ public class Main extends javax.swing.JFrame {
 
         overviewMenuBar.setAction(actionMap.get("showOverView")); // NOI18N
         overviewMenuBar.setIcon(resourceMap.getIcon("overviewMenuBar.icon")); // NOI18N
+        overviewMenuBar.setToolTipText(resourceMap.getString("overviewMenuBar.toolTipText")); // NOI18N
         overviewMenuBar.setBorderPainted(false);
         mainButtonGroup.add(overviewMenuBar);
         overviewMenuBar.setFocusable(false);
@@ -299,20 +295,20 @@ public class Main extends javax.swing.JFrame {
             }
         });
     }
-    // TODO implementar
 
+    // TODO implementar
     @Action
     public void runProject() {
         System.out.println("Run Project Action Executed");
     }
-    // TODO implementar
 
+    // TODO implementar
     @Action
     public void runProjectMB() {
         System.out.println("Run Project Action Executed");
     }
-    // TODO implementar
 
+    // TODO implementar
     @Action
     public void showOverView() {
         System.out.println("Show OverView");

@@ -250,6 +250,7 @@
               <action class="components.Main" id="runProjectMB" methodName="runProjectMB"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="runMenuBar.icon"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="runMenuBar.toolTipText"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -269,6 +270,7 @@
               <action class="components.Main" id="fileSelectionMB" methodName="fileSelectionMB"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="fileSelectionMenuBar.icon"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="fileSelectionMenuBar.toolTipText"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="mainButtonGroup"/>
@@ -286,6 +288,7 @@
               <action class="components.Main" id="showOverView" methodName="showOverView"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="overviewMenuBar.icon"/>
+            <Property name="toolTipText" type="java.lang.String" resourceKey="overviewMenuBar.toolTipText"/>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="mainButtonGroup"/>

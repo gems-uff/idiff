@@ -162,7 +162,7 @@
           <action class="components.Configurations" id="ok" methodName="ok"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="okButton.icon"/>
-        <Property name="toolTipText" type="java.lang.String" value="OK"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="okButton.toolTipText"/>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="okButton" noResource="true"/>
@@ -174,7 +174,7 @@
           <action class="components.Configurations" id="close" methodName="close"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="closeButton.icon"/>
-        <Property name="toolTipText" type="java.lang.String" value="Close"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="closeButton.toolTipText"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="closeButton" noResource="true"/>
       </Properties>

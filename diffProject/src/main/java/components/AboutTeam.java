@@ -1,18 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * AboutTeam.java
- *
- * Created on 14/05/2011, 13:12:09
- */
 package components;
 
 /**
  *
- * @author Sisi
+ * @author Fernanda Floriano Silva
  */
 public class AboutTeam extends javax.swing.JFrame {
 
@@ -134,6 +124,7 @@ public class AboutTeam extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new AboutTeam().setVisible(true);
             }

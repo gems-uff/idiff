@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * FileSelection.java
- *
- * Created on 14/05/2011, 12:32:01
- */
 package components;
 
 import org.jdesktop.application.Action;
@@ -70,7 +60,7 @@ public class FileSelection extends javax.swing.JFrame {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(FileSelection.class, this);
         closeButton.setAction(actionMap.get("close")); // NOI18N
         closeButton.setIcon(resourceMap.getIcon("closeButton.icon")); // NOI18N
-        closeButton.setToolTipText("Close");
+        closeButton.setToolTipText(resourceMap.getString("closeButton.toolTipText")); // NOI18N
         closeButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         closeButton.setBorderPainted(false);
         buttonGroup.add(closeButton);
@@ -79,8 +69,6 @@ public class FileSelection extends javax.swing.JFrame {
 
         configurationsButton.setAction(actionMap.get("configurations")); // NOI18N
         configurationsButton.setIcon(resourceMap.getIcon("configurationsButton.icon")); // NOI18N
-        configurationsButton.setText("");
-        configurationsButton.setToolTipText("Configurations");
         configurationsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         configurationsButton.setBorderPainted(false);
         buttonGroup.add(configurationsButton);
@@ -89,7 +77,7 @@ public class FileSelection extends javax.swing.JFrame {
 
         okButton.setAction(actionMap.get("loadFiles")); // NOI18N
         okButton.setIcon(resourceMap.getIcon("okButton.icon")); // NOI18N
-        okButton.setToolTipText("OK");
+        okButton.setToolTipText(resourceMap.getString("okButton.toolTipText")); // NOI18N
         okButton.setBorder(null);
         buttonGroup.add(okButton);
         okButton.setContentAreaFilled(false);
@@ -97,6 +85,7 @@ public class FileSelection extends javax.swing.JFrame {
 
         fileButton1.setAction(actionMap.get("searchFile")); // NOI18N
         fileButton1.setIcon(resourceMap.getIcon("fileButton1.icon")); // NOI18N
+        fileButton1.setToolTipText(resourceMap.getString("fileButton1.toolTipText")); // NOI18N
         fileButton1.setBorder(null);
         fileButton1.setBorderPainted(false);
         buttonGroup.add(fileButton1);
@@ -105,6 +94,7 @@ public class FileSelection extends javax.swing.JFrame {
 
         fileButton2.setAction(actionMap.get("searchFile")); // NOI18N
         fileButton2.setIcon(resourceMap.getIcon("fileButton2.icon")); // NOI18N
+        fileButton2.setToolTipText(resourceMap.getString("fileButton2.toolTipText")); // NOI18N
         fileButton2.setBorder(null);
         fileButton2.setBorderPainted(false);
         buttonGroup.add(fileButton2);
@@ -119,37 +109,40 @@ public class FileSelection extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(file1)
-                            .add(file2))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
-                            .add(fileTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                            .add(layout.createSequentialGroup()
+                                .add(file2)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
+                            .add(layout.createSequentialGroup()
+                                .add(file1)
+                                .add(12, 12, 12)
+                                .add(fileTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(fileButton1)
                             .add(fileButton2)))
                     .add(layout.createSequentialGroup()
                         .add(configurationsButton)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 271, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 356, Short.MAX_VALUE)
                         .add(closeButton)
                         .add(18, 18, 18)
                         .add(okButton)
                         .add(6, 6, 6)))
                 .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(23, 23, 23)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(fileButton1)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(fileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(file2))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
+                    .add(fileButton1))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(8, 8, 8)
@@ -157,16 +150,16 @@ public class FileSelection extends javax.swing.JFrame {
                     .add(layout.createSequentialGroup()
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(fileTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(file1))))
+                            .add(file1)
+                            .add(fileTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .add(18, 18, 18)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(closeButton)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(okButton)
+                    .add(closeButton)
                     .add(configurationsButton))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -178,6 +171,7 @@ public class FileSelection extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new FileSelection().setVisible(true);
             }
