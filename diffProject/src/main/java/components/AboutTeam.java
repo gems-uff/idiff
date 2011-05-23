@@ -1,5 +1,7 @@
 package components;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Fernanda Floriano Silva
@@ -10,6 +12,8 @@ public class AboutTeam extends javax.swing.JFrame {
     public AboutTeam() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+
     }
 
     /** This method is called from within the constructor to

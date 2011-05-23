@@ -2,6 +2,11 @@ package components;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -27,6 +32,7 @@ import org.jdesktop.application.ResourceMap;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
+// Variables declaration - do not modify
 /**
  *
  * @author Fernanda Floriano Silva
@@ -37,6 +43,7 @@ public class MainILCS extends javax.swing.JFrame {
     public MainILCS() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
     }
 
     /** This method is called from within the constructor to
@@ -85,13 +92,14 @@ public class MainILCS extends javax.swing.JFrame {
         aboutProjectSubMenu = new JMenuItem();
         aboutTeamSubMenu = new JMenuItem();
 
-        exitDialog.setTitle("Confirm Close");
+        ResourceBundle bundle = ResourceBundle.getBundle("components/Bundle"); // NOI18N
+        exitDialog.setTitle(bundle.getString("MainILCS.exitDialog.title")); // NOI18N
 
-        noButton.setText("No");
+        noButton.setText(bundle.getString("MainILCS.noButton.text")); // NOI18N
 
-        yesButton.setText("Yes");
+        yesButton.setText(bundle.getString("MainILCS.yesButton.text")); // NOI18N
 
-        exitLabel.setText("Exit ILCS ?");
+        exitLabel.setText(bundle.getString("MainILCS.exitLabel.text")); // NOI18N
 
         jLabel1.setIcon(new ImageIcon(getClass().getResource("/components/icons/icone_help.png"))); // NOI18N
 
@@ -125,7 +133,7 @@ public class MainILCS extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ILCS - Diff and Moves Detections ");
+        setTitle(bundle.getString("MainILCS.title")); // NOI18N
         setIconImages(null);
         setMinimumSize(new Dimension(1365, 650));
         setModalExclusionType(null);
@@ -176,7 +184,7 @@ public class MainILCS extends javax.swing.JFrame {
         mainSplitPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         mainSplitPane.setOneTouchExpandable(true);
 
-        detailsTextPane.setBorder(BorderFactory.createTitledBorder("Details"));
+        detailsTextPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.detailsTextPane.border.title"))); // NOI18N
         detailsScrollPane.setViewportView(detailsTextPane);
 
         mainSplitPane.setBottomComponent(detailsScrollPane);
@@ -199,12 +207,12 @@ public class MainILCS extends javax.swing.JFrame {
 
         splitPaneRight.setDividerLocation(560);
 
-        baseFileEditorPane.setBorder(BorderFactory.createTitledBorder("Base File"));
+        baseFileEditorPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.baseFileEditorPane.border.title"))); // NOI18N
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
         splitPaneRight.setLeftComponent(baseFileScrollPane);
 
-        comparedFileEditorPane.setBorder(BorderFactory.createTitledBorder("Compared File"));
+        comparedFileEditorPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.comparedFileEditorPane.border.title"))); // NOI18N
         comparedFileScrollPane.setViewportView(comparedFileEditorPane);
 
         splitPaneRight.setRightComponent(comparedFileScrollPane);
@@ -214,7 +222,7 @@ public class MainILCS extends javax.swing.JFrame {
         mainSplitPane.setLeftComponent(splitPaneUp);
 
         mainMenu.setIcon(new ImageIcon(getClass().getResource("/components/icons/arquivo.png"))); // NOI18N
-        mainMenu.setText("Main");
+        mainMenu.setText(bundle.getString("MainILCS.mainMenu.text")); // NOI18N
         mainButtonGroup.add(mainMenu);
         mainMenu.setContentAreaFilled(false);
         mainMenu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -246,7 +254,7 @@ public class MainILCS extends javax.swing.JFrame {
         menuBar.add(mainMenu);
 
         aboutMenu.setIcon(new ImageIcon(getClass().getResource("/components/icons/AboutMenu.png"))); // NOI18N
-        aboutMenu.setText("About");
+        aboutMenu.setText(bundle.getString("MainILCS.aboutMenu.text")); // NOI18N
 
         aboutProjectSubMenu.setAction(actionMap.get("showAboutProject")); // NOI18N
         aboutProjectSubMenu.setIcon(resourceMap.getIcon("aboutProjectSubMenu.icon")); // NOI18N
@@ -379,6 +387,10 @@ public class MainILCS extends javax.swing.JFrame {
             }
         });
     }
+    //   public void getTopIcon() {
+    //    ImageIcon imagemTituloJanela = new ImageIcon("/components/icons/iconUff.png");
+    //      setIconImage(imagemTituloJanela.getImage());
+    //   }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenu aboutMenu;
     private JMenuItem aboutProjectSubMenu;

@@ -63,15 +63,12 @@
     <Component class="javax.swing.JLabel" name="icon">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" resourceKey="icon.icon"/>
-        <Property name="disabledIcon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="0" name="null"/>
-        </Property>
         <Property name="name" type="java.lang.String" value="icon" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="errorLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" noResource="true" editor="org.netbeans.beaninfo.editors.FontEditor">
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Error"/>

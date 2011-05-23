@@ -1,5 +1,6 @@
 package components;
 
+import javax.swing.ImageIcon;
 import org.jdesktop.application.Action;
 
 /**
@@ -12,6 +13,8 @@ public class Configurations extends javax.swing.JFrame {
     public Configurations() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+
     }
 
     /** This method is called from within the constructor to

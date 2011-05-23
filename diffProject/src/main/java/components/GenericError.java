@@ -10,6 +10,8 @@
  */
 package components;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Fernanda Floriano Silva
@@ -20,6 +22,9 @@ public class GenericError extends javax.swing.JDialog {
     public GenericError(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+        
     }
 
     /** This method is called from within the constructor to
@@ -93,12 +98,12 @@ public class GenericError extends javax.swing.JDialog {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 GenericError dialog = new GenericError(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
+                    
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

@@ -1,5 +1,6 @@
 package components;
 
+import javax.swing.ImageIcon;
 import org.jdesktop.application.Action;
 
 /**
@@ -12,6 +13,8 @@ public class FileSelection extends javax.swing.JFrame {
     public FileSelection() {
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+
     }
 
     /** This method is called from within the constructor to
@@ -205,21 +208,20 @@ public class FileSelection extends javax.swing.JFrame {
         });
     }
 
-   /* private void OpenActionPerformed(java.awt.event.ActionEvent evt) {
-        int returnVal = fileChooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            try {
-                // What to do with the file, e.g. display it in a TextArea
-                textarea.read(new FileReader(file.getAbsolutePath()), null);
-            } catch (IOException ex) {
-                System.out.println("problem accessing file" + file.getAbsolutePath());
-            }
-        } else {
-            System.out.println("File access cancelled by user.");
-        }
+    /* private void OpenActionPerformed(java.awt.event.ActionEvent evt) {
+    int returnVal = fileChooser.showOpenDialog(this);
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+    File file = fileChooser.getSelectedFile();
+    try {
+    // What to do with the file, e.g. display it in a TextArea
+    textarea.read(new FileReader(file.getAbsolutePath()), null);
+    } catch (IOException ex) {
+    System.out.println("problem accessing file" + file.getAbsolutePath());
+    }
+    } else {
+    System.out.println("File access cancelled by user.");
+    }
     }*/
-
     @Action
     public void loadFiles() {
         // TODO implementar

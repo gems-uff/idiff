@@ -1,5 +1,6 @@
 package components;
 
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 /**
@@ -13,6 +14,8 @@ public class File extends javax.swing.JFrame {
         translateFileChooser();
         initComponents();
         setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+
     }
 
     /** This method is called from within the constructor to

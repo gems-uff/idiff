@@ -1,5 +1,7 @@
 package components;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Fernanda Floriano Silva
@@ -9,7 +11,9 @@ public class AboutILCS extends javax.swing.JFrame {
     /** Creates new form AboutILCS */
     public AboutILCS() {
         initComponents();
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);        
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+
     }
 
     /** This method is called from within the constructor to
