@@ -2,10 +2,6 @@ package components;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
