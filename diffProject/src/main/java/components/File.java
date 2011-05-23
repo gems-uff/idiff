@@ -1,6 +1,8 @@
 package components;
 
+import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 
 /**
@@ -66,6 +68,24 @@ public class File extends javax.swing.JFrame {
                 new File().setVisible(true);
             }
         });
+    }
+
+    private void OpenActionPerformed(java.awt.event.ActionEvent evt) {
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            java.io.File selectedFile = fileChooser.getSelectedFile();
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
+    }
+
+    private void CloseActionPerformed(java.awt.event.ActionEvent evt) {
+        int returnVal = fileChooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.CANCEL_OPTION) {
+            this.setVisible(false);
+        } else {
+            System.out.println("File access cancelled by user.");
+        }
     }
 
     private void translateFileChooser() {
