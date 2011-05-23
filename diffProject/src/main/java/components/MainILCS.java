@@ -82,7 +82,6 @@ public class MainILCS extends javax.swing.JFrame {
         mainMenu = new JMenu();
         runSubMenu = new JMenuItem();
         fileSelectionSubMenu = new JMenuItem();
-        configurationSubMenu = new JMenuItem();
         closeSubMenu = new JMenuItem();
         aboutMenu = new JMenu();
         aboutProjectSubMenu = new JMenuItem();
@@ -131,7 +130,7 @@ public class MainILCS extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(bundle.getString("MainILCS.title")); // NOI18N
         setIconImages(null);
-        setMinimumSize(new Dimension(1365, 650));
+        setMinimumSize(new Dimension(1365, 700));
         setModalExclusionType(null);
         setName("frame"); // NOI18N
         setResizable(false);
@@ -237,11 +236,6 @@ public class MainILCS extends javax.swing.JFrame {
         mainMenu.add(fileSelectionSubMenu);
         fileSelectionSubMenu.getAccessibleContext().setAccessibleParent(mainMenu);
 
-        configurationSubMenu.setAction(actionMap.get("configurations")); // NOI18N
-        configurationSubMenu.setIcon(resourceMap.getIcon("configurationSubMenu.icon")); // NOI18N
-        mainButtonGroup.add(configurationSubMenu);
-        mainMenu.add(configurationSubMenu);
-
         closeSubMenu.setAction(actionMap.get("close")); // NOI18N
         closeSubMenu.setIcon(resourceMap.getIcon("closeSubMenu.icon")); // NOI18N
         mainButtonGroup.add(closeSubMenu);
@@ -270,9 +264,9 @@ public class MainILCS extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.LEADING)
-            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1312, Short.MAX_VALUE)
+            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1365, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1359, Short.MAX_VALUE)
                 .add(6, 6, 6))
         );
         layout.setVerticalGroup(
@@ -280,7 +274,7 @@ public class MainILCS extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.UNRELATED)
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -314,7 +308,7 @@ public class MainILCS extends javax.swing.JFrame {
 
     // TODO implementar
     @Action
-    public void showOverView() {
+    public void showOverview() {
         System.out.println("Show OverView");
     }
 
@@ -336,17 +330,6 @@ public class MainILCS extends javax.swing.JFrame {
             @Override
             public void run() {
                 new FileSelection().setVisible(true);
-            }
-        });
-    }
-
-    @Action
-    public void configurations() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new Configurations().setVisible(true);
             }
         });
     }
@@ -396,7 +379,6 @@ public class MainILCS extends javax.swing.JFrame {
     private JMenuItem closeSubMenu;
     private JEditorPane comparedFileEditorPane;
     private JScrollPane comparedFileScrollPane;
-    private JMenuItem configurationSubMenu;
     private JScrollPane detailsScrollPane;
     private JTextPane detailsTextPane;
     private JScrollPane dirScrollPane1;

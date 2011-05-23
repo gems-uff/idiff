@@ -1,6 +1,10 @@
 package components;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import org.jdesktop.application.Action;
 
 /**
@@ -8,6 +12,8 @@ import org.jdesktop.application.Action;
  * @author Sisi
  */
 public class FileSelection extends javax.swing.JFrame {
+
+    private JFileChooser fileChooser;
 
     /** Creates new form FileSelection */
     public FileSelection() {
@@ -33,7 +39,6 @@ public class FileSelection extends javax.swing.JFrame {
         fileTextField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         closeButton = new javax.swing.JButton();
-        configurationsButton = new javax.swing.JButton();
         okButton = new javax.swing.JButton();
         fileButton1 = new javax.swing.JButton();
         fileButton2 = new javax.swing.JButton();
@@ -48,10 +53,10 @@ public class FileSelection extends javax.swing.JFrame {
         fileTextField2.setText("Select directory or file for comparison...");
         fileTextField2.setName("fileTextField2"); // NOI18N
 
-        file1.setText("Artifact:: ");
+        file1.setText("Artifact : ");
         file1.setName("file1"); // NOI18N
 
-        file2.setText("Artifact:: ");
+        file2.setText("Artifact : ");
         file2.setName("file2"); // NOI18N
 
         fileTextField.setBackground(resourceMap.getColor("jTextField1.background")); // NOI18N
@@ -66,29 +71,22 @@ public class FileSelection extends javax.swing.JFrame {
         closeButton.setAction(actionMap.get("close")); // NOI18N
         closeButton.setIcon(resourceMap.getIcon("closeButton.icon")); // NOI18N
         closeButton.setToolTipText(resourceMap.getString("closeButton.toolTipText")); // NOI18N
-        closeButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        closeButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         closeButton.setBorderPainted(false);
         buttonGroup.add(closeButton);
         closeButton.setContentAreaFilled(false);
         closeButton.setName("closeButton"); // NOI18N
 
-        configurationsButton.setAction(actionMap.get("configurations")); // NOI18N
-        configurationsButton.setIcon(resourceMap.getIcon("configurationsButton.icon")); // NOI18N
-        configurationsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        configurationsButton.setBorderPainted(false);
-        buttonGroup.add(configurationsButton);
-        configurationsButton.setContentAreaFilled(false);
-        configurationsButton.setName("configurationsButton"); // NOI18N
-
         okButton.setAction(actionMap.get("loadFiles")); // NOI18N
         okButton.setIcon(resourceMap.getIcon("okButton.icon")); // NOI18N
         okButton.setToolTipText(resourceMap.getString("okButton.toolTipText")); // NOI18N
-        okButton.setBorder(null);
+        okButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        okButton.setBorderPainted(false);
         buttonGroup.add(okButton);
         okButton.setContentAreaFilled(false);
         okButton.setName("okButton"); // NOI18N
 
-        fileButton1.setAction(actionMap.get("searchFile")); // NOI18N
+        fileButton1.setAction(actionMap.get("findBasedArtifact")); // NOI18N
         fileButton1.setIcon(resourceMap.getIcon("fileButton1.icon")); // NOI18N
         fileButton1.setToolTipText(resourceMap.getString("fileButton1.toolTipText")); // NOI18N
         fileButton1.setBorder(null);
@@ -97,7 +95,7 @@ public class FileSelection extends javax.swing.JFrame {
         fileButton1.setContentAreaFilled(false);
         fileButton1.setName("fileButton1"); // NOI18N
 
-        fileButton2.setAction(actionMap.get("searchFile")); // NOI18N
+        fileButton2.setAction(actionMap.get("findComparedArtifact")); // NOI18N
         fileButton2.setIcon(resourceMap.getIcon("fileButton2.icon")); // NOI18N
         fileButton2.setToolTipText(resourceMap.getString("fileButton2.toolTipText")); // NOI18N
         fileButton2.setBorder(null);
@@ -130,20 +128,19 @@ public class FileSelection extends javax.swing.JFrame {
                                     .add(layout.createSequentialGroup()
                                         .add(file2)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
+                                        .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                                     .add(layout.createSequentialGroup()
                                         .add(file1)
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(fileTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE))
+                                        .add(fileTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                                     .add(compareWith))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(fileButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 39, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(fileButton1)))
+                                .add(18, 18, 18)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(fileButton2, 0, 0, Short.MAX_VALUE)
+                                    .add(fileButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE))
+                                .add(15, 15, 15))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-                            .add(layout.createSequentialGroup()
-                                .add(configurationsButton)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 276, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                                 .add(closeButton)
                                 .add(18, 18, 18)
                                 .add(okButton)
@@ -153,7 +150,7 @@ public class FileSelection extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(14, 14, 14)
+                .add(20, 20, 20)
                 .add(mainLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
@@ -174,7 +171,6 @@ public class FileSelection extends javax.swing.JFrame {
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(configurationsButton)
                     .add(closeButton)
                     .add(okButton))
                 .addContainerGap())
@@ -197,35 +193,39 @@ public class FileSelection extends javax.swing.JFrame {
     }
 
     @Action
-    public void searchFile() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new File().setVisible(true);
-
-            }
-        });
+    public void findBasedArtifact() {
+        findFile(fileTextField);
     }
 
-    /* private void OpenActionPerformed(java.awt.event.ActionEvent evt) {
-    int returnVal = fileChooser.showOpenDialog(this);
-    if (returnVal == JFileChooser.APPROVE_OPTION) {
-    File file = fileChooser.getSelectedFile();
-    try {
-    // What to do with the file, e.g. display it in a TextArea
-    textarea.read(new FileReader(file.getAbsolutePath()), null);
-    } catch (IOException ex) {
-    System.out.println("problem accessing file" + file.getAbsolutePath());
+    @Action
+    public void findComparedArtifact() {
+        findFile(fileTextField2);
     }
-    } else {
-    System.out.println("File access cancelled by user.");
+
+    private void findFile(JTextField tField) {
+        translateFileChooser();
+        setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+
+
+        fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("File Chooser");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+        int resultado = fileChooser.showOpenDialog(this);
+        if (resultado == JFileChooser.CANCEL_OPTION) {
+            fileChooser.setVisible(false);
+        } else {
+            tField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+            tField.setForeground(Color.BLACK);
+        }
     }
-    }*/
+
     @Action
     public void loadFiles() {
-        // TODO implementar
         System.out.println("Load Files...");
+        System.out.println(fileTextField.getText());
+        System.out.println(fileTextField2.getText());
     }
 
     @Action
@@ -233,21 +233,51 @@ public class FileSelection extends javax.swing.JFrame {
         this.setVisible(false);
     }
 
-    @Action
-    public void configurations() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new Configurations().setVisible(true);
-            }
-        });
+    private void translateFileChooser() {
+        UIManager.put("FileChooser.lookInLabelMnemonic", "L");
+        UIManager.put("FileChooser.lookInLabelText", "Look in");
+        UIManager.put("FileChooser.saveInLabelMnemonic", "I");
+        UIManager.put("FileChooser.saveInLabelText", "Save in");
+        UIManager.put("FileChooser.upFolderToolTipText", "Up Folder");
+        UIManager.put("FileChooser.upFolderAccessibleName", "Up Folder");
+        UIManager.put("FileChooser.homeFolderToolTipText", "Home Folder");
+        UIManager.put("FileChooser.homeFolderAccessibleName", "Home Folder");
+        UIManager.put("FileChooser.newFolderToolTipText", "New Folder");
+        UIManager.put("FileChooser.newFolderAccessibleName", "New Folder");
+        UIManager.put("FileChooser.listViewButtonToolTipText", "List View");
+        UIManager.put("FileChooser.listViewButtonAccessibleName", "List View");
+        UIManager.put("FileChooser.detailsViewButtonToolTipText", "Details");
+        UIManager.put("FileChooser.detailsViewButtonAccessibleName", "Details");
+        UIManager.put("FileChooser.fileNameLabelMnemonic", "N");
+        UIManager.put("FileChooser.fileNameLabelText", "File Name");
+        UIManager.put("FileChooser.filesOfTypeLabelMnemonic", "A");
+        UIManager.put("FileChooser.filesOfTypeLabelText", "Files of Type");
+        UIManager.put("FileChooser.fileNameHeaderText", "Name");
+        UIManager.put("FileChooser.fileSizeHeaderText", "File Size");
+        UIManager.put("FileChooser.fileTypeHeaderText", "File Type");
+        UIManager.put("FileChooser.fileDateHeaderText", "File Date");
+        UIManager.put("FileChooser.fileAttrHeaderText", "File Attr");
+        UIManager.put("FileChooser.cancelButtonText", "Cancel");
+        UIManager.put("FileChooser.cancelButtonMnemonic", "C");
+        UIManager.put("FileChooser.cancelButtonToolTipText", "Cancel");
+        UIManager.put("FileChooser.openButtonText", "Open");
+        UIManager.put("FileChooser.openButtonMnemonic", "O");
+        UIManager.put("FileChooser.openButtonToolTipText", "Open");
+        UIManager.put("FileChooser.saveButtonText", "Save");
+        UIManager.put("FileChooser.saveButtonToolTipText", "S");
+        UIManager.put("FileChooser.saveButtonToolTipText", "Save");
+        UIManager.put("FileChooser.updateButtonText", "Update");
+        UIManager.put("FileChooser.updateButtonToolTipText", "U");
+        UIManager.put("FileChooser.updateButtonToolTipText", "Update");
+        UIManager.put("FileChooser.helpButtonText", "Help");
+        UIManager.put("FileChooser.helpButtonToolTipText", "H");
+        UIManager.put("FileChooser.helpButtonToolTipText", "Help");
+        UIManager.put("FileChooser.acceptAllFileFilterText", "All files");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton closeButton;
     private javax.swing.JLabel compareWith;
-    private javax.swing.JButton configurationsButton;
     private javax.swing.JLabel file1;
     private javax.swing.JLabel file2;
     private javax.swing.JButton fileButton1;

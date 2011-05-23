@@ -119,7 +119,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="fileSelectionSubMenu">
               <Properties>
                 <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="components.Main" id="fileSelection" methodName="fileSelection"/>
+                  <action class="components.MainILCS" id="fileSelection" methodName="fileSelection"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" resourceKey="fileSelectionSubMenu.icon"/>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
@@ -131,17 +131,6 @@
                   <ComponentRef name="mainMenu"/>
                 </Property>
               </AccessibilityProperties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="configurationSubMenu">
-              <Properties>
-                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="components.Main" id="configurations" methodName="configurations"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="configurationSubMenu.icon"/>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="mainButtonGroup"/>
-                </Property>
-              </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="closeSubMenu">
               <Properties>
@@ -202,7 +191,7 @@
       <ComponentRef name="null"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1365, 650]"/>
+      <Dimension value="[1365, 700]"/>
     </Property>
     <Property name="modalExclusionType" type="java.awt.Dialog$ModalExclusionType" editor="org.netbeans.modules.form.editors.EnumEditor">
       <Value id="nulo"/>
@@ -229,9 +218,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="toolBar" alignment="0" pref="1312" max="32767" attributes="0"/>
+          <Component id="toolBar" alignment="0" pref="1365" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
-              <Component id="mainSplitPane" pref="1306" max="32767" attributes="0"/>
+              <Component id="mainSplitPane" pref="1359" max="32767" attributes="0"/>
               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
           </Group>
       </Group>
@@ -241,7 +230,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="toolBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="mainSplitPane" pref="655" max="32767" attributes="0"/>
+              <Component id="mainSplitPane" pref="603" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
