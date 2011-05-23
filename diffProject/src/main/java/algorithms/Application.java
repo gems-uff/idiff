@@ -17,21 +17,29 @@ public class Application {
      * @throws DiffException
      */
     public static void main(String[] args) throws DiffException {
-        System.out.println(" 1 ) Iniciando teste para verificacao de LCS com granularidade LINHA");
-        Grain grain = new FileGrain();
-        Diff diff = new Diff(new File("t1.txt"), new File("t2.txt"));
-        IResultDiff compare = diff.compare(grain);
+        for (int i = 0; i < 3; i++) {
+            start(new File("tests/Arquivo_v1.txt"), new File("tests/Arquivo_v2.txt"));
 
+        }
+
+
+    }
+
+    private static void start(File basedFile, File comparedFile) throws DiffException {
+        Grain grain = new FileGrain();
+        Diff diff = new Diff(basedFile, comparedFile);
+        IResultDiff compare = diff.compare(grain);
         //TODO - RETIRAR: Apenas para debug
         List<Grain> teste1 = compare.getGrainsFrom();
         List<Grain> teste2 = compare.getGrainsTo();
-
         System.out.println('\n');
         System.out.println("RESULT : ");
         print(teste1, teste2);
+        System.out.println("*******************************************************");
+        compare.cleanResult();
     }
-    //TODO - RETIRAR: Apenas para debug
 
+    //TODO - RETIRAR: Apenas para debug
     static void print(List<Grain> teste1, List<Grain> teste2) {
         Iterator<Grain> it = teste1.iterator();
         Iterator<Grain> it2 = teste2.iterator();
@@ -58,7 +66,6 @@ public class Application {
             System.out.print(" " + grainLevel + " " + id);
         }
     }
-    //TODO - RETIRAR: Apenas para debug
 
     static char getGrainLevel(char levelGrain) {
         switch (levelGrain) {

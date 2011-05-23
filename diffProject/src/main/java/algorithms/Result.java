@@ -17,17 +17,28 @@ public class Result implements IResultDiff {
      * Get Result
      * @return Result
      */
+    /*public static Result getResult() {
+    if (resultInstance == null) {
+    resultInstance = new Result();
+    }
+    return resultInstance;
+    }*/
     public static Result getResult() {
         if (resultInstance == null) {
             resultInstance = new Result();
         }
         return resultInstance;
     }
+    @Override
+    public void cleanResult() {
+        resultInstance = null;
+    }
 
     /**
      * Get Grains From
      * @return List<Grain>
      */
+    @Override
     public List<Grain> getGrainsFrom() {
         return grainsFrom;
     }
@@ -44,6 +55,7 @@ public class Result implements IResultDiff {
      * Get Grains To
      * @return List<Grain>
      */
+    @Override
     public List<Grain> getGrainsTo() {
         return grainsTo;
     }
