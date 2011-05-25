@@ -1,13 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * MainDiff.java
- *
- * Created on 24/05/2011, 07:42:34
- */
 package components;
 
 import javax.swing.ImageIcon;
@@ -49,12 +39,12 @@ public class MainDiff extends javax.swing.JFrame {
         uff.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/uff.jpg"))); // NOI18N
         uff.setName("uff"); // NOI18N
 
-        nameLabel.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        nameLabel.setFont(new java.awt.Font("sansserif", 1, 12));
         nameLabel.setText("ILCS - Differences and moves");
         nameLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         nameLabel.setName("nameLabel"); // NOI18N
 
-        granularityLabel.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        granularityLabel.setFont(new java.awt.Font("sansserif", 1, 12));
         granularityLabel.setText("detection in directories and files");
         granularityLabel.setName("granularityLabel"); // NOI18N
 
@@ -62,7 +52,6 @@ public class MainDiff extends javax.swing.JFrame {
         run.setAction(actionMap.get("runDiff")); // NOI18N
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDiff.class);
         run.setIcon(resourceMap.getIcon("run.icon")); // NOI18N
-        run.setToolTipText("Start");
         run.setBorder(null);
         run.setBorderPainted(false);
         buttonGroup1.add(run);
@@ -71,7 +60,6 @@ public class MainDiff extends javax.swing.JFrame {
 
         close.setAction(actionMap.get("close")); // NOI18N
         close.setIcon(resourceMap.getIcon("close.icon")); // NOI18N
-        close.setToolTipText("Close");
         close.setBorderPainted(false);
         close.setContentAreaFilled(false);
         close.setFocusPainted(false);
@@ -84,10 +72,10 @@ public class MainDiff extends javax.swing.JFrame {
             .add(uff, 0, 0, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, nameLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, granularityLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .add(50, 50, 50)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(nameLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 205, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(granularityLabel))
+                .add(18, 18, 18)
                 .add(close, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(run, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -101,7 +89,7 @@ public class MainDiff extends javax.swing.JFrame {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(nameLabel)
-                        .add(12, 12, 12)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(granularityLabel))
                     .add(layout.createSequentialGroup()
                         .add(6, 6, 6)

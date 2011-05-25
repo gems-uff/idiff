@@ -2,6 +2,7 @@ package components;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.io.File;
 import java.util.ResourceBundle;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
@@ -34,6 +35,9 @@ import org.jdesktop.layout.LayoutStyle;
  * @author Fernanda Floriano Silva
  */
 public class MainILCS extends javax.swing.JFrame {
+
+    private File basedFile;
+    private File comparedFile;
 
     /** Creates new form MainILCS */
     public MainILCS() {
@@ -146,6 +150,7 @@ public class MainILCS extends javax.swing.JFrame {
         runMenuBar.setToolTipText(resourceMap.getString("runMenuBar.toolTipText")); // NOI18N
         runMenuBar.setBorder(null);
         mainButtonGroup.add(runMenuBar);
+        runMenuBar.setContentAreaFilled(false);
         runMenuBar.setFocusable(false);
         runMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
         runMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -157,17 +162,19 @@ public class MainILCS extends javax.swing.JFrame {
         fileSelectionMenuBar.setToolTipText(resourceMap.getString("fileSelectionMenuBar.toolTipText")); // NOI18N
         fileSelectionMenuBar.setBorderPainted(false);
         mainButtonGroup.add(fileSelectionMenuBar);
+        fileSelectionMenuBar.setContentAreaFilled(false);
         fileSelectionMenuBar.setFocusable(false);
         fileSelectionMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
         fileSelectionMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
         toolBar.add(fileSelectionMenuBar);
         toolBar.add(jSeparator3);
 
-        overviewMenuBar.setAction(actionMap.get("showOverView")); // NOI18N
+        overviewMenuBar.setAction(actionMap.get("showDDiff")); // NOI18N
         overviewMenuBar.setIcon(resourceMap.getIcon("overviewMenuBar.icon")); // NOI18N
         overviewMenuBar.setToolTipText(resourceMap.getString("overviewMenuBar.toolTipText")); // NOI18N
         overviewMenuBar.setBorderPainted(false);
         mainButtonGroup.add(overviewMenuBar);
+        overviewMenuBar.setContentAreaFilled(false);
         overviewMenuBar.setFocusable(false);
         overviewMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
         overviewMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -281,35 +288,14 @@ public class MainILCS extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new MainILCS().setVisible(true);
-            }
-        });
-    }
-
-    // TODO implementar
     @Action
     public void runProject() {
         System.out.println("Run Project Action Executed");
     }
 
-    // TODO implementar
     @Action
     public void runProjectMB() {
         System.out.println("Run Project Action Executed");
-    }
-
-    // TODO implementar
-    @Action
-    public void showOverview() {
-        System.out.println("Show OverView");
     }
 
     @Action
@@ -330,6 +316,17 @@ public class MainILCS extends javax.swing.JFrame {
             @Override
             public void run() {
                 new FileSelection().setVisible(true);
+            }
+        });
+    }
+
+    @Action
+    public void showDDiff() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new MainDDiff().setVisible(true);
             }
         });
     }

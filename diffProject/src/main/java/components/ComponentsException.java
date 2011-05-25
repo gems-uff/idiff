@@ -5,7 +5,7 @@ public class ComponentsException extends Exception {
     /**
      * Error Messages
      */
-    public static final String MSG_INVALID_ARTIFACT = "Unsupported Artifact";
+    public static final String MSG_INVALID_TYPE = "Different types of artifacts";
 
     /**
      * Constructor

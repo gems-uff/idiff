@@ -17,12 +17,7 @@ public class Application {
      * @throws DiffException
      */
     public static void main(String[] args) throws DiffException {
-        for (int i = 0; i < 3; i++) {
-            start(new File("tests/Arquivo_v1.txt"), new File("tests/Arquivo_v2.txt"));
-
-        }
-
-
+        start(new File("tests/Arquivo_v1.txt"), new File("tests/Arquivo_v2.txt"));
     }
 
     private static void start(File basedFile, File comparedFile) throws DiffException {
