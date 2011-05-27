@@ -30,6 +30,7 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -46,7 +47,7 @@ import org.jdesktop.layout.LayoutStyle;
  * @author Fernanda Floriano Silva
  */
 public class MainILCS extends javax.swing.JFrame {
-
+    
     private File basedFile;
     private File comparedFile;
     private IResultDiff result = new Result();
@@ -55,11 +56,18 @@ public class MainILCS extends javax.swing.JFrame {
     /** Creates new form MainILCS */
     public MainILCS(File basedFile, File comparedFile) throws DiffException {
         initComponents();
-        setlaf();
         result.cleanResult();
+        setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
         setFiles(basedFile, comparedFile);
+    }
+    
+    private void cleanModel() {
+        if (model != null) {
+            deleteRows();
+        }
+        this.model = (DefaultTableModel) tableDetails.getModel();
     }
 
     private void setlaf() {
@@ -272,7 +280,10 @@ public class MainILCS extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tableDetails.setToolTipText(bundle.getString("MainILCS.tableDetails.toolTipText")); // NOI18N
+        tableDetails.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tableDetails);
+        tableDetails.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title0")); // NOI18N
         tableDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title1")); // NOI18N
         tableDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title2")); // NOI18N
@@ -346,91 +357,91 @@ public class MainILCS extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startDiff(File basedFile, File comparedFile) throws DiffException {
+        cleanModel();
         Grain grain = new FileGrain();
         Diff diff = new Diff(basedFile, comparedFile);
-        result = diff.compare(grain);        
-        int lines = printLines(result.getGrainsFrom(), result.getGrainsTo());
-       // deleteRows(lines);
+        result = diff.compare(grain);
+        printLines(result.getGrainsFrom(), result.getGrainsTo());
     }
-
+    
     @Action
     public void runProject() throws DiffException {
         System.out.println("Run Project Action Executed");
         startDiff(getBasedFile(), getComparedFile());
     }
-
+    
     @Action
     public void runProjectMB() {
         System.out.println("Run Project Action Executed");
     }
-
+    
     @Action
     public void fileSelection() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 new FileSelection().setVisible(true);
             }
         });
     }
-
+    
     @Action
     public void fileSelectionMB() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 new FileSelection().setVisible(true);
             }
         });
     }
-
+    
     @Action
     public void showDDiff() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 new MainDDiff().setVisible(true);
             }
         });
     }
-
+    
     @Action
     public void close() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 System.exit(0);
             }
         });
     }
-
+    
     @Action
     public void showAboutProject() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 new AboutILCS().setVisible(true);
             }
         });
     }
-
+    
     @Action
     public void showAboutTeam() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 new AboutTeam().setVisible(true);
             }
         });
     }
-
-    private int printLines(List<Grain> list1, List<Grain> list2) {
+    
+    private void printLines(List<Grain> list1, List<Grain> list2) {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
         int rowCount = 0;
@@ -440,13 +451,11 @@ public class MainILCS extends javax.swing.JFrame {
             if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
                 this.model = (DefaultTableModel) tableDetails.getModel();
                 this.model.addRow(new String[]{"Move", grain1.getGrain(), printReference(grain1), printReference(grain2)});
-                rowCount = this.model.getRowCount();
             }
-
+            
         }
-        return rowCount;
     }
-
+    
     private String printReference(Grain grain) {
         char level = 'F';
         String stringResult = "";
@@ -456,7 +465,7 @@ public class MainILCS extends javax.swing.JFrame {
         }
         return stringResult;
     }
-
+    
     private String getNameGrainLevel(char levelGrain) {
         switch (levelGrain) {
             case 'F':
@@ -471,7 +480,7 @@ public class MainILCS extends javax.swing.JFrame {
                 return "File";
         }
     }
-
+    
     private char getGrainLevel(char levelGrain) {
         switch (levelGrain) {
             case 'F':
@@ -484,26 +493,33 @@ public class MainILCS extends javax.swing.JFrame {
                 return 'F';
         }
     }
-
+    
     private void setFiles(File basedFile, File comparedFile) {
         setBasedFile(basedFile);
         setComparedFile(comparedFile);
     }
-
+    
     public File getBasedFile() {
         return basedFile;
     }
-
+    
     public void setBasedFile(File basedFile) {
         this.basedFile = basedFile;
     }
-
+    
     public File getComparedFile() {
         return comparedFile;
     }
-
+    
     public void setComparedFile(File comparedFile) {
         this.comparedFile = comparedFile;
+    }
+    
+    private void deleteRows() {
+        int lines = this.model.getRowCount();
+        for (int i = 0; i < lines; i++) {
+            this.model.removeRow(0);
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenu aboutMenu;
@@ -545,11 +561,4 @@ public class MainILCS extends javax.swing.JFrame {
     private JToolBar toolBar;
     private JButton yesButton;
     // End of variables declaration//GEN-END:variables
-
-    private void deleteRows(int lines) {
-        for (int i = 0; i < lines; i++) {
-            this.model.removeRow(i);
-            this.model = (DefaultTableModel) tableDetails.getModel();
-        }
-    }
 }
