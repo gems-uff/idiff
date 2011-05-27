@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * MainDDiff.java
- *
- * Created on 25/05/2011, 00:24:26
- */
 package components;
 
 import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Action;
 
 /**
@@ -23,6 +15,7 @@ public class MainDDiff extends javax.swing.JFrame {
     /** Creates new form MainDDiff */
     public MainDDiff() {
         initComponents();
+        setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
     }
@@ -38,6 +31,20 @@ public class MainDDiff extends javax.swing.JFrame {
         });
     }
 
+    private void setlaf() {
+        try {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            } catch (Exception ex) {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }
+        } catch (ClassNotFoundException ex) {
+        } catch (InstantiationException ex) {
+        } catch (IllegalAccessException ex) {
+        } catch (UnsupportedLookAndFeelException ex) {
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -48,9 +55,9 @@ public class MainDDiff extends javax.swing.JFrame {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jToolBar1 = new javax.swing.JToolBar();
+        directoryPanel1 = new javax.swing.JPanel();
+        directoryPanel2 = new javax.swing.JPanel();
+        toolBar = new javax.swing.JToolBar();
         drillDownButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         backButton = new javax.swing.JButton();
@@ -62,72 +69,70 @@ public class MainDDiff extends javax.swing.JFrame {
 
         jSplitPane1.setName("jSplitPane1"); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.setName("jPanel2"); // NOI18N
+        directoryPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        directoryPanel1.setName("directoryPanel1"); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+        org.jdesktop.layout.GroupLayout directoryPanel1Layout = new org.jdesktop.layout.GroupLayout(directoryPanel1);
+        directoryPanel1.setLayout(directoryPanel1Layout);
+        directoryPanel1Layout.setHorizontalGroup(
+            directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 487, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+        directoryPanel1Layout.setVerticalGroup(
+            directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 642, Short.MAX_VALUE)
         );
 
-        jSplitPane1.setLeftComponent(jPanel2);
+        jSplitPane1.setLeftComponent(directoryPanel1);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setName("jPanel3"); // NOI18N
+        directoryPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        directoryPanel2.setName("directoryPanel2"); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+        org.jdesktop.layout.GroupLayout directoryPanel2Layout = new org.jdesktop.layout.GroupLayout(directoryPanel2);
+        directoryPanel2.setLayout(directoryPanel2Layout);
+        directoryPanel2Layout.setHorizontalGroup(
+            directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 858, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+        directoryPanel2Layout.setVerticalGroup(
+            directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 642, Short.MAX_VALUE)
         );
 
-        jSplitPane1.setRightComponent(jPanel3);
+        jSplitPane1.setRightComponent(directoryPanel2);
 
-        jToolBar1.setRollover(true);
-        jToolBar1.setName("jToolBar1"); // NOI18N
+        toolBar.setRollover(true);
+        toolBar.setName("toolBar"); // NOI18N
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
         drillDownButton.setAction(actionMap.get("drillDown")); // NOI18N
-        drillDownButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        drillDownButton.setFont(new java.awt.Font("sansserif", 1, 12));
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDDiff.class);
         drillDownButton.setIcon(resourceMap.getIcon("drillDownButton.icon")); // NOI18N
-        drillDownButton.setText("Drill Down");
         drillDownButton.setBorderPainted(false);
         drillDownButton.setContentAreaFilled(false);
         drillDownButton.setName("drillDownButton"); // NOI18N
-        jToolBar1.add(drillDownButton);
+        toolBar.add(drillDownButton);
 
         jSeparator2.setName("jSeparator2"); // NOI18N
-        jToolBar1.add(jSeparator2);
+        toolBar.add(jSeparator2);
 
         backButton.setAction(actionMap.get("showDDiff")); // NOI18N
-        backButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        backButton.setFont(new java.awt.Font("sansserif", 1, 12));
         backButton.setIcon(resourceMap.getIcon("backButton.icon")); // NOI18N
-        backButton.setText("Back");
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
         backButton.setName("backButton"); // NOI18N
-        jToolBar1.add(backButton);
+        toolBar.add(backButton);
 
         jSeparator3.setName("jSeparator3"); // NOI18N
-        jToolBar1.add(jSeparator3);
+        toolBar.add(jSeparator3);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1377, Short.MAX_VALUE)
+            .add(toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1377, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .add(6, 6, 6)
                 .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1365, Short.MAX_VALUE)
@@ -136,7 +141,7 @@ public class MainDDiff extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(toolBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
                 .addContainerGap())
@@ -151,12 +156,12 @@ public class MainDDiff extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JPanel directoryPanel1;
+    private javax.swing.JPanel directoryPanel2;
     private javax.swing.JButton drillDownButton;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }

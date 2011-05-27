@@ -1,6 +1,8 @@
 package components;
 
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -11,9 +13,24 @@ public class AboutILCS extends javax.swing.JFrame {
     /** Creates new form AboutILCS */
     public AboutILCS() {
         initComponents();
-        setLocationRelativeTo(null);        
+        setlaf();
+        setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
 
+    }
+
+    private void setlaf() {
+        try {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            } catch (Exception ex) {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }
+        } catch (ClassNotFoundException ex) {
+        } catch (InstantiationException ex) {
+        } catch (IllegalAccessException ex) {
+        } catch (UnsupportedLookAndFeelException ex) {
+        }
     }
 
     /** This method is called from within the constructor to

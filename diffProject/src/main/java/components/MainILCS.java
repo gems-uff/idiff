@@ -1,8 +1,16 @@
 package components;
 
+import algorithms.Diff;
+import algorithms.DiffException;
+import algorithms.FileGrain;
+import algorithms.Grain;
+import algorithms.IResultDiff;
+import algorithms.Result;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
@@ -17,19 +25,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
-// Variables declaration - do not modify
 /**
  *
  * @author Fernanda Floriano Silva
@@ -38,12 +49,31 @@ public class MainILCS extends javax.swing.JFrame {
 
     private File basedFile;
     private File comparedFile;
+    private IResultDiff result = new Result();
+    private DefaultTableModel model;
 
     /** Creates new form MainILCS */
-    public MainILCS() {
+    public MainILCS(File basedFile, File comparedFile) throws DiffException {
         initComponents();
+        setlaf();
+        result.cleanResult();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+        setFiles(basedFile, comparedFile);
+    }
+
+    private void setlaf() {
+        try {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            } catch (Exception ex) {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }
+        } catch (ClassNotFoundException ex) {
+        } catch (InstantiationException ex) {
+        } catch (IllegalAccessException ex) {
+        } catch (UnsupportedLookAndFeelException ex) {
+        }
     }
 
     /** This method is called from within the constructor to
@@ -82,6 +112,8 @@ public class MainILCS extends javax.swing.JFrame {
         baseFileEditorPane = new JEditorPane();
         comparedFileScrollPane = new JScrollPane();
         comparedFileEditorPane = new JEditorPane();
+        jScrollPane1 = new JScrollPane();
+        tableDetails = new JTable();
         menuBar = new JMenuBar();
         mainMenu = new JMenu();
         runSubMenu = new JMenuItem();
@@ -223,6 +255,31 @@ public class MainILCS extends javax.swing.JFrame {
 
         mainSplitPane.setLeftComponent(splitPaneUp);
 
+        tableDetails.setBorder(null);
+        tableDetails.setModel(new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Type", "Content", "From", "To"
+            }
+        ) {
+            Class[] types = new Class [] {
+                String.class, String.class, String.class, String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableDetails);
+        tableDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title0")); // NOI18N
+        tableDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title1")); // NOI18N
+        tableDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title2")); // NOI18N
+        tableDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title3")); // NOI18N
+
+        mainSplitPane.setBottomComponent(jScrollPane1);
+
         mainMenu.setIcon(new ImageIcon(getClass().getResource("/components/icons/arquivo.png"))); // NOI18N
         mainMenu.setText(bundle.getString("MainILCS.mainMenu.text")); // NOI18N
         mainButtonGroup.add(mainMenu);
@@ -288,9 +345,18 @@ public class MainILCS extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void startDiff(File basedFile, File comparedFile) throws DiffException {
+        Grain grain = new FileGrain();
+        Diff diff = new Diff(basedFile, comparedFile);
+        result = diff.compare(grain);        
+        int lines = printLines(result.getGrainsFrom(), result.getGrainsTo());
+       // deleteRows(lines);
+    }
+
     @Action
-    public void runProject() {
+    public void runProject() throws DiffException {
         System.out.println("Run Project Action Executed");
+        startDiff(getBasedFile(), getComparedFile());
     }
 
     @Action
@@ -363,10 +429,82 @@ public class MainILCS extends javax.swing.JFrame {
             }
         });
     }
-    //   public void getTopIcon() {
-    //    ImageIcon imagemTituloJanela = new ImageIcon("/components/icons/iconUff.png");
-    //      setIconImage(imagemTituloJanela.getImage());
-    //   }
+
+    private int printLines(List<Grain> list1, List<Grain> list2) {
+        Iterator<Grain> it1 = list1.iterator();
+        Iterator<Grain> it2 = list2.iterator();
+        int rowCount = 0;
+        while (it1.hasNext() || it2.hasNext()) {
+            Grain grain1 = it1.next();
+            Grain grain2 = it2.next();
+            if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
+                this.model = (DefaultTableModel) tableDetails.getModel();
+                this.model.addRow(new String[]{"Move", grain1.getGrain(), printReference(grain1), printReference(grain2)});
+                rowCount = this.model.getRowCount();
+            }
+
+        }
+        return rowCount;
+    }
+
+    private String printReference(Grain grain) {
+        char level = 'F';
+        String stringResult = "";
+        for (Iterator<Integer> it = grain.getOriginalReference().iterator(); it.hasNext();) {
+            int id = it.next();
+            stringResult = stringResult + getNameGrainLevel(getGrainLevel(level)) + " " + id;
+        }
+        return stringResult;
+    }
+
+    private String getNameGrainLevel(char levelGrain) {
+        switch (levelGrain) {
+            case 'F':
+                return "File";
+            case 'L':
+                return "Line";
+            case 'W':
+                return "Word";
+            case 'C':
+                return "Character";
+            default:
+                return "File";
+        }
+    }
+
+    private char getGrainLevel(char levelGrain) {
+        switch (levelGrain) {
+            case 'F':
+                return 'L';
+            case 'L':
+                return 'W';
+            case 'W':
+                return 'C';
+            default:
+                return 'F';
+        }
+    }
+
+    private void setFiles(File basedFile, File comparedFile) {
+        setBasedFile(basedFile);
+        setComparedFile(comparedFile);
+    }
+
+    public File getBasedFile() {
+        return basedFile;
+    }
+
+    public void setBasedFile(File basedFile) {
+        this.basedFile = basedFile;
+    }
+
+    public File getComparedFile() {
+        return comparedFile;
+    }
+
+    public void setComparedFile(File comparedFile) {
+        this.comparedFile = comparedFile;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenu aboutMenu;
     private JMenuItem aboutProjectSubMenu;
@@ -387,6 +525,7 @@ public class MainILCS extends javax.swing.JFrame {
     private JButton fileSelectionMenuBar;
     private JMenuItem fileSelectionSubMenu;
     private JLabel jLabel1;
+    private JScrollPane jScrollPane1;
     private Separator jSeparator1;
     private Separator jSeparator2;
     private Separator jSeparator3;
@@ -402,7 +541,15 @@ public class MainILCS extends javax.swing.JFrame {
     private JSplitPane splitPaneLeft;
     private JSplitPane splitPaneRight;
     private JSplitPane splitPaneUp;
+    private JTable tableDetails;
     private JToolBar toolBar;
     private JButton yesButton;
     // End of variables declaration//GEN-END:variables
+
+    private void deleteRows(int lines) {
+        for (int i = 0; i < lines; i++) {
+            this.model.removeRow(i);
+            this.model = (DefaultTableModel) tableDetails.getModel();
+        }
+    }
 }

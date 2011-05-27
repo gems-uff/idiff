@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * GenericError.java
- *
- * Created on 19/05/2011, 07:59:42
- */
 package components;
 
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -22,9 +14,24 @@ public class GenericError extends javax.swing.JDialog {
     public GenericError(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
-        
+
+    }
+
+    private void setlaf() {
+        try {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            } catch (Exception ex) {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }
+        } catch (ClassNotFoundException ex) {
+        } catch (InstantiationException ex) {
+        } catch (IllegalAccessException ex) {
+        } catch (UnsupportedLookAndFeelException ex) {
+        }
     }
 
     /** This method is called from within the constructor to
@@ -43,13 +50,13 @@ public class GenericError extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Error");
+        setResizable(false);
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(GenericError.class);
         icon.setIcon(resourceMap.getIcon("icon.icon")); // NOI18N
-        icon.setDisabledIcon(null);
         icon.setName("icon"); // NOI18N
 
-        errorLabel.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        errorLabel.setFont(new java.awt.Font("sansserif", 1, 12));
         errorLabel.setText("Error");
         errorLabel.setName("errorLabel"); // NOI18N
 
@@ -96,14 +103,14 @@ public class GenericError extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void showGenericError() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 GenericError dialog = new GenericError(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    
+
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

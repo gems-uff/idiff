@@ -1,6 +1,8 @@
 package components;
 
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -11,9 +13,23 @@ public class AboutTeam extends javax.swing.JFrame {
     /** Creates new form AboutTeam */
     public AboutTeam() {
         initComponents();
+        setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
 
+    }
+    private void setlaf() {
+        try {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            } catch (Exception ex) {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }
+        } catch (ClassNotFoundException ex) {
+        } catch (InstantiationException ex) {
+        } catch (IllegalAccessException ex) {
+        } catch (UnsupportedLookAndFeelException ex) {
+        }
     }
 
     /** This method is called from within the constructor to
@@ -35,11 +51,12 @@ public class AboutTeam extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About Team");
+        setResizable(false);
 
         studentPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Student"));
         studentPanel.setName("studentPanel"); // NOI18N
 
-        studentName.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        studentName.setFont(new java.awt.Font("sansserif", 1, 12));
         studentName.setText("Fernanda Floriano Silva");
         studentName.setName("studentName"); // NOI18N
 
@@ -65,7 +82,7 @@ public class AboutTeam extends javax.swing.JFrame {
         professorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Professor"));
         professorPanel.setName("professorPanel"); // NOI18N
 
-        professorName.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        professorName.setFont(new java.awt.Font("sansserif", 1, 12));
         professorName.setText("Leonardo Gresta Paulino Murta");
         professorName.setName("professorName"); // NOI18N
 

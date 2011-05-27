@@ -11,15 +11,6 @@ import java.util.List;
  */
 public class Application {
 
-    /**
-     * Main - For Initial Test
-     * @param args
-     * @throws DiffException
-     */
-    public static void main(String[] args) throws DiffException {
-        start(new File("tests/Arquivo_v1.txt"), new File("tests/Arquivo_v2.txt"));
-    }
-
     private static void start(File basedFile, File comparedFile) throws DiffException {
         Grain grain = new FileGrain();
         Diff diff = new Diff(basedFile, comparedFile);
