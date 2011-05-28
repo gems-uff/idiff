@@ -236,6 +236,8 @@ public class FileSelection extends javax.swing.JFrame {
         } else {
             showILCS(artifact1, artifact2);
         }
+        this.setVisible(false);
+
     }
 
     /**

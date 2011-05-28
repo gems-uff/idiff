@@ -47,27 +47,28 @@ import org.jdesktop.layout.LayoutStyle;
  * @author Fernanda Floriano Silva
  */
 public class MainILCS extends javax.swing.JFrame {
-    
+
     private File basedFile;
     private File comparedFile;
     private IResultDiff result = new Result();
-    private DefaultTableModel model;
 
     /** Creates new form MainILCS */
     public MainILCS(File basedFile, File comparedFile) throws DiffException {
         initComponents();
-        result.cleanResult();
         setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
         setFiles(basedFile, comparedFile);
     }
-    
+
     private void cleanModel() {
-        if (model != null) {
+        if ((DefaultTableModel) tableDetails.getModel() != null) {
             deleteRows();
         }
-        this.model = (DefaultTableModel) tableDetails.getModel();
+
+        ((DefaultTableModel) tableDetails.getModel()).removeTableModelListener(tableDetails);
+        tableDetails.revalidate();
+        tableDetails.repaint();
     }
 
     private void setlaf() {
@@ -263,7 +264,6 @@ public class MainILCS extends javax.swing.JFrame {
 
         mainSplitPane.setLeftComponent(splitPaneUp);
 
-        tableDetails.setBorder(null);
         tableDetails.setModel(new DefaultTableModel(
             new Object [][] {
 
@@ -362,100 +362,99 @@ public class MainILCS extends javax.swing.JFrame {
         Diff diff = new Diff(basedFile, comparedFile);
         result = diff.compare(grain);
         printLines(result.getGrainsFrom(), result.getGrainsTo());
+        result.cleanResult();
+
     }
-    
+
     @Action
     public void runProject() throws DiffException {
         System.out.println("Run Project Action Executed");
         startDiff(getBasedFile(), getComparedFile());
     }
-    
+
     @Action
     public void runProjectMB() {
         System.out.println("Run Project Action Executed");
     }
-    
+
     @Action
     public void fileSelection() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 new FileSelection().setVisible(true);
             }
         });
     }
-    
+
     @Action
     public void fileSelectionMB() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 new FileSelection().setVisible(true);
             }
         });
     }
-    
+
     @Action
     public void showDDiff() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 new MainDDiff().setVisible(true);
             }
         });
     }
-    
+
     @Action
     public void close() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 System.exit(0);
             }
         });
     }
-    
+
     @Action
     public void showAboutProject() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 new AboutILCS().setVisible(true);
             }
         });
     }
-    
+
     @Action
     public void showAboutTeam() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 new AboutTeam().setVisible(true);
             }
         });
     }
-    
+
     private void printLines(List<Grain> list1, List<Grain> list2) {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
-        int rowCount = 0;
         while (it1.hasNext() || it2.hasNext()) {
             Grain grain1 = it1.next();
             Grain grain2 = it2.next();
             if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
-                this.model = (DefaultTableModel) tableDetails.getModel();
-                this.model.addRow(new String[]{"Move", grain1.getGrain(), printReference(grain1), printReference(grain2)});
+                ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{"Move", grain1.getGrain(), printReference(grain1), printReference(grain2)});
             }
-            
         }
     }
-    
+
     private String printReference(Grain grain) {
         char level = 'F';
         String stringResult = "";
@@ -465,7 +464,7 @@ public class MainILCS extends javax.swing.JFrame {
         }
         return stringResult;
     }
-    
+
     private String getNameGrainLevel(char levelGrain) {
         switch (levelGrain) {
             case 'F':
@@ -480,7 +479,7 @@ public class MainILCS extends javax.swing.JFrame {
                 return "File";
         }
     }
-    
+
     private char getGrainLevel(char levelGrain) {
         switch (levelGrain) {
             case 'F':
@@ -493,33 +492,33 @@ public class MainILCS extends javax.swing.JFrame {
                 return 'F';
         }
     }
-    
+
     private void setFiles(File basedFile, File comparedFile) {
         setBasedFile(basedFile);
         setComparedFile(comparedFile);
     }
-    
+
     public File getBasedFile() {
         return basedFile;
     }
-    
+
     public void setBasedFile(File basedFile) {
         this.basedFile = basedFile;
     }
-    
+
     public File getComparedFile() {
         return comparedFile;
     }
-    
+
     public void setComparedFile(File comparedFile) {
         this.comparedFile = comparedFile;
     }
-    
+
     private void deleteRows() {
-        int lines = this.model.getRowCount();
-        for (int i = 0; i < lines; i++) {
-            this.model.removeRow(0);
+        for (int i = 0; i < ((DefaultTableModel) tableDetails.getModel()).getRowCount(); i++) {
+            ((DefaultTableModel) tableDetails.getModel()).removeRow(0);
         }
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenu aboutMenu;
