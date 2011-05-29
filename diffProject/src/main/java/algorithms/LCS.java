@@ -44,7 +44,7 @@ public class LCS implements IDiff {
      * @throws DiffException
      */
     @Override
-    public void diff(File fileVersionOne, File fileVersionTwo, Grain grain) throws DiffException {
+    public List<Grain> diff(File fileVersionOne, File fileVersionTwo, Grain grain) throws DiffException {
         IResultLCS result = null;
         while (grain.canReduceGranularity()) {
             grain.reduceGranularity();
@@ -58,6 +58,8 @@ public class LCS implements IDiff {
                 removeLcs(result);
             } while (!lcsIsEmpty(result));
         }
+        return storeDifferences(result);
+
     }
 
     /**
@@ -299,5 +301,11 @@ public class LCS implements IDiff {
             default:
                 return 'F';
         }
+    }
+
+    private List<Grain> storeDifferences(IResultLCS result) {
+        List<Grain> temp = result.getFileVersionOne();
+        temp.addAll(result.getFileVersionTwo());
+        return temp;
     }
 }

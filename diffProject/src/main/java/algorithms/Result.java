@@ -11,24 +11,16 @@ public class Result implements IResultDiff {
 
     private List<Grain> grainsFrom = new ArrayList<Grain>();
     private List<Grain> grainsTo = new ArrayList<Grain>();
+    private List<Grain> differences = new ArrayList<Grain>();
     private static Result resultInstance;
 
-    /**
-     * Get Result
-     * @return Result
-     */
-    /*public static Result getResult() {
-    if (resultInstance == null) {
-    resultInstance = new Result();
-    }
-    return resultInstance;
-    }*/
     public static Result getResult() {
         if (resultInstance == null) {
             resultInstance = new Result();
         }
         return resultInstance;
     }
+
     @Override
     public void cleanResult() {
         resultInstance = null;
@@ -66,5 +58,14 @@ public class Result implements IResultDiff {
      */
     public void setGrainsTo(Grain grainTo) {
         this.grainsTo.add(grainTo);
+    }
+
+    @Override
+    public List<Grain> getDifferences() {
+        return differences;
+    }
+
+    public void setDifferences(List<Grain> differences) {
+        this.differences = differences;
     }
 }

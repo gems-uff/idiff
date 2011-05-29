@@ -19,6 +19,8 @@ public interface IResultDiff {
      * @return List<Grain>
      */
     List<Grain> getGrainsTo();
+    
+    List<Grain> getDifferences();
      
     void cleanResult();
 }

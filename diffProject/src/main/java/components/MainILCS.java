@@ -65,7 +65,6 @@ public class MainILCS extends javax.swing.JFrame {
         if ((DefaultTableModel) tableDetails.getModel() != null) {
             deleteRows();
         }
-
         ((DefaultTableModel) tableDetails.getModel()).removeTableModelListener(tableDetails);
         tableDetails.revalidate();
         tableDetails.repaint();
@@ -269,7 +268,7 @@ public class MainILCS extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Type", "Content", "From", "To"
+                "Operation", "Content", "From", "To"
             }
         ) {
             Class[] types = new Class [] {
@@ -361,7 +360,7 @@ public class MainILCS extends javax.swing.JFrame {
         Grain grain = new FileGrain();
         Diff diff = new Diff(basedFile, comparedFile);
         result = diff.compare(grain);
-        printLines(result.getGrainsFrom(), result.getGrainsTo());
+        printLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences());
         result.cleanResult();
 
     }
@@ -443,7 +442,8 @@ public class MainILCS extends javax.swing.JFrame {
         });
     }
 
-    private void printLines(List<Grain> list1, List<Grain> list2) {
+    private void printLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences) {
+        //TODO Colocar diferenças
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
         while (it1.hasNext() || it2.hasNext()) {

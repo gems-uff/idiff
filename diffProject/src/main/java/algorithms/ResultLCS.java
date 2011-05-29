@@ -108,6 +108,7 @@ public class ResultLCS implements IResultLCS {
      * Get File Version One
      * @return List<Grain>
      */
+    @Override
     public List<Grain> getFileVersionOne() {
         return this.arrayFileVersionOne;
     }
@@ -116,6 +117,7 @@ public class ResultLCS implements IResultLCS {
      * Get File Version Two
      * @return List<Grain>
      */
+    @Override
     public List<Grain> getFileVersionTwo() {
         return this.arrayFileVersionTwo;
     }
@@ -124,6 +126,7 @@ public class ResultLCS implements IResultLCS {
      * Get LCS
      * @return List<Grain>
      */
+    @Override
     public List<Grain> getLcs() {
         return this.lcs;
     }
@@ -133,6 +136,7 @@ public class ResultLCS implements IResultLCS {
      * @param it
      * @return
      */
+    @Override
     public Grain getNext(Iterator it) {
         Object obj = null;
         if (it.hasNext()) {

@@ -1,6 +1,7 @@
 package algorithms;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * IDiff
@@ -15,5 +16,5 @@ public interface IDiff {
      * @param grain
      * @throws DiffException
      */
-    public void diff(File fileVersionOne, File fileVersionTwo, Grain grain) throws DiffException;
+    public List<Grain> diff(File fileVersionOne, File fileVersionTwo, Grain grain) throws DiffException;
 }

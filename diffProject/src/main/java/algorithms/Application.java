@@ -11,6 +11,10 @@ import java.util.List;
  */
 public class Application {
 
+    public static void main(String args[]) throws DiffException {
+        start(new File("C:/Documents and Settings/Sisi/Meus documentos/NetBeansProjects/diffProject/tests/Arquivo_v1.txt"), new File("C:/Documents and Settings/Sisi/Meus documentos/NetBeansProjects/diffProject/tests/Arquivo_v2.txt"));
+    }
+
     private static void start(File basedFile, File comparedFile) throws DiffException {
         Grain grain = new FileGrain();
         Diff diff = new Diff(basedFile, comparedFile);

@@ -29,7 +29,7 @@ public class Diff {
      */
     public IResultDiff compare(Grain grain) throws DiffException {
         IDiff comparator = Algorithm.getComparator();
-        comparator.diff(this.fileVersionOne, this.fileVersionTwo, grain);
+        Result.getResult().setDifferences(comparator.diff(this.fileVersionOne, this.fileVersionTwo, grain));
         return Result.getResult();
     }
 }
