@@ -36,6 +36,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
@@ -237,10 +240,17 @@ public class MainILCS extends javax.swing.JFrame {
         splitPaneLeft.setDividerLocation(230);
         splitPaneLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
+        dirTree1.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.dirTree1.border.title"))); // NOI18N
+        DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("root");
+        dirTree1.setModel(new DefaultTreeModel(treeNode1));
         dirScrollPane1.setViewportView(dirTree1);
 
         splitPaneLeft.setTopComponent(dirScrollPane1);
 
+        dirScrollPane2.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.dirScrollPane2.border.title"))); // NOI18N
+
+        treeNode1 = new DefaultMutableTreeNode("root");
+        dirTree2.setModel(new DefaultTreeModel(treeNode1));
         dirScrollPane2.setViewportView(dirTree2);
 
         splitPaneLeft.setRightComponent(dirScrollPane2);
@@ -268,23 +278,15 @@ public class MainILCS extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Operation", "Content", "From", "To"
+                "Content", "Situation", "From", "To"
             }
-        ) {
-            Class[] types = new Class [] {
-                String.class, String.class, String.class, String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tableDetails.setToolTipText(bundle.getString("MainILCS.tableDetails.toolTipText")); // NOI18N
         tableDetails.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tableDetails);
         tableDetails.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tableDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title0")); // NOI18N
-        tableDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title1")); // NOI18N
+        tableDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title1")); // NOI18N
+        tableDetails.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title0")); // NOI18N
         tableDetails.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title2")); // NOI18N
         tableDetails.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title3")); // NOI18N
 
@@ -348,7 +350,7 @@ public class MainILCS extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.UNRELATED)
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -358,6 +360,7 @@ public class MainILCS extends javax.swing.JFrame {
     private void startDiff(File basedFile, File comparedFile) throws DiffException {
         cleanModel();
         Grain grain = new FileGrain();
+        loadTreeFiles(basedFile, comparedFile);
         Diff diff = new Diff(basedFile, comparedFile);
         result = diff.compare(grain);
         printLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences());
@@ -443,24 +446,37 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     private void printLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences) {
-        //TODO Colocar diferenças
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
         while (it1.hasNext() || it2.hasNext()) {
             Grain grain1 = it1.next();
             Grain grain2 = it2.next();
+
             if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
-                ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{"Move", grain1.getGrain(), printReference(grain1), printReference(grain2)});
+                ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printReference(grain1.getOriginalReference()), printReference(grain2.getOriginalReference())});
             }
         }
+
+        for (Iterator<Grain> it3 = diferences.iterator(); it3.hasNext();) {
+            Grain grain = it3.next();
+            if (grain != null) {
+                if ((grain.getSituation()).equals(Grain.Situation.REMOVED)) {
+                    ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printReference(grain.getOriginalReference()), "---"});
+                } else {
+                    ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), "---", printReference(grain.getOriginalReference())});
+                }
+            }
+        }
+
     }
 
-    private String printReference(Grain grain) {
+    private String printReference(List<Integer> originalReference) {
         char level = 'F';
         String stringResult = "";
-        for (Iterator<Integer> it = grain.getOriginalReference().iterator(); it.hasNext();) {
+        for (Iterator<Integer> it = originalReference.iterator(); it.hasNext();) {
             int id = it.next();
-            stringResult = stringResult + getNameGrainLevel(getGrainLevel(level)) + " " + id;
+            level = getGrainLevel(level);
+            stringResult = stringResult + getNameGrainLevel(level) + " " + id + " ";
         }
         return stringResult;
     }
@@ -518,7 +534,16 @@ public class MainILCS extends javax.swing.JFrame {
         for (int i = 0; i < ((DefaultTableModel) tableDetails.getModel()).getRowCount(); i++) {
             ((DefaultTableModel) tableDetails.getModel()).removeRow(0);
         }
+    }
 
+    private void loadTreeFiles(File basedFile, File comparedFile) {
+        TreePath treePath1 = new TreePath(basedFile.getAbsolutePath());
+        TreePath treePath2 = new TreePath(comparedFile.getAbsolutePath());
+        loadTreePath(treePath1, treePath2);
+    }
+
+    public void loadTreePath(TreePath treePath1, TreePath treePath2) {
+        //TODO IMPLEMENTAR
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenu aboutMenu;
