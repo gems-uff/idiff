@@ -39,6 +39,29 @@ public class FileSelection extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
         }
     }
+    
+        @Action
+    public void showAboutProject() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new AboutILCS().setVisible(true);
+            }
+        });
+    }
+
+    @Action
+    public void showAboutTeam() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new AboutTeam().setVisible(true);
+            }
+        });
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -61,6 +84,8 @@ public class FileSelection extends javax.swing.JFrame {
         fileButton2 = new javax.swing.JButton();
         mainLabel = new javax.swing.JLabel();
         compareWith = new javax.swing.JLabel();
+        aboutProject = new javax.swing.JToggleButton();
+        aboutTeam = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("File Selection");
@@ -86,18 +111,16 @@ public class FileSelection extends javax.swing.JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(FileSelection.class, this);
         closeButton.setAction(actionMap.get("close")); // NOI18N
-        closeButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        closeButton.setFont(new java.awt.Font("sansserif", 1, 12));
         closeButton.setIcon(resourceMap.getIcon("closeButton.icon")); // NOI18N
-        closeButton.setToolTipText(resourceMap.getString("closeButton.toolTipText")); // NOI18N
         closeButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         closeButton.setBorderPainted(false);
         buttonGroup.add(closeButton);
         closeButton.setName("closeButton"); // NOI18N
 
         okButton.setAction(actionMap.get("loadFiles")); // NOI18N
-        okButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        okButton.setFont(new java.awt.Font("sansserif", 1, 12));
         okButton.setIcon(resourceMap.getIcon("okButton.icon")); // NOI18N
-        okButton.setToolTipText(resourceMap.getString("okButton.toolTipText")); // NOI18N
         okButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         okButton.setBorderPainted(false);
         buttonGroup.add(okButton);
@@ -129,6 +152,23 @@ public class FileSelection extends javax.swing.JFrame {
         compareWith.setText("Compare with:");
         compareWith.setName("compareWith"); // NOI18N
 
+        aboutProject.setAction(actionMap.get("showAboutProject")); // NOI18N
+        aboutProject.setIcon(resourceMap.getIcon("aboutProject.icon")); // NOI18N
+        aboutProject.setText(""); // NOI18N
+        aboutProject.setToolTipText(resourceMap.getString("aboutProject.toolTipText")); // NOI18N
+        aboutProject.setBorderPainted(false);
+        aboutProject.setContentAreaFilled(false);
+        aboutProject.setName("aboutProject"); // NOI18N
+
+        aboutTeam.setAction(actionMap.get("showAboutTeam")); // NOI18N
+        buttonGroup.add(aboutTeam);
+        aboutTeam.setIcon(resourceMap.getIcon("aboutTeam.icon")); // NOI18N
+        aboutTeam.setText("");
+        aboutTeam.setToolTipText(resourceMap.getString("aboutTeam.toolTipText")); // NOI18N
+        aboutTeam.setBorderPainted(false);
+        aboutTeam.setContentAreaFilled(false);
+        aboutTeam.setName("aboutTeam"); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,6 +193,10 @@ public class FileSelection extends javax.swing.JFrame {
                             .add(fileButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE))
                         .add(15, 15, 15))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(aboutProject, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(aboutTeam, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 179, Short.MAX_VALUE)
                         .add(closeButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(okButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -187,9 +231,13 @@ public class FileSelection extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(okButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(closeButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(aboutProject, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(aboutTeam, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(okButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                        .add(closeButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -243,7 +291,7 @@ public class FileSelection extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    private static void createAndShowGUI() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
@@ -252,6 +300,17 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
     }
+    
+
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+    }
+
 
     private void showILCS(File baseFile, File comparedFile) throws DiffException {
         MainILCS ilcs = new MainILCS(baseFile, comparedFile);
@@ -315,6 +374,8 @@ public class FileSelection extends javax.swing.JFrame {
         UIManager.put("FileChooser.acceptAllFileFilterText", "All files");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton aboutProject;
+    private javax.swing.JToggleButton aboutTeam;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton closeButton;
     private javax.swing.JLabel compareWith;

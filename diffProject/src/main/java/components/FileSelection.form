@@ -52,6 +52,10 @@
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
+                      <Component id="aboutProject" min="-2" pref="55" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="aboutTeam" min="-2" pref="53" max="-2" attributes="0"/>
+                      <EmptySpace pref="179" max="32767" attributes="0"/>
                       <Component id="closeButton" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="okButton" min="-2" pref="88" max="-2" attributes="0"/>
@@ -96,9 +100,15 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="okButton" alignment="3" min="-2" pref="40" max="-2" attributes="1"/>
-                  <Component id="closeButton" alignment="3" min="-2" pref="40" max="-2" attributes="1"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="aboutProject" alignment="3" max="32767" attributes="1"/>
+                      <Component id="aboutTeam" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="okButton" alignment="0" pref="40" max="32767" attributes="1"/>
+                      <Component id="closeButton" alignment="0" pref="40" max="32767" attributes="1"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -150,7 +160,6 @@
           <Font name="sansserif" size="12" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="closeButton.icon"/>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="closeButton.toolTipText"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
             <BevelBorder/>
@@ -168,11 +177,10 @@
         <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
           <action class="components.FileSelection" id="loadFiles" methodName="loadFiles"/>
         </Property>
-        <Property name="font" type="java.awt.Font" noResource="true" editor="org.netbeans.beaninfo.editors.FontEditor">
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="12" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="okButton.icon"/>
-        <Property name="toolTipText" type="java.lang.String" resourceKey="okButton.toolTipText"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
             <BevelBorder/>
@@ -237,6 +245,35 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Compare with:"/>
         <Property name="name" type="java.lang.String" value="compareWith" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="aboutProject">
+      <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+          <action class="components.FileSelection" id="showAboutProject" methodName="showAboutProject"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" resourceKey="aboutProject.icon"/>
+        <Property name="text" type="java.lang.String" value="" noResource="true"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="aboutProject.toolTipText"/>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="contentAreaFilled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="aboutProject" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="aboutTeam">
+      <Properties>
+        <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
+          <action class="components.FileSelection" id="showAboutTeam" methodName="showAboutTeam"/>
+        </Property>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" resourceKey="aboutTeam.icon"/>
+        <Property name="text" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="aboutTeam.toolTipText"/>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="contentAreaFilled" type="boolean" value="false"/>
+        <Property name="name" type="java.lang.String" value="aboutTeam" noResource="true"/>
       </Properties>
     </Component>
   </SubComponents>

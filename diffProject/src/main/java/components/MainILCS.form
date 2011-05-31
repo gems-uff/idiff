@@ -77,110 +77,6 @@
     </Container>
     <Component class="javax.swing.ButtonGroup" name="mainButtonGroup">
     </Component>
-    <Menu class="javax.swing.JMenuBar" name="menuBar">
-      <SubComponents>
-        <Menu class="javax.swing.JMenu" name="mainMenu">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/components/icons/arquivo.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="components/Bundle.properties" key="MainILCS.mainMenu.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-            </Property>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="mainButtonGroup"/>
-            </Property>
-            <Property name="contentAreaFilled" type="boolean" value="false"/>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor padr&#xe3;o"/>
-            </Property>
-            <Property name="disabledSelectedIcon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="0" name="null"/>
-            </Property>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="runSubMenu">
-              <Properties>
-                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="components.Main" id="runProject" methodName="runProject"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="runSubMenu.icon"/>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="mainButtonGroup"/>
-                </Property>
-                <Property name="name" type="java.lang.String" value="Run Project" noResource="true"/>
-              </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.RADVisualComponent$AccessibleParentEditor">
-                  <ComponentRef name="mainMenu"/>
-                </Property>
-              </AccessibilityProperties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="fileSelectionSubMenu">
-              <Properties>
-                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="components.MainILCS" id="fileSelection" methodName="fileSelection"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="fileSelectionSubMenu.icon"/>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="mainButtonGroup"/>
-                </Property>
-              </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.RADVisualComponent$AccessibleParentEditor">
-                  <ComponentRef name="mainMenu"/>
-                </Property>
-              </AccessibilityProperties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="closeSubMenu">
-              <Properties>
-                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="components.Main" id="close" methodName="close"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="closeSubMenu.icon"/>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="mainButtonGroup"/>
-                </Property>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="aboutMenu">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" noResource="true" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/components/icons/AboutMenu.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="components/Bundle.properties" key="MainILCS.aboutMenu.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="aboutProjectSubMenu">
-              <Properties>
-                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="components.Main" id="showAboutProject" methodName="showAboutProject"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="aboutProjectSubMenu.icon"/>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="mainButtonGroup"/>
-                </Property>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="aboutTeamSubMenu">
-              <Properties>
-                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="components.Main" id="showAboutTeam" methodName="showAboutTeam"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" resourceKey="aboutTeamSubMenu.icon"/>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="mainButtonGroup"/>
-                </Property>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-      </SubComponents>
-    </Menu>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -200,7 +96,6 @@
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
-    <SyntheticProperty name="menuBar" type="java.lang.String" value="menuBar"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
   <AuxValues>
@@ -219,9 +114,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="toolBar" alignment="0" pref="1365" max="32767" attributes="0"/>
-          <Group type="102" attributes="0">
-              <Component id="mainSplitPane" pref="1359" max="32767" attributes="0"/>
-              <EmptySpace min="6" pref="6" max="6" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="mainSplitPane" pref="1353" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -229,8 +125,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="toolBar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="mainSplitPane" pref="599" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="mainSplitPane" pref="628" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -250,7 +146,7 @@
         <Component class="javax.swing.JButton" name="runMenuBar">
           <Properties>
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-              <action class="components.Main" id="runProjectMB" methodName="runProjectMB"/>
+              <action class="components.MainILCS" id="runProject" methodName="runProject"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="runMenuBar.icon"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="runMenuBar.toolTipText"/>
@@ -263,6 +159,15 @@
             <Property name="contentAreaFilled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[60, 44]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[60, 44]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[60, 44]"/>
+            </Property>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
         </Component>
@@ -271,11 +176,10 @@
         <Component class="javax.swing.JButton" name="fileSelectionMenuBar">
           <Properties>
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-              <action class="components.Main" id="fileSelectionMB" methodName="fileSelectionMB"/>
+              <action class="components.MainILCS" id="fileSelection" methodName="fileSelection"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="fileSelectionMenuBar.icon"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="fileSelectionMenuBar.toolTipText"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="mainButtonGroup"/>
             </Property>
@@ -294,7 +198,6 @@
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="overviewMenuBar.icon"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="overviewMenuBar.toolTipText"/>
-            <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="mainButtonGroup"/>
             </Property>
@@ -347,6 +250,11 @@
         </Container>
         <Container class="javax.swing.JSplitPane" name="splitPaneUp">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
             <Property name="dividerLocation" type="int" value="200"/>
             <Property name="oneTouchExpandable" type="boolean" value="true"/>
           </Properties>
@@ -372,6 +280,15 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="dirScrollPane1">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Based Directory">
+                          <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.dirScrollPane1.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
@@ -386,10 +303,8 @@
                     <Component class="javax.swing.JTree" name="dirTree1">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Based Directory">
-                              <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.dirTree1.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </TitledBorder>
+                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder/>
                           </Border>
                         </Property>
                         <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
@@ -434,6 +349,7 @@
             <Container class="javax.swing.JSplitPane" name="splitPaneRight">
               <Properties>
                 <Property name="dividerLocation" type="int" value="560"/>
+                <Property name="dividerSize" type="int" value="40"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -444,6 +360,15 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
               <SubComponents>
                 <Container class="javax.swing.JScrollPane" name="baseFileScrollPane">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Based File">
+                          <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.baseFileScrollPane.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
@@ -458,10 +383,8 @@
                     <Component class="javax.swing.JEditorPane" name="baseFileEditorPane">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Base File">
-                              <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.baseFileEditorPane.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </TitledBorder>
+                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder/>
                           </Border>
                         </Property>
                       </Properties>
@@ -469,6 +392,15 @@
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JScrollPane" name="comparedFileScrollPane">
+                  <Properties>
+                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                        <TitledBorder title="Compared File">
+                          <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.comparedFileScrollPane.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                        </TitledBorder>
+                      </Border>
+                    </Property>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
@@ -483,10 +415,8 @@
                     <Component class="javax.swing.JEditorPane" name="comparedFileEditorPane">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                            <TitledBorder title="Compared File">
-                              <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.comparedFileEditorPane.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                            </TitledBorder>
+                          <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                            <EmptyBorder/>
                           </Border>
                         </Property>
                       </Properties>
@@ -498,6 +428,13 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder/>
+              </Border>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>

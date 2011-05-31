@@ -20,9 +20,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -32,13 +29,16 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
@@ -125,14 +125,6 @@ public class MainILCS extends javax.swing.JFrame {
         comparedFileEditorPane = new JEditorPane();
         jScrollPane1 = new JScrollPane();
         tableDetails = new JTable();
-        menuBar = new JMenuBar();
-        mainMenu = new JMenu();
-        runSubMenu = new JMenuItem();
-        fileSelectionSubMenu = new JMenuItem();
-        closeSubMenu = new JMenuItem();
-        aboutMenu = new JMenu();
-        aboutProjectSubMenu = new JMenuItem();
-        aboutTeamSubMenu = new JMenuItem();
 
         ResourceBundle bundle = ResourceBundle.getBundle("components/Bundle"); // NOI18N
         exitDialog.setTitle(bundle.getString("MainILCS.exitDialog.title")); // NOI18N
@@ -187,7 +179,7 @@ public class MainILCS extends javax.swing.JFrame {
         toolBar.add(jSeparator4);
 
         ActionMap actionMap = Application.getInstance().getContext().getActionMap(MainILCS.class, this);
-        runMenuBar.setAction(actionMap.get("runProjectMB")); // NOI18N
+        runMenuBar.setAction(actionMap.get("runProject")); // NOI18N
         ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(MainILCS.class);
         runMenuBar.setIcon(resourceMap.getIcon("runMenuBar.icon")); // NOI18N
         runMenuBar.setToolTipText(resourceMap.getString("runMenuBar.toolTipText")); // NOI18N
@@ -196,14 +188,16 @@ public class MainILCS extends javax.swing.JFrame {
         runMenuBar.setContentAreaFilled(false);
         runMenuBar.setFocusable(false);
         runMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
+        runMenuBar.setMaximumSize(new Dimension(60, 44));
+        runMenuBar.setMinimumSize(new Dimension(60, 44));
+        runMenuBar.setPreferredSize(new Dimension(60, 44));
         runMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
         toolBar.add(runMenuBar);
         toolBar.add(jSeparator1);
 
-        fileSelectionMenuBar.setAction(actionMap.get("fileSelectionMB")); // NOI18N
+        fileSelectionMenuBar.setAction(actionMap.get("fileSelection")); // NOI18N
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
         fileSelectionMenuBar.setToolTipText(resourceMap.getString("fileSelectionMenuBar.toolTipText")); // NOI18N
-        fileSelectionMenuBar.setBorderPainted(false);
         mainButtonGroup.add(fileSelectionMenuBar);
         fileSelectionMenuBar.setContentAreaFilled(false);
         fileSelectionMenuBar.setFocusable(false);
@@ -215,7 +209,6 @@ public class MainILCS extends javax.swing.JFrame {
         overviewMenuBar.setAction(actionMap.get("showDDiff")); // NOI18N
         overviewMenuBar.setIcon(resourceMap.getIcon("overviewMenuBar.icon")); // NOI18N
         overviewMenuBar.setToolTipText(resourceMap.getString("overviewMenuBar.toolTipText")); // NOI18N
-        overviewMenuBar.setBorderPainted(false);
         mainButtonGroup.add(overviewMenuBar);
         overviewMenuBar.setContentAreaFilled(false);
         overviewMenuBar.setFocusable(false);
@@ -234,13 +227,16 @@ public class MainILCS extends javax.swing.JFrame {
 
         mainSplitPane.setBottomComponent(detailsScrollPane);
 
+        splitPaneUp.setBorder(BorderFactory.createEtchedBorder());
         splitPaneUp.setDividerLocation(200);
         splitPaneUp.setOneTouchExpandable(true);
 
         splitPaneLeft.setDividerLocation(230);
         splitPaneLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
-        dirTree1.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.dirTree1.border.title"))); // NOI18N
+        dirScrollPane1.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.dirScrollPane1.border.title"))); // NOI18N
+
+        dirTree1.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("root");
         dirTree1.setModel(new DefaultTreeModel(treeNode1));
         dirScrollPane1.setViewportView(dirTree1);
@@ -258,13 +254,18 @@ public class MainILCS extends javax.swing.JFrame {
         splitPaneUp.setLeftComponent(splitPaneLeft);
 
         splitPaneRight.setDividerLocation(560);
+        splitPaneRight.setDividerSize(40);
 
-        baseFileEditorPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.baseFileEditorPane.border.title"))); // NOI18N
+        baseFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.baseFileScrollPane.border.title"))); // NOI18N
+
+        baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
         splitPaneRight.setLeftComponent(baseFileScrollPane);
 
-        comparedFileEditorPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.comparedFileEditorPane.border.title"))); // NOI18N
+        comparedFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.comparedFileScrollPane.border.title"))); // NOI18N
+
+        comparedFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         comparedFileScrollPane.setViewportView(comparedFileEditorPane);
 
         splitPaneRight.setRightComponent(comparedFileScrollPane);
@@ -272,6 +273,8 @@ public class MainILCS extends javax.swing.JFrame {
         splitPaneUp.setRightComponent(splitPaneRight);
 
         mainSplitPane.setLeftComponent(splitPaneUp);
+
+        jScrollPane1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
         tableDetails.setModel(new DefaultTableModel(
             new Object [][] {
@@ -292,65 +295,22 @@ public class MainILCS extends javax.swing.JFrame {
 
         mainSplitPane.setBottomComponent(jScrollPane1);
 
-        mainMenu.setIcon(new ImageIcon(getClass().getResource("/components/icons/arquivo.png"))); // NOI18N
-        mainMenu.setText(bundle.getString("MainILCS.mainMenu.text")); // NOI18N
-        mainButtonGroup.add(mainMenu);
-        mainMenu.setContentAreaFilled(false);
-        mainMenu.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        mainMenu.setDisabledSelectedIcon(null);
-
-        runSubMenu.setAction(actionMap.get("runProject")); // NOI18N
-        runSubMenu.setIcon(resourceMap.getIcon("runSubMenu.icon")); // NOI18N
-        mainButtonGroup.add(runSubMenu);
-        runSubMenu.setName("Run Project"); // NOI18N
-        mainMenu.add(runSubMenu);
-        runSubMenu.getAccessibleContext().setAccessibleParent(mainMenu);
-
-        fileSelectionSubMenu.setAction(actionMap.get("fileSelection")); // NOI18N
-        fileSelectionSubMenu.setIcon(resourceMap.getIcon("fileSelectionSubMenu.icon")); // NOI18N
-        mainButtonGroup.add(fileSelectionSubMenu);
-        mainMenu.add(fileSelectionSubMenu);
-        fileSelectionSubMenu.getAccessibleContext().setAccessibleParent(mainMenu);
-
-        closeSubMenu.setAction(actionMap.get("close")); // NOI18N
-        closeSubMenu.setIcon(resourceMap.getIcon("closeSubMenu.icon")); // NOI18N
-        mainButtonGroup.add(closeSubMenu);
-        mainMenu.add(closeSubMenu);
-
-        menuBar.add(mainMenu);
-
-        aboutMenu.setIcon(new ImageIcon(getClass().getResource("/components/icons/AboutMenu.png"))); // NOI18N
-        aboutMenu.setText(bundle.getString("MainILCS.aboutMenu.text")); // NOI18N
-
-        aboutProjectSubMenu.setAction(actionMap.get("showAboutProject")); // NOI18N
-        aboutProjectSubMenu.setIcon(resourceMap.getIcon("aboutProjectSubMenu.icon")); // NOI18N
-        mainButtonGroup.add(aboutProjectSubMenu);
-        aboutMenu.add(aboutProjectSubMenu);
-
-        aboutTeamSubMenu.setAction(actionMap.get("showAboutTeam")); // NOI18N
-        aboutTeamSubMenu.setIcon(resourceMap.getIcon("aboutTeamSubMenu.icon")); // NOI18N
-        mainButtonGroup.add(aboutTeamSubMenu);
-        aboutMenu.add(aboutTeamSubMenu);
-
-        menuBar.add(aboutMenu);
-
-        setJMenuBar(menuBar);
-
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.LEADING)
             .add(toolBar, GroupLayout.DEFAULT_SIZE, 1365, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1359, Short.MAX_VALUE)
-                .add(6, 6, 6))
+                .addContainerGap()
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1353, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.UNRELATED)
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                .addPreferredGap(LayoutStyle.RELATED)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -375,23 +335,7 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     @Action
-    public void runProjectMB() {
-        System.out.println("Run Project Action Executed");
-    }
-
-    @Action
     public void fileSelection() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new FileSelection().setVisible(true);
-            }
-        });
-    }
-
-    @Action
-    public void fileSelectionMB() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
@@ -408,39 +352,6 @@ public class MainILCS extends javax.swing.JFrame {
             @Override
             public void run() {
                 new MainDDiff().setVisible(true);
-            }
-        });
-    }
-
-    @Action
-    public void close() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                System.exit(0);
-            }
-        });
-    }
-
-    @Action
-    public void showAboutProject() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new AboutILCS().setVisible(true);
-            }
-        });
-    }
-
-    @Action
-    public void showAboutTeam() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new AboutTeam().setVisible(true);
             }
         });
     }
@@ -544,14 +455,13 @@ public class MainILCS extends javax.swing.JFrame {
 
     public void loadTreePath(TreePath treePath1, TreePath treePath2) {
         //TODO IMPLEMENTAR
+        
+       
     }
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JMenu aboutMenu;
-    private JMenuItem aboutProjectSubMenu;
-    private JMenuItem aboutTeamSubMenu;
     private JEditorPane baseFileEditorPane;
     private JScrollPane baseFileScrollPane;
-    private JMenuItem closeSubMenu;
     private JEditorPane comparedFileEditorPane;
     private JScrollPane comparedFileScrollPane;
     private JScrollPane detailsScrollPane;
@@ -563,7 +473,6 @@ public class MainILCS extends javax.swing.JFrame {
     private JDialog exitDialog;
     private JLabel exitLabel;
     private JButton fileSelectionMenuBar;
-    private JMenuItem fileSelectionSubMenu;
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
     private Separator jSeparator1;
@@ -571,13 +480,10 @@ public class MainILCS extends javax.swing.JFrame {
     private Separator jSeparator3;
     private Separator jSeparator4;
     private ButtonGroup mainButtonGroup;
-    private JMenu mainMenu;
     private JSplitPane mainSplitPane;
-    private JMenuBar menuBar;
     private JButton noButton;
     private JButton overviewMenuBar;
     private JButton runMenuBar;
-    private JMenuItem runSubMenu;
     private JSplitPane splitPaneLeft;
     private JSplitPane splitPaneRight;
     private JSplitPane splitPaneUp;
