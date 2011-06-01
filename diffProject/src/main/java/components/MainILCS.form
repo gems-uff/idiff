@@ -310,6 +310,7 @@
                         <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
                           <TreeModel code=""/>
                         </Property>
+                        <Property name="autoscrolls" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -340,6 +341,7 @@
                         <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
                           <TreeModel code=""/>
                         </Property>
+                        <Property name="autoscrolls" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>

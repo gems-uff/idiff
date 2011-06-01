@@ -29,7 +29,6 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -38,7 +37,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
@@ -54,6 +52,8 @@ public class MainILCS extends javax.swing.JFrame {
     private File basedFile;
     private File comparedFile;
     private IResultDiff result = new Result();
+    private javax.swing.tree.DefaultMutableTreeNode dn = new javax.swing.tree.DefaultMutableTreeNode("root");
+    private javax.swing.tree.DefaultTreeModel treeModel = new javax.swing.tree.DefaultTreeModel(dn);
 
     /** Creates new form MainILCS */
     public MainILCS(File basedFile, File comparedFile) throws DiffException {
@@ -239,6 +239,7 @@ public class MainILCS extends javax.swing.JFrame {
         dirTree1.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("root");
         dirTree1.setModel(new DefaultTreeModel(treeNode1));
+        dirTree1.setAutoscrolls(true);
         dirScrollPane1.setViewportView(dirTree1);
 
         splitPaneLeft.setTopComponent(dirScrollPane1);
@@ -247,6 +248,7 @@ public class MainILCS extends javax.swing.JFrame {
 
         treeNode1 = new DefaultMutableTreeNode("root");
         dirTree2.setModel(new DefaultTreeModel(treeNode1));
+        dirTree2.setAutoscrolls(true);
         dirScrollPane2.setViewportView(dirTree2);
 
         splitPaneLeft.setRightComponent(dirScrollPane2);
@@ -321,6 +323,7 @@ public class MainILCS extends javax.swing.JFrame {
         cleanModel();
         Grain grain = new FileGrain();
         loadTreeFiles(basedFile, comparedFile);
+        showFiles(basedFile, comparedFile);
         Diff diff = new Diff(basedFile, comparedFile);
         result = diff.compare(grain);
         printLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences());
@@ -378,7 +381,8 @@ public class MainILCS extends javax.swing.JFrame {
                 }
             }
         }
-
+        tableDetails.setCellSelectionEnabled(false);
+        tableDetails.setRowSelectionAllowed(true);
     }
 
     private String printReference(List<Integer> originalReference) {
@@ -387,9 +391,9 @@ public class MainILCS extends javax.swing.JFrame {
         for (Iterator<Integer> it = originalReference.iterator(); it.hasNext();) {
             int id = it.next();
             level = getGrainLevel(level);
-            stringResult = stringResult + getNameGrainLevel(level) + " " + id + " ";
+            stringResult = stringResult + " - " + getNameGrainLevel(level) + " " + id;
         }
-        return stringResult;
+        return stringResult.substring(3);
     }
 
     private String getNameGrainLevel(char levelGrain) {
@@ -448,17 +452,31 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     private void loadTreeFiles(File basedFile, File comparedFile) {
-        TreePath treePath1 = new TreePath(basedFile.getAbsolutePath());
-        TreePath treePath2 = new TreePath(comparedFile.getAbsolutePath());
-        loadTreePath(treePath1, treePath2);
+        loadTreePath(basedFile.getAbsolutePath(), dirTree1);
+        loadTreePath(comparedFile.getAbsolutePath(), dirTree2);
+    }
+    //TODO corrigir isso!
+    public void loadTreePath(String treePath, JTree dirTree) {
+        String path[] = treePath.split("\\\\");
+        DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode(path[0]);
+
+        for (int i = 1; i < path.length; i++) {
+            DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(path[i]);
+            treeNode1.add(treeNode);
+        }
+        dirTree.setModel(new DefaultTreeModel(treeNode1));
+    }
+    
+    
+    private void createNodes(DefaultMutableTreeNode top, String teste) {
+        DefaultMutableTreeNode category = null;
+        category = new DefaultMutableTreeNode("Books for Java Programmers");
+        top.add(category);
+        //     category.add(book);
     }
 
-    public void loadTreePath(TreePath treePath1, TreePath treePath2) {
-        //TODO IMPLEMENTAR
-        
-       
+    private void showFiles(File basedFile, File comparedFile) {
     }
- 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;
     private JScrollPane baseFileScrollPane;
