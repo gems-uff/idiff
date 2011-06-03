@@ -23,15 +23,14 @@ public class Result implements IResultDiff {
 
     @Override
     public void cleanResult() {
-        resultInstance = null;
-    }
-
-    /**
-     * Get Grains From
-     * @return List<Grain>
-     */
-    @Override
-    public List<Grain> getGrainsFrom() {
+    resultInstance  = null;
+}
+/**
+ * Get Grains From
+ * @return List<Grain>
+ */
+@Override
+        public List<Grain> getGrainsFrom() {
         return grainsFrom;
     }
 
@@ -48,7 +47,7 @@ public class Result implements IResultDiff {
      * @return List<Grain>
      */
     @Override
-    public List<Grain> getGrainsTo() {
+        public List<Grain> getGrainsTo() {
         return grainsTo;
     }
 
@@ -61,7 +60,7 @@ public class Result implements IResultDiff {
     }
 
     @Override
-    public List<Grain> getDifferences() {
+        public List<Grain> getDifferences() {
         return differences;
     }
 

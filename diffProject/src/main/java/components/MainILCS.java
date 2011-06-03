@@ -9,6 +9,8 @@ import algorithms.Result;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,6 +31,7 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -36,7 +39,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
@@ -54,6 +57,7 @@ public class MainILCS extends javax.swing.JFrame {
     private IResultDiff result = new Result();
     private javax.swing.tree.DefaultMutableTreeNode dn = new javax.swing.tree.DefaultMutableTreeNode("root");
     private javax.swing.tree.DefaultTreeModel treeModel = new javax.swing.tree.DefaultTreeModel(dn);
+    private static boolean DEBUG = false;
 
     /** Creates new form MainILCS */
     public MainILCS(File basedFile, File comparedFile) throws DiffException {
@@ -71,6 +75,7 @@ public class MainILCS extends javax.swing.JFrame {
         ((DefaultTableModel) tableDetails.getModel()).removeTableModelListener(tableDetails);
         tableDetails.revalidate();
         tableDetails.repaint();
+
     }
 
     private void setlaf() {
@@ -447,35 +452,65 @@ public class MainILCS extends javax.swing.JFrame {
 
     private void deleteRows() {
         for (int i = 0; i < ((DefaultTableModel) tableDetails.getModel()).getRowCount(); i++) {
-            ((DefaultTableModel) tableDetails.getModel()).removeRow(0);
+            if (((DefaultTableModel) tableDetails.getModel()).getRowCount() != 0) {
+                ((DefaultTableModel) tableDetails.getModel()).removeRow(0);
+            }
         }
+    }
+
+    private void createNodes(String treePath, JTree dirTree) {
+        String path[] = treePath.split("\\\\");
+        DefaultMutableTreeNode root = addChildNodes(path);
+        dirTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+        dirTree.setModel(new DefaultTreeModel(root));
+        expandAll(dirTree);
+        //Enable tool tips.
+        ToolTipManager.sharedInstance().registerComponent(dirTree);
+    }
+
+    public void expandAll(JTree tree) {
+        int row = 0;
+        while (row < tree.getRowCount()) {
+            tree.expandRow(row);
+            row++;
+        }
+    }
+
+    private DefaultMutableTreeNode addChildNodes(String path[]) {
+        DefaultMutableTreeNode child = new DefaultMutableTreeNode(path[path.length - 1]);
+        for (int i = path.length - 1; i > 0; i--) {
+            child = addChild(new DefaultMutableTreeNode(path[i - 1]), child);
+        }
+        return child;
+    }
+
+    private DefaultMutableTreeNode addChild(DefaultMutableTreeNode parent, DefaultMutableTreeNode child) {
+        parent.add(child);
+        return parent;
     }
 
     private void loadTreeFiles(File basedFile, File comparedFile) {
-        loadTreePath(basedFile.getAbsolutePath(), dirTree1);
-        loadTreePath(comparedFile.getAbsolutePath(), dirTree2);
-    }
-    //TODO corrigir isso!
-    public void loadTreePath(String treePath, JTree dirTree) {
-        String path[] = treePath.split("\\\\");
-        DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode(path[0]);
-
-        for (int i = 1; i < path.length; i++) {
-            DefaultMutableTreeNode treeNode = new DefaultMutableTreeNode(path[i]);
-            treeNode1.add(treeNode);
-        }
-        dirTree.setModel(new DefaultTreeModel(treeNode1));
-    }
-    
-    
-    private void createNodes(DefaultMutableTreeNode top, String teste) {
-        DefaultMutableTreeNode category = null;
-        category = new DefaultMutableTreeNode("Books for Java Programmers");
-        top.add(category);
-        //     category.add(book);
+        createNodes(basedFile.getAbsolutePath(), dirTree1);
+        createNodes(comparedFile.getAbsolutePath(), dirTree2);
     }
 
     private void showFiles(File basedFile, File comparedFile) {
+        //Create the HTML viewing pane.
+    }
+
+    private void displayURL(URL url, JEditorPane editorPane) {
+        try {
+            if (url != null) {
+                editorPane.setPage(url);
+            } else { //null url
+                editorPane.setText("File Not Found");
+                if (DEBUG) {
+                    System.out.println("Attempted to display a null URL.");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Attempted to read a bad URL: " + url);
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;
