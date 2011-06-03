@@ -67,16 +67,19 @@ public class MainDDiff extends javax.swing.JFrame {
         setTitle("Main DDiff");
         setResizable(false);
 
+        jSplitPane1.setDividerLocation(650);
+        jSplitPane1.setMinimumSize(new java.awt.Dimension(120, 300));
         jSplitPane1.setName("jSplitPane1"); // NOI18N
 
         directoryPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         directoryPanel1.setName("directoryPanel1"); // NOI18N
+        directoryPanel1.setPreferredSize(new java.awt.Dimension(555, 646));
 
         org.jdesktop.layout.GroupLayout directoryPanel1Layout = new org.jdesktop.layout.GroupLayout(directoryPanel1);
         directoryPanel1.setLayout(directoryPanel1Layout);
         directoryPanel1Layout.setHorizontalGroup(
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 487, Short.MAX_VALUE)
+            .add(0, 645, Short.MAX_VALUE)
         );
         directoryPanel1Layout.setVerticalGroup(
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -92,7 +95,7 @@ public class MainDDiff extends javax.swing.JFrame {
         directoryPanel2.setLayout(directoryPanel2Layout);
         directoryPanel2Layout.setHorizontalGroup(
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 858, Short.MAX_VALUE)
+            .add(0, 700, Short.MAX_VALUE)
         );
         directoryPanel2Layout.setVerticalGroup(
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

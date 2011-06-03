@@ -227,7 +227,10 @@ public class MainILCS extends javax.swing.JFrame {
         mainSplitPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         mainSplitPane.setOneTouchExpandable(true);
 
+        detailsScrollPane.setAutoscrolls(true);
+
         detailsTextPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.detailsTextPane.border.title"))); // NOI18N
+        detailsTextPane.setAutoscrolls(true);
         detailsScrollPane.setViewportView(detailsTextPane);
 
         mainSplitPane.setBottomComponent(detailsScrollPane);
@@ -240,6 +243,7 @@ public class MainILCS extends javax.swing.JFrame {
         splitPaneLeft.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
         dirScrollPane1.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.dirScrollPane1.border.title"))); // NOI18N
+        dirScrollPane1.setAutoscrolls(true);
 
         dirTree1.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("root");
@@ -250,6 +254,7 @@ public class MainILCS extends javax.swing.JFrame {
         splitPaneLeft.setTopComponent(dirScrollPane1);
 
         dirScrollPane2.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.dirScrollPane2.border.title"))); // NOI18N
+        dirScrollPane2.setAutoscrolls(true);
 
         treeNode1 = new DefaultMutableTreeNode("root");
         dirTree2.setModel(new DefaultTreeModel(treeNode1));
@@ -264,15 +269,19 @@ public class MainILCS extends javax.swing.JFrame {
         splitPaneRight.setDividerSize(40);
 
         baseFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.baseFileScrollPane.border.title"))); // NOI18N
+        baseFileScrollPane.setAutoscrolls(true);
 
         baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        baseFileEditorPane.setAutoscrolls(true);
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
         splitPaneRight.setLeftComponent(baseFileScrollPane);
 
         comparedFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.comparedFileScrollPane.border.title"))); // NOI18N
+        comparedFileScrollPane.setAutoscrolls(true);
 
         comparedFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        comparedFileEditorPane.setAutoscrolls(true);
         comparedFileScrollPane.setViewportView(comparedFileEditorPane);
 
         splitPaneRight.setRightComponent(comparedFileScrollPane);
@@ -282,7 +291,9 @@ public class MainILCS extends javax.swing.JFrame {
         mainSplitPane.setLeftComponent(splitPaneUp);
 
         jScrollPane1.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        jScrollPane1.setAutoscrolls(true);
 
+        tableDetails.setAutoCreateRowSorter(true);
         tableDetails.setModel(new DefaultTableModel(
             new Object [][] {
 
@@ -317,7 +328,7 @@ public class MainILCS extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.RELATED)
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -451,10 +462,9 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     private void deleteRows() {
-        for (int i = 0; i < ((DefaultTableModel) tableDetails.getModel()).getRowCount(); i++) {
-            if (((DefaultTableModel) tableDetails.getModel()).getRowCount() != 0) {
-                ((DefaultTableModel) tableDetails.getModel()).removeRow(0);
-            }
+        int rowCount = ((DefaultTableModel) tableDetails.getModel()).getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            ((DefaultTableModel) tableDetails.getModel()).removeRow(0);
         }
     }
 
