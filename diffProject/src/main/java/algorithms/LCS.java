@@ -19,7 +19,7 @@ public class LCS implements IDiff {
     private Grain.LevelGranularity level;
 
     /**
-     *
+     * Constructor
      */
     public LCS() {
     }
@@ -121,9 +121,7 @@ public class LCS implements IDiff {
         List<Grain> lcs = new ArrayList();
         lcs.clear();
         printLCS(lcs, this.linesFileOne.size() - 1, this.columnFileTwo.size() - 1);
-        //TODO - RETIRAR print(lcs): Apenas para debug
-        print(lcs);
-        return new ResultLCS(this.linesFileOne, this.columnFileTwo, lcs);
+         return new ResultLCS(this.linesFileOne, this.columnFileTwo, lcs);
     }
 
     /**
@@ -170,7 +168,7 @@ public class LCS implements IDiff {
     /**
      * Can Remove
      * @param fileVersion
-     * @return
+     * @return boolean
      */
     private boolean canRemove(List<Grain> fileVersion) {
         return (fileVersion.size() > 1);
@@ -180,7 +178,7 @@ public class LCS implements IDiff {
      * Compare
      * @param grainOne
      * @param grainTwo
-     * @return
+     * @return boolean
      */
     private boolean compare(Grain grainOne, Grain grainTwo) {
         return grainOne.getGrain().compareTo(grainTwo.getGrain()) == 0;
@@ -208,7 +206,7 @@ public class LCS implements IDiff {
     /**
      * Get Next
      * @param it
-     * @return
+     * @return Grain
      */
     public Grain getNext(Iterator it) {
         Object obj = null;
@@ -243,64 +241,6 @@ public class LCS implements IDiff {
      */
     public void setLinesFileOne(List<Grain> linesFileOne) {
         this.linesFileOne = linesFileOne;
-    }
-
-////////////////////   APENAS PARA VERIFICAÇÃO DO RESULTADO ////////////////////
-    /**
-     *
-     * @param lcs
-     */
-    private void print(List<Grain> lcs) {
-        System.out.println();
-        System.out.println("====================================================");
-        System.out.println();
-        printFile(this.linesFileOne, ">> Arquivo 1");
-        System.out.println();
-        System.out.println();
-        printFile(this.columnFileTwo, ">> Arquivo 2");
-        System.out.println();
-        printFile(lcs, " >> LCS: ");
-        System.out.println();
-    }
-
-    /**
-     *
-     * @param file
-     * @param texto
-     */
-    private void printFile(List<Grain> file, String texto) {
-        System.out.println(texto);
-        System.out.println();
-        for (Iterator<Grain> it = file.iterator(); it.hasNext();) {
-            Grain grain = it.next();
-            if (grain != null) {
-                System.out.print(grain.getGrain() + " (");
-                printReference(grain);
-                System.out.print(")" + " , ");
-            }
-        }
-    }
-
-    private void printReference(Grain grain) {
-        char grainLevel = 'F';
-        for (Iterator<Integer> it = grain.getOriginalReference().iterator(); it.hasNext();) {
-            int id = it.next();
-            grainLevel = getGrainLevel(grainLevel);
-            System.out.print(" " + grainLevel + " " + id);
-        }
-    }
-
-    private char getGrainLevel(char levelGrain) {
-        switch (levelGrain) {
-            case 'F':
-                return 'L';
-            case 'L':
-                return 'W';
-            case 'W':
-                return 'C';
-            default:
-                return 'F';
-        }
     }
 
     private List<Grain> storeDifferences(IResultLCS result) {

@@ -15,7 +15,7 @@ public class WordGrain extends Grain {
     /**
      * Constructor
      * @param word
-     * @param idReference
+     * @param idReference 
      */
     public WordGrain(String word, int idReference) {
         super(LevelGranularity.WORD, word, idReference);
@@ -29,10 +29,10 @@ public class WordGrain extends Grain {
     }
 
     /**
-     * Start Word Granularity
+     * Start word grain
      * @param list
      * @return List<Grain>
-     * @throws IOException
+     * @throws IOException 
      */
     public List<Grain> start(List<Grain> list) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
@@ -55,7 +55,7 @@ public class WordGrain extends Grain {
     }
 
     /**
-     * Set WordGrain Data
+     * Set Data
      * @param token
      * @param grain
      * @param idReference
@@ -71,7 +71,7 @@ public class WordGrain extends Grain {
      * Start Word Granularity
      * @param listBaseFile
      * @param listComparedFile
-     * @throws DiffException
+     * @throws DiffException 
      */
     public void startWordGranularity(List<Grain> listBaseFile, List<Grain> listComparedFile) throws DiffException {
         try {

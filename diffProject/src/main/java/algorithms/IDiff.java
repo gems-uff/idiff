@@ -10,11 +10,12 @@ import java.util.List;
 public interface IDiff {
 
     /**
-     * Diff
+     * Constructor
      * @param fileVersionOne
      * @param fileVersionTwo
      * @param grain
-     * @throws DiffException
+     * @return List<Grain>
+     * @throws DiffException 
      */
     public List<Grain> diff(File fileVersionOne, File fileVersionTwo, Grain grain) throws DiffException;
 }

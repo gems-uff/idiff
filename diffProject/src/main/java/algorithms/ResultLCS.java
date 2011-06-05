@@ -9,9 +9,6 @@ import java.util.List;
  */
 public class ResultLCS implements IResultLCS {
 
-    /**
-     * 
-     */
     private List<Grain> arrayFileVersionOne;
     private List<Grain> arrayFileVersionTwo;
     private List<Grain> lcs;
@@ -21,7 +18,7 @@ public class ResultLCS implements IResultLCS {
      * @param arrayFileVersionOne
      * @param arrayFileVersionTwo
      * @param lcs
-     * @throws DiffException
+     * @throws DiffException 
      */
     public ResultLCS(List<Grain> arrayFileVersionOne, List<Grain> arrayFileVersionTwo, List<Grain> lcs) throws DiffException {
         this.arrayFileVersionOne = arrayFileVersionOne;
@@ -36,9 +33,6 @@ public class ResultLCS implements IResultLCS {
      * @throws DiffException
      */
     private void loadResult() throws DiffException {
-        int i = 0;
-        int j = 0;
-
         Iterator itF1 = this.arrayFileVersionOne.iterator();
         Iterator itF2 = this.arrayFileVersionTwo.iterator();
 
@@ -68,8 +62,7 @@ public class ResultLCS implements IResultLCS {
         }
     }
 
-    /**
-     * Is Context
+    /* Is Context
      * @param grain
      * @return boolean
      */
@@ -81,7 +74,7 @@ public class ResultLCS implements IResultLCS {
     }
 
     /**
-     * isAdding
+     * Is Adding
      * @param grainF2
      * @return boolean
      */
@@ -134,7 +127,7 @@ public class ResultLCS implements IResultLCS {
     /**
      * Get Next
      * @param it
-     * @return
+     * @return Grain
      */
     @Override
     public Grain getNext(Iterator it) {

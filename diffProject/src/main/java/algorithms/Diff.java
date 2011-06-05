@@ -25,7 +25,7 @@ public class Diff {
      * Compare
      * @param grain
      * @return IResultDiff
-     * @throws DiffException
+     * @throws DiffException 
      */
     public IResultDiff compare(Grain grain) throws DiffException {
         IDiff comparator = Algorithm.getComparator();

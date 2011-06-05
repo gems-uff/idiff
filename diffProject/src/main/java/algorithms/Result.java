@@ -14,6 +14,10 @@ public class Result implements IResultDiff {
     private List<Grain> differences = new ArrayList<Grain>();
     private static Result resultInstance;
 
+    /**
+     * Constructor
+     * @return Result
+     */
     public static Result getResult() {
         if (resultInstance == null) {
             resultInstance = new Result();
@@ -21,22 +25,26 @@ public class Result implements IResultDiff {
         return resultInstance;
     }
 
+    /**
+     * Clean Result
+     */
     @Override
     public void cleanResult() {
-    resultInstance  = null;
-}
-/**
- * Get Grains From
- * @return List<Grain>
- */
-@Override
-        public List<Grain> getGrainsFrom() {
+        resultInstance = null;
+    }
+
+    /**
+     * Get references from the source file
+     * @return List<Grain>
+     */
+    @Override
+    public List<Grain> getGrainsFrom() {
         return grainsFrom;
     }
 
     /**
-     * Set Grains From
-     * @param grainFrom
+     * Get reference of the target file
+     * @param grainFrom 
      */
     public void setGrainsFrom(Grain grainFrom) {
         this.grainsFrom.add(grainFrom);
@@ -44,26 +52,34 @@ public class Result implements IResultDiff {
 
     /**
      * Get Grains To
-     * @return List<Grain>
+     * @return 
      */
     @Override
-        public List<Grain> getGrainsTo() {
+    public List<Grain> getGrainsTo() {
         return grainsTo;
     }
 
     /**
      * Set Grains To
-     * @param grainTo
+     * @param grainTo 
      */
     public void setGrainsTo(Grain grainTo) {
         this.grainsTo.add(grainTo);
     }
 
+    /**
+     * Get Differences
+     * @return List<Grain
+     */
     @Override
-        public List<Grain> getDifferences() {
+    public List<Grain> getDifferences() {
         return differences;
     }
 
+    /**
+     * Set Differences
+     * @param differences 
+     */
     public void setDifferences(List<Grain> differences) {
         this.differences = differences;
     }

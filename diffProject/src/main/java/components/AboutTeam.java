@@ -41,28 +41,25 @@ public class AboutTeam extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tabbedPane = new javax.swing.JTabbedPane();
-        professorPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         professorName = new javax.swing.JLabel();
         university = new javax.swing.JLabel();
-        image = new javax.swing.JLabel();
-        studentPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         studentName = new javax.swing.JLabel();
         uff = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        studentName1 = new javax.swing.JLabel();
+        uff1 = new javax.swing.JLabel();
         image1 = new javax.swing.JLabel();
-        graduatePanel = new javax.swing.JPanel();
-        uff2 = new javax.swing.JLabel();
-        studentName2 = new javax.swing.JLabel();
-        image2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About Team");
         setResizable(false);
 
-        tabbedPane.setName("tabbedPane"); // NOI18N
-
-        professorPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        professorPanel.setName("professorPanel"); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Professor"));
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(AboutTeam.class);
+        jPanel1.setToolTipText(resourceMap.getString("jPanel1.toolTipText")); // NOI18N
+        jPanel1.setName("jPanel1"); // NOI18N
 
         professorName.setFont(new java.awt.Font("sansserif", 1, 12));
         professorName.setText("Leonardo Gresta Paulino Murta");
@@ -71,41 +68,29 @@ public class AboutTeam extends javax.swing.JFrame {
         university.setText("Assistant Professor, IC/UFF ");
         university.setName("university"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(AboutTeam.class);
-        image.setIcon(resourceMap.getIcon("image.icon")); // NOI18N
-        image.setText(resourceMap.getString("image.text")); // NOI18N
-        image.setName("image"); // NOI18N
-
-        org.jdesktop.layout.GroupLayout professorPanelLayout = new org.jdesktop.layout.GroupLayout(professorPanel);
-        professorPanel.setLayout(professorPanelLayout);
-        professorPanelLayout.setHorizontalGroup(
-            professorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(professorPanelLayout.createSequentialGroup()
-                .add(15, 15, 15)
-                .add(professorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(professorPanelLayout.createSequentialGroup()
-                        .add(university)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 105, Short.MAX_VALUE)
-                        .add(image))
-                    .add(professorName))
-                .addContainerGap())
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(professorName)
+                    .add(university))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
-        professorPanelLayout.setVerticalGroup(
-            professorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(professorPanelLayout.createSequentialGroup()
-                .add(12, 12, 12)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(professorName)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(professorPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(image)
-                    .add(university))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .add(university)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("Professor", professorPanel);
-
-        studentPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        studentPanel.setName("studentPanel"); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Master's Degree"));
+        jPanel2.setName("jPanel2"); // NOI18N
 
         studentName.setFont(new java.awt.Font("sansserif", 1, 12));
         studentName.setText("Fernanda Floriano Silva");
@@ -114,111 +99,101 @@ public class AboutTeam extends javax.swing.JFrame {
         uff.setText("Fluminense Federal University (UFF). ");
         uff.setName("uff"); // NOI18N
 
-        image1.setIcon(resourceMap.getIcon("image1.icon")); // NOI18N
-        image1.setName("image1"); // NOI18N
-
-        org.jdesktop.layout.GroupLayout studentPanelLayout = new org.jdesktop.layout.GroupLayout(studentPanel);
-        studentPanel.setLayout(studentPanelLayout);
-        studentPanelLayout.setHorizontalGroup(
-            studentPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(studentPanelLayout.createSequentialGroup()
-                .add(15, 15, 15)
-                .add(studentPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(studentName)
-                    .add(studentPanelLayout.createSequentialGroup()
-                        .add(uff)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 53, Short.MAX_VALUE)
-                        .add(image1)))
-                .addContainerGap())
+                    .add(uff)))
         );
-        studentPanelLayout.setVerticalGroup(
-            studentPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(studentPanelLayout.createSequentialGroup()
-                .add(12, 12, 12)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(studentName)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(studentPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(image1)
-                    .add(uff))
+                .add(uff)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Graduation"));
+        jPanel3.setName("jPanel3"); // NOI18N
+
+        studentName1.setFont(new java.awt.Font("sansserif", 1, 12));
+        studentName1.setText("Eraldo Borel");
+        studentName1.setName("studentName1"); // NOI18N
+
+        uff1.setText("Fluminense Federal University (UFF). ");
+        uff1.setName("uff1"); // NOI18N
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(studentName1)
+                    .add(uff1))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
-
-        tabbedPane.addTab("Master's degree ", studentPanel);
-        studentPanel.getAccessibleContext().setAccessibleName("student");
-
-        graduatePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        graduatePanel.setName("graduatePanel"); // NOI18N
-
-        uff2.setText("Fluminense Federal University (UFF). ");
-        uff2.setName("uff2"); // NOI18N
-
-        studentName2.setFont(new java.awt.Font("sansserif", 1, 12));
-        studentName2.setText("Eraldo Borel");
-        studentName2.setName("studentName2"); // NOI18N
-
-        image2.setIcon(resourceMap.getIcon("image2.icon")); // NOI18N
-        image2.setName("image2"); // NOI18N
-
-        org.jdesktop.layout.GroupLayout graduatePanelLayout = new org.jdesktop.layout.GroupLayout(graduatePanel);
-        graduatePanel.setLayout(graduatePanelLayout);
-        graduatePanelLayout.setHorizontalGroup(
-            graduatePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(graduatePanelLayout.createSequentialGroup()
-                .add(18, 18, 18)
-                .add(graduatePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(studentName2)
-                    .add(graduatePanelLayout.createSequentialGroup()
-                        .add(uff2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 50, Short.MAX_VALUE)
-                        .add(image2)))
-                .addContainerGap())
-        );
-        graduatePanelLayout.setVerticalGroup(
-            graduatePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, graduatePanelLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .add(studentName2)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(studentName1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(graduatePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(image2)
-                    .add(uff2))
-                .add(12, 12, 12))
+                .add(uff1)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("Graduation", graduatePanel);
-        graduatePanel.getAccessibleContext().setAccessibleName("Graduate Student ");
+        image1.setIcon(resourceMap.getIcon("image1.icon")); // NOI18N
+        image1.setName("image1"); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(tabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(image1)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                .addContainerGap(6, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(tabbedPane))
+                .add(image1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel graduatePanel;
-    private javax.swing.JLabel image;
     private javax.swing.JLabel image1;
-    private javax.swing.JLabel image2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel professorName;
-    private javax.swing.JPanel professorPanel;
     private javax.swing.JLabel studentName;
     private javax.swing.JLabel studentName1;
-    private javax.swing.JLabel studentName2;
-    private javax.swing.JPanel studentPanel;
-    private javax.swing.JPanel studentPanel1;
-    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JLabel uff;
     private javax.swing.JLabel uff1;
-    private javax.swing.JLabel uff2;
     private javax.swing.JLabel university;
     // End of variables declaration//GEN-END:variables
 }
