@@ -8,7 +8,10 @@ import algorithms.IResultDiff;
 import algorithms.Result;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
@@ -55,7 +58,6 @@ public class MainILCS extends javax.swing.JFrame {
     private File basedFile;
     private File comparedFile;
     private IResultDiff result = new Result();
-    private static boolean DEBUG = false;
 
     /**
      * Creates new form MainILCS 
@@ -347,7 +349,7 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile
      * @throws DiffException 
      */
-    private void startDiff(File basedFile, File comparedFile) throws DiffException {
+    private void startDiff(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
         cleanModel();
         Grain grain = new FileGrain();
         loadTreeFiles(basedFile, comparedFile);
@@ -364,7 +366,7 @@ public class MainILCS extends javax.swing.JFrame {
      * @throws DiffException 
      */
     @Action
-    public void runProject() throws DiffException {
+    public void runProject() throws DiffException, FileNotFoundException, IOException {
         System.out.println("Run Project Action Executed");
         startDiff(getBasedFile(), getComparedFile());
     }
@@ -600,28 +602,38 @@ public class MainILCS extends javax.swing.JFrame {
      * @param basedFile
      * @param comparedFile 
      */
-    private void showFiles(File basedFile, File comparedFile) {
-        //Create the HTML viewing pane.
+    private void showFiles(File basedFile, File comparedFile) throws FileNotFoundException, IOException {
+        submitFile(baseFileEditorPane, basedFile, "#EDF5F5");
+        submitFile(comparedFileEditorPane, comparedFile, "#EDF5F5");
     }
-
-    /**
-     * Display URL
-     * @param url
-     * @param editorPane 
+     /**
+     * Submit File
+     * @param editorPane
+     * @param file
+     * @param colorName
+     * @throws FileNotFoundException
+     * @throws IOException 
      */
-    private void displayURL(URL url, JEditorPane editorPane) {
-        try {
-            if (url != null) {
-                editorPane.setPage(url);
-            } else { //null url
-                editorPane.setText("File Not Found");
-                if (DEBUG) {
-                    System.out.println("Attempted to display a null URL.");
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Attempted to read a bad URL: " + url);
+    public void submitFile(JEditorPane editorPane, File file, String colorName) throws FileNotFoundException, IOException {
+        String line;
+        StringBuilder sb;
+        BufferedReader reader;
+
+        editorPane.setText(null);
+        reader = new BufferedReader(new FileReader(file));
+        sb = new StringBuilder();
+
+        editorPane.setContentType("text/html");
+        editorPane.setEditable(false);
+
+        for (int i = 0; (line = reader.readLine()) != null; i++) {
+            sb.append("<span style='background-color:").append(colorName).append("'>").append(line).append("</span><br>");
         }
+
+        editorPane.setText(sb.toString());
+        reader.close();
+        sb.delete(0, sb.length());
+        reader.close();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;
