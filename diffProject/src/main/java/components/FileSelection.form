@@ -253,7 +253,6 @@
           <action class="components.FileSelection" id="showAboutProject" methodName="showAboutProject"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="aboutProject.icon"/>
-        <Property name="text" type="java.lang.String" value="" noResource="true"/>
         <Property name="toolTipText" type="java.lang.String" resourceKey="aboutProject.toolTipText"/>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -269,7 +268,6 @@
           <ComponentRef name="buttonGroup"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" resourceKey="aboutTeam.icon"/>
-        <Property name="text" type="java.lang.String" value=""/>
         <Property name="toolTipText" type="java.lang.String" resourceKey="aboutTeam.toolTipText"/>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>

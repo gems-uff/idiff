@@ -10,7 +10,9 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class AboutILCS extends javax.swing.JFrame {
 
-    /** Creates new form AboutILCS */
+    /**
+     * Creates new form AboutILCS
+     */
     public AboutILCS() {
         initComponents();
         setlaf();
@@ -19,6 +21,9 @@ public class AboutILCS extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Set Look and Feel
+     */
     private void setlaf() {
         try {
             try {

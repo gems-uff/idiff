@@ -12,7 +12,9 @@ import org.jdesktop.application.Action;
  */
 public class MainDDiff extends javax.swing.JFrame {
 
-    /** Creates new form MainDDiff */
+    /**
+     *  Creates new form MainDDiff 
+     */
     public MainDDiff() {
         initComponents();
         setlaf();
@@ -20,6 +22,11 @@ public class MainDDiff extends javax.swing.JFrame {
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
     }
 
+    /**
+     * Show Diff
+     * @param file1
+     * @param file2 
+     */
     @Action
     public void showDDiff(File file1, File file2) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -31,6 +38,9 @@ public class MainDDiff extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Set Laf
+     */
     private void setlaf() {
         try {
             try {
@@ -43,6 +53,13 @@ public class MainDDiff extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
         } catch (UnsupportedLookAndFeelException ex) {
         }
+    }
+    /**
+     * Drill Down 
+     */
+    @Action
+    public void drillDown() {
+        System.out.println("DRILL DOWN...");
     }
 
     /** This method is called from within the constructor to
@@ -152,11 +169,6 @@ public class MainDDiff extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    @Action
-    public void drillDown() {
-        System.out.println("DRILL DOWN...");
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JPanel directoryPanel1;

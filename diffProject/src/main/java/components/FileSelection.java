@@ -12,13 +12,15 @@ import org.jdesktop.application.Action;
 
 /**
  *
- * @author Sisi
+ * @author Fernanda Floriano Silva
  */
 public class FileSelection extends javax.swing.JFrame {
 
     private JFileChooser fileChooser;
 
-    /** Creates new form FileSelection */
+    /**
+     * Creates new form FileSelection 
+     */
     public FileSelection() {
         initComponents();
         setlaf();
@@ -26,6 +28,9 @@ public class FileSelection extends javax.swing.JFrame {
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
     }
 
+    /**
+     * Set Look and Feel
+     */
     private void setlaf() {
         try {
             try {
@@ -39,8 +44,11 @@ public class FileSelection extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
         }
     }
-    
-        @Action
+
+    /**
+     * Show About Box
+     */
+    @Action
     public void showAboutProject() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -51,6 +59,9 @@ public class FileSelection extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Show About Team
+     */
     @Action
     public void showAboutTeam() {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -61,7 +72,6 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
     }
-
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -244,16 +254,26 @@ public class FileSelection extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Find Based Artifact
+     */
     @Action
     public void findBasedArtifact() {
         findFile(fileTextField);
     }
 
+    /**
+     * Find Compared Artifact
+     */
     @Action
     public void findComparedArtifact() {
         findFile(fileTextField2);
     }
 
+    /**
+     * Find File
+     * @param tField 
+     */
     private void findFile(JTextField tField) {
         translateFileChooser();
         setLocationRelativeTo(null);
@@ -273,6 +293,10 @@ public class FileSelection extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Load Files
+     * @throws DiffException 
+     */
     @Action
     public void loadFiles() throws DiffException {
         System.out.println("Load Files...");
@@ -289,7 +313,7 @@ public class FileSelection extends javax.swing.JFrame {
     }
 
     /**
-     * @param args the command line arguments
+     * Create and Show Gui
      */
     private static void createAndShowGUI() {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -300,10 +324,14 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
     }
-    
 
+    /**
+     * Main
+     * @param args 
+     */
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 createAndShowGUI();
@@ -311,12 +339,22 @@ public class FileSelection extends javax.swing.JFrame {
         });
     }
 
-
+    /**
+     * Show ILCS
+     * @param baseFile
+     * @param comparedFile
+     * @throws DiffException 
+     */
     private void showILCS(File baseFile, File comparedFile) throws DiffException {
         MainILCS ilcs = new MainILCS(baseFile, comparedFile);
         ilcs.setVisible(true);
     }
 
+    /**
+     * Show Diff
+     * @param baseDirectory
+     * @param comparedDirectory 
+     */
     private void showDDiff(File baseDirectory, File comparedDirectory) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -327,11 +365,17 @@ public class FileSelection extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Close
+     */
     @Action
     public void close() {
         this.setVisible(false);
     }
 
+    /**
+     * Translate File Chooser
+     */
     private void translateFileChooser() {
         UIManager.put("FileChooser.lookInLabelMnemonic", "L");
         UIManager.put("FileChooser.lookInLabelText", "Look in");

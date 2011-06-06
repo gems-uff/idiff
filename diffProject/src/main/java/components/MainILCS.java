@@ -55,11 +55,11 @@ public class MainILCS extends javax.swing.JFrame {
     private File basedFile;
     private File comparedFile;
     private IResultDiff result = new Result();
-    private javax.swing.tree.DefaultMutableTreeNode dn = new javax.swing.tree.DefaultMutableTreeNode("root");
-    private javax.swing.tree.DefaultTreeModel treeModel = new javax.swing.tree.DefaultTreeModel(dn);
     private static boolean DEBUG = false;
 
-    /** Creates new form MainILCS */
+    /**
+     * Creates new form MainILCS 
+     */
     public MainILCS(File basedFile, File comparedFile) throws DiffException {
         initComponents();
         setlaf();
@@ -68,6 +68,9 @@ public class MainILCS extends javax.swing.JFrame {
         setFiles(basedFile, comparedFile);
     }
 
+    /**
+     * Clean Model
+     */
     private void cleanModel() {
         if ((DefaultTableModel) tableDetails.getModel() != null) {
             deleteRows();
@@ -78,6 +81,9 @@ public class MainILCS extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Set Look and Feel
+     */
     private void setlaf() {
         try {
             try {
@@ -335,6 +341,12 @@ public class MainILCS extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Start Diff
+     * @param basedFile
+     * @param comparedFile
+     * @throws DiffException 
+     */
     private void startDiff(File basedFile, File comparedFile) throws DiffException {
         cleanModel();
         Grain grain = new FileGrain();
@@ -347,12 +359,19 @@ public class MainILCS extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Run Project
+     * @throws DiffException 
+     */
     @Action
     public void runProject() throws DiffException {
         System.out.println("Run Project Action Executed");
         startDiff(getBasedFile(), getComparedFile());
     }
 
+    /**
+     * File Selection
+     */
     @Action
     public void fileSelection() {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -364,6 +383,9 @@ public class MainILCS extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Show Diff
+     */
     @Action
     public void showDDiff() {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -375,6 +397,12 @@ public class MainILCS extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Print Lines
+     * @param list1
+     * @param list2
+     * @param diferences 
+     */
     private void printLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences) {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
@@ -401,6 +429,11 @@ public class MainILCS extends javax.swing.JFrame {
         tableDetails.setRowSelectionAllowed(true);
     }
 
+    /**
+     * Print Reference
+     * @param originalReference
+     * @return String
+     */
     private String printReference(List<Integer> originalReference) {
         char level = 'F';
         String stringResult = "";
@@ -412,6 +445,11 @@ public class MainILCS extends javax.swing.JFrame {
         return stringResult.substring(3);
     }
 
+    /**
+     * Get Name Grain Level
+     * @param levelGrain
+     * @return String
+     */
     private String getNameGrainLevel(char levelGrain) {
         switch (levelGrain) {
             case 'F':
@@ -427,6 +465,11 @@ public class MainILCS extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Get Grain Level
+     * @param levelGrain
+     * @return char
+     */
     private char getGrainLevel(char levelGrain) {
         switch (levelGrain) {
             case 'F':
@@ -440,27 +483,51 @@ public class MainILCS extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Set Files
+     * @param basedFile
+     * @param comparedFile 
+     */
     private void setFiles(File basedFile, File comparedFile) {
         setBasedFile(basedFile);
         setComparedFile(comparedFile);
     }
 
+    /**
+     * Get Based File
+     * @return File
+     */
     public File getBasedFile() {
         return basedFile;
     }
 
+    /**
+     * Set Based File
+     * @param basedFile 
+     */
     public void setBasedFile(File basedFile) {
         this.basedFile = basedFile;
     }
 
+    /**
+     * Get Compared File
+     * @return File
+     */
     public File getComparedFile() {
         return comparedFile;
     }
 
+    /**
+     * Set Compared File
+     * @param comparedFile 
+     */
     public void setComparedFile(File comparedFile) {
         this.comparedFile = comparedFile;
     }
 
+    /**
+     * Delete Rows
+     */
     private void deleteRows() {
         int rowCount = ((DefaultTableModel) tableDetails.getModel()).getRowCount();
         for (int i = 0; i < rowCount; i++) {
@@ -468,16 +535,24 @@ public class MainILCS extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Create Nodes
+     * @param treePath
+     * @param dirTree 
+     */
     private void createNodes(String treePath, JTree dirTree) {
         String path[] = treePath.split("\\\\");
         DefaultMutableTreeNode root = addChildNodes(path);
         dirTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         dirTree.setModel(new DefaultTreeModel(root));
         expandAll(dirTree);
-        //Enable tool tips.
         ToolTipManager.sharedInstance().registerComponent(dirTree);
     }
 
+    /**
+     * Expand All
+     * @param tree 
+     */
     public void expandAll(JTree tree) {
         int row = 0;
         while (row < tree.getRowCount()) {
@@ -486,6 +561,11 @@ public class MainILCS extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Add Child Nodes
+     * @param path
+     * @return DefaultMutableTreeNode
+     */
     private DefaultMutableTreeNode addChildNodes(String path[]) {
         DefaultMutableTreeNode child = new DefaultMutableTreeNode(path[path.length - 1]);
         for (int i = path.length - 1; i > 0; i--) {
@@ -494,20 +574,41 @@ public class MainILCS extends javax.swing.JFrame {
         return child;
     }
 
+    /**
+     * Add Child
+     * @param parent
+     * @param child
+     * @return DefaultMutableTreeNode
+     */
     private DefaultMutableTreeNode addChild(DefaultMutableTreeNode parent, DefaultMutableTreeNode child) {
         parent.add(child);
         return parent;
     }
 
+    /**
+     * Load Tree Files
+     * @param basedFile
+     * @param comparedFile 
+     */
     private void loadTreeFiles(File basedFile, File comparedFile) {
         createNodes(basedFile.getAbsolutePath(), dirTree1);
         createNodes(comparedFile.getAbsolutePath(), dirTree2);
     }
 
+    /**
+     * Show Files
+     * @param basedFile
+     * @param comparedFile 
+     */
     private void showFiles(File basedFile, File comparedFile) {
         //Create the HTML viewing pane.
     }
 
+    /**
+     * Display URL
+     * @param url
+     * @param editorPane 
+     */
     private void displayURL(URL url, JEditorPane editorPane) {
         try {
             if (url != null) {
