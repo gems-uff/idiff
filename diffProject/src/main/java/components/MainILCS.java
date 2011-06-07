@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -62,12 +61,13 @@ public class MainILCS extends javax.swing.JFrame {
     /**
      * Creates new form MainILCS 
      */
-    public MainILCS(File basedFile, File comparedFile) throws DiffException {
+    public MainILCS(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
         initComponents();
         setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
         setFiles(basedFile, comparedFile);
+        showFiles(basedFile, comparedFile);
     }
 
     /**
@@ -312,6 +312,7 @@ public class MainILCS extends javax.swing.JFrame {
         ));
         tableDetails.setToolTipText(bundle.getString("MainILCS.tableDetails.toolTipText")); // NOI18N
         tableDetails.setColumnSelectionAllowed(true);
+        tableDetails.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tableDetails);
         tableDetails.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableDetails.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("MainILCS.tableDetails.columnModel.title1")); // NOI18N
@@ -358,7 +359,6 @@ public class MainILCS extends javax.swing.JFrame {
         result = diff.compare(grain);
         printLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences());
         result.cleanResult();
-
     }
 
     /**
@@ -603,10 +603,11 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile 
      */
     private void showFiles(File basedFile, File comparedFile) throws FileNotFoundException, IOException {
-        submitFile(baseFileEditorPane, basedFile, "#EDF5F5");
-        submitFile(comparedFileEditorPane, comparedFile, "#EDF5F5");
+        submitFile(baseFileEditorPane, basedFile, "#FFFFFF");
+        submitFile(comparedFileEditorPane, comparedFile, "#FFFFFF");
     }
-     /**
+
+    /**
      * Submit File
      * @param editorPane
      * @param file
@@ -634,6 +635,11 @@ public class MainILCS extends javax.swing.JFrame {
         reader.close();
         sb.delete(0, sb.length());
         reader.close();
+    }
+    
+    private String getSelectRow(){
+        String teste = (String) tableDetails.getValueAt(tableDetails.getSelectedRow(), tableDetails.getSelectedColumn());
+        return teste;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;

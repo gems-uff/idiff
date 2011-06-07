@@ -3,6 +3,8 @@ package components;
 import algorithms.DiffException;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
@@ -298,7 +300,7 @@ public class FileSelection extends javax.swing.JFrame {
      * @throws DiffException 
      */
     @Action
-    public void loadFiles() throws DiffException {
+    public void loadFiles() throws DiffException, FileNotFoundException, IOException {
         System.out.println("Load Files...");
         File artifact1 = new File(fileTextField.getText());
         File artifact2 = new File(fileTextField2.getText());
@@ -345,7 +347,7 @@ public class FileSelection extends javax.swing.JFrame {
      * @param comparedFile
      * @throws DiffException 
      */
-    private void showILCS(File baseFile, File comparedFile) throws DiffException {
+    private void showILCS(File baseFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
         MainILCS ilcs = new MainILCS(baseFile, comparedFile);
         ilcs.setVisible(true);
     }
