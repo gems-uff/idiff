@@ -33,7 +33,6 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -57,6 +56,7 @@ public class MainILCS extends javax.swing.JFrame {
     private File basedFile;
     private File comparedFile;
     private IResultDiff result = new Result();
+    private Object bundle;
 
     /**
      * Creates new form MainILCS 
@@ -257,6 +257,7 @@ public class MainILCS extends javax.swing.JFrame {
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("root");
         dirTree1.setModel(new DefaultTreeModel(treeNode1));
         dirTree1.setAutoscrolls(true);
+        dirTree1.setDragEnabled(true);
         dirScrollPane1.setViewportView(dirTree1);
 
         splitPaneLeft.setTopComponent(dirScrollPane1);
@@ -542,13 +543,15 @@ public class MainILCS extends javax.swing.JFrame {
      * @param treePath
      * @param dirTree 
      */
-    private void createNodes(String treePath, JTree dirTree) {
+    private void createNodes(String treePath, JTree dirTree, JScrollPane scrollPane,String name) {
         String path[] = treePath.split("\\\\");
         DefaultMutableTreeNode root = addChildNodes(path);
         dirTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         dirTree.setModel(new DefaultTreeModel(root));
         expandAll(dirTree);
-        ToolTipManager.sharedInstance().registerComponent(dirTree);
+        // Select compared file
+        dirTree.setSelectionRow(path.length - 1);
+        scrollPane.setBorder(BorderFactory.createTitledBorder(name + "(" + path[path.length - 1] + ")")); 
     }
 
     /**
@@ -593,8 +596,8 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile 
      */
     private void loadTreeFiles(File basedFile, File comparedFile) {
-        createNodes(basedFile.getAbsolutePath(), dirTree1);
-        createNodes(comparedFile.getAbsolutePath(), dirTree2);
+        createNodes(basedFile.getAbsolutePath(), dirTree1,baseFileScrollPane,"Based File ");
+        createNodes(comparedFile.getAbsolutePath(), dirTree2,comparedFileScrollPane,"Compared File ");
     }
 
     /**
@@ -635,11 +638,6 @@ public class MainILCS extends javax.swing.JFrame {
         reader.close();
         sb.delete(0, sb.length());
         reader.close();
-    }
-    
-    private String getSelectRow(){
-        String teste = (String) tableDetails.getValueAt(tableDetails.getSelectedRow(), tableDetails.getSelectedColumn());
-        return teste;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;

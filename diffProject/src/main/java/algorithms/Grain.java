@@ -161,15 +161,12 @@ public class Grain {
         LCSBean[][] arrayLcs = null;
         switch (levelGrain) {
             case LINE:
-                System.out.println("...Start Algorithm LCS with Line Grain...");
                 new LineGrain().startLineGranularity(fileVersionOne, fileVersionTwo);
                 break;
             case WORD:
-                System.out.println("...Start Algorithm LCS with Word Grain...");
                 new WordGrain().startWordGranularity(result.getFileVersionOne(), result.getFileVersionTwo());
                 break;
             case CHARACTER:
-                System.out.println("...Start Algorithm LCS with Character Grain...");
                 new CharacterGrain().startCharacterGranularity(result.getFileVersionOne(), result.getFileVersionTwo());
                 break;
             default:

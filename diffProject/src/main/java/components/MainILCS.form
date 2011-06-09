@@ -316,6 +316,7 @@
                           <TreeModel code=""/>
                         </Property>
                         <Property name="autoscrolls" type="boolean" value="true"/>
+                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
