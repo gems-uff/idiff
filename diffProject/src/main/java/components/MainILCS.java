@@ -37,6 +37,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -359,6 +361,7 @@ public class MainILCS extends javax.swing.JFrame {
         Diff diff = new Diff(basedFile, comparedFile);
         result = diff.compare(grain);
         printLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences());
+        tableListener();
         result.cleanResult();
     }
 
@@ -430,6 +433,21 @@ public class MainILCS extends javax.swing.JFrame {
         }
         tableDetails.setCellSelectionEnabled(false);
         tableDetails.setRowSelectionAllowed(true);
+    }
+//TODO Verificar porque imprime duas vezes
+    private void tableListener() {
+        
+        tableDetails.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 0));
+                System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 1));
+                System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 2));
+                System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 3));
+
+            }
+        });
     }
 
     /**
@@ -543,7 +561,7 @@ public class MainILCS extends javax.swing.JFrame {
      * @param treePath
      * @param dirTree 
      */
-    private void createNodes(String treePath, JTree dirTree, JScrollPane scrollPane,String name) {
+    private void createNodes(String treePath, JTree dirTree, JScrollPane scrollPane, String name) {
         String path[] = treePath.split("\\\\");
         DefaultMutableTreeNode root = addChildNodes(path);
         dirTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -551,7 +569,7 @@ public class MainILCS extends javax.swing.JFrame {
         expandAll(dirTree);
         // Select compared file
         dirTree.setSelectionRow(path.length - 1);
-        scrollPane.setBorder(BorderFactory.createTitledBorder(name + "(" + path[path.length - 1] + ")")); 
+        scrollPane.setBorder(BorderFactory.createTitledBorder(name + "(" + path[path.length - 1] + ")"));
     }
 
     /**
@@ -596,8 +614,8 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile 
      */
     private void loadTreeFiles(File basedFile, File comparedFile) {
-        createNodes(basedFile.getAbsolutePath(), dirTree1,baseFileScrollPane,"Based File ");
-        createNodes(comparedFile.getAbsolutePath(), dirTree2,comparedFileScrollPane,"Compared File ");
+        createNodes(basedFile.getAbsolutePath(), dirTree1, baseFileScrollPane, "Based File ");
+        createNodes(comparedFile.getAbsolutePath(), dirTree2, comparedFileScrollPane, "Compared File ");
     }
 
     /**
