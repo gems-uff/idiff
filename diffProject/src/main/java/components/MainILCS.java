@@ -373,7 +373,7 @@ public class MainILCS extends javax.swing.JFrame {
     @Action
     public void runProject() throws DiffException, FileNotFoundException, IOException {
         System.out.println("Run Project Action Executed");
-        startDiff(getBasedFile(), getComparedFile());
+        startDiff(ilcsBean.getBasedFile(), ilcsBean.getComparedFile());
     }
 
     /**
@@ -415,45 +415,14 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     /**
-     * Get Based File
-     * @return File
-     */
-    public File getBasedFile() {
-        return basedFile;
-    }
-
-    /**
-     * Set Based File
-     * @param basedFile 
-     */
-    public void setBasedFile(File basedFile) {
-        this.basedFile = basedFile;
-    }
-
-    /**
-     * Get Compared File
-     * @return File
-     */
-    public File getComparedFile() {
-        return comparedFile;
-    }
-
-    /**
-     * Set Compared File
-     * @param comparedFile 
-     */
-    public void setComparedFile(File comparedFile) {
-        this.comparedFile = comparedFile;
-    }
-
-    /**
      * Set Files
      * @param basedFile
      * @param comparedFile 
      */
     private void setFiles(File basedFile, File comparedFile) {
-        setBasedFile(basedFile);
-        setComparedFile(comparedFile);
+        ilcsBean = new ILCSBean(basedFile, comparedFile);
+        ilcsBean.setBasedFile(basedFile);
+        ilcsBean.setComparedFile(comparedFile);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;
@@ -487,8 +456,7 @@ public class MainILCS extends javax.swing.JFrame {
     private JToolBar toolBar;
     private JButton yesButton;
     // End of variables declaration//GEN-END:variables
-    private File basedFile;
-    private File comparedFile;
+    private ILCSBean ilcsBean;
     private IResultDiff result = new Result();
     private FileComponent fileComponent = new FileComponent();
     private TableComponent tableComponent = new TableComponent();
