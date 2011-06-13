@@ -8,17 +8,14 @@ import algorithms.IResultDiff;
 import algorithms.Result;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -37,12 +34,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
@@ -55,34 +49,37 @@ import org.jdesktop.layout.LayoutStyle;
  */
 public class MainILCS extends javax.swing.JFrame {
 
-    private File basedFile;
-    private File comparedFile;
-    private IResultDiff result = new Result();
-    private Object bundle;
-
     /**
      * Creates new form MainILCS 
+     * @param basedFile
+     * @param comparedFile
+     * @throws DiffException
+     * @throws FileNotFoundException
+     * @throws IOException 
      */
     public MainILCS(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
         initComponents();
-        setlaf();
-        setLocationRelativeTo(null);
-        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+        init();
         setFiles(basedFile, comparedFile);
-        showFiles(basedFile, comparedFile);
+        fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
+        setEditorDropTarget();
     }
 
     /**
-     * Clean Model
+     * Init 
      */
-    private void cleanModel() {
-        if ((DefaultTableModel) tableDetails.getModel() != null) {
-            deleteRows();
-        }
-        ((DefaultTableModel) tableDetails.getModel()).removeTableModelListener(tableDetails);
-        tableDetails.revalidate();
-        tableDetails.repaint();
+    private void init() {
+        setlaf();
+        setLocationRelativeTo(null);
+        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+    }
 
+    /**
+     * Set Editor Drop Target
+     */
+    private void setEditorDropTarget() {
+        new EditorDropTarget(baseFileEditorPane);
+        new EditorDropTarget(comparedFileEditorPane);
     }
 
     /**
@@ -270,6 +267,7 @@ public class MainILCS extends javax.swing.JFrame {
         treeNode1 = new DefaultMutableTreeNode("root");
         dirTree2.setModel(new DefaultTreeModel(treeNode1));
         dirTree2.setAutoscrolls(true);
+        dirTree2.setDragEnabled(true);
         dirScrollPane2.setViewportView(dirTree2);
 
         splitPaneLeft.setRightComponent(dirScrollPane2);
@@ -284,6 +282,7 @@ public class MainILCS extends javax.swing.JFrame {
 
         baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         baseFileEditorPane.setAutoscrolls(true);
+        baseFileEditorPane.setDropMode(DropMode.INSERT);
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
         splitPaneRight.setLeftComponent(baseFileScrollPane);
@@ -354,20 +353,22 @@ public class MainILCS extends javax.swing.JFrame {
      * @throws DiffException 
      */
     private void startDiff(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
-        cleanModel();
+        tableComponent.cleanTabelModel(tableDetails);
         Grain grain = new FileGrain();
         loadTreeFiles(basedFile, comparedFile);
-        showFiles(basedFile, comparedFile);
+        fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
         Diff diff = new Diff(basedFile, comparedFile);
         result = diff.compare(grain);
-        printLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences());
-        tableListener();
+        tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails);
+        tableComponent.tableListener(tableDetails);
         result.cleanResult();
     }
 
     /**
      * Run Project
-     * @throws DiffException 
+     * @throws DiffException
+     * @throws FileNotFoundException
+     * @throws IOException 
      */
     @Action
     public void runProject() throws DiffException, FileNotFoundException, IOException {
@@ -404,114 +405,13 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     /**
-     * Print Lines
-     * @param list1
-     * @param list2
-     * @param diferences 
-     */
-    private void printLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences) {
-        Iterator<Grain> it1 = list1.iterator();
-        Iterator<Grain> it2 = list2.iterator();
-        while (it1.hasNext() || it2.hasNext()) {
-            Grain grain1 = it1.next();
-            Grain grain2 = it2.next();
-
-            if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
-                ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printReference(grain1.getOriginalReference()), printReference(grain2.getOriginalReference())});
-            }
-        }
-
-        for (Iterator<Grain> it3 = diferences.iterator(); it3.hasNext();) {
-            Grain grain = it3.next();
-            if (grain != null) {
-                if ((grain.getSituation()).equals(Grain.Situation.REMOVED)) {
-                    ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printReference(grain.getOriginalReference()), "---"});
-                } else {
-                    ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), "---", printReference(grain.getOriginalReference())});
-                }
-            }
-        }
-        tableDetails.setCellSelectionEnabled(false);
-        tableDetails.setRowSelectionAllowed(true);
-    }
-//TODO Verificar porque imprime duas vezes
-    private void tableListener() {
-        
-        tableDetails.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 0));
-                System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 1));
-                System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 2));
-                System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 3));
-
-            }
-        });
-    }
-
-    /**
-     * Print Reference
-     * @param originalReference
-     * @return String
-     */
-    private String printReference(List<Integer> originalReference) {
-        char level = 'F';
-        String stringResult = "";
-        for (Iterator<Integer> it = originalReference.iterator(); it.hasNext();) {
-            int id = it.next();
-            level = getGrainLevel(level);
-            stringResult = stringResult + " - " + getNameGrainLevel(level) + " " + id;
-        }
-        return stringResult.substring(3);
-    }
-
-    /**
-     * Get Name Grain Level
-     * @param levelGrain
-     * @return String
-     */
-    private String getNameGrainLevel(char levelGrain) {
-        switch (levelGrain) {
-            case 'F':
-                return "File";
-            case 'L':
-                return "Line";
-            case 'W':
-                return "Word";
-            case 'C':
-                return "Character";
-            default:
-                return "File";
-        }
-    }
-
-    /**
-     * Get Grain Level
-     * @param levelGrain
-     * @return char
-     */
-    private char getGrainLevel(char levelGrain) {
-        switch (levelGrain) {
-            case 'F':
-                return 'L';
-            case 'L':
-                return 'W';
-            case 'W':
-                return 'C';
-            default:
-                return 'F';
-        }
-    }
-
-    /**
-     * Set Files
+     * Load Tree Files
      * @param basedFile
      * @param comparedFile 
      */
-    private void setFiles(File basedFile, File comparedFile) {
-        setBasedFile(basedFile);
-        setComparedFile(comparedFile);
+    private void loadTreeFiles(File basedFile, File comparedFile) {
+        treeComponent.createTreeNodes(basedFile.getAbsolutePath(), dirTree1, baseFileScrollPane, "Based File ");
+        treeComponent.createTreeNodes(comparedFile.getAbsolutePath(), dirTree2, comparedFileScrollPane, "Compared File ");
     }
 
     /**
@@ -547,115 +447,13 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     /**
-     * Delete Rows
-     */
-    private void deleteRows() {
-        int rowCount = ((DefaultTableModel) tableDetails.getModel()).getRowCount();
-        for (int i = 0; i < rowCount; i++) {
-            ((DefaultTableModel) tableDetails.getModel()).removeRow(0);
-        }
-    }
-
-    /**
-     * Create Nodes
-     * @param treePath
-     * @param dirTree 
-     */
-    private void createNodes(String treePath, JTree dirTree, JScrollPane scrollPane, String name) {
-        String path[] = treePath.split("\\\\");
-        DefaultMutableTreeNode root = addChildNodes(path);
-        dirTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-        dirTree.setModel(new DefaultTreeModel(root));
-        expandAll(dirTree);
-        // Select compared file
-        dirTree.setSelectionRow(path.length - 1);
-        scrollPane.setBorder(BorderFactory.createTitledBorder(name + "(" + path[path.length - 1] + ")"));
-    }
-
-    /**
-     * Expand All
-     * @param tree 
-     */
-    public void expandAll(JTree tree) {
-        int row = 0;
-        while (row < tree.getRowCount()) {
-            tree.expandRow(row);
-            row++;
-        }
-    }
-
-    /**
-     * Add Child Nodes
-     * @param path
-     * @return DefaultMutableTreeNode
-     */
-    private DefaultMutableTreeNode addChildNodes(String path[]) {
-        DefaultMutableTreeNode child = new DefaultMutableTreeNode(path[path.length - 1]);
-        for (int i = path.length - 1; i > 0; i--) {
-            child = addChild(new DefaultMutableTreeNode(path[i - 1]), child);
-        }
-        return child;
-    }
-
-    /**
-     * Add Child
-     * @param parent
-     * @param child
-     * @return DefaultMutableTreeNode
-     */
-    private DefaultMutableTreeNode addChild(DefaultMutableTreeNode parent, DefaultMutableTreeNode child) {
-        parent.add(child);
-        return parent;
-    }
-
-    /**
-     * Load Tree Files
+     * Set Files
      * @param basedFile
      * @param comparedFile 
      */
-    private void loadTreeFiles(File basedFile, File comparedFile) {
-        createNodes(basedFile.getAbsolutePath(), dirTree1, baseFileScrollPane, "Based File ");
-        createNodes(comparedFile.getAbsolutePath(), dirTree2, comparedFileScrollPane, "Compared File ");
-    }
-
-    /**
-     * Show Files
-     * @param basedFile
-     * @param comparedFile 
-     */
-    private void showFiles(File basedFile, File comparedFile) throws FileNotFoundException, IOException {
-        submitFile(baseFileEditorPane, basedFile, "#FFFFFF");
-        submitFile(comparedFileEditorPane, comparedFile, "#FFFFFF");
-    }
-
-    /**
-     * Submit File
-     * @param editorPane
-     * @param file
-     * @param colorName
-     * @throws FileNotFoundException
-     * @throws IOException 
-     */
-    public void submitFile(JEditorPane editorPane, File file, String colorName) throws FileNotFoundException, IOException {
-        String line;
-        StringBuilder sb;
-        BufferedReader reader;
-
-        editorPane.setText(null);
-        reader = new BufferedReader(new FileReader(file));
-        sb = new StringBuilder();
-
-        editorPane.setContentType("text/html");
-        editorPane.setEditable(false);
-
-        for (int i = 0; (line = reader.readLine()) != null; i++) {
-            sb.append("<span style='background-color:").append(colorName).append("'>").append(line).append("</span><br>");
-        }
-
-        editorPane.setText(sb.toString());
-        reader.close();
-        sb.delete(0, sb.length());
-        reader.close();
+    private void setFiles(File basedFile, File comparedFile) {
+        setBasedFile(basedFile);
+        setComparedFile(comparedFile);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;
@@ -689,4 +487,10 @@ public class MainILCS extends javax.swing.JFrame {
     private JToolBar toolBar;
     private JButton yesButton;
     // End of variables declaration//GEN-END:variables
+    private File basedFile;
+    private File comparedFile;
+    private IResultDiff result = new Result();
+    private FileComponent fileComponent = new FileComponent();
+    private TableComponent tableComponent = new TableComponent();
+    private TreeComponent treeComponent = new TreeComponent();
 }

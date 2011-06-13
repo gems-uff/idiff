@@ -297,7 +297,9 @@ public class FileSelection extends javax.swing.JFrame {
 
     /**
      * Load Files
-     * @throws DiffException 
+     * @throws DiffException
+     * @throws FileNotFoundException
+     * @throws IOException 
      */
     @Action
     public void loadFiles() throws DiffException, FileNotFoundException, IOException {
@@ -345,7 +347,9 @@ public class FileSelection extends javax.swing.JFrame {
      * Show ILCS
      * @param baseFile
      * @param comparedFile
-     * @throws DiffException 
+     * @throws DiffException
+     * @throws FileNotFoundException
+     * @throws IOException 
      */
     private void showILCS(File baseFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
         MainILCS ilcs = new MainILCS(baseFile, comparedFile);
