@@ -13,7 +13,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Action;
 
 /**
- *
+ * FileSelection
  * @author Fernanda Floriano Silva
  */
 public class FileSelection extends javax.swing.JFrame {

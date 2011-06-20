@@ -7,7 +7,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Action;
 
 /**
- *
+ * MainDDiff
  * @author Fernanda Floriano Silva
  */
 public class MainDDiff extends javax.swing.JFrame {

@@ -399,9 +399,6 @@
                           </Border>
                         </Property>
                         <Property name="autoscrolls" type="boolean" value="true"/>
-                        <Property name="dropMode" type="javax.swing.DropMode" editor="org.netbeans.modules.form.editors.EnumEditor">
-                          <Value id="INSERT"/>
-                        </Property>
                       </Properties>
                     </Component>
                   </SubComponents>

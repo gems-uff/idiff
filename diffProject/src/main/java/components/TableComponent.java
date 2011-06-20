@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package components;
 
 import algorithms.Grain;
@@ -13,7 +9,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * TableComponent
  * @author Fernanda Floriano Silva
  */
 public class TableComponent {

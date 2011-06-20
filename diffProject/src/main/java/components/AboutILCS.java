@@ -5,7 +5,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
+ * AboutILCS
  * @author Fernanda Floriano Silva
  */
 public class AboutILCS extends javax.swing.JFrame {

@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -44,7 +43,7 @@ import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 
 /**
- *
+ * MainILCS
  * @author Fernanda Floriano Silva
  */
 public class MainILCS extends javax.swing.JFrame {
@@ -78,8 +77,9 @@ public class MainILCS extends javax.swing.JFrame {
      * Set Editor Drop Target
      */
     private void setEditorDropTarget() {
-        new EditorDropTarget(baseFileEditorPane);
-        new EditorDropTarget(comparedFileEditorPane);
+        // Add a drop target to the JEditorPane
+        new EditorDropTarget(baseFileEditorPane, dirTree1);
+        new EditorDropTarget(comparedFileEditorPane, dirTree2);
     }
 
     /**
@@ -282,7 +282,6 @@ public class MainILCS extends javax.swing.JFrame {
 
         baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         baseFileEditorPane.setAutoscrolls(true);
-        baseFileEditorPane.setDropMode(DropMode.INSERT);
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
         splitPaneRight.setLeftComponent(baseFileScrollPane);

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package components;
 
 import javax.swing.BorderFactory;
@@ -12,7 +8,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 /**
- *
+ * TreeComponent
  * @author Fernanda Floriano Silva
  */
 public class TreeComponent {

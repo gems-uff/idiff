@@ -1,18 +1,10 @@
 package components;
 
-/**
- *
- * @author Fernanda Floriano Silva
- */
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DragSource;
-import java.awt.dnd.DragSourceDragEvent;
-import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
@@ -27,25 +19,28 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-
 import javax.swing.JEditorPane;
+import javax.swing.JTree;
 
+/**
+ *
+ * @author Fernanda Floriano Silva
+ */
 public class EditorDropTarget implements DropTargetListener, PropertyChangeListener {
-
-    private final JEditorPane pane;
-
-    public EditorDropTarget(JEditorPane pane) {
+    
+    EditorDropTarget(JEditorPane pane, JTree tree) {
         this.pane = pane;
+        this.tree = tree;
+
         // Listen for changes in the enabled property
         pane.addPropertyChangeListener(this);
 
         // Save the JEditorPane's background color
-        backgroundColor = pane.getBackground();
+        //backgroundColor = pane.getBackground();
 
-        // Create the DropTarget and register
+        // Create the EditorDropTarget and register
         // it with the JEditorPane.
-        dropTarget = new DropTarget(pane, DnDConstants.ACTION_COPY_OR_MOVE,
-                this, pane.isEnabled(), null);
+        dropTarget = new DropTarget(pane, DnDConstants.ACTION_COPY_OR_MOVE, this, pane.isEnabled(), null);
     }
 
     // Implementation of the DropTargetListener interface
@@ -64,7 +59,7 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
         // Do drag-under feedback
         dragUnderFeedback(dtde, acceptedDrag);
     }
-
+    
     @Override
     public void dragExit(DropTargetEvent dte) {
         DnDUtils.debugPrintln("DropTarget dragExit");
@@ -72,7 +67,7 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
         // Do drag-under feedback
         dragUnderFeedback(null, false);
     }
-
+    
     @Override
     public void dragOver(DropTargetDragEvent dtde) {
         DnDUtils.debugPrintln("DropTarget dragOver, drop action = "
@@ -84,7 +79,7 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
         // Do drag-under feedback
         dragUnderFeedback(dtde, acceptedDrag);
     }
-
+    
     @Override
     public void dropActionChanged(DropTargetDragEvent dtde) {
         DnDUtils.debugPrintln("DropTarget dropActionChanged, drop action = "
@@ -96,7 +91,7 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
         // Do drag-under feedback
         dragUnderFeedback(dtde, acceptedDrag);
     }
-
+    
     @Override
     public void drop(DropTargetDropEvent dtde) {
         DnDUtils.debugPrintln("DropTarget drop, drop action = "
@@ -107,16 +102,16 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
             // Accept the drop and get the transfer data
             dtde.acceptDrop(dtde.getDropAction());
             Transferable transferable = dtde.getTransferable();
-
+            
             try {
                 boolean result = false;
-
+                
                 if (draggingFile) {
                     result = dropFile(transferable);
                 } else {
                     result = dropContent(transferable, dtde);
                 }
-
+                
                 dtde.dropComplete(result);
                 DnDUtils.debugPrintln("Drop completed, success: " + result);
             } catch (Exception e) {
@@ -137,9 +132,9 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
             // Enable the drop target if the JEditorPane is enabled
             // and vice versa.
             dropTarget.setActive(pane.isEnabled());
-        } else if (!changingBackground && propertyName.equals("background")) {
-            backgroundColor = pane.getBackground();
-        }
+        }// else if (!changingBackground && propertyName.equals("background")) {
+        //  backgroundColor = pane.getBackground();
+        //}
     }
 
     // Internal methods start here
@@ -147,7 +142,7 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
         int dropAction = dtde.getDropAction();
         int sourceActions = dtde.getSourceActions();
         boolean acceptedDrag = false;
-
+        
         DnDUtils.debugPrintln("\tSource actions are "
                 + DnDUtils.showActions(sourceActions) + ", drop action is "
                 + DnDUtils.showActions(dropAction));
@@ -164,6 +159,7 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
             dtde.rejectDrag();
         } else if ((dropAction & DnDConstants.ACTION_COPY_OR_MOVE) == 0) {
             // Not offering copy or move - suggest a copy
+            //TODO VER AQUI
             DnDUtils.debugPrintln("Drop target offering COPY");
             dtde.acceptDrag(DnDConstants.ACTION_COPY);
             acceptedDrag = true;
@@ -173,45 +169,48 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
             dtde.acceptDrag(dropAction);
             acceptedDrag = true;
         }
-
+        
         return acceptedDrag;
     }
-
+    
     protected void dragUnderFeedback(DropTargetDragEvent dtde,
             boolean acceptedDrag) {
-        if (draggingFile) {
-            // When dragging a file, change the background color
-            Color newColor = (dtde != null && acceptedDrag ? feedbackColor
-                    : backgroundColor);
-            if (newColor.equals(pane.getBackground()) == false) {
-                changingBackground = true;
-                pane.setBackground(newColor);
-                changingBackground = false;
-                pane.repaint();
-            }
+        // if (draggingFile) {
+        // When dragging a file, change the background color
+        //   Color newColor = (dtde != null && acceptedDrag ? feedbackColor
+        //         : backgroundColor);
+        // if (newColor.equals(pane.getBackground()) == false) {
+        // changingBackground = true;
+        //   pane.setBackground(newColor);
+        //  changingBackground = false;
+        // pane.repaint();
+        //}
+        //} else {
+        if (dtde != null && acceptedDrag) {
+            // Dragging text - move the insertion cursor
+            Point location = dtde.getLocation();
+            pane.getCaret().setVisible(true);
+            pane.setCaretPosition(pane.viewToModel(location));
         } else {
-            if (dtde != null && acceptedDrag) {
-                // Dragging text - move the insertion cursor
-                Point location = dtde.getLocation();
-                pane.getCaret().setVisible(true);
-                pane.setCaretPosition(pane.viewToModel(location));
-            } else {
-                pane.getCaret().setVisible(false);
-            }
+            pane.getCaret().setVisible(false);
         }
     }
-
+    
     protected void checkTransferType(DropTargetDragEvent dtde) {
         // Accept a list of files, or data content that
         // amounts to plain text or a Unicode text string
         acceptableType = false;
         draggingFile = false;
-        if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+        if ((dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) || (dtde.isDataFlavorSupported(DataFlavor.stringFlavor))) {
             acceptableType = true;
             draggingFile = true;
-        } else if (dtde.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-            acceptableType = true;
         }
+//        }// else if (dtde.isDataFlavorSupported(DataFlavor.plainTextFlavor)
+        //    || dtde.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+        //acceptableType = true;
+        //      else if (dtde.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+        //         acceptableType = true;
+        //   }
         DnDUtils.debugPrintln("File type acceptable - " + acceptableType);
         DnDUtils.debugPrintln("Dragging a file - " + draggingFile);
     }
@@ -221,24 +220,14 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
             UnsupportedFlavorException, MalformedURLException {
         List fileList = (List) transferable.getTransferData(DataFlavor.javaFileListFlavor);
         File transferFile = (File) fileList.get(0);
-        final URL transferURL = transferFile.toURL();
+        //   final URL transferURL = transferFile.toURL();
+        final URL transferURL = transferFile.toURI().toURL();
+        
         DnDUtils.debugPrintln("File URL is " + transferURL);
-
+        
         pane.setPage(transferURL);
-
+        
         return true;
-    }
-
-    public void dragEnter(DragSourceDragEvent dsde) {
-        pane.setCursor(DragSource.DefaultMoveDrop);
-    }
-
-    public void dragExit(DragSourceEvent dse) {
-        pane.setCursor(DragSource.DefaultMoveNoDrop);
-    }
-
-    public void dragOver(DragSourceDragEvent dsde) {
-        pane.setCursor(DragSource.DefaultMoveDrop);
     }
 
     // This method handles a drop with data content
@@ -248,11 +237,10 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
             // Can't drop content on a read-only text control
             return false;
         }
-
         try {
             // Check for a match with the current content type
             DataFlavor[] flavors = dtde.getCurrentDataFlavors();
-
+            
             DataFlavor selectedFlavor = null;
 
             // Look for either plain text or a String.
@@ -260,26 +248,29 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
                 DataFlavor flavor = flavors[i];
                 DnDUtils.debugPrintln("Drop MIME type " + flavor.getMimeType()
                         + " is available");
+                //if (flavor.equals(DataFlavor.plainTextFlavor)
+                //      || flavor.equals(DataFlavor.stringFlavor)) {
+//                if (flavor.equals(flavor.equals(DataFlavor.stringFlavor))) {
                 if (flavor.equals(DataFlavor.stringFlavor)) {
                     selectedFlavor = flavor;
                     break;
                 }
             }
-
+            
             if (selectedFlavor == null) {
                 // No compatible flavor - should never happen
                 return false;
             }
-
+            
             DnDUtils.debugPrintln("Selected flavor is "
                     + selectedFlavor.getHumanPresentableName());
 
             // Get the transferable and then obtain the data
             Object data = transferable.getTransferData(selectedFlavor);
-
+            
             DnDUtils.debugPrintln("Transfer data type is "
                     + data.getClass().getName());
-
+            
             String insertData = null;
             if (data instanceof InputStream) {
                 // Plain text flavor
@@ -297,7 +288,7 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
                 // String flavor
                 insertData = (String) data;
             }
-
+            
             if (insertData != null) {
                 int selectionStart = pane.getCaretPosition();
                 pane.replaceSelection(insertData);
@@ -310,45 +301,12 @@ public class EditorDropTarget implements DropTargetListener, PropertyChangeListe
             return false;
         }
     }
+    protected JEditorPane pane;
+    protected JTree tree;
     protected DropTarget dropTarget;
     protected boolean acceptableType; // Indicates whether data is acceptable
     protected boolean draggingFile; // True if dragging an entire file
-    protected Color backgroundColor; // Original background color of JEditorPane
-    protected boolean changingBackground;
-    protected static final Color feedbackColor = Color.gray;
-}
-
-class DnDUtils {
-
-    public static String showActions(int action) {
-        String actions = "";
-        if ((action & (DnDConstants.ACTION_LINK | DnDConstants.ACTION_COPY_OR_MOVE)) == 0) {
-            return "None";
-        }
-
-        if ((action & DnDConstants.ACTION_COPY) != 0) {
-            actions += "Copy ";
-        }
-
-        if ((action & DnDConstants.ACTION_MOVE) != 0) {
-            actions += "Move ";
-        }
-
-        if ((action & DnDConstants.ACTION_LINK) != 0) {
-            actions += "Link";
-        }
-
-        return actions;
-    }
-
-    public static boolean isDebugEnabled() {
-        return debugEnabled;
-    }
-
-    public static void debugPrintln(String s) {
-        if (debugEnabled) {
-            System.out.println(s);
-        }
-    }
-    private static boolean debugEnabled = (System.getProperty("DnDExamples.debug") != null);
+    //protected Color backgroundColor; // Original background color of JEditorPane
+    //protected boolean changingBackground;
+    //   protected static final Color feedbackColor = Color.gray;
 }

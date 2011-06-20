@@ -5,7 +5,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- *
+ * AboutTeam
  * @author Fernanda Floriano Silva
  */
 public class AboutTeam extends javax.swing.JFrame {
