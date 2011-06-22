@@ -409,8 +409,11 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile 
      */
     private void loadTreeFiles(File basedFile, File comparedFile) {
-        treeComponent.createTreeNodes(basedFile.getAbsolutePath(), dirTree1, baseFileScrollPane, "Based File ");
-        treeComponent.createTreeNodes(comparedFile.getAbsolutePath(), dirTree2, comparedFileScrollPane, "Compared File ");
+       treeComponent.constructTree(dirTree1, basedFile, baseFileScrollPane, "Based File ");
+       treeComponent.constructTree(dirTree2, comparedFile, comparedFileScrollPane, "Compared File ");
+        
+        //treeComponent.createTreeNodes(basedFile.getAbsolutePath(), dirTree1, baseFileScrollPane, "Based File ");
+        //treeComponent.createTreeNodes(comparedFile.getAbsolutePath(), dirTree2, comparedFileScrollPane, "Compared File ");
     }
 
     /**
