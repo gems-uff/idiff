@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
@@ -121,6 +122,8 @@ public class MainILCS extends javax.swing.JFrame {
         jSeparator3 = new Separator();
         overviewMenuBar = new JButton();
         jSeparator2 = new Separator();
+        changeOrderButton = new JButton();
+        jSeparator5 = new Separator();
         mainSplitPane = new JSplitPane();
         detailsScrollPane = new JScrollPane();
         detailsTextPane = new JTextPane();
@@ -228,6 +231,17 @@ public class MainILCS extends javax.swing.JFrame {
         overviewMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
         toolBar.add(overviewMenuBar);
         toolBar.add(jSeparator2);
+
+        changeOrderButton.setAction(actionMap.get("changeOrder"));
+        changeOrderButton.setIcon(new ImageIcon(getClass().getResource("/components/icons/change.png"))); // NOI18N
+        changeOrderButton.setBorderPainted(false);
+        mainButtonGroup.add(changeOrderButton);
+        changeOrderButton.setContentAreaFilled(false);
+        changeOrderButton.setFocusable(false);
+        changeOrderButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        changeOrderButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        toolBar.add(changeOrderButton);
+        toolBar.add(jSeparator5);
 
         mainSplitPane.setDividerLocation(500);
         mainSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
@@ -374,7 +388,15 @@ public class MainILCS extends javax.swing.JFrame {
         System.out.println("Run Project Action Executed");
         startDiff(ilcsBean.getBasedFile(), ilcsBean.getComparedFile());
     }
-
+    
+    /**
+     * Change Order
+     */
+    @Action
+    public void changeOrder() {
+        System.out.println("Change order");
+    }
+    
     /**
      * File Selection
      */
@@ -429,6 +451,7 @@ public class MainILCS extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;
     private JScrollPane baseFileScrollPane;
+    private JButton changeOrderButton;
     private JEditorPane comparedFileEditorPane;
     private JScrollPane comparedFileScrollPane;
     private JScrollPane detailsScrollPane;
@@ -446,6 +469,7 @@ public class MainILCS extends javax.swing.JFrame {
     private Separator jSeparator2;
     private Separator jSeparator3;
     private Separator jSeparator4;
+    private Separator jSeparator5;
     private ButtonGroup mainButtonGroup;
     private JSplitPane mainSplitPane;
     private JButton noButton;

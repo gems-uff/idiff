@@ -89,7 +89,8 @@ public class TreeComponent extends JPanel {
      * @return 
      */
     DefaultMutableTreeNode addTreeNodes(DefaultMutableTreeNode curTop, File dir, String name) {
-        String curPath = dir.getPath();
+        String curPath = dir.getPath();        
+        
         DefaultMutableTreeNode curDir = new DefaultMutableTreeNode(curPath);
         if (curTop != null) {
             curTop.add(curDir);
