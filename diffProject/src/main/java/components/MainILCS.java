@@ -24,7 +24,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
-import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
@@ -61,8 +60,10 @@ public class MainILCS extends javax.swing.JFrame {
         initComponents();
         init();
         setFiles(basedFile, comparedFile);
+        loadTreeFiles(basedFile, comparedFile);
         fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
         setEditorDropTarget();
+        
     }
 
     /**
@@ -368,7 +369,6 @@ public class MainILCS extends javax.swing.JFrame {
     private void startDiff(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
         tableComponent.cleanTabelModel(tableDetails);
         Grain grain = new FileGrain();
-        loadTreeFiles(basedFile, comparedFile);
         fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
         Diff diff = new Diff(basedFile, comparedFile);
         result = diff.compare(grain);
@@ -394,6 +394,8 @@ public class MainILCS extends javax.swing.JFrame {
      */
     @Action
     public void changeOrder() {
+        ilcsBean.setBasedFile(ilcsBean.getComparedFile());
+        ilcsBean.setComparedFile(ilcsBean.getBasedFile());
         System.out.println("Change order");
     }
     
