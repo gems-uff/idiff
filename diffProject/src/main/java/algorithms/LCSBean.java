@@ -60,4 +60,5 @@ public class LCSBean {
     public void setArrow(Arrow arrow) {
         this.arrow = arrow;
     }
+
 }

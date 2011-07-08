@@ -4,6 +4,7 @@ import algorithms.Diff;
 import algorithms.DiffException;
 import algorithms.FileGrain;
 import algorithms.Grain;
+import algorithms.ILCSBean;
 import algorithms.IResultDiff;
 import algorithms.Result;
 import java.awt.Cursor;
@@ -59,11 +60,15 @@ public class MainILCS extends javax.swing.JFrame {
     public MainILCS(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
         initComponents();
         init();
+        initFiles(basedFile, comparedFile);
+
+    }
+
+    private void initFiles(File basedFile, File comparedFile) throws IOException {
         setFiles(basedFile, comparedFile);
         loadTreeFiles(basedFile, comparedFile);
         fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
         setEditorDropTarget();
-        
     }
 
     /**
@@ -235,6 +240,7 @@ public class MainILCS extends javax.swing.JFrame {
 
         changeOrderButton.setAction(actionMap.get("changeOrder"));
         changeOrderButton.setIcon(new ImageIcon(getClass().getResource("/components/icons/change.png"))); // NOI18N
+        changeOrderButton.setToolTipText(bundle.getString("MainILCS.changeOrderButton.toolTipText")); // NOI18N
         changeOrderButton.setBorderPainted(false);
         mainButtonGroup.add(changeOrderButton);
         changeOrderButton.setContentAreaFilled(false);
@@ -388,17 +394,17 @@ public class MainILCS extends javax.swing.JFrame {
         System.out.println("Run Project Action Executed");
         startDiff(ilcsBean.getBasedFile(), ilcsBean.getComparedFile());
     }
-    
+
     /**
      * Change Order
      */
     @Action
-    public void changeOrder() {
-        ilcsBean.setBasedFile(ilcsBean.getComparedFile());
-        ilcsBean.setComparedFile(ilcsBean.getBasedFile());
-        System.out.println("Change order");
+    public void changeOrder() throws IOException {
+        ilcsBean.changeFilesOrder();
+        initFiles(ilcsBean.getBasedFile(), ilcsBean.getComparedFile());
+        tableComponent.cleanTabelModel(tableDetails);
     }
-    
+
     /**
      * File Selection
      */
@@ -433,9 +439,9 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile 
      */
     private void loadTreeFiles(File basedFile, File comparedFile) {
-       treeComponent.constructTree(dirTree1, basedFile, baseFileScrollPane, "Based File ");
-       treeComponent.constructTree(dirTree2, comparedFile, comparedFileScrollPane, "Compared File ");
-        
+        treeComponent.constructTree(dirTree1, basedFile, baseFileScrollPane, "Based File ");
+        treeComponent.constructTree(dirTree2, comparedFile, comparedFileScrollPane, "Compared File ");
+
         //treeComponent.createTreeNodes(basedFile.getAbsolutePath(), dirTree1, baseFileScrollPane, "Based File ");
         //treeComponent.createTreeNodes(comparedFile.getAbsolutePath(), dirTree2, comparedFileScrollPane, "Compared File ");
     }
