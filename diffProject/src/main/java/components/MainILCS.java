@@ -377,7 +377,8 @@ public class MainILCS extends javax.swing.JFrame {
         Grain grain = new FileGrain();
         fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
         Diff diff = new Diff(basedFile, comparedFile);
-        result = diff.compare(grain);
+        //TODO Verificar se é necessário incluir interface gráfica para esta parametrização.
+        result = diff.compare(grain, false);
         tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails);
         tableComponent.tableListener(tableDetails);
         result.cleanResult();

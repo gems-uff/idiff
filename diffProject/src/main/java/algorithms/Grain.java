@@ -143,8 +143,12 @@ public class Grain {
      * Can Reduce Granularity
      * @return boolean
      */
-    public boolean canReduceGranularity() {
-        return (!this.levelGrain.equals(LevelGranularity.CHARACTER));
+    public boolean canReduceGranularity(boolean onlyLines) {
+        if (onlyLines && this.levelGrain.equals(LevelGranularity.LINE)) {
+            return false;
+        } else {
+            return (!this.levelGrain.equals(LevelGranularity.CHARACTER));
+        }
     }
 
     /**
