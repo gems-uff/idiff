@@ -27,9 +27,9 @@ public class Diff {
      * @return IResultDiff
      * @throws DiffException 
      */
-    public IResultDiff compare(Grain grain, boolean onlyLines) throws DiffException {
+    public IResultDiff compare(Grain grain, ILCSBean iLCSBean) throws DiffException {
         IDiff comparator = Algorithm.getComparator();
-        Result.getResult().setDifferences(comparator.diff(this.fileVersionOne, this.fileVersionTwo, grain, onlyLines));
+        Result.getResult().setDifferences(comparator.diff(this.fileVersionOne, this.fileVersionTwo, grain, iLCSBean));
         return Result.getResult();
     }
 }

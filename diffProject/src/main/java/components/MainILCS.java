@@ -57,11 +57,17 @@ public class MainILCS extends javax.swing.JFrame {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public MainILCS(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
+    public MainILCS(File basedFile, File comparedFile, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws DiffException, FileNotFoundException, IOException {
         initComponents();
+        ilcsBean = new ILCSBean(basedFile, comparedFile);
+        initialSteps(basedFile, comparedFile, granularity, trimLine, emptyLine, whiteSpace);
+
+    }
+
+    private void initialSteps(File basedFile, File comparedFile, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws IOException {
         init();
         initFiles(basedFile, comparedFile);
-
+        initParameters(granularity, trimLine, emptyLine, whiteSpace);
     }
 
     private void initFiles(File basedFile, File comparedFile) throws IOException {
@@ -378,7 +384,8 @@ public class MainILCS extends javax.swing.JFrame {
         fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
         Diff diff = new Diff(basedFile, comparedFile);
         //TODO Verificar se é necessário incluir interface gráfica para esta parametrização.
-        result = diff.compare(grain, false);
+        //result = diff.compare(grain, false);
+        result = diff.compare(grain, ilcsBean);
         tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails);
         tableComponent.tableListener(tableDetails);
         result.cleanResult();
@@ -403,6 +410,7 @@ public class MainILCS extends javax.swing.JFrame {
     public void changeOrder() throws IOException {
         ilcsBean.changeFilesOrder();
         initFiles(ilcsBean.getBasedFile(), ilcsBean.getComparedFile());
+        initParameters(ilcsBean.getGranularity(), ilcsBean.isTrimLine(), ilcsBean.isEmptyLine(), ilcsBean.isWhiteSpace());
         tableComponent.cleanTabelModel(tableDetails);
     }
 
@@ -453,9 +461,15 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile 
      */
     private void setFiles(File basedFile, File comparedFile) {
-        ilcsBean = new ILCSBean(basedFile, comparedFile);
         ilcsBean.setBasedFile(basedFile);
         ilcsBean.setComparedFile(comparedFile);
+    }
+
+    private void initParameters(String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) {
+        ilcsBean.setGranularity(granularity);
+        ilcsBean.setTrimLine(trimLine);
+        ilcsBean.setEmptyLine(emptyLine);
+        ilcsBean.setWhiteSpace(whiteSpace);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JEditorPane baseFileEditorPane;

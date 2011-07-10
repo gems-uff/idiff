@@ -10,6 +10,10 @@ public class ILCSBean {
 
     private File basedFile;
     private File comparedFile;
+    private String granularity;
+    private boolean trimLine;
+    private boolean emptyLine;
+    private boolean whiteSpace;
 
     /**
      * Constructor
@@ -25,6 +29,38 @@ public class ILCSBean {
      * Constructor
      */
     public ILCSBean() {
+    }
+
+    public boolean isEmptyLine() {
+        return emptyLine;
+    }
+
+    public void setEmptyLine(boolean emptyLine) {
+        this.emptyLine = emptyLine;
+    }
+
+    public String getGranularity() {
+        return granularity;
+    }
+
+    public void setGranularity(String granularity) {
+        this.granularity = granularity;
+    }
+
+    public boolean isTrimLine() {
+        return trimLine;
+    }
+
+    public void setTrimLine(boolean trimLine) {
+        this.trimLine = trimLine;
+    }
+
+    public boolean isWhiteSpace() {
+        return whiteSpace;
+    }
+
+    public void setWhiteSpace(boolean whiteSpace) {
+        this.whiteSpace = whiteSpace;
     }
 
     /**
@@ -58,8 +94,8 @@ public class ILCSBean {
     public void setComparedFile(File comparedFile) {
         this.comparedFile = comparedFile;
     }
-    
-    public void changeFilesOrder(){
+
+    public void changeFilesOrder() {
         File baseFile = this.getBasedFile();
         this.setBasedFile(this.getComparedFile());
         this.setComparedFile(baseFile);
