@@ -39,6 +39,15 @@ public class ILCSBean {
         return emptyLine;
     }
 
+    public String trimLines(String text) {
+        return text.trim();
+    }
+
+    public String removeExcessWhitespace(String text) {
+        //TODO implementar
+        return "teste";
+    }
+
     /**
      * Set Empty Line
      * @param emptyLine 
