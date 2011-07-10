@@ -16,7 +16,6 @@ public class LCS implements IDiff {
     private LCSBean[][] arrayLcs;
     private List<Grain> linesFileOne = new ArrayList<Grain>();
     private List<Grain> columnFileTwo = new ArrayList<Grain>();
-    private Grain.LevelGranularity level;
 
     /**
      * Constructor
@@ -41,7 +40,9 @@ public class LCS implements IDiff {
      * @param fileVersionOne
      * @param fileVersionTwo
      * @param grain
-     * @throws DiffException
+     * @param iLCSBean
+     * @return List<Grain>
+     * @throws DiffException 
      */
     @Override
     public List<Grain> diff(File fileVersionOne, File fileVersionTwo, Grain grain, ILCSBean iLCSBean) throws DiffException {
@@ -73,7 +74,7 @@ public class LCS implements IDiff {
 
     /**
      * Main steps of the lcs
-     * @return
+     * @return IResultLCS
      * @throws DiffException
      */
     public IResultLCS mainLcs() throws DiffException {

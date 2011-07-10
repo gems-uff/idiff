@@ -53,6 +53,10 @@ public class MainILCS extends javax.swing.JFrame {
      * Creates new form MainILCS 
      * @param basedFile
      * @param comparedFile
+     * @param granularity
+     * @param trimLine
+     * @param emptyLine
+     * @param whiteSpace
      * @throws DiffException
      * @throws FileNotFoundException
      * @throws IOException 
@@ -64,12 +68,28 @@ public class MainILCS extends javax.swing.JFrame {
 
     }
 
+    /**
+     * initial Steps
+     * @param basedFile
+     * @param comparedFile
+     * @param granularity
+     * @param trimLine
+     * @param emptyLine
+     * @param whiteSpace
+     * @throws IOException 
+     */
     private void initialSteps(File basedFile, File comparedFile, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws IOException {
         init();
         initFiles(basedFile, comparedFile);
         initParameters(granularity, trimLine, emptyLine, whiteSpace);
     }
 
+    /**
+     * Init Files
+     * @param basedFile
+     * @param comparedFile
+     * @throws IOException 
+     */
     private void initFiles(File basedFile, File comparedFile) throws IOException {
         setFiles(basedFile, comparedFile);
         loadTreeFiles(basedFile, comparedFile);
@@ -450,9 +470,6 @@ public class MainILCS extends javax.swing.JFrame {
     private void loadTreeFiles(File basedFile, File comparedFile) {
         treeComponent.constructTree(dirTree1, basedFile, baseFileScrollPane, "Based File ");
         treeComponent.constructTree(dirTree2, comparedFile, comparedFileScrollPane, "Compared File ");
-
-        //treeComponent.createTreeNodes(basedFile.getAbsolutePath(), dirTree1, baseFileScrollPane, "Based File ");
-        //treeComponent.createTreeNodes(comparedFile.getAbsolutePath(), dirTree2, comparedFileScrollPane, "Compared File ");
     }
 
     /**
@@ -465,6 +482,13 @@ public class MainILCS extends javax.swing.JFrame {
         ilcsBean.setComparedFile(comparedFile);
     }
 
+    /**
+     * Init Parameters
+     * @param granularity
+     * @param trimLine
+     * @param emptyLine
+     * @param whiteSpace 
+     */
     private void initParameters(String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) {
         ilcsBean.setGranularity(granularity);
         ilcsBean.setTrimLine(trimLine);

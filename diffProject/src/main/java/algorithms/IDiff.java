@@ -14,6 +14,7 @@ public interface IDiff {
      * @param fileVersionOne
      * @param fileVersionTwo
      * @param grain
+     * @param iLCSBean
      * @return List<Grain>
      * @throws DiffException 
      */

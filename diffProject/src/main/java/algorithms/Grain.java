@@ -141,6 +141,7 @@ public class Grain {
 
     /**
      * Can Reduce Granularity
+     * @param granularity
      * @return boolean
      */
     public boolean canReduceGranularity(String granularity) {

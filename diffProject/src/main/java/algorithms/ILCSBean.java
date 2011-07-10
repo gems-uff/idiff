@@ -31,34 +31,66 @@ public class ILCSBean {
     public ILCSBean() {
     }
 
+    /**
+     * Is Empty Line
+     * @return boolean
+     */
     public boolean isEmptyLine() {
         return emptyLine;
     }
 
+    /**
+     * Set Empty Line
+     * @param emptyLine 
+     */
     public void setEmptyLine(boolean emptyLine) {
         this.emptyLine = emptyLine;
     }
 
+    /**
+     * Get Granularity
+     * @return String
+     */
     public String getGranularity() {
         return granularity;
     }
 
+    /**
+     * Set Granularity
+     * @param granularity 
+     */
     public void setGranularity(String granularity) {
         this.granularity = granularity;
     }
 
+    /**
+     * Is Trim Line
+     * @return 
+     */
     public boolean isTrimLine() {
         return trimLine;
     }
 
+    /**
+     * Set Trim Line
+     * @param trimLine 
+     */
     public void setTrimLine(boolean trimLine) {
         this.trimLine = trimLine;
     }
 
+    /**
+     * Is White Space
+     * @return 
+     */
     public boolean isWhiteSpace() {
         return whiteSpace;
     }
 
+    /**
+     * Set White Space
+     * @param whiteSpace 
+     */
     public void setWhiteSpace(boolean whiteSpace) {
         this.whiteSpace = whiteSpace;
     }
@@ -95,6 +127,9 @@ public class ILCSBean {
         this.comparedFile = comparedFile;
     }
 
+    /**
+     * Change Files Order
+     */
     public void changeFilesOrder() {
         File baseFile = this.getBasedFile();
         this.setBasedFile(this.getComparedFile());

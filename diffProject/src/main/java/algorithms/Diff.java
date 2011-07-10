@@ -24,6 +24,7 @@ public class Diff {
     /**
      * Compare
      * @param grain
+     * @param iLCSBean
      * @return IResultDiff
      * @throws DiffException 
      */
