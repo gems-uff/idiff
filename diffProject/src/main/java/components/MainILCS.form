@@ -310,7 +310,7 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Based Directory">
+                        <TitledBorder title="Directory (Left) ">
                           <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.dirScrollPane1.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </TitledBorder>
                       </Border>
@@ -339,7 +339,6 @@
                           <TreeModel code=""/>
                         </Property>
                         <Property name="autoscrolls" type="boolean" value="true"/>
-                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -348,7 +347,7 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Compared Directory">
+                        <TitledBorder title="Directory (Right)">
                           <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.dirScrollPane2.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </TitledBorder>
                       </Border>
@@ -372,7 +371,6 @@
                           <TreeModel code=""/>
                         </Property>
                         <Property name="autoscrolls" type="boolean" value="true"/>
-                        <Property name="dragEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -396,13 +394,18 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Based File">
+                        <TitledBorder title="Left">
                           <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.baseFileScrollPane.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </TitledBorder>
                       </Border>
                     </Property>
                     <Property name="autoscrolls" type="boolean" value="true"/>
                   </Properties>
+                  <AccessibilityProperties>
+                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                      <ResourceString bundle="components/Bundle.properties" key="MainILCS.baseFileScrollPane.AccessibleContext.accessibleName" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                    </Property>
+                  </AccessibilityProperties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
@@ -423,6 +426,12 @@
                         </Property>
                         <Property name="autoscrolls" type="boolean" value="true"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="baseFileEditorPaneMouseClicked"/>
+                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="baseFileEditorPaneMouseEntered"/>
+                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="baseFileEditorPaneMouseExited"/>
+                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="baseFileEditorPaneMousePressed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -430,7 +439,7 @@
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Compared File">
+                        <TitledBorder title="Right">
                           <ResourceString PropertyName="titleX" bundle="components/Bundle.properties" key="MainILCS.comparedFileScrollPane.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </TitledBorder>
                       </Border>
@@ -457,6 +466,12 @@
                         </Property>
                         <Property name="autoscrolls" type="boolean" value="true"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comparedFileEditorPaneMouseClicked"/>
+                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comparedFileEditorPaneMouseEntered"/>
+                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comparedFileEditorPaneMouseExited"/>
+                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comparedFileEditorPaneMousePressed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -491,8 +506,8 @@
                   <Table columnCount="4" rowCount="0">
                     <Column editable="true" title="Content" type="java.lang.Object"/>
                     <Column editable="true" title="Situation" type="java.lang.Object"/>
-                    <Column editable="true" title="From" type="java.lang.Object"/>
-                    <Column editable="true" title="To" type="java.lang.Object"/>
+                    <Column editable="true" title="From (Left)" type="java.lang.Object"/>
+                    <Column editable="true" title="To (Right)" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">

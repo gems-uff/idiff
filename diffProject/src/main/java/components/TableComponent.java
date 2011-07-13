@@ -1,6 +1,7 @@
 package components;
 
 import algorithms.Grain;
+import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
@@ -62,6 +63,11 @@ public class TableComponent {
                     ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
                 }
             }
+        }
+        if (tableDetails.getRowCount() == 0) {
+            ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{" Differences not found ", "---", "---", "---"});
+            tableDetails.setBackground(Color.BLUE);
+            tableDetails.setForeground(Color.YELLOW);
         }
         tableDetails.setCellSelectionEnabled(false);
         tableDetails.setRowSelectionAllowed(true);

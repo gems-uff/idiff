@@ -154,15 +154,15 @@ public class Grain {
      * @param fileVersionTwo
      * @param levelGrain
      * @param result
+     * @param ilcsb
      * @throws DiffException
-     * @throws IOException
+     * @throws IOException 
      */
-    public void init(File fileVersionOne, File fileVersionTwo, Grain.LevelGranularity levelGrain, IResultLCS result) throws DiffException, IOException {
+    public void init(File fileVersionOne, File fileVersionTwo, Grain.LevelGranularity levelGrain, IResultLCS result, ILCSBean ilcsb) throws DiffException, IOException {
         System.out.println();
-        LCSBean[][] arrayLcs = null;
         switch (levelGrain) {
             case LINE:
-                new LineGrain().startLineGranularity(fileVersionOne, fileVersionTwo);
+                new LineGrain().startLineGranularity(fileVersionOne, fileVersionTwo, ilcsb);
                 break;
             case WORD:
                 new WordGrain().startWordGranularity(result.getFileVersionOne(), result.getFileVersionTwo());

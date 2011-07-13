@@ -18,7 +18,6 @@ public class AboutILCS extends javax.swing.JFrame {
         setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
-
     }
 
     /**

@@ -35,7 +35,7 @@ public class LineGrain extends Grain {
      * @return List<Grain>
      * @throws IOException
      */
-    public List<Grain> start(File file) throws IOException {
+    public List<Grain> start(File file, ILCSBean ilcsb) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
         finalList.add(null);
 
@@ -43,8 +43,10 @@ public class LineGrain extends Grain {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         int id = 0;
         while ((line = reader.readLine()) != null) {
-            id++;
-            finalList.add(new LineGrain(line, id));
+            if (!((ilcsb.isRemoveEmptyLine()) && (line.isEmpty()))) {
+                id++;
+                finalList.add(new LineGrain(ilcsb.verifyParameters(line), id));
+            }
         }
         return finalList;
     }
@@ -56,10 +58,10 @@ public class LineGrain extends Grain {
      * @throws IOException
      * @throws DiffException
      */
-    public void startLineGranularity(File baseFile, File comparedFile) throws IOException, DiffException {
+    public void startLineGranularity(File baseFile, File comparedFile, ILCSBean ilcsb) throws IOException, DiffException {
         try {
-            Algorithm.getComparator().setLinesFileOne(this.start(baseFile));
-            Algorithm.getComparator().setColumnFileTwo(this.start(comparedFile));
+            Algorithm.getComparator().setLinesFileOne(this.start(baseFile, ilcsb));
+            Algorithm.getComparator().setColumnFileTwo(this.start(comparedFile, ilcsb));
         } catch (IOException ex) {
             throw new DiffException(ex, DiffException.MSG_INVALID_START_LINE_GRANULARITY);
         }

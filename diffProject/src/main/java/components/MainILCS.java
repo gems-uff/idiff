@@ -7,14 +7,19 @@ import algorithms.Grain;
 import algorithms.ILCSBean;
 import algorithms.IResultDiff;
 import algorithms.Result;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -42,6 +47,7 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
+import java.awt.event.AdjustmentListener;
 
 /**
  * MainILCS
@@ -65,11 +71,10 @@ public class MainILCS extends javax.swing.JFrame {
         initComponents();
         ilcsBean = new ILCSBean(basedFile, comparedFile);
         initialSteps(basedFile, comparedFile, granularity, trimLine, emptyLine, whiteSpace);
-
     }
 
     /**
-     * initial Steps
+     * Initial Steps
      * @param basedFile
      * @param comparedFile
      * @param granularity
@@ -82,6 +87,14 @@ public class MainILCS extends javax.swing.JFrame {
         init();
         initFiles(basedFile, comparedFile);
         initParameters(granularity, trimLine, emptyLine, whiteSpace);
+        setLayoutEditorPane();
+        addListener();
+
+    }
+
+    private void setLayoutEditorPane() {
+        baseFileEditorPane.setLayout(new BoxLayout(baseFileEditorPane, BoxLayout.PAGE_AXIS));
+        comparedFileEditorPane.setLayout(new BoxLayout(comparedFileEditorPane, BoxLayout.PAGE_AXIS));
     }
 
     /**
@@ -94,7 +107,6 @@ public class MainILCS extends javax.swing.JFrame {
         setFiles(basedFile, comparedFile);
         loadTreeFiles(basedFile, comparedFile);
         fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
-        setEditorDropTarget();
     }
 
     /**
@@ -104,15 +116,6 @@ public class MainILCS extends javax.swing.JFrame {
         setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
-    }
-
-    /**
-     * Set Editor Drop Target
-     */
-    private void setEditorDropTarget() {
-        // Add a drop target to the JEditorPane
-        new EditorDropTarget(baseFileEditorPane, dirTree1);
-        new EditorDropTarget(comparedFileEditorPane, dirTree2);
     }
 
     /**
@@ -303,7 +306,6 @@ public class MainILCS extends javax.swing.JFrame {
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("root");
         dirTree1.setModel(new DefaultTreeModel(treeNode1));
         dirTree1.setAutoscrolls(true);
-        dirTree1.setDragEnabled(true);
         dirScrollPane1.setViewportView(dirTree1);
 
         splitPaneLeft.setTopComponent(dirScrollPane1);
@@ -314,7 +316,6 @@ public class MainILCS extends javax.swing.JFrame {
         treeNode1 = new DefaultMutableTreeNode("root");
         dirTree2.setModel(new DefaultTreeModel(treeNode1));
         dirTree2.setAutoscrolls(true);
-        dirTree2.setDragEnabled(true);
         dirScrollPane2.setViewportView(dirTree2);
 
         splitPaneLeft.setRightComponent(dirScrollPane2);
@@ -329,15 +330,44 @@ public class MainILCS extends javax.swing.JFrame {
 
         baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         baseFileEditorPane.setAutoscrolls(true);
+        baseFileEditorPane.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                baseFileEditorPaneMouseClicked(evt);
+            }
+            public void mouseEntered(MouseEvent evt) {
+                baseFileEditorPaneMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                baseFileEditorPaneMouseExited(evt);
+            }
+            public void mousePressed(MouseEvent evt) {
+                baseFileEditorPaneMousePressed(evt);
+            }
+        });
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
         splitPaneRight.setLeftComponent(baseFileScrollPane);
+        baseFileScrollPane.getAccessibleContext().setAccessibleName(bundle.getString("MainILCS.baseFileScrollPane.AccessibleContext.accessibleName")); // NOI18N
 
         comparedFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.comparedFileScrollPane.border.title"))); // NOI18N
         comparedFileScrollPane.setAutoscrolls(true);
 
         comparedFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         comparedFileEditorPane.setAutoscrolls(true);
+        comparedFileEditorPane.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                comparedFileEditorPaneMouseClicked(evt);
+            }
+            public void mouseEntered(MouseEvent evt) {
+                comparedFileEditorPaneMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                comparedFileEditorPaneMouseExited(evt);
+            }
+            public void mousePressed(MouseEvent evt) {
+                comparedFileEditorPaneMousePressed(evt);
+            }
+        });
         comparedFileScrollPane.setViewportView(comparedFileEditorPane);
 
         splitPaneRight.setRightComponent(comparedFileScrollPane);
@@ -355,7 +385,7 @@ public class MainILCS extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Content", "Situation", "From", "To"
+                "Content", "Situation", "From (Left)", "To (Right)"
             }
         ));
         tableDetails.setToolTipText(bundle.getString("MainILCS.tableDetails.toolTipText")); // NOI18N
@@ -392,6 +422,101 @@ public class MainILCS extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addListener() {
+        baseFileScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                int novaPosicao = e.getValue() * 2;
+                int posicaoInicial = comparedFileScrollPane.getVerticalScrollBar().getValue();
+                int posicaoFinal = (int) (comparedFileEditorPane.getSize().getHeight() + posicaoInicial);
+
+                if (novaPosicao > posicaoFinal || novaPosicao < posicaoInicial) {
+                    comparedFileScrollPane.getVerticalScrollBar().setValue(novaPosicao);
+                }
+            }
+        });
+    }
+
+    private void baseFileEditorPaneMouseClicked(MouseEvent evt) {//GEN-FIRST:event_baseFileEditorPaneMouseClicked
+        // TODO add your handling code here:
+        JLabel label = (JLabel) evt.getComponent();
+        label.setForeground(Color.RED);
+        //TODO Para testes    
+        JLabel labelReferente = (JLabel) comparedFileEditorPane.getComponent(1);
+
+        labelReferente.setForeground(Color.GREEN);
+
+        comparedFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
+    }//GEN-LAST:event_baseFileEditorPaneMouseClicked
+
+    private void baseFileEditorPaneMouseEntered(MouseEvent evt) {//GEN-FIRST:event_baseFileEditorPaneMouseEntered
+        // TODO add your handling code here:      
+        JLabel label = (JLabel) evt.getComponent();
+        label.setForeground(Color.RED);
+        //TODO para teste
+        JLabel labelReferente = (JLabel) comparedFileEditorPane.getComponent(3);
+
+        labelReferente.setForeground(Color.GREEN);
+
+        comparedFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
+    }//GEN-LAST:event_baseFileEditorPaneMouseEntered
+
+    private void baseFileEditorPaneMouseExited(MouseEvent evt) {//GEN-FIRST:event_baseFileEditorPaneMouseExited
+        // TODO add your handling code here:
+        JLabel label = (JLabel) evt.getComponent();
+        label.setForeground(Color.BLACK);
+        //TODO para teste
+        comparedFileEditorPane.getComponent(5).setForeground(Color.BLACK);
+    }//GEN-LAST:event_baseFileEditorPaneMouseExited
+
+    private void comparedFileEditorPaneMouseClicked(MouseEvent evt) {//GEN-FIRST:event_comparedFileEditorPaneMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        JLabel label = (JLabel) evt.getComponent();
+        label.setForeground(Color.RED);
+        //TODO Para testes    
+        JLabel labelReferente = (JLabel) baseFileEditorPane.getComponent(1);
+
+        labelReferente.setForeground(Color.GREEN);
+
+        baseFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
+
+    }//GEN-LAST:event_comparedFileEditorPaneMouseClicked
+
+    private void comparedFileEditorPaneMouseEntered(MouseEvent evt) {//GEN-FIRST:event_comparedFileEditorPaneMouseEntered
+        // TODO add your handling code here:
+        JLabel label = (JLabel) evt.getComponent();
+        label.setForeground(Color.RED);
+        //TODO para teste
+        JLabel labelReferente = (JLabel) baseFileScrollPane.getComponent(3);
+
+        labelReferente.setForeground(Color.GREEN);
+
+        baseFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
+    }//GEN-LAST:event_comparedFileEditorPaneMouseEntered
+
+    private void comparedFileEditorPaneMouseExited(MouseEvent evt) {//GEN-FIRST:event_comparedFileEditorPaneMouseExited
+        // TODO add your handling code here:
+        JLabel label = (JLabel) evt.getComponent();
+        label.setForeground(Color.BLACK);
+        //TODO para teste
+        baseFileEditorPane.getComponent(5).setForeground(Color.BLACK);
+
+    }//GEN-LAST:event_comparedFileEditorPaneMouseExited
+
+    private void comparedFileEditorPaneMousePressed(MouseEvent evt) {//GEN-FIRST:event_comparedFileEditorPaneMousePressed
+        // TODO add your handling code here:
+        JLabel label = (JLabel) evt.getComponent();
+        label.setForeground(Color.RED);
+    }//GEN-LAST:event_comparedFileEditorPaneMousePressed
+
+    private void baseFileEditorPaneMousePressed(MouseEvent evt) {//GEN-FIRST:event_baseFileEditorPaneMousePressed
+        // TODO add your handling code here:
+        JLabel label = (JLabel) evt.getComponent();
+        label.setForeground(Color.RED);
+    }//GEN-LAST:event_baseFileEditorPaneMousePressed
+
     /**
      * Start Diff
      * @param basedFile
@@ -399,16 +524,31 @@ public class MainILCS extends javax.swing.JFrame {
      * @throws DiffException 
      */
     private void startDiff(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
-        tableComponent.cleanTabelModel(tableDetails);
         Grain grain = new FileGrain();
-        fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
+        startComponent(basedFile, comparedFile);
         Diff diff = new Diff(basedFile, comparedFile);
-        //TODO Verificar se é necessário incluir interface gráfica para esta parametrização.
-        //result = diff.compare(grain, false);
         result = diff.compare(grain, ilcsBean);
+        startTable();
+        result.cleanResult();
+    }
+
+    /**
+     * Start Table
+     */
+    private void startTable() {
         tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails);
         tableComponent.tableListener(tableDetails);
-        result.cleanResult();
+    }
+
+    /**
+     * Start Component
+     * @param basedFile
+     * @param comparedFile
+     * @throws IOException 
+     */
+    private void startComponent(File basedFile, File comparedFile) throws IOException {
+        tableComponent.cleanTabelModel(tableDetails);
+        fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
     }
 
     /**
@@ -430,7 +570,7 @@ public class MainILCS extends javax.swing.JFrame {
     public void changeOrder() throws IOException {
         ilcsBean.changeFilesOrder();
         initFiles(ilcsBean.getBasedFile(), ilcsBean.getComparedFile());
-        initParameters(ilcsBean.getGranularity(), ilcsBean.isTrimLine(), ilcsBean.isEmptyLine(), ilcsBean.isWhiteSpace());
+        initParameters(ilcsBean.getGranularity(), ilcsBean.isTrimLine(), ilcsBean.isEmptyLine(), ilcsBean.isRemoveWhiteSpaces());
         tableComponent.cleanTabelModel(tableDetails);
     }
 

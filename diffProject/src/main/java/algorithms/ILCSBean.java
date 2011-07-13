@@ -1,6 +1,8 @@
 package algorithms;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * ILCSBean
@@ -32,20 +34,19 @@ public class ILCSBean {
     }
 
     /**
-     * Is Empty Line
-     * @return boolean
+     * Verify if is Empty Line
+     * @return 
      */
     public boolean isEmptyLine() {
         return emptyLine;
     }
 
-    public String trimLines(String text) {
-        return text.trim();
-    }
-
-    public String removeExcessWhitespace(String text) {
-        //TODO implementar
-        return "teste";
+    /** 
+     * Verify if is White Space
+     * @return boolean
+     */
+    public boolean isWhiteSpace() {
+        return whiteSpace;
     }
 
     /**
@@ -54,6 +55,71 @@ public class ILCSBean {
      */
     public void setEmptyLine(boolean emptyLine) {
         this.emptyLine = emptyLine;
+    }
+
+    /**
+     * Set Trim Line
+     * @param trimLine 
+     */
+    public void setTrimLine(boolean trimLine) {
+        this.trimLine = trimLine;
+    }
+
+    /**
+     * Set White Space
+     * @param whiteSpace 
+     */
+    public void setWhiteSpace(boolean whiteSpace) {
+        this.whiteSpace = whiteSpace;
+    }
+
+    /**
+     * Verify if is Trim Line
+     * @return boolean
+     */
+    public boolean isTrimLine() {
+        return trimLine;
+    }
+
+    /**
+     * Is Remove Empty Line
+     * @return boolean
+     */
+    public boolean isRemoveEmptyLine() {
+        return emptyLine;
+    }
+
+    /**
+     * Is Remove White Spaces
+     * @return boolean
+     */
+    public boolean isRemoveWhiteSpaces() {
+        return whiteSpace;
+    }
+
+    /**
+     * Remove White Spaces
+     * @param inputStr
+     * @return String
+     */
+    public String removeWhiteSpaces(String inputStr) {
+        Matcher matcher = Pattern.compile("\\s+").matcher(inputStr);
+        return matcher.replaceAll(" ");
+    }
+
+    /**
+     * Verify Parameters
+     * @param line
+     * @return String
+     */
+    public String verifyParameters(String line) {
+        if (this.isTrimLine()) {
+            line = line.trim();
+        }
+        if (this.isRemoveWhiteSpaces()) {
+            line = this.removeWhiteSpaces(line);
+        }
+        return line;
     }
 
     /**
@@ -70,38 +136,6 @@ public class ILCSBean {
      */
     public void setGranularity(String granularity) {
         this.granularity = granularity;
-    }
-
-    /**
-     * Is Trim Line
-     * @return 
-     */
-    public boolean isTrimLine() {
-        return trimLine;
-    }
-
-    /**
-     * Set Trim Line
-     * @param trimLine 
-     */
-    public void setTrimLine(boolean trimLine) {
-        this.trimLine = trimLine;
-    }
-
-    /**
-     * Is White Space
-     * @return 
-     */
-    public boolean isWhiteSpace() {
-        return whiteSpace;
-    }
-
-    /**
-     * Set White Space
-     * @param whiteSpace 
-     */
-    public void setWhiteSpace(boolean whiteSpace) {
-        this.whiteSpace = whiteSpace;
     }
 
     /**

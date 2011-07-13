@@ -35,7 +35,6 @@ public class TreeComponent extends JPanel {
         setFeatures(scrollPane, name, dir, tree);
         addTree(tree, dir.getParentFile(), scrollPane, name, dir.getName());
         selectNode(dir, tree);
-
     }
 
     /**
@@ -45,6 +44,7 @@ public class TreeComponent extends JPanel {
      */
     private void selectNode(File dir, JTree tree) {
         tree.setSelectionRow(tree.getRowForPath(tree.getNextMatch(dir.getName().trim(), 0, Position.Bias.Forward)));
+        tree.scrollRowToVisible(tree.getRowForPath(tree.getNextMatch(dir.getName().trim(), 0, Position.Bias.Forward)));
     }
 
     /**
@@ -89,8 +89,8 @@ public class TreeComponent extends JPanel {
      * @return 
      */
     DefaultMutableTreeNode addTreeNodes(DefaultMutableTreeNode curTop, File dir, String name) {
-        String curPath = dir.getPath();        
-        
+        String curPath = dir.getPath();
+
         DefaultMutableTreeNode curDir = new DefaultMutableTreeNode(curPath);
         if (curTop != null) {
             curTop.add(curDir);

@@ -50,7 +50,7 @@ public class LCS implements IDiff {
         while (grain.canReduceGranularity(iLCSBean.getGranularity())) {
             grain.reduceGranularity();
             try {
-                grain.init(fileVersionOne, fileVersionTwo, grain.getLevelGrain(), result);
+                grain.init(fileVersionOne, fileVersionTwo, grain.getLevelGrain(), result, iLCSBean);
             } catch (IOException ex) {
                 throw new DiffException(DiffException.MSG_INVALID_SITUATION);
             }
@@ -122,7 +122,7 @@ public class LCS implements IDiff {
         List<Grain> lcs = new ArrayList();
         lcs.clear();
         printLCS(lcs, this.linesFileOne.size() - 1, this.columnFileTwo.size() - 1);
-         return new ResultLCS(this.linesFileOne, this.columnFileTwo, lcs);
+        return new ResultLCS(this.linesFileOne, this.columnFileTwo, lcs);
     }
 
     /**
