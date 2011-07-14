@@ -127,7 +127,8 @@ public class TreeComponent extends JPanel {
         File f = null;
         for (int i = 0; i < ol.size(); i++) {
             String thisObject = (String) ol.get(i);
-            String newPath = curPath + File.separator + thisObject;
+             String newPath = File.separator + thisObject;
+//            String newPath = curPath + File.separator + thisObject;
             if ((f = new File(newPath)).isDirectory()) {
                 addTreeNodes(curDir, f, null);
             } else {

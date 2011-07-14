@@ -426,12 +426,6 @@
                         </Property>
                         <Property name="autoscrolls" type="boolean" value="true"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="baseFileEditorPaneMouseClicked"/>
-                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="baseFileEditorPaneMouseEntered"/>
-                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="baseFileEditorPaneMouseExited"/>
-                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="baseFileEditorPaneMousePressed"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -466,12 +460,6 @@
                         </Property>
                         <Property name="autoscrolls" type="boolean" value="true"/>
                       </Properties>
-                      <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comparedFileEditorPaneMouseClicked"/>
-                        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comparedFileEditorPaneMouseEntered"/>
-                        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comparedFileEditorPaneMouseExited"/>
-                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="comparedFileEditorPaneMousePressed"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -504,10 +492,10 @@
                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="0">
-                    <Column editable="true" title="Content" type="java.lang.Object"/>
-                    <Column editable="true" title="Situation" type="java.lang.Object"/>
-                    <Column editable="true" title="From (Left)" type="java.lang.Object"/>
-                    <Column editable="true" title="To (Right)" type="java.lang.Object"/>
+                    <Column editable="true" title="Content" type="java.lang.String"/>
+                    <Column editable="true" title="Situation" type="java.lang.String"/>
+                    <Column editable="true" title="From (Left)" type="java.lang.String"/>
+                    <Column editable="true" title="To (Right)" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">

@@ -7,12 +7,8 @@ import algorithms.Grain;
 import algorithms.ILCSBean;
 import algorithms.IResultDiff;
 import algorithms.Result;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -47,7 +43,6 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
-import java.awt.event.AdjustmentListener;
 
 /**
  * MainILCS
@@ -88,8 +83,6 @@ public class MainILCS extends javax.swing.JFrame {
         initFiles(basedFile, comparedFile);
         initParameters(granularity, trimLine, emptyLine, whiteSpace);
         setLayoutEditorPane();
-        addListener();
-
     }
 
     private void setLayoutEditorPane() {
@@ -106,6 +99,7 @@ public class MainILCS extends javax.swing.JFrame {
     private void initFiles(File basedFile, File comparedFile) throws IOException {
         setFiles(basedFile, comparedFile);
         loadTreeFiles(basedFile, comparedFile);
+        //    fileComponent.showFiles(basedFile.getAbsolutePath(), comparedFile.getAbsolutePath(), baseFileEditorPane, comparedFileEditorPane,baseFileScrollPane,comparedFileScrollPane);
         fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
     }
 
@@ -330,20 +324,6 @@ public class MainILCS extends javax.swing.JFrame {
 
         baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         baseFileEditorPane.setAutoscrolls(true);
-        baseFileEditorPane.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                baseFileEditorPaneMouseClicked(evt);
-            }
-            public void mouseEntered(MouseEvent evt) {
-                baseFileEditorPaneMouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                baseFileEditorPaneMouseExited(evt);
-            }
-            public void mousePressed(MouseEvent evt) {
-                baseFileEditorPaneMousePressed(evt);
-            }
-        });
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
         splitPaneRight.setLeftComponent(baseFileScrollPane);
@@ -354,20 +334,6 @@ public class MainILCS extends javax.swing.JFrame {
 
         comparedFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
         comparedFileEditorPane.setAutoscrolls(true);
-        comparedFileEditorPane.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                comparedFileEditorPaneMouseClicked(evt);
-            }
-            public void mouseEntered(MouseEvent evt) {
-                comparedFileEditorPaneMouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                comparedFileEditorPaneMouseExited(evt);
-            }
-            public void mousePressed(MouseEvent evt) {
-                comparedFileEditorPaneMousePressed(evt);
-            }
-        });
         comparedFileScrollPane.setViewportView(comparedFileEditorPane);
 
         splitPaneRight.setRightComponent(comparedFileScrollPane);
@@ -387,7 +353,15 @@ public class MainILCS extends javax.swing.JFrame {
             new String [] {
                 "Content", "Situation", "From (Left)", "To (Right)"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                String.class, String.class, String.class, String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tableDetails.setToolTipText(bundle.getString("MainILCS.tableDetails.toolTipText")); // NOI18N
         tableDetails.setColumnSelectionAllowed(true);
         tableDetails.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -422,101 +396,6 @@ public class MainILCS extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addListener() {
-        baseFileScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                int novaPosicao = e.getValue() * 2;
-                int posicaoInicial = comparedFileScrollPane.getVerticalScrollBar().getValue();
-                int posicaoFinal = (int) (comparedFileEditorPane.getSize().getHeight() + posicaoInicial);
-
-                if (novaPosicao > posicaoFinal || novaPosicao < posicaoInicial) {
-                    comparedFileScrollPane.getVerticalScrollBar().setValue(novaPosicao);
-                }
-            }
-        });
-    }
-
-    private void baseFileEditorPaneMouseClicked(MouseEvent evt) {//GEN-FIRST:event_baseFileEditorPaneMouseClicked
-        // TODO add your handling code here:
-        JLabel label = (JLabel) evt.getComponent();
-        label.setForeground(Color.RED);
-        //TODO Para testes    
-        JLabel labelReferente = (JLabel) comparedFileEditorPane.getComponent(1);
-
-        labelReferente.setForeground(Color.GREEN);
-
-        comparedFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
-    }//GEN-LAST:event_baseFileEditorPaneMouseClicked
-
-    private void baseFileEditorPaneMouseEntered(MouseEvent evt) {//GEN-FIRST:event_baseFileEditorPaneMouseEntered
-        // TODO add your handling code here:      
-        JLabel label = (JLabel) evt.getComponent();
-        label.setForeground(Color.RED);
-        //TODO para teste
-        JLabel labelReferente = (JLabel) comparedFileEditorPane.getComponent(3);
-
-        labelReferente.setForeground(Color.GREEN);
-
-        comparedFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
-    }//GEN-LAST:event_baseFileEditorPaneMouseEntered
-
-    private void baseFileEditorPaneMouseExited(MouseEvent evt) {//GEN-FIRST:event_baseFileEditorPaneMouseExited
-        // TODO add your handling code here:
-        JLabel label = (JLabel) evt.getComponent();
-        label.setForeground(Color.BLACK);
-        //TODO para teste
-        comparedFileEditorPane.getComponent(5).setForeground(Color.BLACK);
-    }//GEN-LAST:event_baseFileEditorPaneMouseExited
-
-    private void comparedFileEditorPaneMouseClicked(MouseEvent evt) {//GEN-FIRST:event_comparedFileEditorPaneMouseClicked
-        // TODO add your handling code here:
-        // TODO add your handling code here:
-        JLabel label = (JLabel) evt.getComponent();
-        label.setForeground(Color.RED);
-        //TODO Para testes    
-        JLabel labelReferente = (JLabel) baseFileEditorPane.getComponent(1);
-
-        labelReferente.setForeground(Color.GREEN);
-
-        baseFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
-
-    }//GEN-LAST:event_comparedFileEditorPaneMouseClicked
-
-    private void comparedFileEditorPaneMouseEntered(MouseEvent evt) {//GEN-FIRST:event_comparedFileEditorPaneMouseEntered
-        // TODO add your handling code here:
-        JLabel label = (JLabel) evt.getComponent();
-        label.setForeground(Color.RED);
-        //TODO para teste
-        JLabel labelReferente = (JLabel) baseFileScrollPane.getComponent(3);
-
-        labelReferente.setForeground(Color.GREEN);
-
-        baseFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
-    }//GEN-LAST:event_comparedFileEditorPaneMouseEntered
-
-    private void comparedFileEditorPaneMouseExited(MouseEvent evt) {//GEN-FIRST:event_comparedFileEditorPaneMouseExited
-        // TODO add your handling code here:
-        JLabel label = (JLabel) evt.getComponent();
-        label.setForeground(Color.BLACK);
-        //TODO para teste
-        baseFileEditorPane.getComponent(5).setForeground(Color.BLACK);
-
-    }//GEN-LAST:event_comparedFileEditorPaneMouseExited
-
-    private void comparedFileEditorPaneMousePressed(MouseEvent evt) {//GEN-FIRST:event_comparedFileEditorPaneMousePressed
-        // TODO add your handling code here:
-        JLabel label = (JLabel) evt.getComponent();
-        label.setForeground(Color.RED);
-    }//GEN-LAST:event_comparedFileEditorPaneMousePressed
-
-    private void baseFileEditorPaneMousePressed(MouseEvent evt) {//GEN-FIRST:event_baseFileEditorPaneMousePressed
-        // TODO add your handling code here:
-        JLabel label = (JLabel) evt.getComponent();
-        label.setForeground(Color.RED);
-    }//GEN-LAST:event_baseFileEditorPaneMousePressed
-
     /**
      * Start Diff
      * @param basedFile
@@ -548,7 +427,7 @@ public class MainILCS extends javax.swing.JFrame {
      */
     private void startComponent(File basedFile, File comparedFile) throws IOException {
         tableComponent.cleanTabelModel(tableDetails);
-        fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
+        fileComponent.repaintFiles(basedFile.getAbsolutePath(), comparedFile.getAbsolutePath(), baseFileEditorPane, comparedFileEditorPane, baseFileScrollPane, comparedFileScrollPane);
     }
 
     /**
