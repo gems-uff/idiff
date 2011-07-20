@@ -43,25 +43,50 @@ public class FileComponent {
         submitFile(comparedFile, comparedEditorPane);
     }
 
-    public void repaintFiles(String basefile, String comparefile, JEditorPane baseFileEditorPane, JEditorPane comparedFileEditorPane, JScrollPane baseScrollPane, JScrollPane comparedScrollPane) throws FileNotFoundException, IOException {
-        repaintFile(basefile, comparefile, baseFileEditorPane, comparedFileEditorPane, baseScrollPane, comparedScrollPane);
+    private void submitFile(File file, JEditorPane editorPane) throws MalformedURLException, IOException {
+        final URL transferURL = file.toURI().toURL();
+        editorPane.setPage(transferURL);
     }
 
-    private JLabel eventPanelLeft(JEditorPane editorPaneLeft, String texto, final JEditorPane editorPaneRight, final JScrollPane paneRight) {
-        editorPaneLeft.setLayout(new BoxLayout(editorPaneLeft, BoxLayout.PAGE_AXIS));
-        JLabel linha = new JLabel(texto);
-        linha.setBackground(Color.WHITE);
-        linha.setOpaque(true);
-        linha.addMouseListener(new MouseAdapter() {
+    public void repaintFiles(String basefile, String comparefile, JEditorPane baseFileEditorPane, JEditorPane comparedFileEditorPane, JScrollPane baseScrollPane, JScrollPane comparedScrollPane) throws FileNotFoundException, IOException {
+        printLines(basefile, baseFileEditorPane, comparedFileEditorPane, baseScrollPane);
+        adjustmentPaneEvent(baseScrollPane, comparedScrollPane);
+        printLines(comparefile, comparedFileEditorPane, baseFileEditorPane, comparedScrollPane);
+        adjustmentPaneEvent(comparedScrollPane, baseScrollPane);
+    }
+
+    private void printLines(String file, JEditorPane editorPaneLeft, final JEditorPane editorPaneRight, final JScrollPane paneRight) throws IOException, FileNotFoundException {
+        BufferedReader buffReader = new BufferedReader(new FileReader(file));
+        String text;
+        while ((text = buffReader.readLine()) != null) {
+            JLabel line = eventPanelLeft(text, editorPaneRight, paneRight);
+            editorPaneLeft.add(line);
+        }
+        editorPaneRight.setLayout(new BoxLayout(editorPaneRight, BoxLayout.PAGE_AXIS));
+    }
+
+    //TODO Alterar - versão para testes
+    private void adjustmentPaneEvent(JScrollPane paneLeft, final JScrollPane paneRight) {
+        paneLeft.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
 
             @Override
-            public void mouseClicked(MouseEvent me) {
-                JLabel label = (JLabel) me.getComponent();
-                label.setForeground(Color.RED);
-                JLabel labelReferente = (JLabel) editorPaneRight.getComponent(2);
-                labelReferente.setForeground(Color.GREEN);
-                paneRight.getVerticalScrollBar().setValue(labelReferente.getY());
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                int newPosition = e.getValue() * 2;
+                int startPosition = paneRight.getVerticalScrollBar().getValue();
+                int finalPosition = (int) (paneRight.getSize().getHeight() + startPosition);
+
+                if (newPosition > finalPosition || newPosition < startPosition) {
+                    paneRight.getVerticalScrollBar().setValue(newPosition);
+                }
             }
+        });
+    }
+
+    private JLabel eventPanelLeft(String text, final JEditorPane editorPaneRight, final JScrollPane paneRight) {
+        JLabel line = new JLabel(text);
+        line.setBackground(Color.WHITE);
+        line.setOpaque(true);
+        line.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseEntered(MouseEvent me) {
@@ -69,12 +94,12 @@ public class FileComponent {
                 label.setForeground(Color.RED);
                 label.setBackground(Color.YELLOW);
 
-                JLabel labelReferente = (JLabel) editorPaneRight.getComponent(2);
+                JLabel relativeLabel = (JLabel) editorPaneRight.getComponent(2);
 
-                labelReferente.setForeground(Color.GREEN);
-                labelReferente.setBackground(Color.YELLOW);
+                relativeLabel.setForeground(Color.GREEN);
+                relativeLabel.setBackground(Color.YELLOW);
 
-                paneRight.getVerticalScrollBar().setValue(labelReferente.getY());
+                paneRight.getVerticalScrollBar().setValue(relativeLabel.getY());
             }
 
             @Override
@@ -87,83 +112,16 @@ public class FileComponent {
                 editorPaneRight.getComponent(2).setBackground(Color.WHITE);
 
             }
-        });
-        return linha;
-    }
-
-    private JLabel eventPanelRight(String texto2) {
-        JLabel linha2 = new JLabel(texto2);
-        linha2.setBackground(Color.WHITE);
-        linha2.setOpaque(true);
-        linha2.addMouseListener(new MouseAdapter() {
 
             @Override
-            public void mousePressed(MouseEvent me) {
+            public void mouseClicked(MouseEvent me) {
                 JLabel label = (JLabel) me.getComponent();
                 label.setForeground(Color.RED);
+                JLabel relativeLabel = (JLabel) editorPaneRight.getComponent(2);
+                relativeLabel.setForeground(Color.GREEN);
+                paneRight.getVerticalScrollBar().setValue(relativeLabel.getY());
             }
         });
-        return linha2;
-    }
-
-    /**
-     * Submit FileComponent
-     * @param editorPane
-     * @param file
-     * @return boolean
-     * @throws MalformedURLException
-     * @throws IOException 
-     */
-    private void submitFile(File file, JEditorPane editorPane) throws MalformedURLException, IOException {
-        final URL transferURL = file.toURI().toURL();
-        editorPane.setPage(transferURL);
-    }
-
-    private void repaintFile(String file, String file2, JEditorPane editorPaneLeft, final JEditorPane editorPaneRight, JScrollPane paneLeft, final JScrollPane paneRight) throws MalformedURLException, IOException {
-        FileReader reader = new FileReader(file);
-        BufferedReader buffReader = new BufferedReader(reader);
-        String texto;
-        while ((texto = buffReader.readLine()) != null) {
-            JLabel linha = eventPanelLeft(editorPaneLeft, texto, editorPaneRight, paneRight);
-
-            editorPaneLeft.add(linha);
-        }
-
-        editorPaneRight.setLayout(new BoxLayout(editorPaneRight, BoxLayout.PAGE_AXIS));
-    
-        FileReader reader2 = new FileReader(file2);
-        BufferedReader buffReader2 = new BufferedReader(reader2);
-        String texto2;
-        while ((texto2 = buffReader2.readLine()) != null) {
-            JLabel linha2 = eventPanelRight(texto2);
-
-            editorPaneRight.add(linha2);
-        }
-
-        paneLeft.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                int novaPosicao = e.getValue() * 2;
-                int posicaoInicial = paneRight.getVerticalScrollBar().getValue();
-                int posicaoFinal = (int) (paneRight.getSize().getHeight() + posicaoInicial);
-
-                if (novaPosicao > posicaoFinal || novaPosicao < posicaoInicial) {
-                    paneRight.getVerticalScrollBar().setValue(novaPosicao);
-                }
-            }
-        });
-
-    }
-
-    public void ler(String arquivo) throws IOException {
-        FileReader reader = new FileReader(arquivo);
-        BufferedReader buffReader = new BufferedReader(reader);
-        String linha;
-        while ((linha = buffReader.readLine()) != null) {
-            System.out.println(linha);
-        }
-        reader.close();
-
+        return line;
     }
 }
