@@ -32,7 +32,6 @@ public class TableComponent {
         ((DefaultTableModel) tableDetails.getModel()).removeTableModelListener(tableDetails);
         tableDetails.revalidate();
         tableDetails.repaint();
-
     }
 
     /**

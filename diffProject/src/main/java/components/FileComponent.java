@@ -1,10 +1,7 @@
 package components;
 
-import java.awt.Color;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import algorithms.Grain;
+import algorithms.IResultDiff;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,9 +9,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.swing.BoxLayout;
+import java.util.List;
 import javax.swing.JEditorPane;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 /**
@@ -22,6 +18,8 @@ import javax.swing.JScrollPane;
  * @author Fernanda Floriano Silva
  */
 public class FileComponent {
+
+    private HtmlComponent htmlComponent = new HtmlComponent();
 
     /**
      * Constructor
@@ -31,10 +29,10 @@ public class FileComponent {
 
     /**
      * Show Files
-     * @param basedFile
+     * @param baseFile
      * @param comparedFile
-     * @param baseFileEditorPane
-     * @param comparedFileEditorPane
+     * @param baseEditorPane
+     * @param comparedEditorPane
      * @throws FileNotFoundException
      * @throws IOException 
      */
@@ -48,80 +46,69 @@ public class FileComponent {
         editorPane.setPage(transferURL);
     }
 
-    public void repaintFiles(String basefile, String comparefile, JEditorPane baseFileEditorPane, JEditorPane comparedFileEditorPane, JScrollPane baseScrollPane, JScrollPane comparedScrollPane) throws FileNotFoundException, IOException {
-        printLines(basefile, baseFileEditorPane, comparedFileEditorPane, baseScrollPane);
-        adjustmentPaneEvent(baseScrollPane, comparedScrollPane);
-        printLines(comparefile, comparedFileEditorPane, baseFileEditorPane, comparedScrollPane);
-        adjustmentPaneEvent(comparedScrollPane, baseScrollPane);
+    /* private void setHtmlComponent(HtmlComponent htmlComponent, StringBuilder sb) {
+    htmlComponent.setTextDecoration(sb);
     }
+    
+    private void setLineStatus(BufferedReader reader, HtmlComponent htmlComponent, StringBuilder sb) throws IOException {
+    String line;
+    for (int lineCount = 1; ((line = reader.readLine()) != null) ; lineCount++) {
+    verifyLineStatus(htmlComponent, sb, line,lineCount);
+    
+    }
+    
+    //        while ((line = reader.readLine()) != null) {
+    //          verifyLineStatus(htmlComponent, sb, line);
+    //    }
+    sb.append("</body>");
+    }
+    
+    public void ready(File file, JEditorPane pane, HtmlComponent htmlComponent) throws FileNotFoundException, IOException {
+    BufferedReader reader = new BufferedReader(new FileReader(file));
+    StringBuilder sb = new StringBuilder();
+    pane.setContentType("text/html");
+    pane.setEditable(false);
+    setHtmlComponent(htmlComponent, sb);
+    setLineStatus(reader, htmlComponent, sb);
+    pane.setText(sb.toString());
+    reader.close();
+    }
+    
+    private void verifyLineStatus(HtmlComponent htmlComponent, StringBuilder sb, String line, int idLine) {
+    htmlComponent.setAddedLine(sb, line,idLine);
+    }
+    
+    public void repaintFiles(File file, JEditorPane fileEditorPane, JScrollPane fileScrollPane, List<Grain> grainsFrom, List<Grain> grainsTo, List<Grain> differences) throws FileNotFoundException, IOException {
+    ready(file, fileEditorPane, htmlComponent);
+    }
+    
+    private void checkMoves() {
+    throw new UnsupportedOperationException("Not yet implemented");
+    }
+    private void checkDifferences() {
+    throw new UnsupportedOperationException("Not yet implemented");
+    }
+     */
+    void repaint(File left, File right, IResultDiff result, JEditorPane fomEditorPane, JScrollPane fromScrollPane, JEditorPane toEditorPane, JScrollPane toScrollPane) throws FileNotFoundException, IOException {
+        String lineLeft;
+        String lineRight;
 
-    private void printLines(String file, JEditorPane editorPaneLeft, final JEditorPane editorPaneRight, final JScrollPane paneRight) throws IOException, FileNotFoundException {
-        BufferedReader buffReader = new BufferedReader(new FileReader(file));
-        String text;
-        while ((text = buffReader.readLine()) != null) {
-            JLabel line = eventPanelLeft(text, editorPaneRight, paneRight);
-            editorPaneLeft.add(line);
+        StringBuilder sbLeft = new StringBuilder();
+        BufferedReader readerLeft = new BufferedReader(new FileReader(left));
+
+        StringBuilder sbRight = new StringBuilder();
+        BufferedReader readerRight = new BufferedReader(new FileReader(right));
+
+        while (((lineLeft = readerLeft.readLine()) != null) && ((lineRight = readerRight.readLine()) != null)) {
+            System.out.println(lineLeft);
+            System.out.println(lineRight);
+            //TODO Conitnuar aqui - depois aplicar refatoração
         }
-        editorPaneRight.setLayout(new BoxLayout(editorPaneRight, BoxLayout.PAGE_AXIS));
-    }
 
-    //TODO Alterar - versão para testes
-    private void adjustmentPaneEvent(JScrollPane paneLeft, final JScrollPane paneRight) {
-        paneLeft.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
 
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                int newPosition = e.getValue() * 2;
-                int startPosition = paneRight.getVerticalScrollBar().getValue();
-                int finalPosition = (int) (paneRight.getSize().getHeight() + startPosition);
-
-                if (newPosition > finalPosition || newPosition < startPosition) {
-                    paneRight.getVerticalScrollBar().setValue(newPosition);
-                }
-            }
-        });
-    }
-
-    private JLabel eventPanelLeft(String text, final JEditorPane editorPaneRight, final JScrollPane paneRight) {
-        JLabel line = new JLabel(text);
-        line.setBackground(Color.WHITE);
-        line.setOpaque(true);
-        line.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-                JLabel label = (JLabel) me.getComponent();
-                label.setForeground(Color.RED);
-                label.setBackground(Color.YELLOW);
-
-                JLabel relativeLabel = (JLabel) editorPaneRight.getComponent(2);
-
-                relativeLabel.setForeground(Color.GREEN);
-                relativeLabel.setBackground(Color.YELLOW);
-
-                paneRight.getVerticalScrollBar().setValue(relativeLabel.getY());
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-                JLabel label = (JLabel) me.getComponent();
-                label.setForeground(Color.BLACK);
-                label.setBackground(Color.WHITE);
-
-                editorPaneRight.getComponent(2).setForeground(Color.BLACK);
-                editorPaneRight.getComponent(2).setBackground(Color.WHITE);
-
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                JLabel label = (JLabel) me.getComponent();
-                label.setForeground(Color.RED);
-                JLabel relativeLabel = (JLabel) editorPaneRight.getComponent(2);
-                relativeLabel.setForeground(Color.GREEN);
-                paneRight.getVerticalScrollBar().setValue(relativeLabel.getY());
-            }
-        });
-        return line;
+        List<Grain> differences = result.getDifferences();
+        List<Grain> grainsFrom = result.getGrainsFrom();
+        List<Grain> grainsTo = result.getGrainsTo();
+        int x = 1;
     }
 }
