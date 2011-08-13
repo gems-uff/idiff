@@ -99,7 +99,6 @@ public class MainILCS extends javax.swing.JFrame {
     private void initFiles(File basedFile, File comparedFile) throws IOException {
         setFiles(basedFile, comparedFile);
         loadTreeFiles(basedFile, comparedFile);
-        //    fileComponent.showFiles(basedFile.getAbsolutePath(), comparedFile.getAbsolutePath(), baseFileEditorPane, comparedFileEditorPane,baseFileScrollPane,comparedFileScrollPane);
         fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
     }
 
@@ -362,9 +361,6 @@ public class MainILCS extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-                            
-      
-    
 
     /**
      * Start Diff
@@ -374,13 +370,12 @@ public class MainILCS extends javax.swing.JFrame {
      */
     private void startDiff(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
         Grain grain = new FileGrain();
-//        startComponent(basedFile, comparedFile);   
         tableComponent.cleanTabelModel(tableDetails);
         Diff diff = new Diff(basedFile, comparedFile);
+        result.cleanResult();
         result = diff.compare(grain, ilcsBean);
         startTable();
         startComponent(basedFile, comparedFile);
-        result.cleanResult();
     }
 
     /**
@@ -398,9 +393,7 @@ public class MainILCS extends javax.swing.JFrame {
      * @throws IOException 
      */
     private void startComponent(File basedFile, File comparedFile) throws IOException {
-//        tableComponent.cleanTabelModel(tableDetails);
-        fileComponent.repaint(basedFile,comparedFile,result,baseFileEditorPane,baseFileScrollPane,comparedFileEditorPane,comparedFileScrollPane);
-        //fileComponent.repaintFiles(comparedFile, comparedFileEditorPane, dirScrollPane2, result.getGrainsTo(), result.getGrainsFrom(), result.getDifferences());
+        fileComponent.repaint(ilcsBean, result, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane);
     }
 
     /**
@@ -522,7 +515,6 @@ public class MainILCS extends javax.swing.JFrame {
     private JToolBar toolBar;
     private JButton yesButton;
     // End of variables declaration//GEN-END:variables
-                   
     private ILCSBean ilcsBean;
     private IResultDiff result = new Result();
     private FileComponent fileComponent = new FileComponent();

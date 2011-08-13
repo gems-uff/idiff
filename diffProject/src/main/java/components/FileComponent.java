@@ -1,16 +1,22 @@
 package components;
 
 import algorithms.Grain;
+import algorithms.ILCSBean;
 import algorithms.IResultDiff;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
+import java.util.Iterator;
+import java.awt.Color;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.BoxLayout;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 /**
@@ -18,8 +24,6 @@ import javax.swing.JScrollPane;
  * @author Fernanda Floriano Silva
  */
 public class FileComponent {
-
-    private HtmlComponent htmlComponent = new HtmlComponent();
 
     /**
      * Constructor
@@ -46,69 +50,124 @@ public class FileComponent {
         editorPane.setPage(transferURL);
     }
 
-    /* private void setHtmlComponent(HtmlComponent htmlComponent, StringBuilder sb) {
-    htmlComponent.setTextDecoration(sb);
+    public void repaint(ILCSBean ilcsBean, IResultDiff result, JEditorPane baseFileEditorPane, JScrollPane baseFileScrollPane, JEditorPane comparedFileEditorPane, JScrollPane comparedFileScrollPane) {
+        setDifferenceColor(ilcsBean, result, baseFileEditorPane, comparedFileEditorPane);
+        setMoveColor(ilcsBean, result, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane);
     }
-    
-    private void setLineStatus(BufferedReader reader, HtmlComponent htmlComponent, StringBuilder sb) throws IOException {
-    String line;
-    for (int lineCount = 1; ((line = reader.readLine()) != null) ; lineCount++) {
-    verifyLineStatus(htmlComponent, sb, line,lineCount);
-    
-    }
-    
-    //        while ((line = reader.readLine()) != null) {
-    //          verifyLineStatus(htmlComponent, sb, line);
-    //    }
-    sb.append("</body>");
-    }
-    
-    public void ready(File file, JEditorPane pane, HtmlComponent htmlComponent) throws FileNotFoundException, IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(file));
-    StringBuilder sb = new StringBuilder();
-    pane.setContentType("text/html");
-    pane.setEditable(false);
-    setHtmlComponent(htmlComponent, sb);
-    setLineStatus(reader, htmlComponent, sb);
-    pane.setText(sb.toString());
-    reader.close();
-    }
-    
-    private void verifyLineStatus(HtmlComponent htmlComponent, StringBuilder sb, String line, int idLine) {
-    htmlComponent.setAddedLine(sb, line,idLine);
-    }
-    
-    public void repaintFiles(File file, JEditorPane fileEditorPane, JScrollPane fileScrollPane, List<Grain> grainsFrom, List<Grain> grainsTo, List<Grain> differences) throws FileNotFoundException, IOException {
-    ready(file, fileEditorPane, htmlComponent);
-    }
-    
-    private void checkMoves() {
-    throw new UnsupportedOperationException("Not yet implemented");
-    }
-    private void checkDifferences() {
-    throw new UnsupportedOperationException("Not yet implemented");
-    }
-     */
-    void repaint(File left, File right, IResultDiff result, JEditorPane fomEditorPane, JScrollPane fromScrollPane, JEditorPane toEditorPane, JScrollPane toScrollPane) throws FileNotFoundException, IOException {
-        String lineLeft;
-        String lineRight;
 
-        StringBuilder sbLeft = new StringBuilder();
-        BufferedReader readerLeft = new BufferedReader(new FileReader(left));
-
-        StringBuilder sbRight = new StringBuilder();
-        BufferedReader readerRight = new BufferedReader(new FileReader(right));
-
-        while (((lineLeft = readerLeft.readLine()) != null) && ((lineRight = readerRight.readLine()) != null)) {
-            System.out.println(lineLeft);
-            System.out.println(lineRight);
-            //TODO Conitnuar aqui - depois aplicar refatoração
+    private void setDifferenceColor(ILCSBean ilcsBean, IResultDiff result, JEditorPane baseFileEditorPane, JEditorPane comparedFileEditorPane) {
+        for (Iterator<Grain> it = result.getDifferences().iterator(); it.hasNext();) {
+            Grain grain = it.next();
+            if (grain != null) {
+                if ((grain.getSituation()).equals(Grain.Situation.REMOVED)) {
+                    setRemovedLine(new JLabel("teste"));
+                } else {
+                    setAddedLine(new JLabel("teste"));
+                }
+            }
         }
+    }
 
+    private void setMoveColor(ILCSBean ilcsBean, IResultDiff result, JEditorPane baseFileEditorPane, JScrollPane baseFileScrollPane, JEditorPane comparedFileEditorPane, JScrollPane comparedFileScrollPane) {
+        Iterator<Grain> it1 = result.getGrainsFrom().iterator();
+        Iterator<Grain> it2 = result.getGrainsTo().iterator();
+        while (it1.hasNext() || it2.hasNext()) {
+            Grain grain1 = it1.next();
+            Grain grain2 = it2.next();
+            if ((grain1 != null) || (grain2 != null)) {
+                if (!grain1.getOriginalReference().equals(grain2.getOriginalReference())) {
+                    setMovedLines(new JLabel("teste"));
+                } else {
+                    setUnchangedLines(new JLabel("teste"));
+                }
+            }
+        }
+    }
 
-        List<Grain> differences = result.getDifferences();
-        List<Grain> grainsFrom = result.getGrainsFrom();
-        List<Grain> grainsTo = result.getGrainsTo();
-        int x = 1;
+    private JLabel setRemovedLine(JLabel label) {
+        System.out.println("teste");
+        return new JLabel("teste");
+    }
+
+    private JLabel setAddedLine(JLabel labe) {
+        System.out.println("teste");
+        return new JLabel("teste");
+    }
+
+    private JLabel setMovedLines(JLabel labe) {
+        System.out.println("teste");
+        return new JLabel("teste");
+    }
+
+    private JLabel setUnchangedLines(JLabel labe) {
+        System.out.println("teste");
+        return new JLabel("teste");
+    }
+
+    private void addEvent(String textLeft, String textRight, JEditorPane baseFileEditorPane, JScrollPane baseFileScrollPane, final JEditorPane comparedFileEditorPane, final JScrollPane comparedFileScrollPane) {
+        baseFileEditorPane.setLayout(new BoxLayout(baseFileEditorPane, BoxLayout.PAGE_AXIS));
+        addMouseEvent(textLeft, comparedFileEditorPane, comparedFileScrollPane, baseFileEditorPane);
+        comparedFileEditorPane.setLayout(new BoxLayout(comparedFileEditorPane, BoxLayout.PAGE_AXIS));
+        setEditorPane(textRight, comparedFileEditorPane);
+        addAdjustmentEvent(baseFileScrollPane, comparedFileScrollPane);
+    }
+
+    private void addMouseEvent(String textLeft, final JEditorPane comparedFileEditorPane, final JScrollPane comparedFileScrollPane, JEditorPane baseFileEditorPane) {
+        JLabel linha = new JLabel(textLeft);
+        linha.setBackground(Color.WHITE);
+        linha.setOpaque(true);
+
+        linha.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                JLabel label = (JLabel) me.getComponent();
+                label.setForeground(Color.BLACK);
+                label.setBackground(Color.decode("#ffc0cb"));
+
+                JLabel labelReferente = (JLabel) comparedFileEditorPane.getComponent(1);//Aqui entra a referencia do outro lado
+
+                labelReferente.setForeground(Color.BLACK);
+                labelReferente.setBackground(Color.decode("#ffc0cb"));
+
+                comparedFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                JLabel label = (JLabel) me.getComponent();
+                label.setForeground(Color.BLACK);
+                label.setBackground(Color.decode("#b0c4de"));
+
+                comparedFileEditorPane.getComponent(1).setForeground(Color.BLACK);//Aqui entra a referencia do outro lado - getComponent
+                comparedFileEditorPane.getComponent(1).setBackground(Color.WHITE);//Aqui entra a referencia do outro lado - getComponent
+
+            }
+        });
+
+        baseFileEditorPane.add(linha);
+    }
+
+    private void addAdjustmentEvent(JScrollPane baseFileScrollPane, final JScrollPane comparedFileScrollPane) {
+        baseFileScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                int novaPosicao = e.getValue() * 2;
+                int posicaoInicial = comparedFileScrollPane.getVerticalScrollBar().getValue();
+                int posicaoFinal = (int) (comparedFileScrollPane.getSize().getHeight() + posicaoInicial);
+
+                if (novaPosicao > posicaoFinal || novaPosicao < posicaoInicial) {
+                    comparedFileScrollPane.getVerticalScrollBar().setValue(novaPosicao);
+                }
+            }
+        });
+    }
+
+    private void setEditorPane(String textRight, final JEditorPane comparedFileEditorPane) {
+        JLabel linha = new JLabel(textRight);
+        linha.setBackground(Color.WHITE);
+        linha.setOpaque(true);
+        comparedFileEditorPane.add(linha);
     }
 }
