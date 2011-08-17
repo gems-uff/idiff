@@ -23,4 +23,7 @@ public class ColorLine {
     public static Color getUnchangedColor() {
         return Color.decode("#FFFFFF");
     }
+        public static Color getHighLight() {
+        return Color.decode("##ffff00");
+    }
 }

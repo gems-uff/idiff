@@ -23,7 +23,7 @@ public class EventLine {
     public EventLine() {
     }
 
-    private void addEvent(String textLeft, String textRight, JEditorPane baseFileEditorPane, JScrollPane baseFileScrollPane, final JEditorPane comparedFileEditorPane, final JScrollPane comparedFileScrollPane) {
+    public void addEvent(JLabel textLeft, JLabel textRight, JEditorPane baseFileEditorPane, JScrollPane baseFileScrollPane, final JEditorPane comparedFileEditorPane, final JScrollPane comparedFileScrollPane) {
         baseFileEditorPane.setLayout(new BoxLayout(baseFileEditorPane, BoxLayout.PAGE_AXIS));
         addMouseEvent(textLeft, comparedFileEditorPane, comparedFileScrollPane, baseFileEditorPane);
         comparedFileEditorPane.setLayout(new BoxLayout(comparedFileEditorPane, BoxLayout.PAGE_AXIS));
@@ -31,8 +31,7 @@ public class EventLine {
         addAdjustmentEvent(baseFileScrollPane, comparedFileScrollPane);
     }
 
-    private void addMouseEvent(String textLeft, final JEditorPane comparedFileEditorPane, final JScrollPane comparedFileScrollPane, JEditorPane baseFileEditorPane) {
-        JLabel linha = new JLabel(textLeft);
+    private void addMouseEvent(JLabel linha, final JEditorPane comparedFileEditorPane, final JScrollPane comparedFileScrollPane, JEditorPane baseFileEditorPane) {
         linha.setBackground(Color.WHITE);
         linha.setOpaque(true);
 
@@ -83,10 +82,11 @@ public class EventLine {
         });
     }
 
-    private void setEditorPane(String textRight, final JEditorPane comparedFileEditorPane) {
-        JLabel linha = new JLabel(textRight);
+    private void setEditorPane(JLabel linha, final JEditorPane comparedFileEditorPane) {
         linha.setBackground(Color.WHITE);
         linha.setOpaque(true);
         comparedFileEditorPane.add(linha);
     }
+
+
 }

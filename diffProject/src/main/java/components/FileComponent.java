@@ -46,12 +46,13 @@ public class FileComponent {
         reader = new BufferedReader(new FileReader(file));
         int id = 0;
         String line;
-    
+
         while ((line = reader.readLine()) != null) {
             char[] letras = line.toCharArray();
             for (int i = 0; i < letras.length; i++) {
                 JLabel label = new JLabel(line);
                 label.setBackground(ColorLine.getUnchangedColor());
+                label.setOpaque(true);
                 editorPane.add("" + id + i, label);
             }
             line = line + letras.length;
