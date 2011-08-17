@@ -10,7 +10,6 @@ import algorithms.Result;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,7 +37,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -343,6 +341,7 @@ public class MainILCS extends javax.swing.JFrame {
         baseFileScrollPane.setAutoscrolls(true);
 
         baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        baseFileEditorPane.setEditable(false);
         baseFileEditorPane.setAutoscrolls(true);
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
@@ -353,6 +352,7 @@ public class MainILCS extends javax.swing.JFrame {
         comparedFileScrollPane.setAutoscrolls(true);
 
         comparedFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        comparedFileEditorPane.setEditable(false);
         comparedFileEditorPane.setAutoscrolls(true);
         comparedFileScrollPane.setViewportView(comparedFileEditorPane);
 

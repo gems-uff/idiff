@@ -49,7 +49,7 @@ public class LineGrain extends Grain {
         }
         return finalList;
     }
-
+    
     /**
      * Start Line Granularity
      * @param baseFile
