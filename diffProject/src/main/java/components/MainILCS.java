@@ -463,17 +463,6 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     /**
-     * Change Order
-     
-    @Action
-    public void changeOrder() throws IOException {
-        ilcsBean.changeFilesOrder();
-        initFiles(ilcsBean.getBasedFile(), ilcsBean.getComparedFile());
-        initParameters(ilcsBean.getGranularity(), ilcsBean.isTrimLine(), ilcsBean.isEmptyLine(), ilcsBean.isRemoveWhiteSpaces());
-        tableComponent.cleanTabelModel(tableDetails);
-    }*/
-
-    /**
      * File Selection
      */
     @Action
