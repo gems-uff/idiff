@@ -16,8 +16,8 @@ public class CharacterGrain extends Grain {
      * @param character
      * @param idReference
      */
-    public CharacterGrain(String character, int idReference) {
-        super(LevelGranularity.CHARACTER, character, idReference);
+    public CharacterGrain(String character, int idReference, GrainBean grainBean) {
+        super(LevelGranularity.CHARACTER, character, idReference, grainBean);
     }
 
     /**
@@ -38,11 +38,14 @@ public class CharacterGrain extends Grain {
         finalList.add(null);
         for (Iterator it = list.iterator(); it.hasNext();) {
             Grain grain = (Grain) it.next();
+            
             if (grain != null) {
                 char[] letras = grain.getGrain().toCharArray();
+                int startPosition = grain.getOriginalReference().get(1) ;
                 for (int i = 0; i < letras.length; i++) {
-                    CharacterGrain charGrain = setData(letras, i, grain, i);
+                    CharacterGrain charGrain = setData(letras, i, grain, startPosition); 
                     finalList.add(charGrain);
+                    startPosition++;
                 }
             }
         }
@@ -57,10 +60,11 @@ public class CharacterGrain extends Grain {
      * @param idReference
      * @return CharacterGrain
      */
-    private CharacterGrain setData(char[] letras, int i, Grain grain, int idReference) {
-        CharacterGrain charGrain = new CharacterGrain(Character.toString(letras[i]), grain.getOriginalReference().get(0));
-        charGrain.setOriginalReference(grain.getOriginalReference().get(1));
-        charGrain.setOriginalReference(i + 1);
+    private CharacterGrain setData(char[] letras, int i, Grain grain, int startPosition) { 
+        GrainBean grainBean = new GrainBean(grain.getOriginalReference().get(0), startPosition, 1);
+        CharacterGrain charGrain = new CharacterGrain(Character.toString(letras[i]), grain.getOriginalReference().get(0), grainBean);
+        //charGrain.setOriginalReference(grain.getOriginalReference().get(1));
+        charGrain.setOriginalReference(i++);
         return charGrain;
     }
 

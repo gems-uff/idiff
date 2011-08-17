@@ -17,8 +17,8 @@ public class WordGrain extends Grain {
      * @param word
      * @param idReference 
      */
-    public WordGrain(String word, int idReference) {
-        super(LevelGranularity.WORD, word, idReference);
+    public WordGrain(String word, int idReference, GrainBean grainBean) {
+        super(LevelGranularity.WORD, word, idReference, grainBean);
     }
 
     /**
@@ -37,21 +37,26 @@ public class WordGrain extends Grain {
     public List<Grain> start(List<Grain> list) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
         finalList.add(null);
-
         for (Iterator it = list.iterator(); it.hasNext();) {
             Grain grain = (Grain) it.next();
             if (grain != null) {
                 StringTokenizer token = new StringTokenizer(grain.getGrain());
                 int idReference = 0;
+                int startPosition = 0;
                 while (token.hasMoreTokens()) {
                     idReference++;
-                    WordGrain wordGrain = setData(token, grain, idReference);
+                    WordGrain wordGrain = setData(token, grain, idReference, startPosition);
                     finalList.add(wordGrain);
+                    startPosition = setStartPosition(startPosition, wordGrain.getGrain());
                 }
             }
 
         }
         return finalList;
+    }
+
+    private int setStartPosition(int startPosition, String word) {
+        return (startPosition + word.length() + 1);
     }
 
     /**
@@ -61,8 +66,10 @@ public class WordGrain extends Grain {
      * @param idReference
      * @return WordGrain
      */
-    private WordGrain setData(StringTokenizer token, Grain grain, int idReference) {
-        WordGrain wordGrain = new WordGrain(token.nextToken(), grain.getOriginalReference().get(0));
+    private WordGrain setData(StringTokenizer token, Grain grain, int idReference, int startPosition) {
+        String nextToken = token.nextToken();
+        GrainBean grainBean = new GrainBean(grain.getOriginalReference().get(0), startPosition, nextToken.length());
+        WordGrain wordGrain = new WordGrain(nextToken, grain.getOriginalReference().get(0), grainBean);
         wordGrain.setOriginalReference(idReference);
         return wordGrain;
     }

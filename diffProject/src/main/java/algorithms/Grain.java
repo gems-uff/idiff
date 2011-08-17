@@ -15,6 +15,7 @@ public class Grain {
     private List<Integer> originalReference = new ArrayList<Integer>();
     private Situation situation = Situation.UNCHANGED;
     private LevelGranularity levelGrain;
+    private GrainBean grainBean;
 
     /**
      * Possible situation of grains
@@ -44,10 +45,11 @@ public class Grain {
      * @param grain
      * @param originalReference
      */
-    public Grain(LevelGranularity levelGrain, String grain, int originalReference) {
+    public Grain(LevelGranularity levelGrain, String grain, int originalReference, GrainBean grainBean) {
         this.levelGrain = levelGrain;
         this.grainText = grain;
         this.originalReference.add(originalReference);
+        this.grainBean = grainBean;
     }
 
     /**
@@ -115,6 +117,22 @@ public class Grain {
      */
     public void setLevelGrain(LevelGranularity levelGrain) {
         this.levelGrain = levelGrain;
+    }
+
+    public GrainBean getGrainBean() {
+        return grainBean;
+    }
+
+    public void setGrainBean(GrainBean charReference) {
+        this.grainBean = charReference;
+    }
+
+    public String getGrainText() {
+        return grainText;
+    }
+
+    public void setGrainText(String grainText) {
+        this.grainText = grainText;
     }
 
     /**

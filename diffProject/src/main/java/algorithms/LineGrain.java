@@ -19,7 +19,7 @@ public class LineGrain extends Grain {
      * @param idReference
      */
     public LineGrain(String line, int idReference) {
-        super(LevelGranularity.LINE, line, idReference);
+        super(LevelGranularity.LINE, line, idReference, new GrainBean(idReference, 0, line.length()));
     }
 
     /**
@@ -38,7 +38,6 @@ public class LineGrain extends Grain {
     public List<Grain> start(File file, ILCSBean ilcsb) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
         finalList.add(null);
-
         String line = null;
         BufferedReader reader = new BufferedReader(new FileReader(file));
         int id = 0;

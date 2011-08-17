@@ -21,6 +21,6 @@ public class FileGrain extends Grain {
      * @param idReference
      */
     public FileGrain(String nameFile, int idReference) {
-        super(LevelGranularity.FILE, nameFile, idReference);
+        super(LevelGranularity.FILE, nameFile, idReference,new GrainBean());
     }
 }

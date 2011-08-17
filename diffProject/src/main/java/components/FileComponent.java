@@ -2,12 +2,15 @@ package components;
 
 import algorithms.ILCSBean;
 import algorithms.IResultDiff;
+import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import javax.swing.JEditorPane;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 /**
@@ -39,12 +42,24 @@ public class FileComponent {
     }
 
     private void submitFile(File file, JEditorPane editorPane) throws MalformedURLException, IOException {
-        final URL transferURL = file.toURI().toURL();
-        editorPane.setPage(transferURL);
+        BufferedReader reader;
+        reader = new BufferedReader(new FileReader(file));
+        int id = 0;
+        String line;
+    
+        while ((line = reader.readLine()) != null) {
+            char[] letras = line.toCharArray();
+            for (int i = 0; i < letras.length; i++) {
+                JLabel label = new JLabel(line);
+                label.setBackground(ColorLine.getUnchangedColor());
+                editorPane.add("" + id + i, label);
+            }
+            line = line + letras.length;
+        }
     }
 
     public void repaint(ILCSBean ilcsBean, IResultDiff result, JEditorPane baseFileEditorPane, JScrollPane baseFileScrollPane, JEditorPane comparedFileEditorPane, JScrollPane comparedFileScrollPane) {
-        granularityComponent.setDifferenceColor(ilcsBean, result, baseFileEditorPane, comparedFileEditorPane);
-        granularityComponent.setMoveColor(ilcsBean, result, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane);
+        granularityComponent.setDifferencedGranularity(result, baseFileEditorPane, comparedFileEditorPane);
+        granularityComponent.setMovedGranularity(ilcsBean, result, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane);
     }
 }

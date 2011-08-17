@@ -1,39 +1,26 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package components;
 
-import javax.swing.JLabel;
+import java.awt.Color;
 
 /**
  *
  * @author Fernanda Floriano Silva
  */
 public class ColorLine {
-  private GranularityComponent granularityComponent;
 
-    public ColorLine() {
+    public static Color getRemovedColor() {
+        return Color.decode("#FFAEB9");
     }
 
-     public JLabel setRemovedColor(JLabel label) {
-        System.out.println("teste");
-        return new JLabel("teste");
+    public static Color getAddedColor() {
+        return Color.decode("#C1FFC1");
     }
 
-    public JLabel setAddedColor(JLabel labe) {
-        System.out.println("teste");
-        return new JLabel("teste");
+    public static Color getMovedColor() {
+        return Color.decode("#7EC0EE");
     }
 
-    public JLabel setMovedColor(JLabel labe) {
-        System.out.println("teste");
-        return new JLabel("teste");
+    public static Color getUnchangedColor() {
+        return Color.decode("#FFFFFF");
     }
-
-    public JLabel setUnchangedColor(JLabel labe) {
-        System.out.println("teste");
-        return new JLabel("teste");
-    }
-    
 }
