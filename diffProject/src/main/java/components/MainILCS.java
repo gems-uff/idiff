@@ -10,6 +10,9 @@ import algorithms.Result;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,6 +35,7 @@ import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -68,6 +72,38 @@ public class MainILCS extends javax.swing.JFrame {
         initComponents();
         ilcsBean = new ILCSBean(basedFile, comparedFile);
         initialSteps(basedFile, comparedFile, granularity, trimLine, emptyLine, whiteSpace);
+        adjustmentScroll();
+
+    }
+
+    private void adjustmentScroll() {
+        adjustmentHorizontalScroll(baseFileScrollPane, comparedFileScrollPane);
+        adjustmentVerticalScroll(baseFileScrollPane, comparedFileScrollPane);
+        
+        adjustmentHorizontalScroll(comparedFileScrollPane, baseFileScrollPane);
+        adjustmentVerticalScroll(comparedFileScrollPane, baseFileScrollPane);
+    }
+
+    private void adjustmentHorizontalScroll(final JScrollPane rightScroll, final JScrollPane leftScroll) {
+        rightScroll.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent arg0) {
+                Point ponto = rightScroll.getViewport().getViewPosition();
+                leftScroll.getViewport().setViewPosition(ponto);
+            }
+        });
+    }
+
+    private void adjustmentVerticalScroll(final JScrollPane rightScroll, final JScrollPane leftScroll) {
+        rightScroll.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent arg0) {
+                Point ponto = rightScroll.getViewport().getViewPosition();
+                leftScroll.getViewport().setViewPosition(ponto);
+            }
+        });
     }
 
     /**
@@ -336,13 +372,16 @@ public class MainILCS extends javax.swing.JFrame {
 
         splitPaneRight.setDividerLocation(560);
         splitPaneRight.setDividerSize(40);
+        splitPaneRight.setAutoscrolls(true);
 
         baseFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.baseFileScrollPane.border.title"))); // NOI18N
         baseFileScrollPane.setAutoscrolls(true);
+        baseFileScrollPane.setMaximumSize(new Dimension(800, 600));
 
         baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        baseFileEditorPane.setEditable(false);
         baseFileEditorPane.setAutoscrolls(true);
+        baseFileEditorPane.setOpaque(false);
+        baseFileEditorPane.setPreferredSize(new Dimension(131, 65));
         baseFileScrollPane.setViewportView(baseFileEditorPane);
 
         splitPaneRight.setLeftComponent(baseFileScrollPane);
@@ -350,10 +389,15 @@ public class MainILCS extends javax.swing.JFrame {
 
         comparedFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.comparedFileScrollPane.border.title"))); // NOI18N
         comparedFileScrollPane.setAutoscrolls(true);
+        comparedFileScrollPane.setMaximumSize(new Dimension(800, 600));
+        comparedFileScrollPane.setOpaque(true);
 
         comparedFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        comparedFileEditorPane.setEditable(false);
         comparedFileEditorPane.setAutoscrolls(true);
+        comparedFileEditorPane.setMaximumSize(new Dimension(800, 600));
+        comparedFileEditorPane.setOpaque(false);
+        comparedFileEditorPane.setPreferredSize(new Dimension(131, 65));
+        comparedFileEditorPane.setRequestFocusEnabled(false);
         comparedFileScrollPane.setViewportView(comparedFileEditorPane);
 
         splitPaneRight.setRightComponent(comparedFileScrollPane);
@@ -429,7 +473,7 @@ public class MainILCS extends javax.swing.JFrame {
         result.cleanResult();
         result = diff.compare(grain, ilcsBean);
         startTable();
-        startComponent(basedFile, comparedFile);
+        startComponent();//(basedFile, comparedFile);
     }
 
     /**
@@ -446,7 +490,7 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile
      * @throws IOException 
      */
-    private void startComponent(File basedFile, File comparedFile) throws IOException {
+    private void startComponent() throws IOException {//File basedFile, File comparedFile) throws IOException {
         fileComponent.repaint(ilcsBean, result, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane);
     }
 

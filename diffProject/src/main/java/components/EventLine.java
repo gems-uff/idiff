@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package components;
 
 import java.awt.Color;
@@ -23,70 +19,62 @@ public class EventLine {
     public EventLine() {
     }
 
-    public void addEvent(JLabel textLeft, JLabel textRight, JEditorPane baseFileEditorPane, JScrollPane baseFileScrollPane, final JEditorPane comparedFileEditorPane, final JScrollPane comparedFileScrollPane) {
-        baseFileEditorPane.setLayout(new BoxLayout(baseFileEditorPane, BoxLayout.PAGE_AXIS));
-        addMouseEvent(textLeft, comparedFileEditorPane, comparedFileScrollPane, baseFileEditorPane);
-        comparedFileEditorPane.setLayout(new BoxLayout(comparedFileEditorPane, BoxLayout.PAGE_AXIS));
-        setEditorPane(textRight, comparedFileEditorPane);
-        addAdjustmentEvent(baseFileScrollPane, comparedFileScrollPane);
+    public void addEvent(JLabel textLeft, JLabel textRight, JEditorPane leftPane, JScrollPane leftScroll, final JEditorPane rightPane, final JScrollPane rightScroll, int leftId, int rightId) {
+        leftPane.setLayout(new BoxLayout(leftPane, BoxLayout.PAGE_AXIS));
+        addMouseEvent(textLeft, rightPane, rightScroll, leftPane, leftId, rightId);
+        rightPane.setLayout(new BoxLayout(rightPane, BoxLayout.PAGE_AXIS));
+        addMouseEvent(textLeft, leftPane, leftScroll, rightPane, rightId, leftId);
+        setEditorPane(textRight, rightPane);
+        addAdjustmentEvent(leftScroll, rightScroll, leftId);
+        addAdjustmentEvent(rightScroll, leftScroll, rightId);
     }
 
-    private void addMouseEvent(JLabel linha, final JEditorPane comparedFileEditorPane, final JScrollPane comparedFileScrollPane, JEditorPane baseFileEditorPane) {
-        linha.setBackground(Color.WHITE);
-        linha.setOpaque(true);
-
-        linha.addMouseListener(new MouseAdapter() {
+    private void addMouseEvent(JLabel line, final JEditorPane rightPane, final JScrollPane rightScroll, JEditorPane leftPane, final int id, final int id2) {
+        line.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseEntered(MouseEvent me) {
                 JLabel label = (JLabel) me.getComponent();
-                label.setForeground(Color.BLACK);
-                label.setBackground(Color.decode("#ffc0cb"));
+                label.setBackground(ColorLine.getHighLight());
+                label.setOpaque(true);
 
-                JLabel labelReferente = (JLabel) comparedFileEditorPane.getComponent(1);//Aqui entra a referencia do outro lado
+                JLabel reference = (JLabel) rightPane.getComponent(id - 1);//Aqui entra a referencia do outro lado
+                reference.setBackground(ColorLine.getHighLight());
+                label.setOpaque(true);
 
-                labelReferente.setForeground(Color.BLACK);
-                labelReferente.setBackground(Color.decode("#ffc0cb"));
-
-                comparedFileScrollPane.getVerticalScrollBar().setValue(labelReferente.getY());
+                rightScroll.getVerticalScrollBar().setValue(reference.getY());
             }
 
             @Override
             public void mouseExited(MouseEvent me) {
                 JLabel label = (JLabel) me.getComponent();
-                label.setForeground(Color.BLACK);
-                label.setBackground(Color.decode("#b0c4de"));
-
-                comparedFileEditorPane.getComponent(1).setForeground(Color.BLACK);//Aqui entra a referencia do outro lado - getComponent
-                comparedFileEditorPane.getComponent(1).setBackground(Color.WHITE);//Aqui entra a referencia do outro lado - getComponent
-
+                label.setBackground(ColorLine.getMovedColor());
+                label.setOpaque(true);
+                rightPane.getComponent(id - 1).setBackground(ColorLine.getMovedColor());
             }
         });
 
-        baseFileEditorPane.add(linha);
+        leftPane.add(line);
     }
 
-    private void addAdjustmentEvent(JScrollPane baseFileScrollPane, final JScrollPane comparedFileScrollPane) {
+    private void addAdjustmentEvent(JScrollPane baseFileScrollPane, final JScrollPane comparedFileScrollPane, final int id) {
         baseFileScrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
 
             @Override
             public void adjustmentValueChanged(AdjustmentEvent e) {
-                int novaPosicao = e.getValue() * 2;
-                int posicaoInicial = comparedFileScrollPane.getVerticalScrollBar().getValue();
-                int posicaoFinal = (int) (comparedFileScrollPane.getSize().getHeight() + posicaoInicial);
-
-                if (novaPosicao > posicaoFinal || novaPosicao < posicaoInicial) {
-                    comparedFileScrollPane.getVerticalScrollBar().setValue(novaPosicao);
+                int newPosition = id - 1;
+                int start = comparedFileScrollPane.getVerticalScrollBar().getValue();
+                int end = (int) (comparedFileScrollPane.getSize().getHeight() + start);
+                if (newPosition > end || newPosition < start) {
+                    comparedFileScrollPane.getVerticalScrollBar().setValue(newPosition);
                 }
             }
         });
     }
 
-    private void setEditorPane(JLabel linha, final JEditorPane comparedFileEditorPane) {
-        linha.setBackground(Color.WHITE);
-        linha.setOpaque(true);
-        comparedFileEditorPane.add(linha);
+    private void setEditorPane(JLabel line, final JEditorPane rightPane) {
+        line.setBackground(ColorLine.getMovedColor());
+        line.setOpaque(true);
+        rightPane.add(line);
     }
-
-
 }

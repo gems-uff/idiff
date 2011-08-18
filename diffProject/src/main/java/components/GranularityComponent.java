@@ -29,10 +29,11 @@ public class GranularityComponent {
             if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
                 line1.setBackground(ColorLine.getMovedColor());
                 line1.setOpaque(true);
+                
                 line2.setBackground(ColorLine.getMovedColor());
                 line2.setOpaque(true);
-                
-                (new EventLine()).addEvent(line1, line2, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane);
+
+                //(new EventLine()).addEvent(line1, line2, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane, getReference(grain1), getReference(grain2));
             } else {
                 line1.setBackground(ColorLine.getUnchangedColor());
                 line1.setOpaque(true);
@@ -40,7 +41,7 @@ public class GranularityComponent {
                 line2.setOpaque(true);
             }
         }
-    }    
+    }
 
     public void setDifferencedGranularity(IResultDiff result, JEditorPane baseFileEditorPane, JEditorPane comparedFileEditorPane) {
         for (Iterator<Grain> it = result.getDifferences().iterator(); it.hasNext();) {

@@ -17,13 +17,14 @@ public class ColorLine {
     }
 
     public static Color getMovedColor() {
-        return Color.decode("#7EC0EE");
+        return Color.decode("#B0C4DE");
     }
 
     public static Color getUnchangedColor() {
         return Color.decode("#FFFFFF");
     }
-        public static Color getHighLight() {
-        return Color.decode("##ffff00");
+
+    public static Color getHighLight() {
+        return Color.decode("##FCFF00");
     }
 }
