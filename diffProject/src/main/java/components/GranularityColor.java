@@ -6,7 +6,7 @@ import java.awt.Color;
  *
  * @author Fernanda Floriano Silva
  */
-public class ColorLine {
+public class GranularityColor {
 
     public static Color getRemovedColor() {
         return Color.decode("#FFAEB9");
@@ -25,6 +25,10 @@ public class ColorLine {
     }
 
     public static Color getHighLight() {
-        return Color.decode("##FCFF00");
+        return Color.decode("#FCFF00");
+    }
+        public static Color getForegroundHighLight() {
+        return Color.decode("#4D0135");
     }
 }
+

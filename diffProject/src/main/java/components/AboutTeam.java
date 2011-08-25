@@ -17,7 +17,7 @@ public class AboutTeam extends javax.swing.JFrame {
         initComponents();
         setlaf();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
 
     }
 

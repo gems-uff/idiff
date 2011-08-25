@@ -25,7 +25,7 @@ public class FileSelection extends javax.swing.JFrame {
      */
     public FileSelection() {
         setlaf();
-        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -408,7 +408,7 @@ public class FileSelection extends javax.swing.JFrame {
     private void findFile(JTextField tField) {
         translateFileChooser();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
 
 
         fileChooser = new JFileChooser();

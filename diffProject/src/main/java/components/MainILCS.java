@@ -24,7 +24,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -35,7 +34,6 @@ import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -77,11 +75,11 @@ public class MainILCS extends javax.swing.JFrame {
     }
 
     private void adjustmentScroll() {
-        adjustmentHorizontalScroll(baseFileScrollPane, comparedFileScrollPane);
-        adjustmentVerticalScroll(baseFileScrollPane, comparedFileScrollPane);
+        adjustmentHorizontalScroll(leftScrollPane, rightScrollPane);
+        adjustmentVerticalScroll(leftScrollPane, rightScrollPane);
         
-        adjustmentHorizontalScroll(comparedFileScrollPane, baseFileScrollPane);
-        adjustmentVerticalScroll(comparedFileScrollPane, baseFileScrollPane);
+        adjustmentHorizontalScroll(rightScrollPane, leftScrollPane);
+        adjustmentVerticalScroll(rightScrollPane, leftScrollPane);
     }
 
     private void adjustmentHorizontalScroll(final JScrollPane rightScroll, final JScrollPane leftScroll) {
@@ -120,12 +118,12 @@ public class MainILCS extends javax.swing.JFrame {
         init();
         initFiles(basedFile, comparedFile);
         initParameters(granularity, trimLine, emptyLine, whiteSpace);
-        setLayoutEditorPane();
+        setLayoutPane();
     }
 
-    private void setLayoutEditorPane() {
-        baseFileEditorPane.setLayout(new BoxLayout(baseFileEditorPane, BoxLayout.PAGE_AXIS));
-        comparedFileEditorPane.setLayout(new BoxLayout(comparedFileEditorPane, BoxLayout.PAGE_AXIS));
+    private void setLayoutPane() {
+        leftPane.setLayout(new BoxLayout(leftPane, BoxLayout.PAGE_AXIS));
+        rightPane.setLayout(new BoxLayout(rightPane, BoxLayout.PAGE_AXIS));
     }
 
     /**
@@ -137,7 +135,7 @@ public class MainILCS extends javax.swing.JFrame {
     private void initFiles(File basedFile, File comparedFile) throws IOException {
         setFiles(basedFile, comparedFile);
         loadTreeFiles(basedFile, comparedFile);
-        fileComponent.showFiles(basedFile, comparedFile, baseFileEditorPane, comparedFileEditorPane);
+        fileComponent.showFiles(basedFile, comparedFile, leftPane, rightPane);
     }
 
     /**
@@ -146,7 +144,7 @@ public class MainILCS extends javax.swing.JFrame {
     private void init() {
         setlaf();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
     }
 
     /**
@@ -194,6 +192,7 @@ public class MainILCS extends javax.swing.JFrame {
         jTextField2 = new JTextField();
         jTextField3 = new JTextField();
         jTextField4 = new JTextField();
+        jTextField6 = new JTextField();
         mainSplitPane = new JSplitPane();
         detailsScrollPane = new JScrollPane();
         detailsTextPane = new JTextPane();
@@ -204,10 +203,10 @@ public class MainILCS extends javax.swing.JFrame {
         dirScrollPane2 = new JScrollPane();
         dirTree2 = new JTree();
         splitPaneRight = new JSplitPane();
-        baseFileScrollPane = new JScrollPane();
-        baseFileEditorPane = new JEditorPane();
-        comparedFileScrollPane = new JScrollPane();
-        comparedFileEditorPane = new JEditorPane();
+        leftScrollPane = new JScrollPane();
+        leftPane = new JTextPane();
+        rightScrollPane = new JScrollPane();
+        rightPane = new JTextPane();
         jScrollPane1 = new JScrollPane();
         tableDetails = new JTable();
 
@@ -327,6 +326,12 @@ public class MainILCS extends javax.swing.JFrame {
         jTextField4.setText(bundle.getString("MainILCS.jTextField4.text")); // NOI18N
         toolBar.add(jTextField4);
 
+        jTextField6.setBackground(new Color(252, 255, 0));
+        jTextField6.setEditable(false);
+        jTextField6.setForeground(new Color(77, 1, 53));
+        jTextField6.setText(bundle.getString("MainILCS.jTextField6.text")); // NOI18N
+        toolBar.add(jTextField6);
+
         mainSplitPane.setDividerLocation(500);
         mainSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         mainSplitPane.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -374,33 +379,25 @@ public class MainILCS extends javax.swing.JFrame {
         splitPaneRight.setDividerSize(40);
         splitPaneRight.setAutoscrolls(true);
 
-        baseFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.baseFileScrollPane.border.title"))); // NOI18N
-        baseFileScrollPane.setAutoscrolls(true);
-        baseFileScrollPane.setMaximumSize(new Dimension(800, 600));
+        leftScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.leftScrollPane.border.title"))); // NOI18N
 
-        baseFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        baseFileEditorPane.setAutoscrolls(true);
-        baseFileEditorPane.setOpaque(false);
-        baseFileEditorPane.setPreferredSize(new Dimension(131, 65));
-        baseFileScrollPane.setViewportView(baseFileEditorPane);
+        leftPane.setBorder(null);
+        leftPane.setAutoscrolls(true);
+        leftPane.setMaximumSize(new Dimension(800, 600));
+        leftPane.setMinimumSize(new Dimension(102, 18));
+        leftScrollPane.setViewportView(leftPane);
 
-        splitPaneRight.setLeftComponent(baseFileScrollPane);
-        baseFileScrollPane.getAccessibleContext().setAccessibleName(bundle.getString("MainILCS.baseFileScrollPane.AccessibleContext.accessibleName")); // NOI18N
+        splitPaneRight.setLeftComponent(leftScrollPane);
 
-        comparedFileScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.comparedFileScrollPane.border.title"))); // NOI18N
-        comparedFileScrollPane.setAutoscrolls(true);
-        comparedFileScrollPane.setMaximumSize(new Dimension(800, 600));
-        comparedFileScrollPane.setOpaque(true);
+        rightScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.rightScrollPane.border.title"))); // NOI18N
 
-        comparedFileEditorPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        comparedFileEditorPane.setAutoscrolls(true);
-        comparedFileEditorPane.setMaximumSize(new Dimension(800, 600));
-        comparedFileEditorPane.setOpaque(false);
-        comparedFileEditorPane.setPreferredSize(new Dimension(131, 65));
-        comparedFileEditorPane.setRequestFocusEnabled(false);
-        comparedFileScrollPane.setViewportView(comparedFileEditorPane);
+        rightPane.setAutoscrolls(true);
+        rightPane.setMaximumSize(new Dimension(800, 600));
+        rightPane.setMinimumSize(new Dimension(102, 18));
+        rightPane.setPreferredSize(new Dimension(131, 65));
+        rightScrollPane.setViewportView(rightPane);
 
-        splitPaneRight.setRightComponent(comparedFileScrollPane);
+        splitPaneRight.setRightComponent(rightScrollPane);
 
         splitPaneUp.setRightComponent(splitPaneRight);
 
@@ -491,7 +488,7 @@ public class MainILCS extends javax.swing.JFrame {
      * @throws IOException 
      */
     private void startComponent() throws IOException {//File basedFile, File comparedFile) throws IOException {
-        fileComponent.repaint(ilcsBean, result, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane);
+        fileComponent.repaint(ilcsBean, result, leftPane, leftScrollPane, rightPane, rightScrollPane);
     }
 
     /**
@@ -540,8 +537,8 @@ public class MainILCS extends javax.swing.JFrame {
      * @param comparedFile 
      */
     private void loadTreeFiles(File basedFile, File comparedFile) {
-        treeComponent.constructTree(dirTree1, basedFile, baseFileScrollPane, "Based File ");
-        treeComponent.constructTree(dirTree2, comparedFile, comparedFileScrollPane, "Compared File ");
+        treeComponent.constructTree(dirTree1, basedFile, leftScrollPane, "Left ");
+        treeComponent.constructTree(dirTree2, comparedFile, rightScrollPane, "Right ");
     }
 
     /**
@@ -568,10 +565,6 @@ public class MainILCS extends javax.swing.JFrame {
         ilcsBean.setWhiteSpace(whiteSpace);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JEditorPane baseFileEditorPane;
-    private JScrollPane baseFileScrollPane;
-    private JEditorPane comparedFileEditorPane;
-    private JScrollPane comparedFileScrollPane;
     private JScrollPane detailsScrollPane;
     private JTextPane detailsTextPane;
     private JScrollPane dirScrollPane1;
@@ -592,10 +585,15 @@ public class MainILCS extends javax.swing.JFrame {
     private JTextField jTextField3;
     private JTextField jTextField4;
     private JTextField jTextField5;
+    private JTextField jTextField6;
+    private JTextPane leftPane;
+    private JScrollPane leftScrollPane;
     private ButtonGroup mainButtonGroup;
     private JSplitPane mainSplitPane;
     private JButton noButton;
     private JButton overviewMenuBar;
+    private JTextPane rightPane;
+    private JScrollPane rightScrollPane;
     private JButton runMenuBar;
     private JSplitPane splitPaneLeft;
     private JSplitPane splitPaneRight;

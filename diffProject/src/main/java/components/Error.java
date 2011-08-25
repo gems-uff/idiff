@@ -16,7 +16,7 @@ public class Error extends javax.swing.JDialog {
         setlaf();
         initComponents();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon("src/main/resources/components/icons/icon.png").getImage());
+        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
     }
 
     /**

@@ -1,45 +1,45 @@
 package components;
 
-import java.awt.Color;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BoxLayout;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 /**
  *
  * @author Fernanda Floriano Silva
  */
-public class EventLine {
+//TODO Corrigir esta classe
+public class GranularityEvent {
 
-    public EventLine() {
+    public GranularityEvent() {
     }
 
-    public void addEvent(JLabel textLeft, JLabel textRight, JEditorPane leftPane, JScrollPane leftScroll, final JEditorPane rightPane, final JScrollPane rightScroll, int leftId, int rightId) {
+   public void addEvent(JLabel textLeft, JLabel textRight, JTextPane leftPane, JScrollPane leftScroll, final JTextPane rightPane, final JScrollPane rightScroll, int leftId, int rightId) {
         leftPane.setLayout(new BoxLayout(leftPane, BoxLayout.PAGE_AXIS));
         addMouseEvent(textLeft, rightPane, rightScroll, leftPane, leftId, rightId);
         rightPane.setLayout(new BoxLayout(rightPane, BoxLayout.PAGE_AXIS));
         addMouseEvent(textLeft, leftPane, leftScroll, rightPane, rightId, leftId);
-        setEditorPane(textRight, rightPane);
+        setPane(textRight, rightPane);
         addAdjustmentEvent(leftScroll, rightScroll, leftId);
         addAdjustmentEvent(rightScroll, leftScroll, rightId);
     }
 
-    private void addMouseEvent(JLabel line, final JEditorPane rightPane, final JScrollPane rightScroll, JEditorPane leftPane, final int id, final int id2) {
+    private void addMouseEvent(JLabel line, final JTextPane rightPane, final JScrollPane rightScroll, JTextPane leftPane, final int id, final int id2) {
         line.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseEntered(MouseEvent me) {
                 JLabel label = (JLabel) me.getComponent();
-                label.setBackground(ColorLine.getHighLight());
+                label.setBackground(GranularityColor.getHighLight());
                 label.setOpaque(true);
 
                 JLabel reference = (JLabel) rightPane.getComponent(id - 1);//Aqui entra a referencia do outro lado
-                reference.setBackground(ColorLine.getHighLight());
+                reference.setBackground(GranularityColor.getHighLight());
                 label.setOpaque(true);
 
                 rightScroll.getVerticalScrollBar().setValue(reference.getY());
@@ -48,9 +48,9 @@ public class EventLine {
             @Override
             public void mouseExited(MouseEvent me) {
                 JLabel label = (JLabel) me.getComponent();
-                label.setBackground(ColorLine.getMovedColor());
+                label.setBackground(GranularityColor.getMovedColor());
                 label.setOpaque(true);
-                rightPane.getComponent(id - 1).setBackground(ColorLine.getMovedColor());
+                rightPane.getComponent(id - 1).setBackground(GranularityColor.getMovedColor());
             }
         });
 
@@ -72,8 +72,8 @@ public class EventLine {
         });
     }
 
-    private void setEditorPane(JLabel line, final JEditorPane rightPane) {
-        line.setBackground(ColorLine.getMovedColor());
+    private void setPane(JLabel line, final JTextPane rightPane) {
+        line.setBackground(GranularityColor.getMovedColor());
         line.setOpaque(true);
         rightPane.add(line);
     }
