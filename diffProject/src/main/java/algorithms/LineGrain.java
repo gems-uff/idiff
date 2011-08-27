@@ -18,8 +18,8 @@ public class LineGrain extends Grain {
      * @param line
      * @param idReference
      */
-    public LineGrain(String line, int idReference) {
-        super(LevelGranularity.LINE, line, idReference, new GrainBean(idReference, 0, line.length()));
+    public LineGrain(String line, int idReference, int start) {
+        super(LevelGranularity.LINE, line, idReference, new GrainBean(start, line.length()));
     }
 
     /**
@@ -41,10 +41,12 @@ public class LineGrain extends Grain {
         String line = null;
         BufferedReader reader = new BufferedReader(new FileReader(file));
         int id = 0;
+        int idStart =0;
         while ((line = reader.readLine()) != null) {
             if (!((ilcsb.isRemoveEmptyLine()) && (line.isEmpty()))) {
                 id++;
-                finalList.add(new LineGrain(ilcsb.verifyParameters(line), id));
+                finalList.add(new LineGrain(ilcsb.verifyParameters(line), id, idStart));
+                idStart = idStart + line.length();
             }
         }
         return finalList;

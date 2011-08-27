@@ -42,7 +42,8 @@ public class WordGrain extends Grain {
             if (grain != null) {
                 StringTokenizer token = new StringTokenizer(grain.getGrain());
                 int idReference = 0;
-                int startPosition = 1;
+                //int startPosition = 0;
+                int startPosition = grain.getGrainBean().getStartPosition();
                 while (token.hasMoreTokens()) {
                     idReference++;
                     WordGrain wordGrain = setData(token, grain, idReference, startPosition);
@@ -68,7 +69,7 @@ public class WordGrain extends Grain {
      */
     private WordGrain setData(StringTokenizer token, Grain grain, int idReference, int startPosition) {
         String nextToken = token.nextToken();
-        GrainBean grainBean = new GrainBean(grain.getOriginalReference().get(0), startPosition, nextToken.length());
+        GrainBean grainBean = new GrainBean(startPosition, nextToken.length());
         WordGrain wordGrain = new WordGrain(nextToken, grain.getOriginalReference().get(0), grainBean);
         wordGrain.setOriginalReference(idReference);
         return wordGrain;

@@ -41,7 +41,8 @@ public class CharacterGrain extends Grain {
             
             if (grain != null) {
                 char[] letras = grain.getGrain().toCharArray();
-                int startPosition = grain.getOriginalReference().get(1) ;
+                int startPosition = grain.getGrainBean().getStartPosition();
+                
                 for (int i = 0; i < letras.length; i++) {
                     CharacterGrain charGrain = setData(letras, i, grain, i, startPosition); 
                     finalList.add(charGrain);
@@ -61,7 +62,7 @@ public class CharacterGrain extends Grain {
      * @return CharacterGrain
      */
     private CharacterGrain setData(char[] letras, int i, Grain grain, int idReference,int startPosition) { 
-        GrainBean grainBean = new GrainBean(grain.getOriginalReference().get(0), startPosition, 1);
+        GrainBean grainBean = new GrainBean(startPosition, 1);
       
         CharacterGrain charGrain = new CharacterGrain(Character.toString(letras[i]), grain.getOriginalReference().get(0),grainBean);
         charGrain.setOriginalReference(grain.getOriginalReference().get(1));

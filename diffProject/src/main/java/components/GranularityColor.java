@@ -27,8 +27,16 @@ public class GranularityColor {
     public static Color getHighLight() {
         return Color.decode("#FCFF00");
     }
-        public static Color getForegroundHighLight() {
+
+    public static Color getForegroundBlack() {
+        return Color.decode("#000000");
+    }
+
+    public static Color getForegroundHighLight() {
         return Color.decode("#4D0135");
     }
-}
 
+    public static Color getForegroundWhite() {
+        return Color.decode("#FFFFFF");
+    }
+}

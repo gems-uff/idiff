@@ -1,10 +1,12 @@
 package components;
 
 import algorithms.Grain;
-import algorithms.ILCSBean;
+import algorithms.GrainBean;
 import algorithms.IResultDiff;
+import java.util.Iterator;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.text.StyledDocument;
 
 /**
  *
@@ -15,54 +17,65 @@ public class GranularityComponent {
     public GranularityComponent() {
     }
 
-    public void setMovedGranularity(ILCSBean ilcsBean, IResultDiff result, JTextPane basePane, JScrollPane baseScroll, JTextPane comparedPane, JScrollPane comparedScroll) {
-        /*Document htmlComponent = baseFileEditorPane.getDocument();
-        
+    public void setMoves(IResultDiff result, JTextPane basePane, JScrollPane baseScroll, JTextPane comparedPane, JScrollPane comparedScroll) {
         Iterator<Grain> it1 = result.getGrainsFrom().iterator();
         Iterator<Grain> it2 = result.getGrainsTo().iterator();
         while (it1.hasNext() || it2.hasNext()) {
             Grain grain1 = it1.next();
             Grain grain2 = it2.next();
-            JLabel line1 = (JLabel) baseFileEditorPane.getComponent(getReference(grain1));
-            JLabel line2 = (JLabel) comparedFileEditorPane.getComponent(getReference(grain2));
-
             if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
-                line1.setBackground(GranularityColor.getMovedColor());
-                line1.setOpaque(true);
-
-                line2.setBackground(GranularityColor.getMovedColor());
-                line2.setOpaque(true);
-
-                //(new EventLine()).addEvent(line1, line2, baseFileEditorPane, baseFileScrollPane, comparedFileEditorPane, comparedFileScrollPane, getReference(grain1), getReference(grain2));
+                setMovedGranularity(grain1.getGrainBean(), basePane, baseScroll, grain2.getGrainBean(), comparedPane, comparedScroll);
             } else {
-                line1.setBackground(GranularityColor.getUnchangedColor());
-                line1.setOpaque(true);
-                line2.setBackground(GranularityColor.getUnchangedColor());
-                line2.setOpaque(true);
+                setUnchangedGranularity(grain1.getGrainBean(), basePane, grain2.getGrainBean(), comparedPane);
             }
-        }*/
+        }
     }
 
-    public void setDifferencedGranularity(IResultDiff result, JTextPane basePane, JTextPane comparedPane) {
-        /*       Document htmlComponent = baseFileEditorPane.getDocument();
-
+    public void setDifferences(IResultDiff result, JTextPane basePane, JTextPane comparedPane) {
         for (Iterator<Grain> it = result.getDifferences().iterator(); it.hasNext();) {
             Grain grain = it.next();
             if (grain != null) {
                 if ((grain.getSituation()).equals(Grain.Situation.REMOVED)) {
-                    JLabel label = ((JLabel) baseFileEditorPane.getComponent(getReference(grain)));
-                    label.setBackground(GranularityColor.getRemovedColor());
-                    label.setOpaque(true);
-                } else { //Grain.Situation.ADDED
-                    JLabel label = ((JLabel) comparedFileEditorPane.getComponent(getReference(grain)));
-                    label.setBackground(GranularityColor.getAddedColor());
-                    label.setOpaque(true);
+                    setRemovedGranularity(grain.getGrainBean(), basePane);
+                } else {
+                    setAddedGranularity(grain.getGrainBean(), comparedPane);
                 }
             }
-        }*/
+        }
     }
 
-    private int getReference(Grain grain) {
-        return grain.getOriginalReference().get(0) - 1;
+    private void setAddedGranularity(GrainBean grain, JTextPane pane) {
+        StyledDocument doc = pane.getStyledDocument();
+        IDIFFStyles.setAddStyle(doc);
+        doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle("AddStyle"), true);
+
+    }
+
+    private void setRemovedGranularity(GrainBean grain, JTextPane pane) {
+        StyledDocument doc = pane.getStyledDocument();
+        IDIFFStyles.setRemoveStyle(doc);
+        doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle("RemoveStyle"), true);
+    }
+
+    private void setMovedGranularity(GrainBean grainBeanLeft, JTextPane basePane, JScrollPane baseScroll, GrainBean grainBeanRight, JTextPane comparedPane, JScrollPane comparedScroll) {
+        StyledDocument leftDoc = basePane.getStyledDocument();
+        StyledDocument rightDoc = comparedPane.getStyledDocument();
+
+        IDIFFStyles.setMoveStyle(leftDoc);
+        IDIFFStyles.setMoveStyle(rightDoc);
+
+        leftDoc.setCharacterAttributes(grainBeanLeft.getStartPosition(), grainBeanLeft.getLength(), basePane.getStyle("MoveStyle"), true);
+        rightDoc.setCharacterAttributes(grainBeanRight.getStartPosition(), grainBeanRight.getLength(), comparedPane.getStyle("MoveStyle"), true);
+    }
+
+    private void setUnchangedGranularity(GrainBean grainBeanLeft, JTextPane basePane, GrainBean grainBeanRight, JTextPane comparedPane) {
+        StyledDocument leftDoc = basePane.getStyledDocument();
+        StyledDocument rightDoc = comparedPane.getStyledDocument();
+
+        IDIFFStyles.setUnchangedStyle(leftDoc);
+        IDIFFStyles.setUnchangedStyle(rightDoc);
+
+        leftDoc.setCharacterAttributes(grainBeanLeft.getStartPosition(), grainBeanLeft.getLength(), basePane.getStyle("UnchangedStyle"), true);
+        rightDoc.setCharacterAttributes(grainBeanRight.getStartPosition(), grainBeanRight.getLength(), comparedPane.getStyle("UnchangedStyle"), true);
     }
 }

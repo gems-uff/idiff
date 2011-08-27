@@ -6,25 +6,15 @@ package algorithms;
  */
 public class GrainBean {
 
-    private int linePosition;
     private int startPosition;
     private int length;
 
-    public GrainBean(int linePosition, int startPosition, int length) {
-        this.linePosition = linePosition;
+    public GrainBean(int startPosition, int length) {
         this.startPosition = startPosition;
         this.length = length;
     }
 
     public GrainBean() {
-    }
-
-    public int getLinePosition() {
-        return linePosition;
-    }
-
-    public void setLinePosition(int linePosition) {
-        this.linePosition = linePosition;
     }
 
     public int getStartPosition() {

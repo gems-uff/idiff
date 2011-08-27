@@ -36,27 +36,7 @@ public class FileComponent {
         submitFile(baseFile, basePane);
         submitFile(comparedFile, comparedPane);
     }
-//TODO Corrigir este método
 
-
-    /**  private void submitFile(File file, JTextPane editorPane) throws FileNotFoundException, IOException {
-    BufferedReader reader;
-    reader = new BufferedReader(new FileReader(file));
-    int id = 0;
-    String line;
-    
-    while ((line = reader.readLine()) != null) {
-    char[] letras = line.toCharArray();
-    for (int i = 0; i < letras.length; i++) {
-    JLabel label = new JLabel("" + letras[i]);
-    label.setBackground(GranularityColor.getUnchangedColor());
-    label.setOpaque(true);
-    editorPane.add("" + id + i, label);
-    
-    }
-    id = id + letras.length;
-    }
-    }*/
     private boolean submitFile(File file, JTextPane editorPane) throws MalformedURLException, IOException {
         java.net.URL transferURL = file.toURI().toURL();
         editorPane.setPage(transferURL);
@@ -64,7 +44,7 @@ public class FileComponent {
     }
 
     public void repaint(ILCSBean ilcsBean, IResultDiff result, JTextPane basePane, JScrollPane baseScroll, JTextPane comparedPane, JScrollPane comparedScroll) {
-        granularityComponent.setDifferencedGranularity(result, basePane, comparedPane);
-        granularityComponent.setMovedGranularity(ilcsBean, result, basePane, baseScroll, comparedPane, comparedScroll);
+        granularityComponent.setDifferences(result, basePane, comparedPane);
+        granularityComponent.setMoves(result, basePane, baseScroll, comparedPane, comparedScroll);
     }
 }
