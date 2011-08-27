@@ -3,9 +3,14 @@ package components;
 import algorithms.Grain;
 import algorithms.GrainBean;
 import algorithms.IResultDiff;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.plaf.basic.BasicTextUI.BasicHighlighter;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.StyledDocument;
 
 /**
@@ -57,15 +62,14 @@ public class GranularityComponent {
         doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle("RemoveStyle"), true);
     }
 
-    private void setMovedGranularity(GrainBean grainBeanLeft, JTextPane basePane, JScrollPane baseScroll, GrainBean grainBeanRight, JTextPane comparedPane, JScrollPane comparedScroll) {
+    private void setMovedGranularity(GrainBean grainBeanLeft, JTextPane basePane, JScrollPane baseScroll, GrainBean grainBeanRight, JTextPane comparedPane, JScrollPane comparedScroll)  {
         StyledDocument leftDoc = basePane.getStyledDocument();
         StyledDocument rightDoc = comparedPane.getStyledDocument();
-
         IDIFFStyles.setMoveStyle(leftDoc);
         IDIFFStyles.setMoveStyle(rightDoc);
-
         leftDoc.setCharacterAttributes(grainBeanLeft.getStartPosition(), grainBeanLeft.getLength(), basePane.getStyle("MoveStyle"), true);
         rightDoc.setCharacterAttributes(grainBeanRight.getStartPosition(), grainBeanRight.getLength(), comparedPane.getStyle("MoveStyle"), true);
+   
     }
 
     private void setUnchangedGranularity(GrainBean grainBeanLeft, JTextPane basePane, GrainBean grainBeanRight, JTextPane comparedPane) {
@@ -77,5 +81,30 @@ public class GranularityComponent {
 
         leftDoc.setCharacterAttributes(grainBeanLeft.getStartPosition(), grainBeanLeft.getLength(), basePane.getStyle("UnchangedStyle"), true);
         rightDoc.setCharacterAttributes(grainBeanRight.getStartPosition(), grainBeanRight.getLength(), comparedPane.getStyle("UnchangedStyle"), true);
+
     }
+
+    void setTest(IResultDiff result, JTextPane leftPane, JScrollPane leftScrollPane, JTextPane rightPane, JScrollPane rightScrollPane) {
+        StyledDocument doc = rightPane.getStyledDocument();
+        StyledDocument doc1 = leftPane.getStyledDocument();
+
+        IDIFFStyles.setAddStyle(doc);
+        IDIFFStyles.setMoveStyle(doc);
+        IDIFFStyles.setMoveStyle(doc1);
+        IDIFFStyles.setRemoveStyle(doc1);
+
+
+        doc.setCharacterAttributes(0, 1, rightPane.getStyle("AddStyle"), false);
+        doc1.setCharacterAttributes(0, 1, leftPane.getStyle("RemoveStyle"), false);
+
+
+        doc1.setCharacterAttributes(5, 1, leftPane.getStyle("MoveStyle"), false);
+        doc.setCharacterAttributes(8, 1, rightPane.getStyle("MoveStyle"), false);
+
+    }
+    public void mouseClicked(MouseEvent e, JTextPane pane) {   
+                pane.setCaretPosition(pane.viewToModel(e.getPoint()));   
+                System.out.println(pane.getCaretPosition());   
+            }  
+
 }

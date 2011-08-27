@@ -46,7 +46,7 @@ public class LineGrain extends Grain {
             if (!((ilcsb.isRemoveEmptyLine()) && (line.isEmpty()))) {
                 id++;
                 finalList.add(new LineGrain(ilcsb.verifyParameters(line), id, idStart));
-                idStart = idStart + line.length();
+                idStart = idStart + line.length()+1;
             }
         }
         return finalList;

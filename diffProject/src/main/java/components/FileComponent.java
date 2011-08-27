@@ -1,6 +1,5 @@
 package components;
 
-import algorithms.ILCSBean;
 import algorithms.IResultDiff;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,8 +42,10 @@ public class FileComponent {
         return true;
     }
 
-    public void repaint(ILCSBean ilcsBean, IResultDiff result, JTextPane basePane, JScrollPane baseScroll, JTextPane comparedPane, JScrollPane comparedScroll) {
-        granularityComponent.setDifferences(result, basePane, comparedPane);
-        granularityComponent.setMoves(result, basePane, baseScroll, comparedPane, comparedScroll);
+    void repaint(IResultDiff result, JTextPane leftPane, JScrollPane leftScrollPane, JTextPane rightPane, JScrollPane rightScrollPane) {
+        granularityComponent.setDifferences(result, leftPane, rightPane);
+        granularityComponent.setMoves(result, leftPane, leftScrollPane, rightPane, rightScrollPane);
+        // granularityComponent.setTest(result, leftPane, leftScrollPane, rightPane, rightScrollPane);
+
     }
 }

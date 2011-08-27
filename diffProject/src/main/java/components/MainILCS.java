@@ -77,7 +77,7 @@ public class MainILCS extends javax.swing.JFrame {
     private void adjustmentScroll() {
         adjustmentHorizontalScroll(leftScrollPane, rightScrollPane);
         adjustmentVerticalScroll(leftScrollPane, rightScrollPane);
-        
+
         adjustmentHorizontalScroll(rightScrollPane, leftScrollPane);
         adjustmentVerticalScroll(rightScrollPane, leftScrollPane);
     }
@@ -488,7 +488,8 @@ public class MainILCS extends javax.swing.JFrame {
      * @throws IOException 
      */
     private void startComponent() throws IOException {//File basedFile, File comparedFile) throws IOException {
-        fileComponent.repaint(ilcsBean, result, leftPane, leftScrollPane, rightPane, rightScrollPane);
+        fileComponent.repaint(result, leftPane, leftScrollPane, rightPane, rightScrollPane);
+
     }
 
     /**
