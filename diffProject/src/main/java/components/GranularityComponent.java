@@ -3,14 +3,10 @@ package components;
 import algorithms.Grain;
 import algorithms.GrainBean;
 import algorithms.IResultDiff;
-import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.plaf.basic.BasicTextUI.BasicHighlighter;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.StyledDocument;
 
 /**
@@ -84,24 +80,6 @@ public class GranularityComponent {
 
     }
 
-    void setTest(IResultDiff result, JTextPane leftPane, JScrollPane leftScrollPane, JTextPane rightPane, JScrollPane rightScrollPane) {
-        StyledDocument doc = rightPane.getStyledDocument();
-        StyledDocument doc1 = leftPane.getStyledDocument();
-
-        IDIFFStyles.setAddStyle(doc);
-        IDIFFStyles.setMoveStyle(doc);
-        IDIFFStyles.setMoveStyle(doc1);
-        IDIFFStyles.setRemoveStyle(doc1);
-
-
-        doc.setCharacterAttributes(0, 1, rightPane.getStyle("AddStyle"), false);
-        doc1.setCharacterAttributes(0, 1, leftPane.getStyle("RemoveStyle"), false);
-
-
-        doc1.setCharacterAttributes(5, 1, leftPane.getStyle("MoveStyle"), false);
-        doc.setCharacterAttributes(8, 1, rightPane.getStyle("MoveStyle"), false);
-
-    }
     public void mouseClicked(MouseEvent e, JTextPane pane) {   
                 pane.setCaretPosition(pane.viewToModel(e.getPoint()));   
                 System.out.println(pane.getCaretPosition());   

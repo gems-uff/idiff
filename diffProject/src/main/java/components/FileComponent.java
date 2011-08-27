@@ -45,7 +45,5 @@ public class FileComponent {
     void repaint(IResultDiff result, JTextPane leftPane, JScrollPane leftScrollPane, JTextPane rightPane, JScrollPane rightScrollPane) {
         granularityComponent.setDifferences(result, leftPane, rightPane);
         granularityComponent.setMoves(result, leftPane, leftScrollPane, rightPane, rightScrollPane);
-        // granularityComponent.setTest(result, leftPane, leftScrollPane, rightPane, rightScrollPane);
-
     }
 }
