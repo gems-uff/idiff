@@ -21,7 +21,6 @@ public class IDIFFStyles {
         Style style = doc.addStyle("MoveStyle", null);
         StyleConstants.setBackground(style, GranularityColor.getMovedColor());
         StyleConstants.setForeground(style, GranularityColor.getForegroundWhite());
-
     }
 
     public static void setAddStyle(StyledDocument doc) {
@@ -40,7 +39,7 @@ public class IDIFFStyles {
 
     public static void setHighLightStyle(StyledDocument doc) {
         Style style = doc.addStyle("HighLightStyle", null);
-        StyleConstants.setBackground(style, GranularityColor.getHighLight());
+        StyleConstants.setBackground(style, GranularityColor.getHighLightColor());
         StyleConstants.setForeground(style, GranularityColor.getForegroundHighLight());
 
     }

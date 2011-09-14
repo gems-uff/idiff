@@ -13,7 +13,6 @@ import javax.swing.JTextPane;
  *
  * @author Fernanda Floriano Silva
  */
-//TODO Corrigir esta classe
 public class GranularityEvent {
 
     public GranularityEvent() {
@@ -35,11 +34,11 @@ public class GranularityEvent {
             @Override
             public void mouseEntered(MouseEvent me) {
                 JLabel label = (JLabel) me.getComponent();
-                label.setBackground(GranularityColor.getHighLight());
+                label.setBackground(GranularityColor.getHighLightColor());
                 label.setOpaque(true);
 
                 JLabel reference = (JLabel) rightPane.getComponent(id - 1);//Aqui entra a referencia do outro lado
-                reference.setBackground(GranularityColor.getHighLight());
+                reference.setBackground(GranularityColor.getHighLightColor());
                 label.setOpaque(true);
 
                 rightScroll.getVerticalScrollBar().setValue(reference.getY());
