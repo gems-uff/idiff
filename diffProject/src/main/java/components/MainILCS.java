@@ -478,7 +478,7 @@ public class MainILCS extends javax.swing.JFrame {
      */
     private void startTable() {
         tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails);
-        tableComponent.tableListener(tableDetails);
+      //  tableComponent.tableListener(tableDetails);
     }
 
     /**

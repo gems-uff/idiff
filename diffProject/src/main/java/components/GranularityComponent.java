@@ -3,29 +3,25 @@ package components;
 import algorithms.Grain;
 import algorithms.GrainBean;
 import algorithms.IResultDiff;
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.text.Element;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import javax.swing.text.StyledDocument;
-import javax.swing.text.html.HTMLDocument;
 
 /**
  *
  * @author Fernanda Floriano Silva
  */
 public class GranularityComponent {
-
-    private static Element grainLeft;
-    private static Element grainRight;
 
     public GranularityComponent() {
     }
@@ -39,7 +35,8 @@ public class GranularityComponent {
             if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
                 setMovedGranularity(grain1.getGrainBean(), basePane, baseScroll, grain2.getGrainBean(), comparedPane, comparedScroll);
             } else {
-                setUnchangedGranularity(grain1.getGrainBean(), basePane, grain2.getGrainBean(), comparedPane);
+                setStyle(basePane, grain1.getGrainBean(), "UnchangedStyle");
+                setStyle(comparedPane, grain2.getGrainBean(), "UnchangedStyle");
             }
         }
     }
@@ -49,45 +46,33 @@ public class GranularityComponent {
             Grain grain = it.next();
             if (grain != null) {
                 if ((grain.getSituation()).equals(Grain.Situation.REMOVED)) {
-                    setRemovedGranularity(grain.getGrainBean(), basePane);
+                    setStyle(basePane, grain.getGrainBean(), "RemoveStyle");
                 } else {
-                    setAddedGranularity(grain.getGrainBean(), comparedPane);
+                    setStyle(comparedPane, grain.getGrainBean(), "AddStyle");
                 }
             }
         }
     }
 
-    private void setAddedGranularity(GrainBean grain, JTextPane pane) {
-        StyledDocument doc = pane.getStyledDocument();
-        IDIFFStyles.setAddStyle(doc);
-        doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle("AddStyle"), true);
+    private void setMouseAdapter(final JTextPane pane1, final JTextPane pane2) {
+        pane1.addMouseListener(new MouseAdapter() {
 
-    }
-
-    private void setRemovedGranularity(GrainBean grain, JTextPane pane) {
-        StyledDocument doc = pane.getStyledDocument();
-        IDIFFStyles.setRemoveStyle(doc);
-        doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle("RemoveStyle"), true);
-    }
-
-    private void setMovedGranularity(final GrainBean grainBeanLeft, final JTextPane basePane, JScrollPane baseScroll, final GrainBean grainBeanRight, final JTextPane comparedPane, JScrollPane comparedScroll) {
-        StyledDocument leftDoc = basePane.getStyledDocument();
-        StyledDocument rightDoc = comparedPane.getStyledDocument();
-        IDIFFStyles.setMoveStyle(leftDoc);
-        IDIFFStyles.setMoveStyle(rightDoc);
-        leftDoc.setCharacterAttributes(grainBeanLeft.getStartPosition(), grainBeanLeft.getLength(), basePane.getStyle("MoveStyle"), true);
-        rightDoc.setCharacterAttributes(grainBeanRight.getStartPosition(), grainBeanRight.getLength(), comparedPane.getStyle("MoveStyle"), true);
-
-        basePane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                removeHighLight(pane1);
+                removeHighLight(pane2);
+            }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                setStyle(basePane, grainBeanLeft, "MoveStyle");
-                setStyle(comparedPane, grainBeanRight, "MoveStyle");
+                removeHighLight(pane1);
+                removeHighLight(pane2);
             }
         });
+    }
 
-        basePane.addMouseMotionListener(new MouseMotionListener() {
+    private void setMouseMotion(final JTextPane pane1, final GrainBean grainBean1, final JScrollPane scroll1, final GrainBean grainBean2, final JTextPane pane2, final JScrollPane scroll2) {
+        pane1.addMouseMotionListener(new MouseMotionListener() {
 
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -96,67 +81,50 @@ public class GranularityComponent {
             @Override
             public void mouseMoved(MouseEvent e) {
                 Point pt = new Point(e.getX(), e.getY());
-                int pos = basePane.viewToModel(pt);
-                if (pos >= 0) {
-                    StyledDocument doc = basePane.getStyledDocument();
-                    Element elem = doc.getCharacterElement(pos);
-                    if (elem != null) {
-                        if (elem != null) {
-                            setStyle(basePane, grainBeanLeft, "HighLightStyle");
-                            setStyle(comparedPane, grainBeanRight, "HighLightStyle");
-                        } else {
-                            setStyle(basePane, grainBeanLeft, "MoveStyle");
-                            setStyle(comparedPane, grainBeanRight, "MoveStyle");
-                       
-                        }
-                    }
-                }
-
+                setHighLightPoint(pt, grainBean1, pane1, scroll1, grainBean2, pane2, scroll2);
             }
         });
     }
 
-    public void setStyle(JTextPane pane, GrainBean grainBean, String type) {
+    private void setStyle(JTextPane pane, GrainBean grain, String style) {
         StyledDocument doc = pane.getStyledDocument();
-        if (type.equals("HighLightStyle")) {
-            IDIFFStyles.setHighLightStyle(doc);
-            doc.setCharacterAttributes(grainBean.getStartPosition(), grainBean.getLength(), pane.getStyle(type), true);
-        } else {
-            IDIFFStyles.setMoveStyle(doc);
-            doc.setCharacterAttributes(grainBean.getStartPosition(), grainBean.getLength(), pane.getStyle(type), true);
+        IDIFFStyles.addStyle(doc, style);
+        doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle(style), true);
+    }
+
+    private void removeHighLight(JTextPane pane) {
+        Highlighter hlb = pane.getHighlighter();
+        hlb.removeAllHighlights();
+    }
+
+    private void setMovedGranularity(final GrainBean grainBeanLeft, final JTextPane basePane, final JScrollPane baseScroll,
+            final GrainBean grainBeanRight, final JTextPane comparedPane, final JScrollPane comparedScroll) {
+
+        setStyle(basePane, grainBeanLeft, "MoveStyle");
+        setMouseAdapter(basePane, comparedPane);
+        setMouseMotion(basePane, grainBeanLeft, baseScroll, grainBeanRight, comparedPane, comparedScroll);
+
+        setStyle(comparedPane, grainBeanRight, "MoveStyle");
+        setMouseAdapter(comparedPane, basePane);
+        setMouseMotion(comparedPane, grainBeanRight, comparedScroll, grainBeanLeft, basePane, baseScroll);
+    }
+
+    private void setHighLightPoint(Point pt, GrainBean grainBeanBase, JTextPane basePane, JScrollPane baseScroll,
+            GrainBean grainBeanCompared, JTextPane comparedPane, JScrollPane comparedScroll) {
+        if ((grainBeanBase.getStartPosition() <= basePane.viewToModel(pt)) && (basePane.viewToModel(pt) <= grainBeanBase.getStartPosition() + grainBeanBase.getLength())) {
+            setHighLight(basePane, grainBeanBase.getStartPosition(), grainBeanBase.getStartPosition() + grainBeanBase.getLength());
+            setHighLight(comparedPane, grainBeanCompared.getStartPosition(), grainBeanCompared.getStartPosition() + grainBeanBase.getLength());
         }
     }
 
-    private static void changeColor(JTextPane pane, GrainBean grainBean, String type,Color color, Element grain) {
-        if (grain != null) {
-            HTMLDocument doc = (HTMLDocument) pane.getDocument();
-            int start = grain.getStartOffset();
-            int end = grain.getEndOffset();
-            StyleContext ss = doc.getStyleSheet();
-            Style style = ss.addStyle("HighlightedHyperlink", null);
-            style.addAttribute(StyleConstants.Foreground, color);
-            doc.setCharacterAttributes(start, end - start, style, false);
+    private void setHighLight(JTextPane pane, int begin, int end) {
+        Highlighter hl = pane.getHighlighter();
+        hl.removeAllHighlights();
+        pane.select(begin, end);
+        try {
+            hl.addHighlight(begin, end, DefaultHighlighter.DefaultPainter);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(GranularityComponent.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private void setUnchangedGranularity(GrainBean grainBeanLeft, JTextPane basePane, GrainBean grainBeanRight, JTextPane comparedPane) {
-        StyledDocument leftDoc = basePane.getStyledDocument();
-        StyledDocument rightDoc = comparedPane.getStyledDocument();
-
-        IDIFFStyles.setUnchangedStyle(leftDoc);
-        IDIFFStyles.setUnchangedStyle(rightDoc);
-
-        leftDoc.setCharacterAttributes(grainBeanLeft.getStartPosition(), grainBeanLeft.getLength(), basePane.getStyle("UnchangedStyle"), true);
-        rightDoc.setCharacterAttributes(grainBeanRight.getStartPosition(), grainBeanRight.getLength(), comparedPane.getStyle("UnchangedStyle"), true);
-
-    }
-
-    private void setHighLightGranularity(GrainBean grainBeanLeft, JTextPane basePane, GrainBean grainBeanRight, JTextPane comparedPane) {
-        StyledDocument leftDoc = basePane.getStyledDocument();
-        StyledDocument rightDoc = comparedPane.getStyledDocument();
-        IDIFFStyles.setHighLightStyle(leftDoc);
-        IDIFFStyles.setHighLightStyle(rightDoc);
-        leftDoc.setCharacterAttributes(grainBeanLeft.getStartPosition(), grainBeanLeft.getLength(), basePane.getStyle("HighLightStyle"), true);
-        rightDoc.setCharacterAttributes(grainBeanRight.getStartPosition(), grainBeanRight.getLength(), comparedPane.getStyle("HighLightStyle"), true);
     }
 }

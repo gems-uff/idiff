@@ -73,27 +73,7 @@ public class TableComponent {
     }
     //TODO Verificar porque está imprimindo duas vezes!
 
-    /**
-     * Table Listener
-     * @param tableDetails 
-     */
-    public void tableListener(final JTable tableDetails) {
-
-        tableDetails.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (e.getValueIsAdjusting()) {
-                    System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 0));
-                    System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 1));
-                    System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 2));
-                    System.out.println(tableDetails.getValueAt(tableDetails.getSelectedRow(), 3));
-                }
-            }
-        });
-    }
-
-    /**
+        /**
      * Print Reference
      * @param originalReference
      * @return String

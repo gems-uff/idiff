@@ -17,26 +17,14 @@ public class GranularityColor {
     }
 
     public static Color getMovedColor() {
-        return Color.decode("#B0C4DE");
+        return Color.decode("#CAE1FF");
     }
 
     public static Color getUnchangedColor() {
         return Color.decode("#FFFFFF");
     }
 
-    public static Color getHighLightColor() {
-        return Color.decode("#FCFF00");
-    }
-
     public static Color getForegroundBlack() {
         return Color.decode("#000000");
-    }
-
-    public static Color getForegroundHighLight() {
-        return Color.decode("#4D0135");
-    }
-
-    public static Color getForegroundWhite() {
-        return Color.decode("#FFFFFF");
     }
 }
