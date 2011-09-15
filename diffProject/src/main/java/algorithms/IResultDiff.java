@@ -20,7 +20,14 @@ public interface IResultDiff {
      */
     List<Grain> getGrainsTo();
 
+    /**
+     * Get list with differences 
+     * @return List<Grain>
+     */
     List<Grain> getDifferences();
 
+    /**
+     * Clean Result
+     */
     void cleanResult();
 }

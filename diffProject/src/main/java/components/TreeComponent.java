@@ -86,9 +86,9 @@ public class TreeComponent extends JPanel {
      * @param curTop
      * @param dir
      * @param name
-     * @return 
+     * @return DefaultMutableTreeNode
      */
-    DefaultMutableTreeNode addTreeNodes(DefaultMutableTreeNode curTop, File dir, String name) {
+    public DefaultMutableTreeNode addTreeNodes(DefaultMutableTreeNode curTop, File dir, String name) {
         String curPath = dir.getPath();
 
         DefaultMutableTreeNode curDir = new DefaultMutableTreeNode(curPath);
@@ -96,10 +96,8 @@ public class TreeComponent extends JPanel {
             curTop.add(curDir);
         }
         List ol = initializeOlList(dir);
-
         List files = new ArrayList();
-
-        addNode(ol, curPath, curDir, files);
+        addNode(ol, curDir, files);
         addFileNode(files, curDir);
 
         return curDir;
@@ -123,7 +121,7 @@ public class TreeComponent extends JPanel {
      * @param curDir
      * @param files 
      */
-    private void addNode(List ol, String curPath, DefaultMutableTreeNode curDir, List files) {
+    private void addNode(List ol, DefaultMutableTreeNode curDir, List files) {
         File f = null;
         for (int i = 0; i < ol.size(); i++) {
             String thisObject = (String) ol.get(i);
@@ -157,7 +155,7 @@ public class TreeComponent extends JPanel {
     }
 
     /**
-     * set Selected Dir
+     * Set Selected Dir
      * @param selectedDir 
      */
     public void setSelectedDir(String selectedDir) {

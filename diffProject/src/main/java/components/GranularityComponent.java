@@ -23,56 +23,87 @@ import javax.swing.text.StyledDocument;
  */
 public class GranularityComponent {
 
+    /**
+     * Constructor
+     */
     public GranularityComponent() {
     }
 
-    public void setMoves(IResultDiff result, JTextPane basePane, JScrollPane baseScroll, JTextPane comparedPane, JScrollPane comparedScroll) {
-        Iterator<Grain> it1 = result.getGrainsFrom().iterator();
-        Iterator<Grain> it2 = result.getGrainsTo().iterator();
-        while (it1.hasNext() || it2.hasNext()) {
-            Grain grain1 = it1.next();
-            Grain grain2 = it2.next();
-            if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
-                setMovedGranularity(grain1.getGrainBean(), basePane, baseScroll, grain2.getGrainBean(), comparedPane, comparedScroll);
+    /**
+     * Set Moves
+     * @param result
+     * @param paneFrom
+     * @param scrollFrom
+     * @param paneTo
+     * @param scrollTo 
+     */
+    public void setMoves(IResultDiff result, JTextPane paneFrom, JScrollPane scrollFrom, JTextPane paneTo, JScrollPane scrollTo) {
+        Iterator<Grain> itFrom = result.getGrainsFrom().iterator();
+        Iterator<Grain> itTo = result.getGrainsTo().iterator();
+        while (itFrom.hasNext() || itTo.hasNext()) {
+            Grain grainFrom = itFrom.next();
+            Grain grainTo = itTo.next();
+            if (((grainFrom != null) || (grainTo != null)) && (!grainFrom.getOriginalReference().equals(grainTo.getOriginalReference()))) {
+                setMovedGranularity(grainFrom.getGrainBean(), paneFrom, scrollFrom, grainTo.getGrainBean(), paneTo, scrollTo);
             } else {
-                setStyle(basePane, grain1.getGrainBean(), "UnchangedStyle");
-                setStyle(comparedPane, grain2.getGrainBean(), "UnchangedStyle");
+                setStyle(paneFrom, grainFrom.getGrainBean(), "UnchangedStyle");
+                setStyle(paneTo, grainTo.getGrainBean(), "UnchangedStyle");
             }
         }
     }
 
-    public void setDifferences(IResultDiff result, JTextPane basePane, JTextPane comparedPane) {
+    /**
+     * Set differences (adds and differences)
+     * @param result
+     * @param paneFrom
+     * @param paneTo 
+     */
+    public void setDifferences(IResultDiff result, JTextPane paneFrom, JTextPane paneTo) {
         for (Iterator<Grain> it = result.getDifferences().iterator(); it.hasNext();) {
             Grain grain = it.next();
             if (grain != null) {
                 if ((grain.getSituation()).equals(Grain.Situation.REMOVED)) {
-                    setStyle(basePane, grain.getGrainBean(), "RemoveStyle");
+                    setStyle(paneFrom, grain.getGrainBean(), "RemoveStyle");
                 } else {
-                    setStyle(comparedPane, grain.getGrainBean(), "AddStyle");
+                    setStyle(paneTo, grain.getGrainBean(), "AddStyle");
                 }
             }
         }
     }
 
-    private void setMouseAdapter(final JTextPane pane1, final JTextPane pane2) {
-        pane1.addMouseListener(new MouseAdapter() {
+    /**
+     * Set Mouse Adapter
+     * @param paneFrom
+     * @param paneTo 
+     */
+    private void setMouseAdapter(final JTextPane paneFrom, final JTextPane paneTo) {
+        paneFrom.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                removeHighLight(pane1);
-                removeHighLight(pane2);
+                removeHighLight(paneFrom);
+                removeHighLight(paneTo);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                removeHighLight(pane1);
-                removeHighLight(pane2);
+                removeHighLight(paneFrom);
+                removeHighLight(paneTo);
             }
         });
     }
 
-    private void setMouseMotion(final JTextPane pane1, final GrainBean grainBean1, final JScrollPane scroll1, final GrainBean grainBean2, final JTextPane pane2, final JScrollPane scroll2) {
-        pane1.addMouseMotionListener(new MouseMotionListener() {
+    /**
+     * Set Mouse Motion
+     * @param paneFrom
+     * @param grainBeanFrom
+     * @param scrollFrom
+     * @param grainBeanTo
+     * @param paneTo
+     * @param scrollTo 
+     */
+    private void setMouseMotion(final JTextPane paneFrom, final GrainBean grainBeanFrom, final JScrollPane scrollFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollTo) {
+        paneFrom.addMouseMotionListener(new MouseMotionListener() {
 
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -81,42 +112,74 @@ public class GranularityComponent {
             @Override
             public void mouseMoved(MouseEvent e) {
                 Point pt = new Point(e.getX(), e.getY());
-                setHighLightPoint(pt, grainBean1, pane1, scroll1, grainBean2, pane2, scroll2);
+                setHighLightPoint(pt, grainBeanFrom, paneFrom, grainBeanTo, paneTo);
             }
         });
     }
 
+    /**
+     * Set style
+     * @param pane
+     * @param grain
+     * @param style 
+     */
     private void setStyle(JTextPane pane, GrainBean grain, String style) {
         StyledDocument doc = pane.getStyledDocument();
         IDIFFStyles.addStyle(doc, style);
         doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle(style), true);
     }
 
+    /**
+     * Remove HighLight
+     * @param pane 
+     */
     private void removeHighLight(JTextPane pane) {
         Highlighter hlb = pane.getHighlighter();
         hlb.removeAllHighlights();
     }
 
-    private void setMovedGranularity(final GrainBean grainBeanLeft, final JTextPane basePane, final JScrollPane baseScroll,
-            final GrainBean grainBeanRight, final JTextPane comparedPane, final JScrollPane comparedScroll) {
+    /**
+     * Set Moved Granularity
+     * @param grainBeanFrom
+     * @param paneFrom
+     * @param scrollFrom
+     * @param grainBeanTo
+     * @param paneTo
+     * @param scrollTo 
+     */
+    private void setMovedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final JScrollPane scrollFrom,
+            final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollTo) {
 
-        setStyle(basePane, grainBeanLeft, "MoveStyle");
-        setMouseAdapter(basePane, comparedPane);
-        setMouseMotion(basePane, grainBeanLeft, baseScroll, grainBeanRight, comparedPane, comparedScroll);
+        setStyle(paneFrom, grainBeanFrom, "MoveStyle");
+        setMouseAdapter(paneFrom, paneTo);
+        setMouseMotion(paneFrom, grainBeanFrom, scrollFrom, grainBeanTo, paneTo, scrollTo);
 
-        setStyle(comparedPane, grainBeanRight, "MoveStyle");
-        setMouseAdapter(comparedPane, basePane);
-        setMouseMotion(comparedPane, grainBeanRight, comparedScroll, grainBeanLeft, basePane, baseScroll);
+        setStyle(paneTo, grainBeanTo, "MoveStyle");
+        setMouseAdapter(paneTo, paneFrom);
+        setMouseMotion(paneTo, grainBeanTo, scrollTo, grainBeanFrom, paneFrom, scrollFrom);
     }
 
-    private void setHighLightPoint(Point pt, GrainBean grainBeanBase, JTextPane basePane, JScrollPane baseScroll,
-            GrainBean grainBeanCompared, JTextPane comparedPane, JScrollPane comparedScroll) {
-        if ((grainBeanBase.getStartPosition() <= basePane.viewToModel(pt)) && (basePane.viewToModel(pt) <= grainBeanBase.getStartPosition() + grainBeanBase.getLength())) {
-            setHighLight(basePane, grainBeanBase.getStartPosition(), grainBeanBase.getStartPosition() + grainBeanBase.getLength());
-            setHighLight(comparedPane, grainBeanCompared.getStartPosition(), grainBeanCompared.getStartPosition() + grainBeanBase.getLength());
+    /**
+     * Set HighLight Point
+     * @param pt
+     * @param grainBeanFrom
+     * @param paneFrom
+     * @param grainBeanTo
+     * @param paneTo 
+     */
+    private void setHighLightPoint(Point pt, GrainBean grainBeanFrom, JTextPane paneFrom, GrainBean grainBeanTo, JTextPane paneTo) {
+        if ((grainBeanFrom.getStartPosition() <= paneFrom.viewToModel(pt)) && (paneFrom.viewToModel(pt) <= grainBeanFrom.getStartPosition() + grainBeanFrom.getLength())) {
+            setHighLight(paneFrom, grainBeanFrom.getStartPosition(), grainBeanFrom.getStartPosition() + grainBeanFrom.getLength());
+            setHighLight(paneTo, grainBeanTo.getStartPosition(), grainBeanTo.getStartPosition() + grainBeanFrom.getLength());
         }
     }
 
+    /**
+     * Set HighLight
+     * @param pane
+     * @param begin
+     * @param end 
+     */
     private void setHighLight(JTextPane pane, int begin, int end) {
         Highlighter hl = pane.getHighlighter();
         hl.removeAllHighlights();

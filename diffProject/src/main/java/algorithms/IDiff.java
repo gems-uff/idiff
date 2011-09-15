@@ -18,5 +18,5 @@ public interface IDiff {
      * @return List<Grain>
      * @throws DiffException 
      */
-    public List<Grain> diff(File fileVersionOne, File fileVersionTwo, Grain grain, ILCSBean iLCSBean) throws DiffException;
+    public List<Grain> idiff(File fileVersionOne, File fileVersionTwo, Grain grain, ILCSBean iLCSBean) throws DiffException;
 }

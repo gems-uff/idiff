@@ -2,7 +2,6 @@ package algorithms;
 
 /**
  * DiffException
- * Under Construction
  * @author Fernanda Floriano Silva
  */
 public class DiffException extends Exception {

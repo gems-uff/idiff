@@ -17,6 +17,7 @@ public class LineGrain extends Grain {
      * Constructor
      * @param line
      * @param idReference
+     * @param start 
      */
     public LineGrain(String line, int idReference, int start) {
         super(LevelGranularity.LINE, line, idReference, new GrainBean(start, line.length()));
@@ -32,8 +33,9 @@ public class LineGrain extends Grain {
     /**
      * Start Line Grain
      * @param file
-     * @return List<Grain>
-     * @throws IOException
+     * @param ilcsb
+     * @return
+     * @throws IOException 
      */
     public List<Grain> start(File file, ILCSBean ilcsb) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
@@ -41,28 +43,29 @@ public class LineGrain extends Grain {
         String line = null;
         BufferedReader reader = new BufferedReader(new FileReader(file));
         int id = 0;
-        int idStart =0;
+        int idStart = 0;
         while ((line = reader.readLine()) != null) {
             if (!((ilcsb.isRemoveEmptyLine()) && (line.isEmpty()))) {
                 id++;
                 finalList.add(new LineGrain(ilcsb.verifyParameters(line), id, idStart));
-                idStart = idStart + line.length()+1;
+                idStart = idStart + line.length() + 1;
             }
         }
         return finalList;
     }
-    
+
     /**
      * Start Line Granularity
-     * @param baseFile
-     * @param comparedFile
+     * @param fileFrom
+     * @param fileTo
+     * @param ilcsb
      * @throws IOException
-     * @throws DiffException
+     * @throws DiffException 
      */
-    public void startLineGranularity(File baseFile, File comparedFile, ILCSBean ilcsb) throws IOException, DiffException {
+    public void startLineGranularity(File fileFrom, File fileTo, ILCSBean ilcsb) throws IOException, DiffException {
         try {
-            Algorithm.getComparator().setLinesFileOne(this.start(baseFile, ilcsb));
-            Algorithm.getComparator().setColumnFileTwo(this.start(comparedFile, ilcsb));
+            Algorithm.getComparator().setLinesFileOne(this.start(fileFrom, ilcsb));
+            Algorithm.getComparator().setColumnFileTwo(this.start(fileTo, ilcsb));
         } catch (IOException ex) {
             throw new DiffException(ex, DiffException.MSG_INVALID_START_LINE_GRANULARITY);
         }

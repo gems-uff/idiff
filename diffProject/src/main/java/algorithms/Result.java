@@ -68,7 +68,7 @@ public class Result implements IResultDiff {
     }
 
     /**
-     * Get Differences
+     * Get list with Differences
      * @return List<Grain
      */
     @Override

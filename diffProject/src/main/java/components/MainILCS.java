@@ -56,8 +56,8 @@ public class MainILCS extends javax.swing.JFrame {
 
     /**
      * Creates new form MainILCS 
-     * @param basedFile
-     * @param comparedFile
+     * @param fileFrom
+     * @param fileTo
      * @param granularity
      * @param trimLine
      * @param emptyLine
@@ -66,61 +66,75 @@ public class MainILCS extends javax.swing.JFrame {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public MainILCS(File basedFile, File comparedFile, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws DiffException, FileNotFoundException, IOException {
+    public MainILCS(File fileFrom, File fileTo, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws DiffException, FileNotFoundException, IOException {
         initComponents();
-        ilcsBean = new ILCSBean(basedFile, comparedFile);
-        initialSteps(basedFile, comparedFile, granularity, trimLine, emptyLine, whiteSpace);
+        ilcsBean = new ILCSBean(fileFrom, fileTo);
+        initialSteps(fileFrom, fileTo, granularity, trimLine, emptyLine, whiteSpace);
         adjustmentScroll();
-
     }
 
+    /**
+     * Adjustment Scroll
+     */
     private void adjustmentScroll() {
         adjustmentHorizontalScroll(leftScrollPane, rightScrollPane);
         adjustmentVerticalScroll(leftScrollPane, rightScrollPane);
-
         adjustmentHorizontalScroll(rightScrollPane, leftScrollPane);
         adjustmentVerticalScroll(rightScrollPane, leftScrollPane);
     }
 
-    private void adjustmentHorizontalScroll(final JScrollPane rightScroll, final JScrollPane leftScroll) {
-        rightScroll.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+    /**
+     * Adjustment Horizontal Scroll
+     * @param scrollTo
+     * @param scrollFrom 
+     */
+    private void adjustmentHorizontalScroll(final JScrollPane scrollTo, final JScrollPane scrollFrom) {
+        scrollTo.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
 
             @Override
             public void adjustmentValueChanged(AdjustmentEvent arg0) {
-                Point ponto = rightScroll.getViewport().getViewPosition();
-                leftScroll.getViewport().setViewPosition(ponto);
+                Point point = scrollTo.getViewport().getViewPosition();
+                scrollFrom.getViewport().setViewPosition(point);
             }
         });
     }
 
-    private void adjustmentVerticalScroll(final JScrollPane rightScroll, final JScrollPane leftScroll) {
-        rightScroll.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+    /**
+     * Adjustment Vertical Scroll
+     * @param scrollTo
+     * @param scrollFrom 
+     */
+    private void adjustmentVerticalScroll(final JScrollPane scrollTo, final JScrollPane scrollFrom) {
+        scrollTo.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
 
             @Override
             public void adjustmentValueChanged(AdjustmentEvent arg0) {
-                Point ponto = rightScroll.getViewport().getViewPosition();
-                leftScroll.getViewport().setViewPosition(ponto);
+                Point point = scrollTo.getViewport().getViewPosition();
+                scrollFrom.getViewport().setViewPosition(point);
             }
         });
     }
 
     /**
      * Initial Steps
-     * @param basedFile
-     * @param comparedFile
+     * @param fileFrom
+     * @param fileTo
      * @param granularity
      * @param trimLine
      * @param emptyLine
      * @param whiteSpace
      * @throws IOException 
      */
-    private void initialSteps(File basedFile, File comparedFile, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws IOException {
+    private void initialSteps(File fileFrom, File fileTo, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws IOException {
         init();
-        initFiles(basedFile, comparedFile);
+        initFiles(fileFrom, fileTo);
         initParameters(granularity, trimLine, emptyLine, whiteSpace);
         setLayoutPane();
     }
 
+    /**
+     * Set layout pane
+     */
     private void setLayoutPane() {
         leftPane.setLayout(new BoxLayout(leftPane, BoxLayout.PAGE_AXIS));
         rightPane.setLayout(new BoxLayout(rightPane, BoxLayout.PAGE_AXIS));
@@ -128,14 +142,14 @@ public class MainILCS extends javax.swing.JFrame {
 
     /**
      * Init Files
-     * @param basedFile
-     * @param comparedFile
+     * @param fileFrom
+     * @param fileTo
      * @throws IOException 
      */
-    private void initFiles(File basedFile, File comparedFile) throws IOException {
-        setFiles(basedFile, comparedFile);
-        loadTreeFiles(basedFile, comparedFile);
-        fileComponent.showFiles(basedFile, comparedFile, leftPane, rightPane);
+    private void initFiles(File fileFrom, File fileTo) throws IOException {
+        setFiles(fileFrom, fileTo);
+        loadTreeFiles(fileFrom, fileTo);
+        fileComponent.showFiles(fileFrom, fileTo, leftPane, rightPane);
     }
 
     /**
@@ -322,13 +336,12 @@ public class MainILCS extends javax.swing.JFrame {
 
         jTextField4.setBackground(new Color(126, 192, 238));
         jTextField4.setEditable(false);
-        jTextField4.setForeground(new Color(255, 255, 255));
         jTextField4.setText(bundle.getString("MainILCS.jTextField4.text")); // NOI18N
         toolBar.add(jTextField4);
 
-        jTextField6.setBackground(new Color(252, 255, 0));
+        jTextField6.setBackground(new Color(53, 94, 121));
         jTextField6.setEditable(false);
-        jTextField6.setForeground(new Color(77, 1, 53));
+        jTextField6.setForeground(new Color(255, 255, 255));
         jTextField6.setText(bundle.getString("MainILCS.jTextField6.text")); // NOI18N
         toolBar.add(jTextField6);
 
@@ -340,7 +353,6 @@ public class MainILCS extends javax.swing.JFrame {
         detailsScrollPane.setAutoscrolls(true);
 
         detailsTextPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.detailsTextPane.border.title"))); // NOI18N
-        detailsTextPane.setAutoscrolls(true);
         detailsScrollPane.setViewportView(detailsTextPane);
 
         mainSplitPane.setBottomComponent(detailsScrollPane);
@@ -382,7 +394,6 @@ public class MainILCS extends javax.swing.JFrame {
         leftScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.leftScrollPane.border.title"))); // NOI18N
 
         leftPane.setBorder(null);
-        leftPane.setAutoscrolls(true);
         leftPane.setMaximumSize(new Dimension(800, 600));
         leftPane.setMinimumSize(new Dimension(102, 18));
         leftScrollPane.setViewportView(leftPane);
@@ -391,7 +402,6 @@ public class MainILCS extends javax.swing.JFrame {
 
         rightScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.rightScrollPane.border.title"))); // NOI18N
 
-        rightPane.setAutoscrolls(true);
         rightPane.setMaximumSize(new Dimension(800, 600));
         rightPane.setMinimumSize(new Dimension(102, 18));
         rightPane.setPreferredSize(new Dimension(131, 65));
@@ -439,10 +449,10 @@ public class MainILCS extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.LEADING)
-            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1365, Short.MAX_VALUE)
+            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1373, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1353, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1361, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -459,18 +469,18 @@ public class MainILCS extends javax.swing.JFrame {
 
     /**
      * Start Diff
-     * @param basedFile
-     * @param comparedFile
+     * @param fileFrom
+     * @param fileTo
      * @throws DiffException 
      */
-    private void startDiff(File basedFile, File comparedFile) throws DiffException, FileNotFoundException, IOException {
+    private void startDiff(File fileFrom, File fileTo) throws DiffException, FileNotFoundException, IOException {
         Grain grain = new FileGrain();
         tableComponent.cleanTabelModel(tableDetails);
-        Diff diff = new Diff(basedFile, comparedFile);
+        Diff diff = new Diff(fileFrom, fileTo);
         result.cleanResult();
         result = diff.compare(grain, ilcsBean);
         startTable();
-        startComponent();//(basedFile, comparedFile);
+        startComponent();
     }
 
     /**
@@ -478,18 +488,14 @@ public class MainILCS extends javax.swing.JFrame {
      */
     private void startTable() {
         tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails);
-      //  tableComponent.tableListener(tableDetails);
     }
 
     /**
      * Start Component
-     * @param basedFile
-     * @param comparedFile
      * @throws IOException 
      */
-    private void startComponent() throws IOException {//File basedFile, File comparedFile) throws IOException {
+    private void startComponent() throws IOException {
         fileComponent.repaint(result, leftPane, leftScrollPane, rightPane, rightScrollPane);
-
     }
 
     /**
@@ -501,7 +507,7 @@ public class MainILCS extends javax.swing.JFrame {
     @Action
     public void runProject() throws DiffException, FileNotFoundException, IOException {
         System.out.println("Run Project Action Executed");
-        startDiff(ilcsBean.getBasedFile(), ilcsBean.getComparedFile());
+        startDiff(ilcsBean.getFileFrom(), ilcsBean.getFileTo());
     }
 
     /**
@@ -534,22 +540,22 @@ public class MainILCS extends javax.swing.JFrame {
 
     /**
      * Load Tree Files
-     * @param basedFile
-     * @param comparedFile 
+     * @param fileFrom
+     * @param fileTo 
      */
-    private void loadTreeFiles(File basedFile, File comparedFile) {
-        treeComponent.constructTree(dirTree1, basedFile, leftScrollPane, "Left ");
-        treeComponent.constructTree(dirTree2, comparedFile, rightScrollPane, "Right ");
+    private void loadTreeFiles(File fileFrom, File fileTo) {
+        treeComponent.constructTree(dirTree1, fileFrom, leftScrollPane, "Left ");
+        treeComponent.constructTree(dirTree2, fileTo, rightScrollPane, "Right ");
     }
 
     /**
      * Set Files
-     * @param basedFile
-     * @param comparedFile 
+     * @param fileFrom
+     * @param fileTo 
      */
-    private void setFiles(File basedFile, File comparedFile) {
-        ilcsBean.setBasedFile(basedFile);
-        ilcsBean.setComparedFile(comparedFile);
+    private void setFiles(File fileFrom, File fileTo) {
+        ilcsBean.setFileFrom(fileFrom);
+        ilcsBean.setFileTo(fileTo);
     }
 
     /**

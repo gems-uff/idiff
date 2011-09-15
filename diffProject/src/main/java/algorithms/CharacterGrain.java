@@ -38,13 +38,13 @@ public class CharacterGrain extends Grain {
         finalList.add(null);
         for (Iterator it = list.iterator(); it.hasNext();) {
             Grain grain = (Grain) it.next();
-            
+
             if (grain != null) {
                 char[] letras = grain.getGrain().toCharArray();
                 int startPosition = grain.getGrainBean().getStartPosition();
-                
+
                 for (int i = 0; i < letras.length; i++) {
-                    CharacterGrain charGrain = setData(letras, i, grain, i, startPosition); 
+                    CharacterGrain charGrain = setData(letras, i, grain, startPosition);
                     finalList.add(charGrain);
                     startPosition++;
                 }
@@ -58,29 +58,28 @@ public class CharacterGrain extends Grain {
      * @param letras
      * @param i
      * @param grain
-     * @param idReference
-     * @return CharacterGrain
+     * @param startPosition
+     * @return 
      */
-    private CharacterGrain setData(char[] letras, int i, Grain grain, int idReference,int startPosition) { 
+    private CharacterGrain setData(char[] letras, int i, Grain grain, int startPosition) {
         GrainBean grainBean = new GrainBean(startPosition, 1);
-      
-        CharacterGrain charGrain = new CharacterGrain(Character.toString(letras[i]), grain.getOriginalReference().get(0),grainBean);
+
+        CharacterGrain charGrain = new CharacterGrain(Character.toString(letras[i]), grain.getOriginalReference().get(0), grainBean);
         charGrain.setOriginalReference(grain.getOriginalReference().get(1));
         charGrain.setOriginalReference(i + 1);
         return charGrain;
     }
-   
 
     /**
      * Start Character Granularity
-     * @param listBaseFile
-     * @param listComparedFile
+     * @param listFileFrom
+     * @param listFileTo
      * @throws DiffException
      */
-    public void startCharacterGranularity(List<Grain> listBaseFile, List<Grain> listComparedFile) throws DiffException {
+    public void startCharacterGranularity(List<Grain> listFileFrom, List<Grain> listFileTo) throws DiffException {
         try {
-            Algorithm.getComparator().setLinesFileOne(this.start(listBaseFile));
-            Algorithm.getComparator().setColumnFileTwo(this.start(listComparedFile));
+            Algorithm.getComparator().setLinesFileOne(this.start(listFileFrom));
+            Algorithm.getComparator().setColumnFileTwo(this.start(listFileTo));
         } catch (IOException ex) {
             throw new DiffException(ex, DiffException.MSG_INVALID_START_CHARACTER_GRANULARITY);
         }

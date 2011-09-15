@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
  */
 public class ILCSBean {
 
-    private File basedFile;
-    private File comparedFile;
+    private File fileFrom;
+    private File fileTo;
     private String granularity;
     private boolean trimLine;
     private boolean emptyLine;
@@ -19,12 +19,12 @@ public class ILCSBean {
 
     /**
      * Constructor
-     * @param basedFile
-     * @param comparedFile 
+     * @param fileFrom
+     * @param fileTo 
      */
-    public ILCSBean(File basedFile, File comparedFile) {
-        this.basedFile = basedFile;
-        this.comparedFile = comparedFile;
+    public ILCSBean(File fileFrom, File fileTo) {
+        this.fileFrom = fileFrom;
+        this.fileTo = fileTo;
     }
 
     /**
@@ -139,43 +139,34 @@ public class ILCSBean {
     }
 
     /**
-     * Get Based File
+     * Get File From 
      * @return File
      */
-    public File getBasedFile() {
-        return basedFile;
+    public File getFileFrom() {
+        return fileFrom;
     }
 
     /**
-     * Set Based File
-     * @param basedFile 
+     * Set File From 
+     * @param fileFrom 
      */
-    public void setBasedFile(File basedFile) {
-        this.basedFile = basedFile;
+    public void setFileFrom(File fileFrom) {
+        this.fileFrom = fileFrom;
     }
 
     /**
-     * Get Compared File
+     * Get File To
      * @return File
      */
-    public File getComparedFile() {
-        return comparedFile;
+    public File getFileTo() {
+        return fileTo;
     }
 
     /**
-     * Set Compared File
-     * @param comparedFile 
+     * Set File To
+     * @param fileTo 
      */
-    public void setComparedFile(File comparedFile) {
-        this.comparedFile = comparedFile;
-    }
-
-    /**
-     * Change Files Order
-     */
-    public void changeFilesOrder() {
-        File baseFile = this.getBasedFile();
-        this.setBasedFile(this.getComparedFile());
-        this.setComparedFile(baseFile);
+    public void setFileTo(File fileTo) {
+        this.fileTo = fileTo;
     }
 }

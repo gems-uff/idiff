@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -44,15 +42,33 @@ public class TableComponent {
     public void printTableLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences, JTable tableDetails) {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
-        while (it1.hasNext() || it2.hasNext()) {
-            Grain grain1 = it1.next();
-            Grain grain2 = it2.next();
 
-            if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
-                ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
-            }
+        printMoves(it1, it2, tableDetails);
+        printDifferences(diferences, tableDetails);
+        printNotFound(tableDetails);
+
+        tableDetails.setCellSelectionEnabled(false);
+        tableDetails.setRowSelectionAllowed(true);
+    }
+
+    /**
+     * Print Differences not found
+     * @param tableDetails 
+     */
+    private void printNotFound(JTable tableDetails) {
+        if (tableDetails.getRowCount() == 0) {
+            ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{" Differences not found ", "---", "---", "---"});
+            tableDetails.setBackground(Color.BLUE);
+            tableDetails.setForeground(Color.YELLOW);
         }
+    }
 
+    /**
+     * Print differences
+     * @param diferences
+     * @param tableDetails 
+     */
+    private void printDifferences(List<Grain> diferences, JTable tableDetails) {
         for (Iterator<Grain> it3 = diferences.iterator(); it3.hasNext();) {
             Grain grain = it3.next();
             if (grain != null) {
@@ -63,17 +79,25 @@ public class TableComponent {
                 }
             }
         }
-        if (tableDetails.getRowCount() == 0) {
-            ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{" Differences not found ", "---", "---", "---"});
-            tableDetails.setBackground(Color.BLUE);
-            tableDetails.setForeground(Color.YELLOW);
-        }
-        tableDetails.setCellSelectionEnabled(false);
-        tableDetails.setRowSelectionAllowed(true);
     }
-    //TODO Verificar porque está imprimindo duas vezes!
 
-        /**
+    /**
+     * Print Moves
+     * @param it1
+     * @param it2
+     * @param tableDetails 
+     */
+    private void printMoves(Iterator<Grain> it1, Iterator<Grain> it2, JTable tableDetails) {
+        while (it1.hasNext() || it2.hasNext()) {
+            Grain grain1 = it1.next();
+            Grain grain2 = it2.next();
+            if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
+                ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
+            }
+        }
+    }
+
+    /**
      * Print Reference
      * @param originalReference
      * @return String

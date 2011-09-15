@@ -21,7 +21,7 @@ public class FileSelection extends javax.swing.JFrame {
     private JFileChooser fileChooser;
 
     /**
-     * Creates new form FileSelection 
+     * Constructor 
      */
     public FileSelection() {
         setlaf();
@@ -45,20 +45,6 @@ public class FileSelection extends javax.swing.JFrame {
         } catch (IllegalAccessException ex) {
         } catch (UnsupportedLookAndFeelException ex) {
         }
-    }
-
-    /**
-     * Show About Box
-     */
-    @Action
-    public void showAboutProject() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new AboutILCS().setVisible(true);
-            }
-        });
     }
 
     /**
@@ -95,7 +81,6 @@ public class FileSelection extends javax.swing.JFrame {
         file1 = new javax.swing.JLabel();
         fileTextField2 = new javax.swing.JTextField();
         aboutTeam = new javax.swing.JToggleButton();
-        aboutProject = new javax.swing.JToggleButton();
         okButton = new javax.swing.JButton();
         mainLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -123,9 +108,10 @@ public class FileSelection extends javax.swing.JFrame {
         compareWith.setName("compareWith"); // NOI18N
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(FileSelection.class, this);
-        fileButton2.setAction(actionMap.get("findComparedArtifact")); // NOI18N
+        fileButton2.setAction(actionMap.get("findArtifactTo")); // NOI18N
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(FileSelection.class);
         fileButton2.setIcon(resourceMap.getIcon("fileButton2.icon")); // NOI18N
+        fileButton2.setText(resourceMap.getString("fileButton2.text")); // NOI18N
         fileButton2.setToolTipText(resourceMap.getString("fileButton2.toolTipText")); // NOI18N
         fileButton2.setBorder(null);
         fileButton2.setBorderPainted(false);
@@ -133,8 +119,9 @@ public class FileSelection extends javax.swing.JFrame {
         fileButton2.setContentAreaFilled(false);
         fileButton2.setName("fileButton2"); // NOI18N
 
-        fileButton1.setAction(actionMap.get("findBasedArtifact")); // NOI18N
+        fileButton1.setAction(actionMap.get("findArtifactFrom")); // NOI18N
         fileButton1.setIcon(resourceMap.getIcon("fileButton1.icon")); // NOI18N
+        fileButton1.setText(resourceMap.getString("fileButton1.text")); // NOI18N
         fileButton1.setToolTipText(resourceMap.getString("fileButton1.toolTipText")); // NOI18N
         fileButton1.setBorder(null);
         buttonGroup.add(fileButton1);
@@ -169,43 +156,41 @@ public class FileSelection extends javax.swing.JFrame {
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(file2)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(fileTextField))
+                                .add(fileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 378, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(jPanel2Layout.createSequentialGroup()
                                 .add(file1)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(fileTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 390, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(fileTextField2)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(fileButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(fileButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(fileButton2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(fileButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
+                        .add(6, 6, 6))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(compareWith)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 396, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 392, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(fileTextField)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
-                        .add(fileButton1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED))
-                    .add(file2))
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(fileButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(fileTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(18, 18, 18)
+                        .add(12, 12, 12)
+                        .add(file2)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel2Layout.createSequentialGroup()
                         .add(compareWith)
                         .add(22, 22, 22)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(file1)
-                            .add(fileTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(12, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(46, 46, 46)
-                        .add(fileButton2)
-                        .addContainerGap())))
+                            .add(fileTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(fileButton2))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         aboutTeam.setAction(actionMap.get("showAboutTeam")); // NOI18N
@@ -216,15 +201,6 @@ public class FileSelection extends javax.swing.JFrame {
         aboutTeam.setBorderPainted(false);
         aboutTeam.setContentAreaFilled(false);
         aboutTeam.setName("aboutTeam"); // NOI18N
-
-        aboutProject.setAction(actionMap.get("showAboutProject")); // NOI18N
-        buttonGroup.add(aboutProject);
-        aboutProject.setIcon(resourceMap.getIcon("aboutProject.icon")); // NOI18N
-        aboutProject.setText(resourceMap.getString("aboutProject.text")); // NOI18N
-        aboutProject.setToolTipText(resourceMap.getString("aboutProject.toolTipText")); // NOI18N
-        aboutProject.setBorderPainted(false);
-        aboutProject.setContentAreaFilled(false);
-        aboutProject.setName("aboutProject"); // NOI18N
 
         okButton.setAction(actionMap.get("loadFiles")); // NOI18N
         okButton.setFont(new java.awt.Font("sansserif", 1, 12));
@@ -300,7 +276,7 @@ public class FileSelection extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(trimRButton)
                     .add(emptyLineRButton)
@@ -328,11 +304,10 @@ public class FileSelection extends javax.swing.JFrame {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel3Layout.createSequentialGroup()
-                        .add(aboutProject, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(6, 6, 6)
                         .add(aboutTeam, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 212, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 267, Short.MAX_VALUE)
                         .add(closeButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(okButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -363,12 +338,11 @@ public class FileSelection extends javax.swing.JFrame {
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(aboutTeam, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(aboutProject)
                     .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(okButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(closeButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .add(closeButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(aboutTeam, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(10, 10, 10))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -386,18 +360,18 @@ public class FileSelection extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Find Based Artifact
+     * Find Artifact From
      */
     @Action
-    public void findBasedArtifact() {
+    public void findArtifactFrom() {
         findFile(fileTextField);
     }
 
     /**
-     * Find Compared Artifact
+     * Find Artifact To
      */
     @Action
-    public void findComparedArtifact() {
+    public void findArtifactTo() {
         findFile(fileTextField2);
     }
 
@@ -409,7 +383,6 @@ public class FileSelection extends javax.swing.JFrame {
         translateFileChooser();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
-
 
         fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("File Chooser");
@@ -438,7 +411,7 @@ public class FileSelection extends javax.swing.JFrame {
             File artifact2 = new File(fileTextField2.getText());
 
             if ((artifact1.isDirectory()) || (artifact2.isDirectory())) {
-                showDDiff(artifact1, artifact2);
+                showDDiff();
             } else {
                 showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), trimRButton.isSelected(), emptyLineRButton.isSelected(), excessWSRButton.isSelected());
             }
@@ -449,6 +422,9 @@ public class FileSelection extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Show error frame
+     */
     private void showError() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
@@ -460,6 +436,10 @@ public class FileSelection extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Verify if files ok
+     * @return 
+     */
     private boolean filesOk() {
 
         return (new File(fileTextField.getText()).exists()) && (new File(fileTextField2.getText()).exists());
@@ -494,23 +474,25 @@ public class FileSelection extends javax.swing.JFrame {
 
     /**
      * Show ILCS
-     * @param baseFile
-     * @param comparedFile
+     * @param fileFrom
+     * @param fileTo
+     * @param granularity
+     * @param trimLine
+     * @param emptyLine
+     * @param whiteSpace
      * @throws DiffException
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    private void showILCS(File baseFile, File comparedFile, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws DiffException, FileNotFoundException, IOException {
-        MainILCS ilcs = new MainILCS(baseFile, comparedFile, granularity, trimLine, emptyLine, whiteSpace);
+    private void showILCS(File fileFrom, File fileTo, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws DiffException, FileNotFoundException, IOException {
+        MainILCS ilcs = new MainILCS(fileFrom, fileTo, granularity, trimLine, emptyLine, whiteSpace);
         ilcs.setVisible(true);
     }
 
     /**
      * Show Diff
-     * @param baseDirectory
-     * @param comparedDirectory 
      */
-    private void showDDiff(File baseDirectory, File comparedDirectory) {
+    private void showDDiff() {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
@@ -573,7 +555,6 @@ public class FileSelection extends javax.swing.JFrame {
         UIManager.put("FileChooser.acceptAllFileFilterText", "All files");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton aboutProject;
     private javax.swing.JToggleButton aboutTeam;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton closeButton;

@@ -29,7 +29,7 @@ public class ResultLCS implements IResultLCS {
     }
 
     /**
-     * Load Result
+     * Load ilcs results
      * @throws DiffException
      */
     private void loadResult() throws DiffException {
@@ -62,7 +62,7 @@ public class ResultLCS implements IResultLCS {
         }
     }
 
-    /* Is Context
+    /* Verify if is Context
      * @param grain
      * @return boolean
      */
@@ -74,31 +74,31 @@ public class ResultLCS implements IResultLCS {
     }
 
     /**
-     * Is Adding
-     * @param grainF2
+     * Verify if is Adding
+     * @param grain
      * @return boolean
      */
-    private boolean isAdding(Grain grainF2) {
-        if ((grainF2 == null)) {
+    private boolean isAdding(Grain grain) {
+        if ((grain == null)) {
             return false;
         }
-        return !this.lcs.contains(grainF2);
+        return !this.lcs.contains(grain);
     }
 
     /**
-     * Is Removing
-     * @param grainF1
+     * Verify if is Removing
+     * @param grain
      * @return boolean
      */
-    private boolean isRemoving(Grain grainF1) {
-        if ((grainF1 == null)) {
+    private boolean isRemoving(Grain grain) {
+        if ((grain == null)) {
             return false;
         }
-        return !this.lcs.contains(grainF1);
+        return !this.lcs.contains(grain);
     }
 
     /**
-     * Get File Version One
+     * Get List with File Version One
      * @return List<Grain>
      */
     @Override
@@ -107,7 +107,7 @@ public class ResultLCS implements IResultLCS {
     }
 
     /**
-     * Get File Version Two
+     * Get List with File Version Two
      * @return List<Grain>
      */
     @Override
@@ -116,7 +116,7 @@ public class ResultLCS implements IResultLCS {
     }
 
     /**
-     * Get LCS
+     * Get List with LCS
      * @return List<Grain>
      */
     @Override

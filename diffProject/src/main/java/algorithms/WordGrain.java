@@ -15,7 +15,8 @@ public class WordGrain extends Grain {
     /**
      * Constructor
      * @param word
-     * @param idReference 
+     * @param idReference
+     * @param grainBean 
      */
     public WordGrain(String word, int idReference, GrainBean grainBean) {
         super(LevelGranularity.WORD, word, idReference, grainBean);
@@ -55,15 +56,22 @@ public class WordGrain extends Grain {
         return finalList;
     }
 
+    /**
+     * Set Granularity Start Position 
+     * @param startPosition
+     * @param word
+     * @return 
+     */
     private int setStartPosition(int startPosition, String word) {
         return (startPosition + word.length() + 1);
     }
 
     /**
-     * Set Data
+     * Set word grain data
      * @param token
      * @param grain
      * @param idReference
+     * @param startPosition
      * @return WordGrain
      */
     private WordGrain setData(StringTokenizer token, Grain grain, int idReference, int startPosition) {
@@ -76,14 +84,14 @@ public class WordGrain extends Grain {
 
     /**
      * Start Word Granularity
-     * @param listBaseFile
-     * @param listComparedFile
+     * @param listFileFrom
+     * @param listFileTo
      * @throws DiffException 
      */
-    public void startWordGranularity(List<Grain> listBaseFile, List<Grain> listComparedFile) throws DiffException {
+    public void startWordGranularity(List<Grain> listFileFrom, List<Grain> listFileTo) throws DiffException {
         try {
-            Algorithm.getComparator().setLinesFileOne(this.start(listBaseFile));
-            Algorithm.getComparator().setColumnFileTwo(this.start(listComparedFile));
+            Algorithm.getComparator().setLinesFileOne(this.start(listFileFrom));
+            Algorithm.getComparator().setColumnFileTwo(this.start(listFileTo));
         } catch (IOException ex) {
             throw new DiffException(ex, DiffException.MSG_INVALID_START_WORD_GRANULARITY);
         }

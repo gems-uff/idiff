@@ -3,6 +3,7 @@ package components;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.jdesktop.application.Action;
 
 /**
  *
@@ -35,7 +36,7 @@ public class Error extends javax.swing.JDialog {
         } catch (UnsupportedLookAndFeelException ex) {
         }
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -87,7 +88,10 @@ public class Error extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @org.jdesktop.application.Action
+    /**
+     * Close Error Frame
+     */
+    @Action
     public void closeError() {
         this.setVisible(false);
     }

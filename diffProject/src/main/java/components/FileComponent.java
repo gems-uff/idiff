@@ -24,26 +24,42 @@ public class FileComponent {
 
     /**
      * Show Files
-     * @param baseFile
-     * @param comparedFile
-     * @param basePane
-     * @param comparedPane
+     * @param fileFrom
+     * @param fileTo
+     * @param paneFrom
+     * @param paneTo
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public void showFiles(File baseFile, File comparedFile, JTextPane basePane, JTextPane comparedPane) throws FileNotFoundException, IOException {
-        submitFile(baseFile, basePane);
-        submitFile(comparedFile, comparedPane);
+    public void showFiles(File fileFrom, File fileTo, JTextPane paneFrom, JTextPane paneTo) throws FileNotFoundException, IOException {
+        submitFile(fileFrom, paneFrom);
+        submitFile(fileTo, paneTo);
     }
 
+    /**
+     * Submit File
+     * @param file
+     * @param editorPane
+     * @return boolean
+     * @throws MalformedURLException
+     * @throws IOException 
+     */
     private boolean submitFile(File file, JTextPane editorPane) throws MalformedURLException, IOException {
         java.net.URL transferURL = file.toURI().toURL();
         editorPane.setPage(transferURL);
         return true;
     }
 
-    void repaint(IResultDiff result, JTextPane leftPane, JScrollPane leftScrollPane, JTextPane rightPane, JScrollPane rightScrollPane) {
-        granularityComponent.setDifferences(result, leftPane, rightPane);
-        granularityComponent.setMoves(result, leftPane, leftScrollPane, rightPane, rightScrollPane);
+    /**
+     * Repaint
+     * @param result
+     * @param paneFrom
+     * @param scrollFrom
+     * @param paneTo
+     * @param scrollTo 
+     */
+    void repaint(IResultDiff result, JTextPane paneFrom, JScrollPane scrollFrom, JTextPane paneTo, JScrollPane scrollTo) {
+        granularityComponent.setDifferences(result, paneFrom, paneTo);
+        granularityComponent.setMoves(result, paneFrom, scrollFrom, paneTo, scrollTo);
     }
 }

@@ -10,13 +10,13 @@ import java.util.List;
 public interface IResultLCS {
 
     /**
-     * Get File Version One
+     * Get List with File Version One
      * @return  List<Grain>
      */
     List<Grain> getFileVersionOne();
 
     /**
-     * Get File Version Two
+     * Get List with File Version Two
      * @return  List<Grain>
      */
     List<Grain> getFileVersionTwo();

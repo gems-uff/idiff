@@ -44,6 +44,7 @@ public class Grain {
      * @param levelGrain
      * @param grain
      * @param originalReference
+     * @param grainBean 
      */
     public Grain(LevelGranularity levelGrain, String grain, int originalReference, GrainBean grainBean) {
         this.levelGrain = levelGrain;
@@ -119,18 +120,34 @@ public class Grain {
         this.levelGrain = levelGrain;
     }
 
+    /**
+     * Get grainbean
+     * @return GrainBean
+     */
     public GrainBean getGrainBean() {
         return grainBean;
     }
 
+    /**
+     * Set grainBean
+     * @param charReference 
+     */
     public void setGrainBean(GrainBean charReference) {
         this.grainBean = charReference;
     }
 
+    /**
+     * get grain text
+     * @return String
+     */
     public String getGrainText() {
         return grainText;
     }
 
+    /**
+     * Set grain text
+     * @param grainText 
+     */
     public void setGrainText(String grainText) {
         this.grainText = grainText;
     }
@@ -163,7 +180,7 @@ public class Grain {
      * @return boolean
      */
     public boolean canReduceGranularity(String granularity) {
-        return ((!this.levelGrain.toString().equals(granularity.toUpperCase())) && (!this.levelGrain.equals(this.levelGrain.CHARACTER)));
+        return ((!this.levelGrain.toString().equals(granularity.toUpperCase())) && (!this.levelGrain.equals(LevelGranularity.CHARACTER)));
     }
 
     /**
