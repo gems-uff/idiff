@@ -69,13 +69,16 @@ public class TableComponent {
      * @param tableDetails 
      */
     private void printDifferences(List<Grain> diferences, JTable tableDetails) {
-        for (Iterator<Grain> it3 = diferences.iterator(); it3.hasNext();) {
-            Grain grain = it3.next();
+        for (Iterator<Grain> it = diferences.iterator(); it.hasNext();) {
+            Grain grain = it.next();
             if (grain != null) {
-                if ((grain.getSituation()).equals(Grain.Situation.REMOVED)) {
-                    ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
-                } else {
-                    ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
+                switch (grain.getSituation()) {
+                    case REMOVED:
+                        ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
+                        break;
+                    case ADDED:
+                        ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
+                        break;
                 }
             }
         }

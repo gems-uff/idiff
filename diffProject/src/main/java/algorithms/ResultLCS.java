@@ -71,23 +71,33 @@ public class ResultLCS implements IResultLCS {
             return false;
         }
         return (lcsContains(grain));
-        //return (this.lcs.contains(grain));
     }
 
+    /**
+     * Verify if lcs contais a grain
+     * @param grain
+     * @return boolean
+     */
     private boolean lcsContains(Grain grain) {
-        if (!this.lcs.contains(grain)) {
-            return false;
-        } else {
-            int grainId = grain.getGrainBean().getStartPosition();
-            List<Grain> lcsList = this.lcs;
-            for (int i = 0; i < lcsList.size(); i++) {
-                if (grainId == lcsList.get(i).getGrainBean().getStartPosition()) {
-                    return true;
-                }
-            }
-            return false;
-
+        if (this.lcs.contains(grain)) {
+            return comparePosition(this.lcs, grain.getGrainBean().getStartPosition());
         }
+        return false;
+    }
+
+    /**
+     * Compare grain position
+     * @param lcsList
+     * @param grainId
+     * @return boolean
+     */
+    private boolean comparePosition(List<Grain> lcsList, int grainId) {
+        for (int i = 0; i < lcsList.size(); i++) {
+            if (grainId == lcsList.get(i).getGrainBean().getStartPosition()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -99,7 +109,6 @@ public class ResultLCS implements IResultLCS {
         if ((grain == null)) {
             return false;
         }
-      //  return !this.lcs.contains(grain);
         return (!lcsContains(grain));
     }
 
@@ -112,9 +121,7 @@ public class ResultLCS implements IResultLCS {
         if ((grain == null)) {
             return false;
         }
-    //    return !this.lcs.contains(grain);
         return (!lcsContains(grain));
-
     }
 
     /**

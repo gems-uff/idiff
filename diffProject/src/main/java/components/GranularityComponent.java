@@ -62,10 +62,13 @@ public class GranularityComponent {
         for (Iterator<Grain> it = result.getDifferences().iterator(); it.hasNext();) {
             Grain grain = it.next();
             if (grain != null) {
-                if ((grain.getSituation()).equals(Grain.Situation.REMOVED)) {
-                    setStyle(paneFrom, grain.getGrainBean(), "RemoveStyle");
-                } else {
-                    setStyle(paneTo, grain.getGrainBean(), "AddStyle");
+                switch (grain.getSituation()) {
+                    case REMOVED:
+                        setStyle(paneFrom, grain.getGrainBean(), "RemoveStyle");
+                        break;
+                    case ADDED:
+                        setStyle(paneTo, grain.getGrainBean(), "AddStyle");
+                        break;
                 }
             }
         }

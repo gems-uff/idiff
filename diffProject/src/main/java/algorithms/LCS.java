@@ -142,6 +142,8 @@ public class LCS implements IDiff {
             finalResult = Result.getResult();
 
             lcs.add(this.linesFileOne.get(i));
+            lcs.add(this.columnFileTwo.get(j));
+
             finalResult.setGrainsFrom(this.linesFileOne.get(i));
             finalResult.setGrainsTo(this.columnFileTwo.get(j));
         } else {

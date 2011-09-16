@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * WordGrain
@@ -49,7 +48,9 @@ public class WordGrain extends Grain {
                     //while (token.hasMoreTokens()) {
                     idReference++;
                     WordGrain wordGrain = setData(token[i], grain, idReference, startPosition);
-                    finalList.add(wordGrain);
+                    if (!wordGrain.getGrain().equals("")) {
+                        finalList.add(wordGrain);
+                    }
                     startPosition = setStartPosition(startPosition, wordGrain.getGrain());
                 }
             }
