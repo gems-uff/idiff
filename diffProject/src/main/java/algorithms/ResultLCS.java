@@ -70,7 +70,24 @@ public class ResultLCS implements IResultLCS {
         if (grain == null) {
             return false;
         }
-        return (this.lcs.contains(grain));
+        return (lcsContains(grain));
+        //return (this.lcs.contains(grain));
+    }
+
+    private boolean lcsContains(Grain grain) {
+        if (!this.lcs.contains(grain)) {
+            return false;
+        } else {
+            int grainId = grain.getGrainBean().getStartPosition();
+            List<Grain> lcsList = this.lcs;
+            for (int i = 0; i < lcsList.size(); i++) {
+                if (grainId == lcsList.get(i).getGrainBean().getStartPosition()) {
+                    return true;
+                }
+            }
+            return false;
+
+        }
     }
 
     /**
@@ -82,7 +99,8 @@ public class ResultLCS implements IResultLCS {
         if ((grain == null)) {
             return false;
         }
-        return !this.lcs.contains(grain);
+      //  return !this.lcs.contains(grain);
+        return (!lcsContains(grain));
     }
 
     /**
@@ -94,7 +112,9 @@ public class ResultLCS implements IResultLCS {
         if ((grain == null)) {
             return false;
         }
-        return !this.lcs.contains(grain);
+    //    return !this.lcs.contains(grain);
+        return (!lcsContains(grain));
+
     }
 
     /**

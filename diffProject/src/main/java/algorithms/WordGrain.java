@@ -41,12 +41,14 @@ public class WordGrain extends Grain {
         for (Iterator it = list.iterator(); it.hasNext();) {
             Grain grain = (Grain) it.next();
             if (grain != null) {
-                StringTokenizer token = new StringTokenizer(grain.getGrain());
+                String[] token = grain.getGrain().split(" ");
+                //       StringTokenizer token = new StringTokenizer(grain.getGrain());
                 int idReference = 0;
                 int startPosition = grain.getGrainBean().getStartPosition();
-                while (token.hasMoreTokens()) {
+                for (int i = 0; i < token.length; i++) {
+                    //while (token.hasMoreTokens()) {
                     idReference++;
-                    WordGrain wordGrain = setData(token, grain, idReference, startPosition);
+                    WordGrain wordGrain = setData(token[i], grain, idReference, startPosition);
                     finalList.add(wordGrain);
                     startPosition = setStartPosition(startPosition, wordGrain.getGrain());
                 }
@@ -74,8 +76,9 @@ public class WordGrain extends Grain {
      * @param startPosition
      * @return WordGrain
      */
-    private WordGrain setData(StringTokenizer token, Grain grain, int idReference, int startPosition) {
-        String nextToken = token.nextToken();
+    private WordGrain setData(String token, Grain grain, int idReference, int startPosition) {
+        // String nextToken = token.nextToken();
+        String nextToken = token;
         GrainBean grainBean = new GrainBean(startPosition, nextToken.length());
         WordGrain wordGrain = new WordGrain(nextToken, grain.getOriginalReference().get(0), grainBean);
         wordGrain.setOriginalReference(idReference);
