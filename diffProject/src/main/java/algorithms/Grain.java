@@ -16,6 +16,7 @@ public class Grain {
     private Situation situation = Situation.UNCHANGED;
     private LevelGranularity levelGrain;
     private GrainBean grainBean;
+    private int idFile;
 
     /**
      * Possible situation of grains
@@ -51,6 +52,22 @@ public class Grain {
         this.grainText = grain;
         this.originalReference.add(originalReference);
         this.grainBean = grainBean;
+    }
+
+    /**
+     * Ger idFile
+     * @return int
+     */
+    public int getIdFile() {
+        return idFile;
+    }
+
+    /**
+     * Set idFile
+     * @param idFile 
+     */
+    public void setIdFile(int idFile) {
+        this.idFile = idFile;
     }
 
     /**

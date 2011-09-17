@@ -59,7 +59,7 @@ public class FileComponent {
      * @param scrollTo 
      */
     void repaint(IResultDiff result, JTextPane paneFrom, JScrollPane scrollFrom, JTextPane paneTo, JScrollPane scrollTo) {
-        granularityComponent.setDifferences(result, paneFrom, paneTo);
         granularityComponent.setMoves(result, paneFrom, scrollFrom, paneTo, scrollTo);
+        granularityComponent.setDifferences(result, paneFrom, paneTo);
     }
 }

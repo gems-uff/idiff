@@ -83,6 +83,7 @@ public class WordGrain extends Grain {
         GrainBean grainBean = new GrainBean(startPosition, nextToken.length());
         WordGrain wordGrain = new WordGrain(nextToken, grain.getOriginalReference().get(0), grainBean);
         wordGrain.setOriginalReference(idReference);
+        wordGrain.setIdFile(grain.getIdFile());
         return wordGrain;
     }
 

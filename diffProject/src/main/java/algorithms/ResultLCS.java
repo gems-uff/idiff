@@ -29,6 +29,34 @@ public class ResultLCS implements IResultLCS {
     }
 
     /**
+     * Verify if is same reference
+     * @param grain
+     * @param lcsList
+     * @param i
+     * @return boolean
+     */
+    private boolean isSameReference(Grain grain, List<Grain> lcsList, int i) {
+        return grain.getOriginalReference().get(0) == lcsList.get(i).getOriginalReference().get(0);
+    }
+
+    /**
+     * Verify if is same start position
+     * @param grain
+     * @param lcsList
+     * @param i
+     * @return 
+     */
+    private boolean isSameStartPosition(Grain grain, List<Grain> lcsList, int i) {
+        if (grain.getGrainBean().getStartPosition() == lcsList.get(i).getGrainBean().getStartPosition()) {
+            if (grain.getIdFile() == lcsList.get(i).getIdFile()) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    /**
      * Load ilcs results
      * @throws DiffException
      */
@@ -80,20 +108,20 @@ public class ResultLCS implements IResultLCS {
      */
     private boolean lcsContains(Grain grain) {
         if (this.lcs.contains(grain)) {
-            return comparePosition(this.lcs, grain.getGrainBean().getStartPosition());
+            return comparePosition(this.lcs, grain);
         }
         return false;
     }
 
     /**
-     * Compare grain position
+     * Compare Position
      * @param lcsList
-     * @param grainId
-     * @return boolean
+     * @param grain
+     * @return 
      */
-    private boolean comparePosition(List<Grain> lcsList, int grainId) {
+    private boolean comparePosition(List<Grain> lcsList, Grain grain) {
         for (int i = 0; i < lcsList.size(); i++) {
-            if (grainId == lcsList.get(i).getGrainBean().getStartPosition()) {
+            if (isSameStartPosition(grain, lcsList, i)){ //|| isSameReference(grain, lcsList, i)) {
                 return true;
             }
         }
