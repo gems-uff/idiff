@@ -47,12 +47,13 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
+import wrap.Wrap;
 
 /**
  * MainILCS
  * @author Fernanda Floriano Silva
  */
-public class MainILCS extends javax.swing.JFrame {
+public final class MainILCS extends javax.swing.JFrame {
 
     /**
      * Creates new form MainILCS 
@@ -68,6 +69,7 @@ public class MainILCS extends javax.swing.JFrame {
      */
     public MainILCS(File fileFrom, File fileTo, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws DiffException, FileNotFoundException, IOException {
         initComponents();
+        new Wrap().setWrap(leftPane, rightPane);
         ilcsBean = new ILCSBean(fileFrom, fileTo);
         initialSteps(fileFrom, fileTo, granularity, trimLine, emptyLine, whiteSpace);
         adjustmentScroll();
@@ -394,6 +396,7 @@ public class MainILCS extends javax.swing.JFrame {
         leftScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.leftScrollPane.border.title"))); // NOI18N
 
         leftPane.setBorder(null);
+        leftPane.setAutoscrolls(true);
         leftPane.setMaximumSize(new Dimension(800, 600));
         leftPane.setMinimumSize(new Dimension(102, 18));
         leftScrollPane.setViewportView(leftPane);
@@ -402,6 +405,7 @@ public class MainILCS extends javax.swing.JFrame {
 
         rightScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.rightScrollPane.border.title"))); // NOI18N
 
+        rightPane.setAutoscrolls(true);
         rightPane.setMaximumSize(new Dimension(800, 600));
         rightPane.setMinimumSize(new Dimension(102, 18));
         rightPane.setPreferredSize(new Dimension(131, 65));

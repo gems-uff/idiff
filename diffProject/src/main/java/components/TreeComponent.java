@@ -55,7 +55,7 @@ public class TreeComponent extends JPanel {
      * @param tree 
      */
     private void setFeatures(JScrollPane scrollPane, String name, File dir, JTree tree) {
-        scrollPane.setBorder(BorderFactory.createTitledBorder(name + "(" + dir.getAbsolutePath() + ")"));
+        scrollPane.setBorder(BorderFactory.createTitledBorder(name + "(" + dir.getName() + ")"));
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
     }
 

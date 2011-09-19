@@ -62,4 +62,6 @@ public class FileComponent {
         granularityComponent.setMoves(result, paneFrom, scrollFrom, paneTo, scrollTo);
         granularityComponent.setDifferences(result, paneFrom, paneTo);
     }
+
+
 }
