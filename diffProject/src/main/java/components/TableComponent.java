@@ -94,7 +94,10 @@ public class TableComponent {
         while (it1.hasNext() || it2.hasNext()) {
             Grain grain1 = it1.next();
             Grain grain2 = it2.next();
-            if (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference()))) {
+
+            boolean condition1 = (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference())));
+            boolean condition2 = ((grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1));
+            if (condition1 && condition2) {
                 ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
             }
         }

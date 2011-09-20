@@ -17,6 +17,7 @@ public class Grain {
     private LevelGranularity levelGrain;
     private GrainBean grainBean;
     private int idFile;
+    private int idIteration;
 
     /**
      * Possible situation of grains
@@ -60,6 +61,22 @@ public class Grain {
      */
     public int getIdFile() {
         return idFile;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public int getIdIteration() {
+        return idIteration;
+    }
+
+    /**
+     * 
+     * @param idIteration 
+     */
+    public void setIdIteration(int idIteration) {
+        this.idIteration = idIteration;
     }
 
     /**

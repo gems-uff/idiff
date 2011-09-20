@@ -47,7 +47,9 @@ public class LCS implements IDiff {
     @Override
     public List<Grain> idiff(File fileVersionOne, File fileVersionTwo, Grain grain, ILCSBean iLCSBean) throws DiffException {
         IResultLCS result = null;
+        int idIteration;
         while (grain.canReduceGranularity(iLCSBean.getGranularity())) {
+            idIteration = 0;
             grain.reduceGranularity();
             try {
                 grain.init(fileVersionOne, fileVersionTwo, grain.getLevelGrain(), result, iLCSBean);
@@ -55,7 +57,8 @@ public class LCS implements IDiff {
                 throw new DiffException(DiffException.MSG_INVALID_SITUATION);
             }
             do {
-                result = mainLcs();
+                idIteration++;
+                result = mainLcs(idIteration);
                 removeLcs(result);
             } while (!lcsIsEmpty(result));
         }
@@ -77,9 +80,9 @@ public class LCS implements IDiff {
      * @return IResultLCS
      * @throws DiffException
      */
-    public IResultLCS mainLcs() throws DiffException {
+    public IResultLCS mainLcs(int iteration) throws DiffException {
         lcs();
-        return printLCS();
+        return printLCS(iteration);
     }
 
     /**
@@ -118,10 +121,10 @@ public class LCS implements IDiff {
      * @return IResultLCS
      * @throws DiffException
      */
-    public IResultLCS printLCS() throws DiffException {
+    public IResultLCS printLCS(int iteration) throws DiffException {
         List<Grain> lcs = new ArrayList();
         lcs.clear();
-        printLCS(lcs, this.linesFileOne.size() - 1, this.columnFileTwo.size() - 1);
+        printLCS(lcs, this.linesFileOne.size() - 1, this.columnFileTwo.size() - 1,iteration);
         return new ResultLCS(this.linesFileOne, this.columnFileTwo, lcs);
     }
 
@@ -131,15 +134,18 @@ public class LCS implements IDiff {
      * @param i
      * @param j
      */
-    private void printLCS(List<Grain> lcs, int i, int j) {
+    private void printLCS(List<Grain> lcs, int i, int j, int iteration) {
         Result finalResult = Result.getResult();
 
         if (i == 0 || j == 0) {
             return;
         }
         if (this.arrayLcs[i][j].getArrow() == Arrow.DIAGONAL) {
-            printLCS(lcs, i - 1, j - 1);
+            printLCS(lcs, i - 1, j - 1, iteration);
             finalResult = Result.getResult();
+
+            this.linesFileOne.get(i).setIdIteration(iteration);
+            this.columnFileTwo.get(j).setIdIteration(iteration);
 
             lcs.add(this.linesFileOne.get(i));
             lcs.add(this.columnFileTwo.get(j));
@@ -148,9 +154,9 @@ public class LCS implements IDiff {
             finalResult.setGrainsTo(this.columnFileTwo.get(j));
         } else {
             if (this.arrayLcs[i][j].getArrow() == Arrow.UP) {
-                printLCS(lcs, i - 1, j);
+                printLCS(lcs, i - 1, j, iteration);
             } else {
-                printLCS(lcs, i, j - 1);
+                printLCS(lcs, i, j - 1, iteration);
             }
         }
     }
