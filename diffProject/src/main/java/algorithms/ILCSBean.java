@@ -1,8 +1,6 @@
 package algorithms;
 
 import java.io.File;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * ILCSBean
@@ -13,9 +11,8 @@ public class ILCSBean {
     private File fileFrom;
     private File fileTo;
     private String granularity;
-    private boolean trimLine;
-    private boolean emptyLine;
-    private boolean whiteSpace;
+    private boolean showGUIDifferences;
+    private boolean showGUIMoves;
 
     /**
      * Constructor
@@ -34,92 +31,35 @@ public class ILCSBean {
     }
 
     /**
-     * Verify if is Empty Line
-     * @return 
-     */
-    public boolean isEmptyLine() {
-        return emptyLine;
-    }
-
-    /** 
-     * Verify if is White Space
+     * isShowGUIDifferences
      * @return boolean
      */
-    public boolean isWhiteSpace() {
-        return whiteSpace;
+    public boolean isShowGUIDifferences() {
+        return showGUIDifferences;
     }
 
     /**
-     * Set Empty Line
-     * @param emptyLine 
+     * setShowGUIDifferences
+     * @param showGUIDifferences 
      */
-    public void setEmptyLine(boolean emptyLine) {
-        this.emptyLine = emptyLine;
+    public void setShowGUIDifferences(boolean showGUIDifferences) {
+        this.showGUIDifferences = showGUIDifferences;
     }
 
     /**
-     * Set Trim Line
-     * @param trimLine 
-     */
-    public void setTrimLine(boolean trimLine) {
-        this.trimLine = trimLine;
-    }
-
-    /**
-     * Set White Space
-     * @param whiteSpace 
-     */
-    public void setWhiteSpace(boolean whiteSpace) {
-        this.whiteSpace = whiteSpace;
-    }
-
-    /**
-     * Verify if is Trim Line
+     * isShowGUIMoves
      * @return boolean
      */
-    public boolean isTrimLine() {
-        return trimLine;
+    public boolean isShowGUIMoves() {
+        return showGUIMoves;
     }
 
     /**
-     * Is Remove Empty Line
-     * @return boolean
+     * Set Show GUI Moves
+     * @param showGUIMoves 
      */
-    public boolean isRemoveEmptyLine() {
-        return emptyLine;
-    }
-
-    /**
-     * Is Remove White Spaces
-     * @return boolean
-     */
-    public boolean isRemoveWhiteSpaces() {
-        return whiteSpace;
-    }
-
-    /**
-     * Remove White Spaces
-     * @param inputStr
-     * @return String
-     */
-    public String removeWhiteSpaces(String inputStr) {
-        Matcher matcher = Pattern.compile("\\s+").matcher(inputStr);
-        return matcher.replaceAll(" ");
-    }
-
-    /**
-     * Verify Parameters
-     * @param line
-     * @return String
-     */
-    public String verifyParameters(String line) {
-        if (this.isTrimLine()) {
-            line = line.trim();
-        }
-        if (this.isRemoveWhiteSpaces()) {
-            line = this.removeWhiteSpaces(line);
-        }
-        return line;
+    public void setShowGUIMoves(boolean showGUIMoves) {
+        this.showGUIMoves = showGUIMoves;
     }
 
     /**

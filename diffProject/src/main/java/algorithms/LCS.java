@@ -47,9 +47,8 @@ public class LCS implements IDiff {
     @Override
     public List<Grain> idiff(File fileVersionOne, File fileVersionTwo, Grain grain, ILCSBean iLCSBean) throws DiffException {
         IResultLCS result = null;
-        int idIteration;
+        int idIteration=0;
         while (grain.canReduceGranularity(iLCSBean.getGranularity())) {
-            idIteration = 0;
             grain.reduceGranularity();
             try {
                 grain.init(fileVersionOne, fileVersionTwo, grain.getLevelGrain(), result, iLCSBean);

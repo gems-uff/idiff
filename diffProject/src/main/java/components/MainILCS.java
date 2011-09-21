@@ -60,18 +60,15 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param fileFrom
      * @param fileTo
      * @param granularity
-     * @param trimLine
-     * @param emptyLine
-     * @param whiteSpace
      * @throws DiffException
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public MainILCS(File fileFrom, File fileTo, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws DiffException, FileNotFoundException, IOException {
+    public MainILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove) throws DiffException, FileNotFoundException, IOException {
         initComponents();
         new Wrap().setWrap(leftPane, rightPane);
         ilcsBean = new ILCSBean(fileFrom, fileTo);
-        initialSteps(fileFrom, fileTo, granularity, trimLine, emptyLine, whiteSpace);
+        initialSteps(fileFrom, fileTo, granularity, showDiff, showMove);
         adjustmentScroll();
     }
 
@@ -122,15 +119,14 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param fileFrom
      * @param fileTo
      * @param granularity
-     * @param trimLine
-     * @param emptyLine
-     * @param whiteSpace
+     * @param showDiff
+     * @param showMove
      * @throws IOException 
      */
-    private void initialSteps(File fileFrom, File fileTo, String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) throws IOException {
+    private void initialSteps(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove) throws IOException {
         init();
         initFiles(fileFrom, fileTo);
-        initParameters(granularity, trimLine, emptyLine, whiteSpace);
+        initParameters(granularity, showDiff, showMove);
         setLayoutPane();
     }
 
@@ -491,7 +487,7 @@ public final class MainILCS extends javax.swing.JFrame {
      * Start Table
      */
     private void startTable() {
-        tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails);
+        tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails, ilcsBean);
     }
 
     /**
@@ -499,7 +495,7 @@ public final class MainILCS extends javax.swing.JFrame {
      * @throws IOException 
      */
     private void startComponent() throws IOException {
-        fileComponent.repaint(result, leftPane, leftScrollPane, rightPane, rightScrollPane);
+        fileComponent.repaint(result, leftPane, leftScrollPane, rightPane, rightScrollPane, ilcsBean);
     }
 
     /**
@@ -569,11 +565,10 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param emptyLine
      * @param whiteSpace 
      */
-    private void initParameters(String granularity, boolean trimLine, boolean emptyLine, boolean whiteSpace) {
+    private void initParameters(String granularity, boolean showDiff, boolean showMove) {
         ilcsBean.setGranularity(granularity);
-        ilcsBean.setTrimLine(trimLine);
-        ilcsBean.setEmptyLine(emptyLine);
-        ilcsBean.setWhiteSpace(whiteSpace);
+        ilcsBean.setShowGUIDifferences(showDiff);
+        ilcsBean.setShowGUIMoves(showMove);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JScrollPane detailsScrollPane;

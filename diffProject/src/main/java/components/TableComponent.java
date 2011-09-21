@@ -1,6 +1,7 @@
 package components;
 
 import algorithms.Grain;
+import algorithms.ILCSBean;
 import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;
@@ -39,12 +40,16 @@ public class TableComponent {
      * @param diferences 
      * @param tableDetails 
      */
-    public void printTableLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences, JTable tableDetails) {
+    public void printTableLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences, JTable tableDetails, ILCSBean ilcsb) {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
 
-        printMoves(it1, it2, tableDetails);
-        printDifferences(diferences, tableDetails);
+        if (ilcsb.isShowGUIMoves()) {
+            printMoves(it1, it2, tableDetails);
+        }
+        if (ilcsb.isShowGUIDifferences()) {
+            printDifferences(diferences, tableDetails);
+        }
         printNotFound(tableDetails);
 
         tableDetails.setCellSelectionEnabled(false);

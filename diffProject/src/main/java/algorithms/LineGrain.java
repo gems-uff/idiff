@@ -45,13 +45,11 @@ public class LineGrain extends Grain {
         int id = 0;
         int idStart = 0;
         while ((line = reader.readLine()) != null) {
-            if (!((ilcsb.isRemoveEmptyLine()) && (line.isEmpty()))) {
                 id++;
-                LineGrain lineGrain = new LineGrain(ilcsb.verifyParameters(line), id, idStart);
+                LineGrain lineGrain = new LineGrain(line, id, idStart);
                 lineGrain.setIdFile(idFile);
                 finalList.add(lineGrain);
                 idStart = idStart + line.length() + 1;
-            }
         }
         return finalList;
     }
