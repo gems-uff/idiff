@@ -44,8 +44,8 @@ public class GranularityComponent {
             Grain grainFrom = itFrom.next();
             Grain grainTo = itTo.next();
             boolean sameRefence = ((grainFrom != null) || (grainTo != null)) && (!grainFrom.getOriginalReference().equals(grainTo.getOriginalReference()));
-            boolean condition2 = ((grainFrom.getIdIteration() != 1) && (grainTo.getIdIteration() != 1));
-            if (sameRefence && condition2) {
+            boolean nIteration = ((grainFrom.getIdIteration() != 1) && (grainTo.getIdIteration() != 1));
+            if (sameRefence && nIteration) {
                 setMovedGranularity(grainFrom.getGrainBean(), paneFrom, scrollFrom, grainTo.getGrainBean(), paneTo, scrollTo);
             } else {
                 setStyle(paneFrom, grainFrom.getGrainBean(), "UnchangedStyle");
