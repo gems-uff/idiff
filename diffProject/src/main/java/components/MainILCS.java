@@ -54,6 +54,20 @@ import wrap.Wrap;
  * @author Fernanda Floriano Silva
  */
 public final class MainILCS extends javax.swing.JFrame {
+    
+    private static MainILCS instance;
+
+    /**
+     * Get Comparator
+     * @return
+     */
+    public static MainILCS setInstance(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+        if (instance != null) {
+            instance.setVisible(false);
+        }
+        instance = new MainILCS(fileFrom, fileTo, granularity, showDiff, showMove, tags);        
+        return instance;
+    }
 
     /**
      * Creates new form MainILCS 
@@ -64,11 +78,11 @@ public final class MainILCS extends javax.swing.JFrame {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public MainILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove,String tags) throws DiffException, FileNotFoundException, IOException {
+    public MainILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
         initComponents();
         new Wrap().setWrap(leftPane, rightPane);
         ilcsBean = new ILCSBean(fileFrom, fileTo);
-        initialSteps(fileFrom, fileTo, granularity, showDiff, showMove,tags);
+        initialSteps(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         adjustmentScroll();
     }
 
@@ -89,7 +103,7 @@ public final class MainILCS extends javax.swing.JFrame {
      */
     private void adjustmentHorizontalScroll(final JScrollPane scrollTo, final JScrollPane scrollFrom) {
         scrollTo.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-
+            
             @Override
             public void adjustmentValueChanged(AdjustmentEvent arg0) {
                 Point point = scrollTo.getViewport().getViewPosition();
@@ -105,7 +119,7 @@ public final class MainILCS extends javax.swing.JFrame {
      */
     private void adjustmentVerticalScroll(final JScrollPane scrollTo, final JScrollPane scrollFrom) {
         scrollTo.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-
+            
             @Override
             public void adjustmentValueChanged(AdjustmentEvent arg0) {
                 Point point = scrollTo.getViewport().getViewPosition();
@@ -123,10 +137,10 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param showMove
      * @throws IOException 
      */
-    private void initialSteps(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove,String tags) throws IOException {
+    private void initialSteps(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws IOException {
         init();
         initFiles(fileFrom, fileTo);
-        initParameters(granularity, showDiff, showMove,tags);
+        initParameters(granularity, showDiff, showMove, tags);
         setLayoutPane();
     }
 
@@ -158,7 +172,7 @@ public final class MainILCS extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
     }
-
+    
     private String setWordGrainName(String granularity) {
         if ("Word (Default)".equals(granularity)) {
             granularity = "Word";
@@ -510,7 +524,7 @@ public final class MainILCS extends javax.swing.JFrame {
     @Action
     public void fileSelection() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 new FileSelection().setVisible(true);
@@ -524,7 +538,7 @@ public final class MainILCS extends javax.swing.JFrame {
     @Action
     public void showDDiff() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
+            
             @Override
             public void run() {
                 new MainDDiff().setVisible(true);
@@ -559,7 +573,7 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param emptyLine
      * @param whiteSpace 
      */
-    private void initParameters(String granularity, boolean showDiff, boolean showMove,String tags) {
+    private void initParameters(String granularity, boolean showDiff, boolean showMove, String tags) {
         ilcsBean.setGranularity(setWordGrainName(granularity));
         ilcsBean.setShowGUIDifferences(showDiff);
         ilcsBean.setShowGUIMoves(showMove);

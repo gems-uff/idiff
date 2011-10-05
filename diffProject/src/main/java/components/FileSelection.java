@@ -582,7 +582,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @throws IOException 
      */
     private void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
-        MainILCS ilcs = new MainILCS(fileFrom, fileTo, granularity, showDiff, showMove,tags);
+        MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         ilcs.setVisible(true);
     }
 
@@ -590,7 +590,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * Show Diff
      */
     private void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
-        MainDDiff ddiff = new MainDDiff(directoryFrom, directoryTo, granularity, showDiff, showMove,tags);
+        MainDDiff ddiff = new MainDDiff(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
         ddiff.setVisible(true);
     }
 
@@ -676,6 +676,4 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     private javax.swing.JCheckBox parenthesis;
     private javax.swing.JCheckBox semicolon;
     // End of variables declaration//GEN-END:variables
-
-
 }
