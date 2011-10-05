@@ -16,7 +16,17 @@ public class MainDDiff extends javax.swing.JFrame {
      *  Creates new form MainDDiff 
      */
     public MainDDiff() {
+    }
+
+    MainDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) {
         initComponents();
+        init();
+        //Passos do DDIFF
+    }
+    /**
+     * Init 
+     */
+    private void init() {
         setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
@@ -55,14 +65,6 @@ public class MainDDiff extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * Drill Down 
-     */
-    @Action
-    public void drillDown() {
-        System.out.println("DRILL DOWN...");
-    }
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -74,15 +76,19 @@ public class MainDDiff extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         directoryPanel1 = new javax.swing.JPanel();
+        scrollTreeFrom = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        directoryFromPane = new javax.swing.JTree();
         directoryPanel2 = new javax.swing.JPanel();
+        scrollTreeTo = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        directoryToPane = new javax.swing.JTree();
         toolBar = new javax.swing.JToolBar();
         drillDownButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        backButton = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JToolBar.Separator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Main DDiff");
+        setTitle("Directory Diff");
         setResizable(false);
 
         jSplitPane1.setDividerLocation(650);
@@ -93,15 +99,30 @@ public class MainDDiff extends javax.swing.JFrame {
         directoryPanel1.setName("directoryPanel1"); // NOI18N
         directoryPanel1.setPreferredSize(new java.awt.Dimension(555, 646));
 
+        scrollTreeFrom.setName("scrollTreeFrom"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        directoryFromPane.setName("directoryFromPane"); // NOI18N
+        jScrollPane1.setViewportView(directoryFromPane);
+
+        scrollTreeFrom.setViewportView(jScrollPane1);
+
         org.jdesktop.layout.GroupLayout directoryPanel1Layout = new org.jdesktop.layout.GroupLayout(directoryPanel1);
         directoryPanel1.setLayout(directoryPanel1Layout);
         directoryPanel1Layout.setHorizontalGroup(
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 645, Short.MAX_VALUE)
+            .add(directoryPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addContainerGap())
         );
         directoryPanel1Layout.setVerticalGroup(
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 642, Short.MAX_VALUE)
+            .add(directoryPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jSplitPane1.setLeftComponent(directoryPanel1);
@@ -109,15 +130,30 @@ public class MainDDiff extends javax.swing.JFrame {
         directoryPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         directoryPanel2.setName("directoryPanel2"); // NOI18N
 
+        scrollTreeTo.setName("scrollTreeTo"); // NOI18N
+
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        directoryToPane.setName("directoryToPane"); // NOI18N
+        jScrollPane2.setViewportView(directoryToPane);
+
+        scrollTreeTo.setViewportView(jScrollPane2);
+
         org.jdesktop.layout.GroupLayout directoryPanel2Layout = new org.jdesktop.layout.GroupLayout(directoryPanel2);
         directoryPanel2.setLayout(directoryPanel2Layout);
         directoryPanel2Layout.setHorizontalGroup(
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 700, Short.MAX_VALUE)
+            .add(directoryPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+                .addContainerGap())
         );
         directoryPanel2Layout.setVerticalGroup(
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 642, Short.MAX_VALUE)
+            .add(directoryPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jSplitPane1.setRightComponent(directoryPanel2);
@@ -127,9 +163,10 @@ public class MainDDiff extends javax.swing.JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
         drillDownButton.setAction(actionMap.get("drillDown")); // NOI18N
-        drillDownButton.setFont(new java.awt.Font("sansserif", 1, 12));
+        drillDownButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDDiff.class);
         drillDownButton.setIcon(resourceMap.getIcon("drillDownButton.icon")); // NOI18N
+        drillDownButton.setToolTipText("Show Similarity");
         drillDownButton.setBorderPainted(false);
         drillDownButton.setContentAreaFilled(false);
         drillDownButton.setName("drillDownButton"); // NOI18N
@@ -137,17 +174,6 @@ public class MainDDiff extends javax.swing.JFrame {
 
         jSeparator2.setName("jSeparator2"); // NOI18N
         toolBar.add(jSeparator2);
-
-        backButton.setAction(actionMap.get("showDDiff")); // NOI18N
-        backButton.setFont(new java.awt.Font("sansserif", 1, 12));
-        backButton.setIcon(resourceMap.getIcon("backButton.icon")); // NOI18N
-        backButton.setBorderPainted(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setName("backButton"); // NOI18N
-        toolBar.add(backButton);
-
-        jSeparator3.setName("jSeparator3"); // NOI18N
-        toolBar.add(jSeparator3);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,20 +190,24 @@ public class MainDDiff extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(toolBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backButton;
+    private javax.swing.JTree directoryFromPane;
     private javax.swing.JPanel directoryPanel1;
     private javax.swing.JPanel directoryPanel2;
+    private javax.swing.JTree directoryToPane;
     private javax.swing.JButton drillDownButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JScrollPane scrollTreeFrom;
+    private javax.swing.JScrollPane scrollTreeTo;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }

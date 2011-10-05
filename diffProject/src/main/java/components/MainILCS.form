@@ -191,24 +191,6 @@
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="jSeparator3">
         </Component>
-        <Component class="javax.swing.JButton" name="overviewMenuBar">
-          <Properties>
-            <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-              <action class="components.MainILCS" id="showDDiff" methodName="showDDiff"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" resourceKey="overviewMenuBar.icon"/>
-            <Property name="toolTipText" type="java.lang.String" resourceKey="overviewMenuBar.toolTipText"/>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="mainButtonGroup"/>
-            </Property>
-            <Property name="contentAreaFilled" type="boolean" value="false"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JToolBar$Separator" name="jSeparator2">
-        </Component>
         <Component class="javax.swing.JTextField" name="jTextField5">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>

@@ -13,6 +13,7 @@ public class ILCSBean {
     private String granularity;
     private boolean showGUIDifferences;
     private boolean showGUIMoves;
+    private String tags;
 
     /**
      * Constructor
@@ -108,5 +109,13 @@ public class ILCSBean {
      */
     public void setFileTo(File fileTo) {
         this.fileTo = fileTo;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getTags() {
+        return tags;
     }
 }

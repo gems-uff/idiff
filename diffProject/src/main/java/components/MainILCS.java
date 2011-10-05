@@ -64,11 +64,11 @@ public final class MainILCS extends javax.swing.JFrame {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public MainILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove) throws DiffException, FileNotFoundException, IOException {
+    public MainILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove,String tags) throws DiffException, FileNotFoundException, IOException {
         initComponents();
         new Wrap().setWrap(leftPane, rightPane);
         ilcsBean = new ILCSBean(fileFrom, fileTo);
-        initialSteps(fileFrom, fileTo, granularity, showDiff, showMove);
+        initialSteps(fileFrom, fileTo, granularity, showDiff, showMove,tags);
         adjustmentScroll();
     }
 
@@ -123,10 +123,10 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param showMove
      * @throws IOException 
      */
-    private void initialSteps(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove) throws IOException {
+    private void initialSteps(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove,String tags) throws IOException {
         init();
         initFiles(fileFrom, fileTo);
-        initParameters(granularity, showDiff, showMove);
+        initParameters(granularity, showDiff, showMove,tags);
         setLayoutPane();
     }
 
@@ -157,6 +157,13 @@ public final class MainILCS extends javax.swing.JFrame {
         setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
+    }
+
+    private String setWordGrainName(String granularity) {
+        if ("Word (Default)".equals(granularity)) {
+            granularity = "Word";
+        }
+        return granularity;
     }
 
     /**
@@ -197,8 +204,6 @@ public final class MainILCS extends javax.swing.JFrame {
         jSeparator1 = new Separator();
         fileSelectionMenuBar = new JButton();
         jSeparator3 = new Separator();
-        overviewMenuBar = new JButton();
-        jSeparator2 = new Separator();
         jTextField5 = new JTextField();
         jTextField1 = new JTextField();
         jTextField2 = new JTextField();
@@ -301,17 +306,6 @@ public final class MainILCS extends javax.swing.JFrame {
         fileSelectionMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
         toolBar.add(fileSelectionMenuBar);
         toolBar.add(jSeparator3);
-
-        overviewMenuBar.setAction(actionMap.get("showDDiff")); // NOI18N
-        overviewMenuBar.setIcon(resourceMap.getIcon("overviewMenuBar.icon")); // NOI18N
-        overviewMenuBar.setToolTipText(resourceMap.getString("overviewMenuBar.toolTipText")); // NOI18N
-        mainButtonGroup.add(overviewMenuBar);
-        overviewMenuBar.setContentAreaFilled(false);
-        overviewMenuBar.setFocusable(false);
-        overviewMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
-        overviewMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
-        toolBar.add(overviewMenuBar);
-        toolBar.add(jSeparator2);
 
         jTextField5.setEditable(false);
         jTextField5.setText(bundle.getString("MainILCS.jTextField5.text")); // NOI18N
@@ -565,10 +559,11 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param emptyLine
      * @param whiteSpace 
      */
-    private void initParameters(String granularity, boolean showDiff, boolean showMove) {
-        ilcsBean.setGranularity(granularity);
+    private void initParameters(String granularity, boolean showDiff, boolean showMove,String tags) {
+        ilcsBean.setGranularity(setWordGrainName(granularity));
         ilcsBean.setShowGUIDifferences(showDiff);
         ilcsBean.setShowGUIMoves(showMove);
+        ilcsBean.setTags(tags);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JScrollPane detailsScrollPane;
@@ -583,7 +578,6 @@ public final class MainILCS extends javax.swing.JFrame {
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
     private Separator jSeparator1;
-    private Separator jSeparator2;
     private Separator jSeparator3;
     private Separator jSeparator4;
     private JTextField jTextField1;
@@ -597,7 +591,6 @@ public final class MainILCS extends javax.swing.JFrame {
     private ButtonGroup mainButtonGroup;
     private JSplitPane mainSplitPane;
     private JButton noButton;
-    private JButton overviewMenuBar;
     private JTextPane rightPane;
     private JScrollPane rightScrollPane;
     private JButton runMenuBar;

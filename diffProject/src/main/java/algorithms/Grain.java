@@ -234,7 +234,7 @@ public class Grain {
                 new LineGrain().startLineGranularity(fileVersionOne, fileVersionTwo, ilcsb);
                 break;
             case WORD:
-                new WordGrain().startWordGranularity(result.getFileVersionOne(), result.getFileVersionTwo());
+                new WordGrain().startWordGranularity(result.getFileVersionOne(), result.getFileVersionTwo(),ilcsb);
                 break;
             case CHARACTER:
                 new CharacterGrain().startCharacterGranularity(result.getFileVersionOne(), result.getFileVersionTwo());
