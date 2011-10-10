@@ -227,7 +227,6 @@ public class MainDDiff extends JFrame {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
         runMenuBar.setAction(actionMap.get("execute")); // NOI18N
         runMenuBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/execute.png"))); // NOI18N
-        runMenuBar.setToolTipText("Run");
         runMenuBar.setBorder(null);
         runMenuBar.setContentAreaFilled(false);
         runMenuBar.setFocusable(false);
@@ -248,7 +247,6 @@ public class MainDDiff extends JFrame {
         drillDownButton.setContentAreaFilled(false);
         drillDownButton.setName("drillDownButton"); // NOI18N
         drillDownButton.setRequestFocusEnabled(false);
-        drillDownButton.setRolloverEnabled(false);
         toolBar.add(drillDownButton);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
