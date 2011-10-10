@@ -1,28 +1,96 @@
 package components;
 
+import diretorioDiff.DiretorioDiff;
+import diretorioDiff.resultados.Resultado;
 import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.tree.DefaultMutableTreeNode;
 import org.jdesktop.application.Action;
 
 /**
  * MainDDiff
  * @author Fernanda Floriano Silva
  */
-public class MainDDiff extends javax.swing.JFrame {
+public class MainDDiff extends JFrame {
+
+    private java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+
+
+    private File from;
+    
+    private File to;
 
     /**
      *  Creates new form MainDDiff 
      */
     public MainDDiff() {
+        super();
     }
 
-    MainDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) {
+    public MainDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) {
+        super();
+
         initComponents();
+
         init();
-        //Passos do DDIFF
+
+        from = directoryFrom;
+        to = directoryTo;
+
+        loadTree();
     }
+
+    @Action
+    public void resize() {
+        int largura = (int) splitPanel.getSize().getWidth() / 2;
+
+        splitPanel.setDividerLocation(largura);
+    }
+
+    @Action
+    public void execute() {
+        DiretorioDiff diretorioDiff = new DiretorioDiff();
+
+	Resultado resultado = diretorioDiff.compararDiretorios(from, to);
+    }
+
+    private void loadTree() {
+        scrollTreeFrom.setViewportView(new JTree(loadNodes(from)));
+        scrollTreeTo.setViewportView(new JTree(loadNodes(to)));
+    }
+
+    private DefaultMutableTreeNode loadNodes(File arquivo) {
+        return loadNodes(arquivo, false);
+    }
+
+
+    private DefaultMutableTreeNode loadNodes(File arquivo, boolean removeBase) {
+	String nomeNo = arquivo.getAbsolutePath();
+	if (removeBase) {
+		nomeNo = nomeNo.replace(arquivo.getParent(), "");
+
+		if (nomeNo.startsWith(File.separator)) {
+			nomeNo = nomeNo.replace(File.separator, "");
+		}
+	}
+
+	DefaultMutableTreeNode node = new DefaultMutableTreeNode(nomeNo);
+
+	if(arquivo.isDirectory()) {
+		for (File filho : arquivo.listFiles()) {
+			if (!filho.isHidden()) {
+				node.add(loadNodes(filho, true));
+			}
+		}
+	}
+
+	return node;
+    }
+
     /**
      * Init 
      */
@@ -74,39 +142,36 @@ public class MainDDiff extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
+        splitPanel = new javax.swing.JSplitPane();
         directoryPanel1 = new javax.swing.JPanel();
         scrollTreeFrom = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        directoryFromPane = new javax.swing.JTree();
         directoryPanel2 = new javax.swing.JPanel();
         scrollTreeTo = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        directoryToPane = new javax.swing.JTree();
         toolBar = new javax.swing.JToolBar();
-        drillDownButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
+        runMenuBar = new javax.swing.JButton();
+        drillDownButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Directory Diff");
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(450, 400));
 
-        jSplitPane1.setDividerLocation(650);
-        jSplitPane1.setMinimumSize(new java.awt.Dimension(120, 300));
-        jSplitPane1.setName("jSplitPane1"); // NOI18N
+        splitPanel.setDividerLocation(200);
+        splitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        splitPanel.setMinimumSize(new java.awt.Dimension(120, 300));
+        splitPanel.setName("splitPanel"); // NOI18N
+        splitPanel.setPreferredSize(new java.awt.Dimension(120, 300));
+        splitPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                splitPanelComponentResized(evt);
+            }
+        });
 
         directoryPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         directoryPanel1.setName("directoryPanel1"); // NOI18N
-        directoryPanel1.setPreferredSize(new java.awt.Dimension(555, 646));
+        directoryPanel1.setPreferredSize(new java.awt.Dimension(300, 646));
 
         scrollTreeFrom.setName("scrollTreeFrom"); // NOI18N
-
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
-
-        directoryFromPane.setName("directoryFromPane"); // NOI18N
-        jScrollPane1.setViewportView(directoryFromPane);
-
-        scrollTreeFrom.setViewportView(jScrollPane1);
 
         org.jdesktop.layout.GroupLayout directoryPanel1Layout = new org.jdesktop.layout.GroupLayout(directoryPanel1);
         directoryPanel1.setLayout(directoryPanel1Layout);
@@ -114,30 +179,23 @@ public class MainDDiff extends javax.swing.JFrame {
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addContainerGap())
         );
         directoryPanel1Layout.setVerticalGroup(
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jSplitPane1.setLeftComponent(directoryPanel1);
+        splitPanel.setLeftComponent(directoryPanel1);
 
         directoryPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         directoryPanel2.setName("directoryPanel2"); // NOI18N
 
         scrollTreeTo.setName("scrollTreeTo"); // NOI18N
-
-        jScrollPane2.setName("jScrollPane2"); // NOI18N
-
-        directoryToPane.setName("directoryToPane"); // NOI18N
-        jScrollPane2.setViewportView(directoryToPane);
-
-        scrollTreeTo.setViewportView(jScrollPane2);
 
         org.jdesktop.layout.GroupLayout directoryPanel2Layout = new org.jdesktop.layout.GroupLayout(directoryPanel2);
         directoryPanel2.setLayout(directoryPanel2Layout);
@@ -145,69 +203,92 @@ public class MainDDiff extends javax.swing.JFrame {
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
+                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                 .addContainerGap())
         );
         directoryPanel2Layout.setVerticalGroup(
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jSplitPane1.setRightComponent(directoryPanel2);
+        splitPanel.setRightComponent(directoryPanel2);
 
+        toolBar.setFloatable(false);
         toolBar.setRollover(true);
         toolBar.setName("toolBar"); // NOI18N
+        toolBar.setPreferredSize(new java.awt.Dimension(41, 41));
+
+        jSeparator2.setName("jSeparator2"); // NOI18N
+        toolBar.add(jSeparator2);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
+        runMenuBar.setAction(actionMap.get("execute")); // NOI18N
+        runMenuBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/execute.png"))); // NOI18N
+        runMenuBar.setToolTipText("Run");
+        runMenuBar.setBorder(null);
+        runMenuBar.setContentAreaFilled(false);
+        runMenuBar.setFocusable(false);
+        runMenuBar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        runMenuBar.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        runMenuBar.setMaximumSize(new java.awt.Dimension(39, 39));
+        runMenuBar.setMinimumSize(new java.awt.Dimension(39, 39));
+        runMenuBar.setName("runMenuBar"); // NOI18N
+        runMenuBar.setPreferredSize(new java.awt.Dimension(39, 39));
+        runMenuBar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(runMenuBar);
+
         drillDownButton.setAction(actionMap.get("drillDown")); // NOI18N
         drillDownButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDDiff.class);
         drillDownButton.setIcon(resourceMap.getIcon("drillDownButton.icon")); // NOI18N
-        drillDownButton.setToolTipText("Show Similarity");
         drillDownButton.setBorderPainted(false);
         drillDownButton.setContentAreaFilled(false);
         drillDownButton.setName("drillDownButton"); // NOI18N
+        drillDownButton.setRequestFocusEnabled(false);
+        drillDownButton.setRolloverEnabled(false);
         toolBar.add(drillDownButton);
-
-        jSeparator2.setName("jSeparator2"); // NOI18N
-        toolBar.add(jSeparator2);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1377, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
-                .add(6, 6, 6)
-                .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1365, Short.MAX_VALUE)
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .add(toolBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jSplitPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void splitPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_splitPanelComponentResized
+        // TODO add your handling code here:
+        resize();
+    }//GEN-LAST:event_splitPanelComponentResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTree directoryFromPane;
     private javax.swing.JPanel directoryPanel1;
     private javax.swing.JPanel directoryPanel2;
-    private javax.swing.JTree directoryToPane;
     private javax.swing.JButton drillDownButton;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton runMenuBar;
     private javax.swing.JScrollPane scrollTreeFrom;
     private javax.swing.JScrollPane scrollTreeTo;
+    private javax.swing.JSplitPane splitPanel;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }
