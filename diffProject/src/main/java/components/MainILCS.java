@@ -387,6 +387,7 @@ public final class MainILCS extends javax.swing.JFrame {
         toolBar.add(fileSelectionMenuBar);
         toolBar.add(jSeparator3);
 
+        differencesCheckBox.setSelected(true);
         differencesCheckBox.setText(bundle.getString("MainILCS.differencesCheckBox.text")); // NOI18N
         differencesCheckBox.setFocusable(false);
         differencesCheckBox.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -394,6 +395,7 @@ public final class MainILCS extends javax.swing.JFrame {
         toolBar.add(differencesCheckBox);
         toolBar.add(jSeparator6);
 
+        movesCheckBox.setSelected(true);
         movesCheckBox.setText(bundle.getString("MainILCS.movesCheckBox.text")); // NOI18N
         movesCheckBox.setFocusable(false);
         movesCheckBox.setHorizontalTextPosition(SwingConstants.CENTER);

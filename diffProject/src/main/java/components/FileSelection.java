@@ -86,11 +86,7 @@ public class FileSelection extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         granularityComboBox = new javax.swing.JComboBox();
-        jPanel8 = new javax.swing.JPanel();
-        checkBoxDiff = new javax.swing.JCheckBox();
-        checkBoxMove = new javax.swing.JCheckBox();
         jPanel9 = new javax.swing.JPanel();
         dot = new javax.swing.JCheckBox();
         semicolon = new javax.swing.JCheckBox();
@@ -98,6 +94,8 @@ public class FileSelection extends javax.swing.JFrame {
         key = new javax.swing.JCheckBox();
         brackets = new javax.swing.JCheckBox();
         parenthesis = new javax.swing.JCheckBox();
+        percentageSlider = new javax.swing.JSlider();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Comparable Artifacts Selection");
@@ -118,7 +116,7 @@ public class FileSelection extends javax.swing.JFrame {
         aboutTeam.setName("aboutTeam"); // NOI18N
 
         okButton.setAction(actionMap.get("loadFiles")); // NOI18N
-        okButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        okButton.setFont(new java.awt.Font("sansserif", 1, 12));
         okButton.setIcon(resourceMap.getIcon("okButton.icon")); // NOI18N
         okButton.setToolTipText(resourceMap.getString("okButton.toolTipText")); // NOI18N
         okButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -203,12 +201,12 @@ public class FileSelection extends javax.swing.JFrame {
                         .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jButton2, 0, 0, Short.MAX_VALUE)
                             .add(jButton1))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(1, 1, 1))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+            .add(jPanel6Layout.createSequentialGroup()
+                .add(17, 17, 17)
                 .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(fileTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -225,7 +223,7 @@ public class FileSelection extends javax.swing.JFrame {
                     .add(jPanel6Layout.createSequentialGroup()
                         .add(49, 49, 49)
                         .add(jButton2)))
-                .add(75, 75, 75))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Artifacts Selection", jPanel6);
@@ -233,11 +231,8 @@ public class FileSelection extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel2.setName("jPanel2"); // NOI18N
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Select Granularity"));
         jPanel7.setName("jPanel7"); // NOI18N
-
-        jLabel2.setText("Select granularity:");
-        jLabel2.setName("jLabel2"); // NOI18N
 
         granularityComboBox.setBackground(new java.awt.Color(255, 255, 255));
         granularityComboBox.setMaximumRowCount(4);
@@ -250,52 +245,21 @@ public class FileSelection extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel2)
-                    .add(granularityComboBox, 0, 164, Short.MAX_VALUE))
+                .add(granularityComboBox, 0, 169, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(granularityComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jPanel8.setName("jPanel8"); // NOI18N
-
-        checkBoxDiff.setSelected(true);
-        checkBoxDiff.setText("Show Differences");
-        checkBoxDiff.setName("checkBoxDiff"); // NOI18N
-
-        checkBoxMove.setSelected(true);
-        checkBoxMove.setText("Show Moves");
-        checkBoxMove.setName("checkBoxMove"); // NOI18N
-
-        org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel8Layout.createSequentialGroup()
-                .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(checkBoxMove)
-                    .add(checkBoxDiff))
-                .addContainerGap(62, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel8Layout.createSequentialGroup()
-                .add(checkBoxDiff)
-                .add(12, 12, 12)
-                .add(checkBoxMove))
+                .add(15, 15, 15)
+                .add(granularityComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Select Tabs"));
         jPanel9.setName("jPanel9"); // NOI18N
 
-        dot.setFont(new java.awt.Font("sansserif", 1, 12));
+        dot.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         dot.setSelected(true);
         dot.setText(".");
         dot.setName("dot"); // NOI18N
@@ -305,7 +269,7 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
 
-        semicolon.setFont(new java.awt.Font("sansserif", 1, 12));
+        semicolon.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         semicolon.setSelected(true);
         semicolon.setText(";");
         semicolon.setName("semicolon"); // NOI18N
@@ -315,17 +279,17 @@ public class FileSelection extends javax.swing.JFrame {
         comma.setText(",");
         comma.setName("comma"); // NOI18N
 
-        key.setFont(new java.awt.Font("sansserif", 1, 12));
+        key.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         key.setSelected(true);
         key.setText("{ }");
         key.setName("key"); // NOI18N
 
-        brackets.setFont(new java.awt.Font("sansserif", 1, 12));
+        brackets.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         brackets.setSelected(true);
         brackets.setText("[ ]");
         brackets.setName("brackets"); // NOI18N
 
-        parenthesis.setFont(new java.awt.Font("sansserif", 1, 12));
+        parenthesis.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         parenthesis.setSelected(true);
         parenthesis.setText("( )");
         parenthesis.setName("parenthesis"); // NOI18N
@@ -336,54 +300,78 @@ public class FileSelection extends javax.swing.JFrame {
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(dot)
-                .add(39, 39, 39)
-                .add(semicolon)
-                .add(37, 37, 37)
-                .add(comma)
-                .add(32, 32, 32)
-                .add(key, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(31, 31, 31)
-                .add(brackets)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 45, Short.MAX_VALUE)
-                .add(parenthesis)
-                .add(15, 15, 15))
+                .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel9Layout.createSequentialGroup()
+                        .add(dot)
+                        .add(39, 39, 39)
+                        .add(semicolon))
+                    .add(jPanel9Layout.createSequentialGroup()
+                        .add(key, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(parenthesis)))
+                .add(30, 30, 30)
+                .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(comma)
+                    .add(brackets))
+                .addContainerGap(6, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(dot)
-                    .add(parenthesis)
                     .add(semicolon)
-                    .add(brackets)
-                    .add(key)
                     .add(comma))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(key)
+                    .add(parenthesis)
+                    .add(brackets))
+                .addContainerGap())
         );
+
+        percentageSlider.setMajorTickSpacing(10);
+        percentageSlider.setMinorTickSpacing(1);
+        percentageSlider.setPaintLabels(true);
+        percentageSlider.setSnapToTicks(true);
+        percentageSlider.setToolTipText(resourceMap.getString("percentageSlider.toolTipText")); // NOI18N
+        percentageSlider.setValue(100);
+        percentageSlider.setName("percentageSlider"); // NOI18N
+        percentageSlider.setOpaque(true);
+
+        jLabel1.setFont(resourceMap.getFont("jLabel1.font")); // NOI18N
+        jLabel1.setText("Similarity Percentage");
+        jLabel1.setName("jLabel1"); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2Layout.createSequentialGroup()
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jPanel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(6, 6, 6)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(percentageSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 398, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel1))))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel8, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(percentageSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(41, 41, 41))
         );
 
         jTabbedPane1.addTab("Parameters", jPanel2);
@@ -395,20 +383,20 @@ public class FileSelection extends javax.swing.JFrame {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 450, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jPanel3Layout.createSequentialGroup()
                         .add(aboutTeam, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 211, Short.MAX_VALUE)
                         .add(closeButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 92, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(okButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 450, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(okButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 88, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 209, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 229, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -426,7 +414,7 @@ public class FileSelection extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -488,10 +476,10 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
             File artifact2 = new File(fileTextField2.getText());
 
             if ((artifact1.isDirectory()) || (artifact2.isDirectory())) {
-                showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), checkBoxDiff.isSelected(), checkBoxMove.isSelected(), setTags());
+                showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags(),percentageSlider.getValue());
 
             } else {
-                showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), checkBoxDiff.isSelected(), checkBoxMove.isSelected(), setTags());
+                showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags());
             }
             this.setVisible(false);
 
@@ -589,9 +577,10 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     /**
      * Show Diff
      */
-    private void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+    private void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags, int percentage) throws DiffException, FileNotFoundException, IOException {
         MainDDiff ddiff = new MainDDiff(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
         ddiff.setVisible(true);
+        System.out.println(percentage);
     }
 
     /**
@@ -650,8 +639,6 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     private javax.swing.JToggleButton aboutTeam;
     private javax.swing.JCheckBox brackets;
     private javax.swing.ButtonGroup buttonGroup;
-    private javax.swing.JCheckBox checkBoxDiff;
-    private javax.swing.JCheckBox checkBoxMove;
     private javax.swing.JButton closeButton;
     private javax.swing.JCheckBox comma;
     private javax.swing.JLabel compareWith1;
@@ -663,17 +650,17 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     private javax.swing.JComboBox granularityComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JCheckBox key;
     private javax.swing.JButton okButton;
     private javax.swing.JCheckBox parenthesis;
+    private javax.swing.JSlider percentageSlider;
     private javax.swing.JCheckBox semicolon;
     // End of variables declaration//GEN-END:variables
 }
