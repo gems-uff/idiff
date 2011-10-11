@@ -197,7 +197,7 @@ public class GranularityComponent {
     }
 
     void clean(JTextPane paneFrom, JTextPane paneTo) {
-        setStyle(paneFrom, new GrainBean(0, paneFrom.getBounds().height), "UnchangedStyle");
-        setStyle(paneTo, new GrainBean(0, paneTo.getBounds().height), "UnchangedStyle");
+        setStyle(paneFrom, new GrainBean(0, paneFrom.getText().length()), "UnchangedStyle");
+        setStyle(paneTo, new GrainBean(0, paneTo.getText().length()), "UnchangedStyle");
     }
 }

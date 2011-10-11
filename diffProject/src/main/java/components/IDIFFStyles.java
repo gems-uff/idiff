@@ -38,6 +38,15 @@ public class IDIFFStyles {
     }
 
     /**
+     * Set disabled style
+     * @param doc 
+     */
+    public static void setDisabledStyle(StyledDocument doc) {
+        Style style = doc.addStyle("DisabledStyle", null);
+        StyleConstants.setForeground(style, GranularityColor.getDisabledForeground());
+    }
+
+    /**
      * Set add style
      * @param doc 
      */
@@ -76,6 +85,9 @@ public class IDIFFStyles {
                 break;
             case 11:
                 IDIFFStyles.setRemoveStyle(doc);
+                break;
+            case 13:
+                IDIFFStyles.setDisabledStyle(doc);
                 break;
             case 14:
                 IDIFFStyles.setUnchangedStyle(doc);

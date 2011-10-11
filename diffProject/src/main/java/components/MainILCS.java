@@ -109,7 +109,6 @@ public final class MainILCS extends javax.swing.JFrame {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
-
                 ilcsBean.setShowGUIDifferences(differencesCheckBox.isSelected());
                 restartComponents();
             }

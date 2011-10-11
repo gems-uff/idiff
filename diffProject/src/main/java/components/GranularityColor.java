@@ -47,4 +47,8 @@ public class GranularityColor {
     public static Color getForegroundBlack() {
         return Color.decode("#000000");
     }
+
+    static Color getDisabledForeground() {
+        return Color.decode("#bebebe");
+    }
 }

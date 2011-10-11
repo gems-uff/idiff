@@ -50,10 +50,24 @@ public class TableComponent {
         if (ilcsb.isShowGUIDifferences()) {
             printDifferences(diferences, tableDetails);
         }
+        if ((!ilcsb.isShowGUIDifferences()) && (!ilcsb.isShowGUIDifferences())) {
+            printWarning(tableDetails);
+        }
         printNotFound(tableDetails);
 
         tableDetails.setCellSelectionEnabled(false);
         tableDetails.setRowSelectionAllowed(true);
+    }
+
+    /**
+     * Print Differences not found
+     * @param tableDetails 
+     */
+    private void printWarning(JTable tableDetails) {
+        if (tableDetails.getRowCount() == 0) {
+            ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{"    Select viewing results options    ", "---", "---", "---"});
+            tableDetails.setForeground(Color.RED);
+        }
     }
 
     /**
@@ -80,9 +94,11 @@ public class TableComponent {
                 switch (grain.getSituation()) {
                     case REMOVED:
                         ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
+                        tableDetails.setForeground(Color.BLACK);
                         break;
                     case ADDED:
                         ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
+                        tableDetails.setForeground(Color.BLACK);
                         break;
                 }
             }
@@ -104,6 +120,7 @@ public class TableComponent {
             boolean nIteration = ((grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1));
             if (sameRefence && nIteration) {
                 ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
+                tableDetails.setForeground(Color.BLACK);
             }
         }
     }
