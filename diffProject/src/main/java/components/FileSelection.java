@@ -116,7 +116,7 @@ public class FileSelection extends javax.swing.JFrame {
         aboutTeam.setName("aboutTeam"); // NOI18N
 
         okButton.setAction(actionMap.get("loadFiles")); // NOI18N
-        okButton.setFont(new java.awt.Font("sansserif", 1, 12));
+        okButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         okButton.setIcon(resourceMap.getIcon("okButton.icon")); // NOI18N
         okButton.setToolTipText(resourceMap.getString("okButton.toolTipText")); // NOI18N
         okButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -126,7 +126,7 @@ public class FileSelection extends javax.swing.JFrame {
         okButton.setName("okButton"); // NOI18N
 
         closeButton.setAction(actionMap.get("close")); // NOI18N
-        closeButton.setFont(new java.awt.Font("sansserif", 1, 12));
+        closeButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         closeButton.setIcon(resourceMap.getIcon("closeButton.icon")); // NOI18N
         closeButton.setToolTipText(resourceMap.getString("closeButton.toolTipText")); // NOI18N
         closeButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
