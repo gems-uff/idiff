@@ -67,4 +67,8 @@ public class FileComponent {
             granularityComponent.setDifferences(result, paneFrom, paneTo);
         }
     }
+
+    public void clear(JTextPane paneFrom, JTextPane paneTo) {
+        granularityComponent.clean(paneFrom, paneTo);
+    }
 }

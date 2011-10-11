@@ -195,4 +195,9 @@ public class GranularityComponent {
             Logger.getLogger(GranularityComponent.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    void clean(JTextPane paneFrom, JTextPane paneTo) {
+        setStyle(paneFrom, new GrainBean(0, paneFrom.getBounds().height), "UnchangedStyle");
+        setStyle(paneTo, new GrainBean(0, paneTo.getBounds().height), "UnchangedStyle");
+    }
 }

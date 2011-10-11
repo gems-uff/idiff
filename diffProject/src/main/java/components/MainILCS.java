@@ -13,16 +13,21 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -54,7 +59,7 @@ import wrap.Wrap;
  * @author Fernanda Floriano Silva
  */
 public final class MainILCS extends javax.swing.JFrame {
-    
+
     private static MainILCS instance;
 
     /**
@@ -65,7 +70,7 @@ public final class MainILCS extends javax.swing.JFrame {
         if (instance != null) {
             instance.setVisible(false);
         }
-        instance = new MainILCS(fileFrom, fileTo, granularity, showDiff, showMove, tags);        
+        instance = new MainILCS(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         return instance;
     }
 
@@ -84,6 +89,64 @@ public final class MainILCS extends javax.swing.JFrame {
         ilcsBean = new ILCSBean(fileFrom, fileTo);
         initialSteps(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         adjustmentScroll();
+        setListenerCheckBoxes();
+    }
+
+    /**
+     * Set Listener for checkBox
+     */
+    private void setListenerCheckBoxes() throws FileNotFoundException, IOException {
+        setListenerDiffCheckBox();
+        setListenerMoveCheckBox();
+
+    }
+
+    /**
+     * Set Listener Diff CheckBox
+     */
+    private void setListenerDiffCheckBox() {
+        differencesCheckBox.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+
+                ilcsBean.setShowGUIDifferences(differencesCheckBox.isSelected());
+                restartComponents();
+            }
+        });
+    }
+
+    /** ReStart Components
+     * 
+     */
+    private void restartComponents() {
+        try {
+            tableComponent.cleanTabelModel(tableDetails);
+            fileComponent.clear(leftPane, rightPane);
+            startDiff(ilcsBean.getFileFrom(), ilcsBean.getFileTo());
+        } catch (DiffException ex) {
+            Logger.getLogger(MainILCS.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainILCS.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainILCS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Set Listener Move CheckBox
+     */
+    private void setListenerMoveCheckBox() {
+
+        movesCheckBox.addItemListener(new ItemListener() {
+
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+
+                ilcsBean.setShowGUIMoves(movesCheckBox.isSelected());
+                restartComponents();
+            }
+        });
     }
 
     /**
@@ -103,7 +166,7 @@ public final class MainILCS extends javax.swing.JFrame {
      */
     private void adjustmentHorizontalScroll(final JScrollPane scrollTo, final JScrollPane scrollFrom) {
         scrollTo.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-            
+
             @Override
             public void adjustmentValueChanged(AdjustmentEvent arg0) {
                 Point point = scrollTo.getViewport().getViewPosition();
@@ -119,7 +182,7 @@ public final class MainILCS extends javax.swing.JFrame {
      */
     private void adjustmentVerticalScroll(final JScrollPane scrollTo, final JScrollPane scrollFrom) {
         scrollTo.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-            
+
             @Override
             public void adjustmentValueChanged(AdjustmentEvent arg0) {
                 Point point = scrollTo.getViewport().getViewPosition();
@@ -172,7 +235,7 @@ public final class MainILCS extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
     }
-    
+
     private String setWordGrainName(String granularity) {
         if ("Word (Default)".equals(granularity)) {
             granularity = "Word";
@@ -218,6 +281,10 @@ public final class MainILCS extends javax.swing.JFrame {
         jSeparator1 = new Separator();
         fileSelectionMenuBar = new JButton();
         jSeparator3 = new Separator();
+        differencesCheckBox = new JCheckBox();
+        jSeparator6 = new Separator();
+        movesCheckBox = new JCheckBox();
+        jSeparator2 = new Separator();
         jTextField5 = new JTextField();
         jTextField1 = new JTextField();
         jTextField2 = new JTextField();
@@ -320,6 +387,20 @@ public final class MainILCS extends javax.swing.JFrame {
         fileSelectionMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
         toolBar.add(fileSelectionMenuBar);
         toolBar.add(jSeparator3);
+
+        differencesCheckBox.setText(bundle.getString("MainILCS.differencesCheckBox.text")); // NOI18N
+        differencesCheckBox.setFocusable(false);
+        differencesCheckBox.setHorizontalTextPosition(SwingConstants.CENTER);
+        differencesCheckBox.setVerticalTextPosition(SwingConstants.BOTTOM);
+        toolBar.add(differencesCheckBox);
+        toolBar.add(jSeparator6);
+
+        movesCheckBox.setText(bundle.getString("MainILCS.movesCheckBox.text")); // NOI18N
+        movesCheckBox.setFocusable(false);
+        movesCheckBox.setHorizontalTextPosition(SwingConstants.CENTER);
+        movesCheckBox.setVerticalTextPosition(SwingConstants.BOTTOM);
+        toolBar.add(movesCheckBox);
+        toolBar.add(jSeparator2);
 
         jTextField5.setEditable(false);
         jTextField5.setText(bundle.getString("MainILCS.jTextField5.text")); // NOI18N
@@ -524,7 +605,7 @@ public final class MainILCS extends javax.swing.JFrame {
     @Action
     public void fileSelection() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 new FileSelection().setVisible(true);
@@ -538,7 +619,7 @@ public final class MainILCS extends javax.swing.JFrame {
     @Action
     public void showDDiff() {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 new MainDDiff().setVisible(true);
@@ -578,10 +659,13 @@ public final class MainILCS extends javax.swing.JFrame {
         ilcsBean.setShowGUIDifferences(showDiff);
         ilcsBean.setShowGUIMoves(showMove);
         ilcsBean.setTags(tags);
+        differencesCheckBox.setSelected(showDiff);
+        movesCheckBox.setSelected(showMove);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JScrollPane detailsScrollPane;
     private JTextPane detailsTextPane;
+    private JCheckBox differencesCheckBox;
     private JScrollPane dirScrollPane1;
     private JScrollPane dirScrollPane2;
     private JTree dirTree1;
@@ -592,8 +676,10 @@ public final class MainILCS extends javax.swing.JFrame {
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
     private Separator jSeparator1;
+    private Separator jSeparator2;
     private Separator jSeparator3;
     private Separator jSeparator4;
+    private Separator jSeparator6;
     private JTextField jTextField1;
     private JTextField jTextField2;
     private JTextField jTextField3;
@@ -604,6 +690,7 @@ public final class MainILCS extends javax.swing.JFrame {
     private JScrollPane leftScrollPane;
     private ButtonGroup mainButtonGroup;
     private JSplitPane mainSplitPane;
+    private JCheckBox movesCheckBox;
     private JButton noButton;
     private JTextPane rightPane;
     private JScrollPane rightScrollPane;
