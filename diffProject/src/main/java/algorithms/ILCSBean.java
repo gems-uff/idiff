@@ -11,9 +11,8 @@ public class ILCSBean {
     private File fileFrom;
     private File fileTo;
     private String granularity;
-    private boolean showGUIDifferences;
-    private boolean showGUIMoves;
     private String tags;
+    private int perspective = 1; // Default - ILCS
 
     /**
      * Constructor
@@ -29,38 +28,6 @@ public class ILCSBean {
      * Constructor
      */
     public ILCSBean() {
-    }
-
-    /**
-     * isShowGUIDifferences
-     * @return boolean
-     */
-    public boolean isShowGUIDifferences() {
-        return showGUIDifferences;
-    }
-
-    /**
-     * setShowGUIDifferences
-     * @param showGUIDifferences 
-     */
-    public void setShowGUIDifferences(boolean showGUIDifferences) {
-        this.showGUIDifferences = showGUIDifferences;
-    }
-
-    /**
-     * isShowGUIMoves
-     * @return boolean
-     */
-    public boolean isShowGUIMoves() {
-        return showGUIMoves;
-    }
-
-    /**
-     * Set Show GUI Moves
-     * @param showGUIMoves 
-     */
-    public void setShowGUIMoves(boolean showGUIMoves) {
-        this.showGUIMoves = showGUIMoves;
     }
 
     /**
@@ -117,5 +84,13 @@ public class ILCSBean {
 
     public String getTags() {
         return tags;
+    }
+
+    public int getPerspective() {
+        return perspective;
+    }
+
+    public void setPerspective(int perspective) {
+        this.perspective = perspective;
     }
 }

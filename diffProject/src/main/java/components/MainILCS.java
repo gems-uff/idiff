@@ -27,9 +27,9 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
@@ -89,27 +89,27 @@ public final class MainILCS extends javax.swing.JFrame {
         ilcsBean = new ILCSBean(fileFrom, fileTo);
         initialSteps(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         adjustmentScroll();
-        setListenerCheckBoxes();
+        setListenerRadioButton();
     }
 
     /**
      * Set Listener for checkBox
      */
-    private void setListenerCheckBoxes() throws FileNotFoundException, IOException {
-        setListenerDiffCheckBox();
-        setListenerMoveCheckBox();
-
+    private void setListenerRadioButton() throws FileNotFoundException, IOException {
+        setListenerRadioButton(diffRadioButton, 1);
+        setListenerRadioButton(similarRadioButton, 2);
     }
 
     /**
      * Set Listener Diff CheckBox
      */
-    private void setListenerDiffCheckBox() {
-        differencesCheckBox.addItemListener(new ItemListener() {
+    private void setListenerRadioButton(JRadioButton radio, final int idPerspective) {
+
+        radio.addItemListener(new ItemListener() {
 
             @Override
             public void itemStateChanged(ItemEvent e) {
-                ilcsBean.setShowGUIDifferences(differencesCheckBox.isSelected());
+                ilcsBean.setPerspective(idPerspective);
                 restartComponents();
             }
         });
@@ -135,19 +135,6 @@ public final class MainILCS extends javax.swing.JFrame {
     /**
      * Set Listener Move CheckBox
      */
-    private void setListenerMoveCheckBox() {
-
-        movesCheckBox.addItemListener(new ItemListener() {
-
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-
-                ilcsBean.setShowGUIMoves(movesCheckBox.isSelected());
-                restartComponents();
-            }
-        });
-    }
-
     /**
      * Adjustment Scroll
      */
@@ -274,15 +261,16 @@ public final class MainILCS extends javax.swing.JFrame {
         exitLabel = new JLabel();
         jLabel1 = new JLabel();
         mainButtonGroup = new ButtonGroup();
+        buttonGroup = new ButtonGroup();
         toolBar = new JToolBar();
         jSeparator4 = new Separator();
         runMenuBar = new JButton();
         jSeparator1 = new Separator();
         fileSelectionMenuBar = new JButton();
         jSeparator3 = new Separator();
-        differencesCheckBox = new JCheckBox();
+        diffRadioButton = new JRadioButton();
         jSeparator6 = new Separator();
-        movesCheckBox = new JCheckBox();
+        similarRadioButton = new JRadioButton();
         jSeparator2 = new Separator();
         jTextField5 = new JTextField();
         jTextField1 = new JTextField();
@@ -387,20 +375,21 @@ public final class MainILCS extends javax.swing.JFrame {
         toolBar.add(fileSelectionMenuBar);
         toolBar.add(jSeparator3);
 
-        differencesCheckBox.setSelected(true);
-        differencesCheckBox.setText(bundle.getString("MainILCS.differencesCheckBox.text")); // NOI18N
-        differencesCheckBox.setFocusable(false);
-        differencesCheckBox.setHorizontalTextPosition(SwingConstants.CENTER);
-        differencesCheckBox.setVerticalTextPosition(SwingConstants.BOTTOM);
-        toolBar.add(differencesCheckBox);
+        buttonGroup.add(diffRadioButton);
+        diffRadioButton.setSelected(true);
+        diffRadioButton.setText(bundle.getString("MainILCS.diffRadioButton.text")); // NOI18N
+        diffRadioButton.setFocusable(false);
+        diffRadioButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        diffRadioButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        toolBar.add(diffRadioButton);
         toolBar.add(jSeparator6);
 
-        movesCheckBox.setSelected(true);
-        movesCheckBox.setText(bundle.getString("MainILCS.movesCheckBox.text")); // NOI18N
-        movesCheckBox.setFocusable(false);
-        movesCheckBox.setHorizontalTextPosition(SwingConstants.CENTER);
-        movesCheckBox.setVerticalTextPosition(SwingConstants.BOTTOM);
-        toolBar.add(movesCheckBox);
+        buttonGroup.add(similarRadioButton);
+        similarRadioButton.setText(bundle.getString("MainILCS.similarRadioButton.text")); // NOI18N
+        similarRadioButton.setFocusable(false);
+        similarRadioButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        similarRadioButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        toolBar.add(similarRadioButton);
         toolBar.add(jSeparator2);
 
         jTextField5.setEditable(false);
@@ -655,18 +644,15 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param emptyLine
      * @param whiteSpace 
      */
-    private void initParameters(String granularity, boolean showDiff, boolean showMove, String tags) {
+    private void initParameters(String granularity, boolean diffPerspective, boolean movePerspective, String tags) {
         ilcsBean.setGranularity(setWordGrainName(granularity));
-        ilcsBean.setShowGUIDifferences(showDiff);
-        ilcsBean.setShowGUIMoves(showMove);
         ilcsBean.setTags(tags);
-        differencesCheckBox.setSelected(showDiff);
-        movesCheckBox.setSelected(showMove);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private ButtonGroup buttonGroup;
     private JScrollPane detailsScrollPane;
     private JTextPane detailsTextPane;
-    private JCheckBox differencesCheckBox;
+    private JRadioButton diffRadioButton;
     private JScrollPane dirScrollPane1;
     private JScrollPane dirScrollPane2;
     private JTree dirTree1;
@@ -691,11 +677,11 @@ public final class MainILCS extends javax.swing.JFrame {
     private JScrollPane leftScrollPane;
     private ButtonGroup mainButtonGroup;
     private JSplitPane mainSplitPane;
-    private JCheckBox movesCheckBox;
     private JButton noButton;
     private JTextPane rightPane;
     private JScrollPane rightScrollPane;
     private JButton runMenuBar;
+    private JRadioButton similarRadioButton;
     private JSplitPane splitPaneLeft;
     private JSplitPane splitPaneRight;
     private JSplitPane splitPaneUp;

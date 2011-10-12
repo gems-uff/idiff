@@ -60,12 +60,8 @@ public class FileComponent {
      * @param scrollTo 
      */
     public void repaint(IResultDiff result, JTextPane paneFrom, JScrollPane scrollFrom, JTextPane paneTo, JScrollPane scrollTo, ILCSBean ilcsb) {
-        if (ilcsb.isShowGUIMoves()) {
-            granularityComponent.setMoves(result, paneFrom, scrollFrom, paneTo, scrollTo);
-        }
-        if (ilcsb.isShowGUIDifferences()) {
-            granularityComponent.setDifferences(result, paneFrom, paneTo);
-        }
+        granularityComponent.setMoves(result, paneFrom, scrollFrom, paneTo, scrollTo);
+        granularityComponent.setDifferences(result, paneFrom, paneTo);
     }
 
     public void clear(JTextPane paneFrom, JTextPane paneTo) {

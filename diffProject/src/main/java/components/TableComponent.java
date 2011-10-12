@@ -44,30 +44,12 @@ public class TableComponent {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
 
-        if (ilcsb.isShowGUIMoves()) {
-            printMoves(it1, it2, tableDetails);
-        }
-        if (ilcsb.isShowGUIDifferences()) {
-            printDifferences(diferences, tableDetails);
-        }
-        if ((!ilcsb.isShowGUIDifferences()) && (!ilcsb.isShowGUIDifferences())) {
-            printWarning(tableDetails);
-        }
+        printMoves(it1, it2, tableDetails);
+        printDifferences(diferences, tableDetails);
         printNotFound(tableDetails);
 
         tableDetails.setCellSelectionEnabled(false);
         tableDetails.setRowSelectionAllowed(true);
-    }
-
-    /**
-     * Print Differences not found
-     * @param tableDetails 
-     */
-    private void printWarning(JTable tableDetails) {
-        if (tableDetails.getRowCount() == 0) {
-            ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{"    Select viewing results options    ", "---", "---", "---"});
-            tableDetails.setForeground(Color.RED);
-        }
     }
 
     /**
@@ -118,6 +100,8 @@ public class TableComponent {
 
             boolean sameRefence = (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference())));
             boolean nIteration = ((grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1));
+
+            
             if (sameRefence && nIteration) {
                 ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
                 tableDetails.setForeground(Color.BLACK);
