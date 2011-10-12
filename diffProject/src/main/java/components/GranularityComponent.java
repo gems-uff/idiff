@@ -10,7 +10,6 @@ import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -33,24 +32,26 @@ public class GranularityComponent {
      * Set Moves
      * @param result
      * @param paneFrom
-     * @param scrollFrom
      * @param paneTo
-     * @param scrollTo 
      */
-    public void setMoves(IResultDiff result, JTextPane paneFrom, JScrollPane scrollFrom, JTextPane paneTo, JScrollPane scrollTo) {
+    public void setMoves(IResultDiff result, JTextPane paneFrom, JTextPane paneTo, int perspective) {
         Iterator<Grain> itFrom = result.getGrainsFrom().iterator();
         Iterator<Grain> itTo = result.getGrainsTo().iterator();
         while (itFrom.hasNext() || itTo.hasNext()) {
             Grain grainFrom = itFrom.next();
             Grain grainTo = itTo.next();
-            boolean sameRefence = ((grainFrom != null) || (grainTo != null)) && (!grainFrom.getOriginalReference().equals(grainTo.getOriginalReference()));
-            boolean nIteration = ((grainFrom.getIdIteration() != 1) && (grainTo.getIdIteration() != 1));
-            if (sameRefence && nIteration) {
-                setMovedGranularity(grainFrom.getGrainBean(), paneFrom, scrollFrom, grainTo.getGrainBean(), paneTo, scrollTo);
-            } else {
-                setStyle(paneFrom, grainFrom.getGrainBean(), "UnchangedStyle");
-                setStyle(paneTo, grainTo.getGrainBean(), "UnchangedStyle");
+            if (verifyConditions(grainFrom, grainTo, perspective)) {
+                setMovedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo);
             }
+        }
+    }
+
+    private boolean verifyConditions(Grain grain1, Grain grain2, int perpective) {
+        boolean condition = (grain1 != null) || (grain2 != null);
+        if (perpective == 1) {
+            return ((condition) && (((grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1))));
+        } else {
+            return condition;
         }
     }
 
@@ -60,16 +61,16 @@ public class GranularityComponent {
      * @param paneFrom
      * @param paneTo 
      */
-    public void setDifferences(IResultDiff result, JTextPane paneFrom, JTextPane paneTo) {
+    public void setDifferences(IResultDiff result, JTextPane paneFrom, JTextPane paneTo, String removeStyle, String addStyle) {
         for (Iterator<Grain> it = result.getDifferences().iterator(); it.hasNext();) {
             Grain grain = it.next();
             if (grain != null) {
                 switch (grain.getSituation()) {
                     case REMOVED:
-                        setStyle(paneFrom, grain.getGrainBean(), "RemoveStyle");
+                        setStyle(paneFrom, grain.getGrainBean(), removeStyle);
                         break;
                     case ADDED:
-                        setStyle(paneTo, grain.getGrainBean(), "AddStyle");
+                        setStyle(paneTo, grain.getGrainBean(), addStyle);
                         break;
                 }
             }
@@ -86,16 +87,19 @@ public class GranularityComponent {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                removeHighLight(paneFrom);
-                removeHighLight(paneTo);
+                removeAllHighLight(paneFrom, paneTo);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                removeHighLight(paneFrom);
-                removeHighLight(paneTo);
+                removeAllHighLight(paneFrom, paneTo);
             }
         });
+    }
+
+    private void removeAllHighLight(final JTextPane paneFrom, final JTextPane paneTo) {
+        removeHighLight(paneFrom);
+        removeHighLight(paneTo);
     }
 
     /**
@@ -107,7 +111,7 @@ public class GranularityComponent {
      * @param paneTo
      * @param scrollTo 
      */
-    private void setMouseMotion(final JTextPane paneFrom, final GrainBean grainBeanFrom, final JScrollPane scrollFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollTo) {
+    private void setMouseMotion(final JTextPane paneFrom, final GrainBean grainBeanFrom, final GrainBean grainBeanTo, final JTextPane paneTo) {
         paneFrom.addMouseMotionListener(new MouseMotionListener() {
 
             @Override
@@ -152,16 +156,15 @@ public class GranularityComponent {
      * @param paneTo
      * @param scrollTo 
      */
-    private void setMovedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final JScrollPane scrollFrom,
-            final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollTo) {
+    private void setMovedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo) {
 
         setStyle(paneFrom, grainBeanFrom, "MoveStyle");
         setMouseAdapter(paneFrom, paneTo);
-        setMouseMotion(paneFrom, grainBeanFrom, scrollFrom, grainBeanTo, paneTo, scrollTo);
+        setMouseMotion(paneFrom, grainBeanFrom, grainBeanTo, paneTo);
 
         setStyle(paneTo, grainBeanTo, "MoveStyle");
         setMouseAdapter(paneTo, paneFrom);
-        setMouseMotion(paneTo, grainBeanTo, scrollTo, grainBeanFrom, paneFrom, scrollFrom);
+        setMouseMotion(paneTo, grainBeanTo, grainBeanFrom, paneFrom);
     }
 
     /**
@@ -197,6 +200,7 @@ public class GranularityComponent {
     }
 
     void clean(JTextPane paneFrom, JTextPane paneTo) {
+        removeAllHighLight(paneFrom, paneTo);
         setStyle(paneFrom, new GrainBean(0, paneFrom.getText().length()), "UnchangedStyle");
         setStyle(paneTo, new GrainBean(0, paneTo.getText().length()), "UnchangedStyle");
     }

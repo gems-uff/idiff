@@ -60,8 +60,14 @@ public class FileComponent {
      * @param scrollTo 
      */
     public void repaint(IResultDiff result, JTextPane paneFrom, JScrollPane scrollFrom, JTextPane paneTo, JScrollPane scrollTo, ILCSBean ilcsb) {
-        granularityComponent.setMoves(result, paneFrom, scrollFrom, paneTo, scrollTo);
-        granularityComponent.setDifferences(result, paneFrom, paneTo);
+        granularityComponent.setMoves(result, paneFrom, paneTo, ilcsb.getPerspective());
+        if (ilcsb.getPerspective() == 1) {
+            granularityComponent.setDifferences(result, paneFrom, paneTo, "RemoveStyle", "AddStyle");
+
+        } else {
+            granularityComponent.setDifferences(result, paneFrom, paneTo, "DisabledStyle", "DisabledStyle");
+
+        }
     }
 
     public void clear(JTextPane paneFrom, JTextPane paneTo) {

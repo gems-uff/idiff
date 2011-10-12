@@ -44,8 +44,11 @@ public class TableComponent {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
 
-        printMoves(it1, it2, tableDetails);
-        printDifferences(diferences, tableDetails);
+        printMoves(it1, it2, tableDetails, ilcsb.getPerspective());
+
+        if (ilcsb.getPerspective() == 1) {
+            printDifferences(diferences, tableDetails);
+        }
         printNotFound(tableDetails);
 
         tableDetails.setCellSelectionEnabled(false);
@@ -93,19 +96,24 @@ public class TableComponent {
      * @param it2
      * @param tableDetails 
      */
-    private void printMoves(Iterator<Grain> it1, Iterator<Grain> it2, JTable tableDetails) {
+    private void printMoves(Iterator<Grain> it1, Iterator<Grain> it2, JTable tableDetails, int perpective) {
         while (it1.hasNext() || it2.hasNext()) {
             Grain grain1 = it1.next();
             Grain grain2 = it2.next();
 
-            boolean sameRefence = (((grain1 != null) || (grain2 != null)) && (!grain1.getOriginalReference().equals(grain2.getOriginalReference())));
-            boolean nIteration = ((grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1));
-
-            
-            if (sameRefence && nIteration) {
+            if (verifyConditions(grain1, grain2, perpective)) {
                 ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
                 tableDetails.setForeground(Color.BLACK);
             }
+        }
+    }
+
+    private boolean verifyConditions(Grain grain1, Grain grain2, int perpective) {
+        boolean condition = (grain1 != null) || (grain2 != null);
+        if (perpective == 1) {
+            return ((condition) && (((grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1))));
+        } else {
+            return condition;
         }
     }
 
