@@ -1,6 +1,8 @@
 package components;
 
+import algorithms.GrainBean;
 import java.awt.Color;
+import javax.swing.JTextPane;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -94,4 +96,16 @@ public class IDIFFStyles {
                 break;
         }
     }
+    /**
+     * Set style
+     * @param pane
+     * @param grain
+     * @param style 
+     */
+    public static void setStyle(JTextPane pane, GrainBean grain, String style) {
+        StyledDocument doc = pane.getStyledDocument();
+        IDIFFStyles.addStyle(doc, style);
+        doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle(style), true);
+    }
+
 }

@@ -79,6 +79,9 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param fileFrom
      * @param fileTo
      * @param granularity
+     * @param showDiff 
+     * @param showMove 
+     * @param tags 
      * @throws DiffException
      * @throws FileNotFoundException
      * @throws IOException 
@@ -114,7 +117,8 @@ public final class MainILCS extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    
     /** ReStart Components
      * 
      */
