@@ -10,9 +10,6 @@ import algorithms.Result;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
@@ -91,7 +88,7 @@ public final class MainILCS extends javax.swing.JFrame {
         new Wrap().setWrap(leftPane, rightPane);
         ilcsBean = new ILCSBean(fileFrom, fileTo);
         initialSteps(fileFrom, fileTo, granularity, showDiff, showMove, tags);
-        adjustmentScroll();
+        Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
         setListenerRadioButton();
     }
 
@@ -117,8 +114,7 @@ public final class MainILCS extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
     /** ReStart Components
      * 
      */
@@ -134,51 +130,6 @@ public final class MainILCS extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MainILCS.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    /**
-     * Set Listener Move CheckBox
-     */
-    /**
-     * Adjustment Scroll
-     */
-    private void adjustmentScroll() {
-        adjustmentHorizontalScroll(leftScrollPane, rightScrollPane);
-        adjustmentVerticalScroll(leftScrollPane, rightScrollPane);
-        adjustmentHorizontalScroll(rightScrollPane, leftScrollPane);
-        adjustmentVerticalScroll(rightScrollPane, leftScrollPane);
-    }
-
-    /**
-     * Adjustment Horizontal Scroll
-     * @param scrollTo
-     * @param scrollFrom 
-     */
-    private void adjustmentHorizontalScroll(final JScrollPane scrollTo, final JScrollPane scrollFrom) {
-        scrollTo.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent arg0) {
-                Point point = scrollTo.getViewport().getViewPosition();
-                scrollFrom.getViewport().setViewPosition(point);
-            }
-        });
-    }
-
-    /**
-     * Adjustment Vertical Scroll
-     * @param scrollTo
-     * @param scrollFrom 
-     */
-    private void adjustmentVerticalScroll(final JScrollPane scrollTo, final JScrollPane scrollFrom) {
-        scrollTo.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-
-            @Override
-            public void adjustmentValueChanged(AdjustmentEvent arg0) {
-                Point point = scrollTo.getViewport().getViewPosition();
-                scrollFrom.getViewport().setViewPosition(point);
-            }
-        });
     }
 
     /**

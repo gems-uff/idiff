@@ -118,7 +118,7 @@
           <Component id="toolBar" alignment="0" pref="1381" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="mainSplitPane" pref="1361" max="32767" attributes="0"/>
+              <Component id="mainSplitPane" pref="1369" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
