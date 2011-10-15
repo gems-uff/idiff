@@ -1,14 +1,13 @@
 package components;
 
 import diretorioDiff.DiretorioDiff;
+import diretorioDiff.arvore.Arvore;
 import diretorioDiff.resultados.Resultado;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.tree.DefaultMutableTreeNode;
 import org.jdesktop.application.Action;
 
 /**
@@ -19,6 +18,9 @@ public class MainDDiff extends JFrame {
 
     private java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
 
+    Arvore fromTree;
+
+    Arvore toTree;
 
     private File from;
     
@@ -53,42 +55,27 @@ public class MainDDiff extends JFrame {
 
     @Action
     public void execute() {
+        labelProcess.setText("Processing...");
+
         DiretorioDiff diretorioDiff = new DiretorioDiff();
 
 	Resultado resultado = diretorioDiff.compararDiretorios(from, to);
+
+        fromTree.setResultado(resultado);
+        toTree.setResultado(resultado);
+
+        labelProcess.setText("");
     }
 
     private void loadTree() {
-        scrollTreeFrom.setViewportView(new JTree(loadNodes(from)));
-        scrollTreeTo.setViewportView(new JTree(loadNodes(to)));
-    }
+        fromTree = new Arvore(from, true);
+        toTree = new Arvore(to);
 
-    private DefaultMutableTreeNode loadNodes(File arquivo) {
-        return loadNodes(arquivo, false);
-    }
+        fromTree.setAssociada(toTree);
+        toTree.setAssociada(fromTree);
 
-
-    private DefaultMutableTreeNode loadNodes(File arquivo, boolean removeBase) {
-	String nomeNo = arquivo.getAbsolutePath();
-	if (removeBase) {
-		nomeNo = nomeNo.replace(arquivo.getParent(), "");
-
-		if (nomeNo.startsWith(File.separator)) {
-			nomeNo = nomeNo.replace(File.separator, "");
-		}
-	}
-
-	DefaultMutableTreeNode node = new DefaultMutableTreeNode(nomeNo);
-
-	if(arquivo.isDirectory()) {
-		for (File filho : arquivo.listFiles()) {
-			if (!filho.isHidden()) {
-				node.add(loadNodes(filho, true));
-			}
-		}
-	}
-
-	return node;
+        scrollTreeFrom.setViewportView(fromTree);
+        scrollTreeTo.setViewportView(toTree);
     }
 
     /**
@@ -151,6 +138,8 @@ public class MainDDiff extends JFrame {
         jSeparator2 = new javax.swing.JToolBar.Separator();
         runMenuBar = new javax.swing.JButton();
         drillDownButton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        labelProcess = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Directory Diff");
@@ -203,7 +192,7 @@ public class MainDDiff extends JFrame {
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addContainerGap())
         );
         directoryPanel2Layout.setVerticalGroup(
@@ -240,7 +229,7 @@ public class MainDDiff extends JFrame {
         toolBar.add(runMenuBar);
 
         drillDownButton.setAction(actionMap.get("drillDown")); // NOI18N
-        drillDownButton.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        drillDownButton.setFont(new java.awt.Font("sansserif", 1, 12));
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDDiff.class);
         drillDownButton.setIcon(resourceMap.getIcon("drillDownButton.icon")); // NOI18N
         drillDownButton.setBorderPainted(false);
@@ -249,24 +238,46 @@ public class MainDDiff extends JFrame {
         drillDownButton.setRequestFocusEnabled(false);
         toolBar.add(drillDownButton);
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setName("jPanel1"); // NOI18N
+
+        labelProcess.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelProcess.setName("labelProcess"); // NOI18N
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(351, Short.MAX_VALUE)
+                .add(labelProcess, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(labelProcess, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+        );
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                    .add(toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+            .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(toolBar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -282,7 +293,9 @@ public class MainDDiff extends JFrame {
     private javax.swing.JPanel directoryPanel1;
     private javax.swing.JPanel directoryPanel2;
     private javax.swing.JButton drillDownButton;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JLabel labelProcess;
     private javax.swing.JButton runMenuBar;
     private javax.swing.JScrollPane scrollTreeFrom;
     private javax.swing.JScrollPane scrollTreeTo;

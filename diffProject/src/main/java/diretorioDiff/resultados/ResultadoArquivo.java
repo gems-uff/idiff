@@ -87,29 +87,27 @@ public class ResultadoArquivo {
 		sb.append("\n");
 
 		switch (tipo) {
-		case ADICIONADO:
-			
-			sb.append("ADD: " + para.getPathRelativo() + " ");
-			sb.append("\n");
-			
-			break;
-			
-		case DELETADO:
-			
-			sb.append("DEL: " + base.getPathRelativo() + " ");
-			sb.append("\n");
-			
-			break;
-
-		default:
-			sb.append("DE: " + base.getPathRelativo() + " ");
-			sb.append("\n");
-			sb.append("PARA: " + para.getPathRelativo() + " ");
-			sb.append("\n");
-			break;
+			case ADICIONADO:
+				
+				sb.append("ADD: " + para.getPathRelativo() + " ");
+				sb.append("\n");
+				
+				break;
+				
+			case DELETADO:
+				
+				sb.append("DEL: " + base.getPathRelativo() + " ");
+				sb.append("\n");
+				
+				break;
+	
+			default:
+				sb.append("DE: " + base.getPathRelativo() + " ");
+				sb.append("\n");
+				sb.append("PARA: " + para.getPathRelativo() + " ");
+				sb.append("\n");
+				break;
 		}
-		
-		
 		
 		return sb.toString();
 	}
@@ -154,5 +152,13 @@ public class ResultadoArquivo {
 	 */
 	public TipoResultado getTipo() {
 		return tipo;
+	}
+
+	public boolean haveTo() {
+		return getPara() != null;
+	}
+	
+	public boolean haveFrom() {
+		return getBase() != null;
 	}
 }

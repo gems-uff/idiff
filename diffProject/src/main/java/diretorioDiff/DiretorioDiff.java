@@ -15,7 +15,7 @@ import algorithms.ILCSBean;
 import algorithms.IResultDiff;
 
 /**
- * Realiza diff de diretï¿½rios.
+ * Realiza diff de diretórios.
  * 
  * @author Eraldo
  * 
@@ -23,12 +23,12 @@ import algorithms.IResultDiff;
 public class DiretorioDiff {
 
 	/**
-	 * Diretï¿½rio serializado 1
+	 * Diretório serializado 1
 	 */
 	private DiretorioSerializado dirSerializado1 = null;
 
 	/**
-	 * Diretï¿½rio serializado 2
+	 * Diretório serializado 2
 	 */
 	private DiretorioSerializado dirSerializado2 = null;
 
@@ -38,38 +38,38 @@ public class DiretorioDiff {
 
 
 	/**
-	 * Realiza a comparaï¿½ï¿½o entre dois diretï¿½rios. <br>
+	 * Realiza a comparação entre dois diretórios. <br>
 	 * Segue os seguintes passos: <br>
 	 * <ol>
-	 * 	<li>Organiza os arquivos contidos nos dois diretï¿½rios como uma lista
+	 * 	<li>Organiza os arquivos contidos nos dois diretórios como uma lista
 	 * 		(incluindo os filhos recursivamente).
 	 * 	</li>
 	 * 	<li>
-	 * 		Gera um cï¿½digo hash MD5 com o conteï¿½do de cada arquivo.</li>
+	 * 		Gera um código hash MD5 com o conteúdo de cada arquivo.</li>
 	 * 	<li>
-	 * 		Compara os hashs de cada um dos arquivos de cada diretï¿½rio e marca os
-	 * 		que sï¿½o identicos com o valor 100 em uma matriz de equivalï¿½ncia
+	 * 		Compara os hashs de cada um dos arquivos de cada diretório e marca os
+	 * 		que são identicos com o valor 100 em uma matriz de equivalência
 	 * 	</li>
 	 * 	<li>
 	 * 		Monta uma matriz com o percentual de igualdade calculado pelo LCS
-	 * 		entre os arquivos que nï¿½o se mostraram idï¿½nticos no passo anterior.
+	 * 		entre os arquivos que não se mostraram idênticos no passo anterior.
 	 * 	</li>
 	 * 	<li>
-	 * 		Calcula atravï¿½s do algoritmo Hï¿½ngaro quais sï¿½o os matches mais
-	 * 		prï¿½ximos entre os itens da matriz anterior
+	 * 		Calcula através do algoritmo Húngaro quais são os matches mais
+	 * 		próximos entre os itens da matriz anterior
 	 * 	</li>
 	 * 	<li>
-	 * 		Devolve os valores para a matriz de equivalï¿½ncia
+	 * 		Devolve os valores para a matriz de equivalência
 	 * 	</li>
 	 * 	<li>
-	 * 		Analisa a matriz de equivalï¿½ncia e de acordo com ela popula a classe Delta
+	 * 		Analisa a matriz de equivalência e de acordo com ela popula a classe Delta
 	 * 	</li>
 	 * </ol>
 	 * 
-	 * @param nomeDiretorio1 Nome do diretï¿½rio 1
-	 * @param nomeDiretorio2 Nome do diretï¿½tio 2
+	 * @param nomeDiretorio1 Nome do diretório 1
+	 * @param nomeDiretorio2 Nome do diretótio 2
 	 * 
-	 * @return Resultado da comparaï¿½ï¿½o.
+	 * @return Resultado da comparação.
 	 */
 	public Resultado compararDiretorios(String nomeDiretorio1,
 			String nomeDiretorio2) {
@@ -77,40 +77,40 @@ public class DiretorioDiff {
 	}
 	
 	/**
-	 * Realiza a comparaï¿½ï¿½o entre dois diretï¿½rios. <br>
+	 * Realiza a comparação entre dois diretórios. <br>
 	 * Segue os seguintes passos: <br>
 	 * <ol>
-	 * 	<li>Organiza os arquivos contidos nos dois diretï¿½rios como uma lista
+	 * 	<li>Organiza os arquivos contidos nos dois diretórios como uma lista
 	 * 		(incluindo os filhos recursivamente).
 	 * 	</li>
 	 * 	<li>
-	 * 		Gera um cï¿½digo hash MD5 com o conteï¿½do de cada arquivo.</li>
+	 * 		Gera um código hash MD5 com o conteúdo de cada arquivo.</li>
 	 * 	<li>
-	 * 		Compara os hashs de cada um dos arquivos de cada diretï¿½rio e marca os
-	 * 		que sï¿½o identicos com o valor 100 em uma matriz de equivalï¿½ncia
+	 * 		Compara os hashs de cada um dos arquivos de cada diretório e marca os
+	 * 		que são identicos com o valor 100 em uma matriz de equivalência
 	 * 	</li>
 	 * 	<li>
 	 * 		Monta uma matriz com o percentual de igualdade calculado pelo LCS
-	 * 		entre os arquivos que nï¿½o se mostraram idï¿½nticos no passo anterior.
+	 * 		entre os arquivos que não se mostraram idênticos no passo anterior.
 	 * 	</li>
 	 * 	<li>
-	 * 		Calcula atravï¿½s do algoritmo Hï¿½ngaro quais sï¿½o os matches mais
-	 * 		prï¿½ximos entre os itens da matriz anterior
+	 * 		Calcula através do algoritmo Húngaro quais são os matches mais
+	 * 		próximos entre os itens da matriz anterior
 	 * 	</li>
 	 * 	<li>
-	 * 		Devolve os valores para a matriz de equivalï¿½ncia
+	 * 		Devolve os valores para a matriz de equivalência
 	 * 	</li>
 	 * 	<li>
-	 * 		Analisa a matriz de equivalï¿½ncia e de acordo com ela popula a classe Delta
+	 * 		Analisa a matriz de equivalência e de acordo com ela popula a classe Delta
 	 * 	</li>
 	 * </ol>
 	 * 
 	 * @param diretorio1
-	 *            - Diretï¿½rio 1
+	 *            - Diretório 1
 	 * @param diretorio2
-	 *            - Diretï¿½rio 2
+	 *            - Diretório 2
 	 * 
-	 * @return Resultado da comparaï¿½ï¿½o.
+	 * @return Resultado da comparação.
 	 */
 	public Resultado compararDiretorios(File diretorio1, File diretorio2) {
 
@@ -121,6 +121,8 @@ public class DiretorioDiff {
 			serializarDiretorios(diretorio1, diretorio2);
 
 			buscaArquivosIdenticos();
+			
+			removerArquivosInclassificaveis();
 
 			while (canProcurarMatch()) {
 				iteracao++;
@@ -135,10 +137,26 @@ public class DiretorioDiff {
 		return resultado;
 	}
 
+	private void removerArquivosInclassificaveis() {
+		for (Arquivo arquivo : dirSerializado1.getArquivosSemMatch()) {
+			if (!arquivo.isArquivo() || !arquivo.isText()) {
+				resultado.addDeletado(arquivo);
+				arquivo.setMatch(true);
+			}
+		}
+		
+		for (Arquivo arquivo : dirSerializado2.getArquivosSemMatch()) {
+			if (!arquivo.isArquivo() || !arquivo.isText()) {
+				resultado.addAdicionado(arquivo);
+				arquivo.setMatch(true);
+			}
+		}		
+	}
+
 	/**
 	 * Calcula a similaridade entre todos os arquivos fazendo uso do ILCS em
 	 * granularidade <code>LINHA</code>.<br>
-	 * Apï¿½s isso entrega o resultado para o Hungï¿½ro que escolhe o melhor
+	 * Após isso entrega o resultado para o Hungáro que escolhe o melhor
 	 * conjunto de pares.
 	 */
 	private void iteracaoHungaroILCS() {
@@ -216,10 +234,10 @@ public class DiretorioDiff {
 	}
 
 	/**
-	 * Calcula a similaridade entre dois arquivos atravï¿½s do ILCS
+	 * Calcula a similaridade entre dois arquivos através do ILCS
 	 * 
 	 * @param base
-	 *            Arquivo base da comparaï¿½ï¿½o
+	 *            Arquivo base da comparação
 	 * @param comparado
 	 *            Arquivo a ser comparado com o arquivo base.
 	 * 
@@ -272,14 +290,14 @@ public class DiretorioDiff {
 	}
 
 	/**
-	 * Calcula as melhores escolhas de match entre os arquivo atravï¿½s do
-	 * Algoritmo Hï¿½ngaro.<br>
+	 * Calcula as melhores escolhas de match entre os arquivo através do
+	 * Algoritmo Húngaro.<br>
 	 * 
 	 * @param matrizILCS
 	 *            Matriz base com os percentuais de similaridade entre os
 	 *            arquivos.
 	 * 
-	 * @return Matriz com o resultado do Algoritmo Hï¿½ngaro
+	 * @return Matriz com o resultado do Algoritmo Húngaro
 	 */
 	private int[][] executaHungaro(int[][] matrizILCS) {
 		AlgoritmoHungaro alHungaro = new AlgoritmoHungaro(matrizILCS);
@@ -307,11 +325,11 @@ public class DiretorioDiff {
 	}
 
 	/**
-	 * Procura por arquivos idï¿½nticos atravï¿½s da comparaï¿½ï¿½o de HASH MD5.<br>
+	 * Procura por arquivos idénticos através da comparação de HASH MD5.<br>
 	 * Se os arquivos tiverem o mesmo path marca como "INALTERADO" caso
-	 * contrï¿½rio marca como movimentado.<br>
-	 * Alï¿½m disso, marca os arquivos idï¿½nticos com match verdadeiro para que
-	 * sejam excluidos da prï¿½xima execuï¿½ï¿½o.
+	 * contrário marca como movimentado.<br>
+	 * Além disso, marca os arquivos idénticos com match verdadeiro para que
+	 * sejam excluidos da próxima execução.
 	 */
 	private void buscaArquivosIdenticos() {
 		List<Arquivo> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatch();
@@ -335,14 +353,14 @@ public class DiretorioDiff {
 	}
 
 	/**
-	 * Serializa os diretï¿½rios que serï¿½o comparados.
+	 * Serializa os diretórios que serão comparados.
 	 * 
 	 * @param diretorio1
-	 *            Diretï¿½rio da esquerda
+	 *            Diretório da esquerda
 	 * @param diretorio2
-	 *            Diretï¿½rio da direita
+	 *            Diretório da direita
 	 * @throws DiretorioDiffException
-	 *             Erro na serializaï¿½ï¿½o de algum diretï¿½rio
+	 *             Erro na serialização de algum diretório
 	 */
 	private void serializarDiretorios(File diretorio1,
 			File diretorio2) throws DiretorioDiffException {
@@ -370,7 +388,7 @@ public class DiretorioDiff {
 
 	/**
 	 * Compara duas entidades do tipo <code>br.com.diff.Arquivo</code>
-	 * considerando o Hash MD5 de seu conteï¿½do.<br>
+	 * considerando o Hash MD5 de seu conteúdo.<br>
 	 * 
 	 * @param arquivo1
 	 *            Primeiro arquivo.

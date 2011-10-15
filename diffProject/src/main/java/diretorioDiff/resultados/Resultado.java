@@ -83,7 +83,7 @@ public class Resultado {
 	 */
 	public void setEscolhaHungaro(Arquivo base, Arquivo comparado) {
 		for (ResultadoArquivo resultado : resultadosArquivo) {
-			if (resultado.getBase().getId() == base.getId() 
+			if (resultado.getBase() != null && resultado.getBase().getId() == base.getId() 
 					&& resultado.getPara().getId() == comparado.getId()) {
 				resultado.setEscolhaHungaro(true);
 				break;
@@ -96,5 +96,31 @@ public class Resultado {
 	 */
 	public List<ResultadoArquivo> getResultadosArquivo() {
 		return resultadosArquivo;
+	}
+
+	public List<Integer> getToFilesIds(int idArquivo) {
+		ArrayList<Integer> lista = new ArrayList<Integer>();
+		
+		List<ResultadoArquivo> resultados = getResultadosByFrom(idArquivo);
+		for (ResultadoArquivo resultadoArquivo : resultados) {
+			if (resultadoArquivo.haveTo()) {
+				lista.add(resultadoArquivo.getPara().getId());
+			}
+		}
+		
+		
+		return lista;
+	}
+
+	public List<ResultadoArquivo> getResultadosByFrom(int idArquivo) {
+		ArrayList<ResultadoArquivo> lista = new ArrayList<ResultadoArquivo>();
+		
+		for (ResultadoArquivo resultado : resultadosArquivo) {
+			if (resultado.getBase() != null && resultado.getBase().getId() == idArquivo) {
+				lista.add(resultado);
+			}
+		}
+		
+		return lista;
 	}
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * Guarda uma representaï¿½ï¿½o do diretï¿½rio com os arquivos armazenados em uma lista.
+ * Guarda uma representação do diretório com os arquivos armazenados em uma lista.
  * 
  * @author Eraldo
  *
@@ -15,33 +15,33 @@ import java.util.List;
 public class DiretorioSerializado {
 
 	/**
-	 * Lista com os arquivos contidos no diretï¿½rio.
+	 * Lista com os arquivos contidos no diretório.
 	 * 
 	 */
 	private List<Arquivo> arquivos = new ArrayList<Arquivo>();
 	
 	/**
-	 * Id do diretï¿½rio.
+	 * Id do diretório.
 	 */
 	private int id;
 
 	/**
-	 * Diretï¿½rio base
+	 * Diretório base
 	 */
 	private File diretorio;
 
 		
 	/**
-	 * Construtor padrï¿½o.
+	 * Construtor padrão.
 	 * 
-	 * @param diretorio Diretï¿½rio a ser representado.
-	 * @param id Id do diretï¿½rio.
-	 * @throws DiretorioDiffException caso o arquivo nï¿½o exista ou nï¿½o seja um diretï¿½rio.
+	 * @param diretorio Diretório a ser representado.
+	 * @param id Id do diretório.
+	 * @throws DiretorioDiffException caso o arquivo não exista ou não seja um diretório.
 	 */
 	public DiretorioSerializado(File diretorio, int id) throws DiretorioDiffException {
 		this.diretorio = diretorio;
 		if (!diretorio.exists() || !diretorio.isDirectory()) {
-			throw new DiretorioDiffException("Path '" + diretorio.getAbsolutePath() + "' nï¿½o indica um diretï¿½rio vï¿½lido.");
+			throw new DiretorioDiffException("Path '" + diretorio.getAbsolutePath() + "' não indica um diretório válido.");
 		}
 		
 		carregarArquivos(diretorio);
@@ -49,31 +49,40 @@ public class DiretorioSerializado {
 	}
 
 	/**
-	 * Carrega os arquivos do diretï¿½rio para a lista de arquivos.
+	 * Carrega os arquivos do diretório para a lista de arquivos.
 	 * 
-	 * @param diretorio Diretï¿½rio do qual serï¿½o lidos os arquivos.
+	 * @param diretorio Diretório do qual serão lidos os arquivos.
 	 */
 	private void carregarArquivos(File diretorio) {
-		File[] filhos = diretorio.listFiles();
-		for (File filho : filhos) {
-                    if (!filho.isHidden()) {
-			if(filho.isFile()) {
-				adicionarArquivo(filho);
+		if (!diretorio.isHidden()) {			
+			File[] filhos = diretorio.listFiles();
+			
+			if (filhos.length > 0) {
+				for (File filho : filhos) {
+					if(filho.isFile()) {
+						adicionarArquivo(filho);
+					} else {
+						carregarArquivos(filho);
+					}
+				}
 			} else {
-				carregarArquivos(filho);
+				adicionarArquivo(diretorio);
 			}
-                    }
 		}
+		
 	}
 
 	/**
-	 * Adiciona um novo arquivo a lista do diretï¿½rio
+	 * Adiciona um novo arquivo a lista do diretório
 	 * 
 	 * @param filho Arquivo
 	 */
 	private void adicionarArquivo(File filho) {
-		Arquivo arquivo = new Arquivo(filho, arquivos.size() + 1, diretorio.getAbsolutePath());
-		arquivos.add(arquivo);
+		if (filho.isHidden()) {
+			return;
+		}
+		
+		arquivos.add(new Arquivo(filho, arquivos.size() + 1, diretorio.getAbsolutePath()));
 	}
 
 	/**
@@ -86,7 +95,7 @@ public class DiretorioSerializado {
 	}
 
 	/**
-	 * Retorna o numero de arquivos contidos no diretï¿½rio representado.
+	 * Retorna o numero de arquivos contidos no diretório representado.
 	 * 
 	 * @return tamanho da lista de arquivos
 	 */
@@ -97,9 +106,9 @@ public class DiretorioSerializado {
 	/**
 	 * Rretorna o arquivo pelo indice na lista.
 	 * 
-	 * @param indice Posiï¿½ï¿½o do arquivo na lista.
+	 * @param indice Posição do arquivo na lista.
 	 * 
-	 * @return Retorna o arquivo ou null caso nï¿½o exista arquivo com este ï¿½ndice.
+	 * @return Retorna o arquivo ou null caso não exista arquivo com este índice.
 	 */
 	public Arquivo get(int indice) {
 		if (indice < 0 || arquivos.size() < indice) {
@@ -110,7 +119,7 @@ public class DiretorioSerializado {
 	}
 
 	/**
-	 * Getter para a lista de arquivos ainda nï¿½o verificados.
+	 * Getter para a lista de arquivos ainda não verificados.
 	 * 
 	 * @return A lista de arquivos.
 	 */

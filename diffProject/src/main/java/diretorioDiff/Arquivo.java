@@ -13,6 +13,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.activation.MimetypesFileTypeMap;
+
 import algorithms.LineGrain;
 
 
@@ -53,6 +55,8 @@ public class Arquivo {
 	 * Path diretório base comparação
 	 */
 	private String pathBaseComparacao;
+
+	private String contentType;
 	
 	/**
 	 * Getter para o arquivo.
@@ -87,7 +91,18 @@ public class Arquivo {
 		this.id = id;
 		this.pathBaseComparacao = pathBaseComparacao;
 		gerarHash();
+		
+		contentType = new MimetypesFileTypeMap().getContentType(getArquivo());
+
 		carregarLinhas();
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isText() {
+		return contentType.startsWith("text");
 	}
 	
 
@@ -95,26 +110,28 @@ public class Arquivo {
 	 * Carrega as linhas contidas no arquivo.
 	 */
 	private void carregarLinhas() {
-		linhas = new ArrayList<Linha>();
-		String line = null;
-		BufferedReader reader = null;
-		try {
-			int idStart = 0;
-			reader = new BufferedReader(new FileReader(getArquivo()));
-			while ((line = reader.readLine()) != null) {
-				linhas.add(new Linha(line, linhas.size() + 1, idStart));
-				idStart = idStart + line.length()+1;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		if (isArquivo() || isText()) {		
+			linhas = new ArrayList<Linha>();
+			String line = null;
+			BufferedReader reader = null;
+			try {
+				int idStart = 0;
+				reader = new BufferedReader(new FileReader(getArquivo()));
+				while ((line = reader.readLine()) != null) {
+					linhas.add(new Linha(line, linhas.size() + 1, idStart));
+					idStart = idStart + line.length()+1;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (reader != null) {
+					try {
+						reader.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -127,39 +144,43 @@ public class Arquivo {
 	 * @return Código hash MD5
 	 */
 	private void gerarHash() {
-
-		try {
-			MessageDigest digest = MessageDigest.getInstance("MD5");
-			InputStream is = new FileInputStream(getArquivo());
-			byte[] buffer = new byte[8192];
-			String output = "";
-			int read = 0;
+		if(isArquivo()) {
 			try {
-				while ((read = is.read(buffer)) > 0) {
-					digest.update(buffer, 0, read);
-				}
-				byte[] md5sum = digest.digest();
-				BigInteger bigInt = new BigInteger(1, md5sum);
-				output = bigInt.toString(16);
-			} catch (IOException e) {
-				throw new RuntimeException(
-						"Não foi possivel processar o arquivo.", e);
-			} finally {
+				MessageDigest digest = MessageDigest.getInstance("MD5");
+				InputStream is = new FileInputStream(getArquivo());
+				byte[] buffer = new byte[8192];
+				String output = "";
+				int read = 0;
 				try {
-					is.close();
+					while ((read = is.read(buffer)) > 0) {
+						digest.update(buffer, 0, read);
+					}
+					byte[] md5sum = digest.digest();
+					BigInteger bigInt = new BigInteger(1, md5sum);
+					output = bigInt.toString(16);
 				} catch (IOException e) {
 					throw new RuntimeException(
-							"Não foi possivel fechar o arquivo", e);
+							"Não foi possivel processar o arquivo.", e);
+				} finally {
+					try {
+						is.close();
+					} catch (IOException e) {
+						throw new RuntimeException(
+								"Não foi possivel fechar o arquivo", e);
+					}
 				}
+				hash = output;
+			} catch (NoSuchAlgorithmException e) {
+				throw new RuntimeException("Algoritmo MD5 não foi encontrado.", e);
+			} catch (FileNotFoundException e) {
+				throw new RuntimeException("Não foi possivel carregar o arquivo.",
+						e);
 			}
-			hash = output;
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException("Algoritmo MD5 não foi encontrado.", e);
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Não foi possivel carregar o arquivo.",
-					e);
 		}
+	}
 
+	boolean isArquivo() {
+		return getArquivo().isFile();
 	}
 
 	/*
@@ -180,7 +201,15 @@ public class Arquivo {
 		}
 
 		Arquivo other = (Arquivo) obj;
-
+		
+		if(!isArquivo()) {			
+			if(other.isArquivo()) {
+				return false;
+			}
+			
+			return other.getPathRelativo().equals(getPathRelativo());
+		}
+		
 		if (hash == null) {
 			if (other.hash != null) {
 				return false;

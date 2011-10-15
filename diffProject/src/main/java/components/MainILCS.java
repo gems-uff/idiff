@@ -578,8 +578,14 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param fileTo 
      */
     private void loadTreeFiles(File fileFrom, File fileTo) {
-        treeComponent.constructTree(dirTree1, fileFrom, leftScrollPane, "Left ");
-        treeComponent.constructTree(dirTree2, fileTo, rightScrollPane, "Right ");
+        try {
+            treeComponent.constructTree(dirTree1, fileFrom, leftScrollPane, "Left ");
+            treeComponent.constructTree(dirTree2, fileTo, rightScrollPane, "Right ");
+        } catch (SecurityException ex) {
+            Logger.getLogger(MainILCS.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(MainILCS.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
