@@ -7,7 +7,7 @@ import diretorioDiff.Arquivo;
 
 
 /**
- * Representa o resultado de comparação entre dois diretórios
+ * Representa o resultado de comparaï¿½ï¿½o entre dois diretï¿½rios
  * 
  * @author Eraldo
  *
@@ -15,7 +15,7 @@ import diretorioDiff.Arquivo;
 public class Resultado {
 
 	/**
-	 * Valor correspondente ao percentual idéntico.
+	 * Valor correspondente ao percentual idï¿½ntico.
 	 */
 	public static final int PERCENTUAL_IDENTICO = 100;
 	
@@ -49,7 +49,7 @@ public class Resultado {
 	/**
 	 * Adiciona um resultado do tipo DELETADO.
 	 * 
-	 * @param deletado Arquivo que foi removido do diretório base.
+	 * @param deletado Arquivo que foi removido do diretï¿½rio base.
 	 */
 	public void addDeletado(Arquivo deletado) {
 		add(new ResultadoArquivo(deletado, TipoResultado.DELETADO));
@@ -59,7 +59,7 @@ public class Resultado {
 	/**
 	 * Adiciona um resultado do tipo ADICIONADO.
 	 * 
-	 * @param adicionado Arquivo que foi adicionado no diretório comparado.
+	 * @param adicionado Arquivo que foi adicionado no diretï¿½rio comparado.
 	 */
 	public void addAdicionado(Arquivo adicionado) {
 		add(new ResultadoArquivo(adicionado, TipoResultado.ADICIONADO));
@@ -67,7 +67,7 @@ public class Resultado {
 
 	/**
 	 * Adiciona um resultado que pode ser do tipo INALTERADO, EDITADO ou MOVIDO.
-	 * @param base Arquivo base da comparação.
+	 * @param base Arquivo base da comparaï¿½ï¿½o.
 	 * @param comparado Arquivo comparado.
 	 * @param similaridade Grau de similaridade entre os arquivos.
 	 */
@@ -76,9 +76,9 @@ public class Resultado {
 	}
 
 	/**
-	 * Marca um resultado como escolha do Algoritmo Húngaro.
+	 * Marca um resultado como escolha do Algoritmo Hï¿½ngaro.
 	 *  
-	 * @param base Arquivo base da comparação.
+	 * @param base Arquivo base da comparaï¿½ï¿½o.
 	 * @param comparado Arquivo comparado.
 	 */
 	public void setEscolhaHungaro(Arquivo base, Arquivo comparado) {
@@ -116,7 +116,19 @@ public class Resultado {
 		ArrayList<ResultadoArquivo> lista = new ArrayList<ResultadoArquivo>();
 		
 		for (ResultadoArquivo resultado : resultadosArquivo) {
-			if (resultado.getBase() != null && resultado.getBase().getId() == idArquivo) {
+			if (resultado.haveFrom() && resultado.getBase().getId() == idArquivo) {
+				lista.add(resultado);
+			}
+		}
+		
+		return lista;
+	}
+
+	public List<ResultadoArquivo> getResultadosByTo(int idArquivo) {
+		ArrayList<ResultadoArquivo> lista = new ArrayList<ResultadoArquivo>();
+		
+		for (ResultadoArquivo resultado : resultadosArquivo) {
+			if (resultado.haveTo() && resultado.getPara().getId() == idArquivo) {
 				lista.add(resultado);
 			}
 		}

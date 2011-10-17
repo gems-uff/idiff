@@ -3,6 +3,8 @@
  */
 package diretorioDiff.arvore;
 
+import java.awt.Color;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
@@ -11,8 +13,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class No extends DefaultMutableTreeNode {
 
-	private final int id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7645350569868965158L;
 
+	private final int id;
+	
+	private Color color = null;
+
+	private boolean directory = false;
+	
+	private String toolType = "";
+	
 	/**
 	 * @param nomeNo
 	 * @param idNo 
@@ -29,4 +42,33 @@ public class No extends DefaultMutableTreeNode {
 		return id;
 	}
 
+	/**
+	 * @param color the color to set
+	 */
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	/**
+	 * @return the color
+	 */
+	public Color getColor() {
+		return color;
+	}
+
+	public void setDirectory(boolean directory) {
+		this.directory = directory;
+	}
+
+	public boolean isDirectory() {
+		return directory;
+	}
+
+	public void setToolType(String toolType) {
+		this.toolType = toolType;
+	}
+
+	public String getToolType() {
+		return toolType;
+	}
 }

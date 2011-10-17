@@ -1,15 +1,27 @@
 package diretorioDiff.resultados;
 
+import java.awt.Color;
+
 
 public enum TipoResultado {
 	
-	ADICIONADO,
+	ADICIONADO(Color.CYAN),
 	
-	DELETADO,
+	DELETADO(Color.RED),
 	
-	EDITADO,
+	EDITADO(Color.ORANGE),
 	
-	MOVIDO, 
+	MOVIDO(Color.YELLOW), 
 	
-	INALTERADO
+	INALTERADO(Color.LIGHT_GRAY);
+
+	private final Color color;
+
+	private TipoResultado (Color color) {
+		this.color = color;		
+	}
+
+	public Color getColor() {
+		return color;
+	}
 }

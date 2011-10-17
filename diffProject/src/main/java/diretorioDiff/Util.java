@@ -1,9 +1,10 @@
 package diretorioDiff;
 
+import java.io.File;
 import java.util.Arrays;
 
 /**
- * Classe com metódos utilitarios.
+ * Classe com metï¿½dos utilitarios.
  * 
  * @author Eraldo
  *
@@ -11,16 +12,16 @@ import java.util.Arrays;
 public class Util {
 	
 	/**
-	 * Construtor padrão
+	 * Construtor padrï¿½o
 	 */
 	private Util() {
 
 	}
 
 	/**
-	 * Cria um array de inteiros e atribui um valor padrão para cada posição.
+	 * Cria um array de inteiros e atribui um valor padrï¿½o para cada posiï¿½ï¿½o.
 	 * @param tamanho Tamanho do array
-	 * @param padrao Valor padrão
+	 * @param padrao Valor padrï¿½o
 	 * @return array criado.
 	 */
 	public static int[] criarArray(int tamanho, int padrao) {
@@ -30,10 +31,10 @@ public class Util {
 	}
 	
 	/**
-	 * Atribui o valor padrão a cada elemento da matriz.
+	 * Atribui o valor padrï¿½o a cada elemento da matriz.
 	 * 
 	 * @param matriz Matriz
-	 * @param padrao Valor padrão
+	 * @param padrao Valor padrï¿½o
 	 */
 	public static void atribuir(int[][] matriz, int padrao) {
 		for (int i = 0; i < matriz.length; i++) {
@@ -44,14 +45,43 @@ public class Util {
 	}
 
 	/**
-	 * Cria um array de booleanos e atribui um valor padrão para cada posição.
+	 * Cria um array de booleanos e atribui um valor padrï¿½o para cada posiï¿½ï¿½o.
 	 * @param tamanho Tamanho do array
-	 * @param padrao Valor padrão
+	 * @param padrao Valor padrï¿½o
 	 * @return array criado.
 	 */
 	public static boolean[] criarArray(int tamanho, boolean padrao) {
 		boolean[] array = new boolean[tamanho];
 		Arrays.fill(array, padrao);
 		return array;
+	}
+
+	/**
+	 * @param directory
+	 * @return
+	 */
+	public static boolean isValidDirectory(File directory) {
+		if (directory == null) {
+			return false;
+		}
+		
+		if (directory.isHidden()) {
+			return false;
+		}
+		
+		if (!directory.isDirectory()) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	/**
+	 * 
+	 * @param directory 
+	 * @return
+	 */
+	public static boolean isNotValidDirectory(File directory) {
+		return !isValidDirectory(directory);
 	}
 }

@@ -1,9 +1,12 @@
 package components;
 
 import diretorioDiff.DiretorioDiff;
+import diretorioDiff.DiretorioDiffException;
 import diretorioDiff.arvore.Arvore;
 import diretorioDiff.resultados.Resultado;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -16,11 +19,9 @@ import org.jdesktop.application.Action;
  */
 public class MainDDiff extends JFrame {
 
-    private java.awt.Toolkit toolkit = java.awt.Toolkit.getDefaultToolkit();
+    private Arvore fromTree;
 
-    Arvore fromTree;
-
-    Arvore toTree;
+    private Arvore toTree;
 
     private File from;
     
@@ -42,8 +43,12 @@ public class MainDDiff extends JFrame {
 
         from = directoryFrom;
         to = directoryTo;
-
-        loadTree();
+        
+        try {
+            loadTree();
+        } catch (DiretorioDiffException ex) {
+            Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Action
@@ -57,9 +62,7 @@ public class MainDDiff extends JFrame {
     public void execute() {
         labelProcess.setText("Processing...");
 
-        DiretorioDiff diretorioDiff = new DiretorioDiff();
-
-	Resultado resultado = diretorioDiff.compararDiretorios(from, to);
+	Resultado resultado = DiretorioDiff.compararDiretorios(from, to);
 
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
@@ -67,12 +70,9 @@ public class MainDDiff extends JFrame {
         labelProcess.setText("");
     }
 
-    private void loadTree() {
-        fromTree = new Arvore(from, true);
-        toTree = new Arvore(to);
-
-        fromTree.setAssociada(toTree);
-        toTree.setAssociada(fromTree);
+    private void loadTree() throws DiretorioDiffException {
+        fromTree = Arvore.getBaseTree(from);
+        toTree = Arvore.getComparedTree(to, fromTree);
 
         scrollTreeFrom.setViewportView(fromTree);
         scrollTreeTo.setViewportView(toTree);
@@ -82,7 +82,7 @@ public class MainDDiff extends JFrame {
      * Init 
      */
     private void init() {
-        setlaf();
+        //setlaf();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
     }
@@ -136,8 +136,8 @@ public class MainDDiff extends JFrame {
         scrollTreeTo = new javax.swing.JScrollPane();
         toolBar = new javax.swing.JToolBar();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        runMenuBar = new javax.swing.JButton();
-        drillDownButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        drillDownButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         labelProcess = new javax.swing.JLabel();
 
@@ -214,29 +214,28 @@ public class MainDDiff extends JFrame {
         toolBar.add(jSeparator2);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
-        runMenuBar.setAction(actionMap.get("execute")); // NOI18N
-        runMenuBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/execute.png"))); // NOI18N
-        runMenuBar.setBorder(null);
-        runMenuBar.setContentAreaFilled(false);
-        runMenuBar.setFocusable(false);
-        runMenuBar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        runMenuBar.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        runMenuBar.setMaximumSize(new java.awt.Dimension(39, 39));
-        runMenuBar.setMinimumSize(new java.awt.Dimension(39, 39));
-        runMenuBar.setName("runMenuBar"); // NOI18N
-        runMenuBar.setPreferredSize(new java.awt.Dimension(39, 39));
-        runMenuBar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(runMenuBar);
+        jButton1.setAction(actionMap.get("execute")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/execute.png"))); // NOI18N
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setIconTextGap(200);
+        jButton1.setName("jButton1"); // NOI18N
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(jButton1);
 
-        drillDownButton.setAction(actionMap.get("drillDown")); // NOI18N
-        drillDownButton.setFont(new java.awt.Font("sansserif", 1, 12));
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDDiff.class);
-        drillDownButton.setIcon(resourceMap.getIcon("drillDownButton.icon")); // NOI18N
-        drillDownButton.setBorderPainted(false);
-        drillDownButton.setContentAreaFilled(false);
-        drillDownButton.setName("drillDownButton"); // NOI18N
-        drillDownButton.setRequestFocusEnabled(false);
-        toolBar.add(drillDownButton);
+        drillDownButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        drillDownButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/zoom.png"))); // NOI18N
+        drillDownButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        drillDownButton1.setBorderPainted(false);
+        drillDownButton1.setContentAreaFilled(false);
+        drillDownButton1.setFocusable(false);
+        drillDownButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        drillDownButton1.setIconTextGap(200);
+        drillDownButton1.setName("drillDownButton1"); // NOI18N
+        drillDownButton1.setRequestFocusEnabled(false);
+        drillDownButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(drillDownButton1);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setName("jPanel1"); // NOI18N
@@ -292,11 +291,11 @@ public class MainDDiff extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel directoryPanel1;
     private javax.swing.JPanel directoryPanel2;
-    private javax.swing.JButton drillDownButton;
+    private javax.swing.JButton drillDownButton1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JLabel labelProcess;
-    private javax.swing.JButton runMenuBar;
     private javax.swing.JScrollPane scrollTreeFrom;
     private javax.swing.JScrollPane scrollTreeTo;
     private javax.swing.JSplitPane splitPanel;
