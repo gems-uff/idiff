@@ -259,8 +259,8 @@ public final class MainILCS extends javax.swing.JFrame {
 
         exitLabel.setText(bundle.getString("MainILCS.exitLabel.text")); // NOI18N
 
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/components/icons/icone_help.png"))); // NOI18N
 
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("/components/icons/icone_help.png"))); // NOI18N
         GroupLayout exitDialogLayout = new GroupLayout(exitDialog.getContentPane());
         exitDialog.getContentPane().setLayout(exitDialogLayout);
         exitDialogLayout.setHorizontalGroup(
@@ -290,7 +290,7 @@ public final class MainILCS extends javax.swing.JFrame {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(bundle.getString("MainILCS.title")); // NOI18N
         setIconImages(null);
         setMinimumSize(new Dimension(1365, 700));
@@ -426,16 +426,14 @@ public final class MainILCS extends javax.swing.JFrame {
         leftScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.leftScrollPane.border.title"))); // NOI18N
 
         leftPane.setBorder(null);
-        leftPane.setAutoscrolls(true);
         leftPane.setMaximumSize(new Dimension(800, 600));
         leftPane.setMinimumSize(new Dimension(102, 18));
         leftScrollPane.setViewportView(leftPane);
 
         splitPaneRight.setLeftComponent(leftScrollPane);
 
-        rightScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.rightScrollPane.border.title"))); // NOI18N
 
-        rightPane.setAutoscrolls(true);
+        rightScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.rightScrollPane.border.title"))); // NOI18N
         rightPane.setMaximumSize(new Dimension(800, 600));
         rightPane.setMinimumSize(new Dimension(102, 18));
         rightPane.setPreferredSize(new Dimension(131, 65));
@@ -459,9 +457,7 @@ public final class MainILCS extends javax.swing.JFrame {
                 "Content", "Situation", "From (Left)", "To (Right)"
             }
         ) {
-            Class[] types = new Class [] {
-                String.class, String.class, String.class, String.class
-            };
+            Class[] types = new Class[]{String.class, String.class, String.class, String.class};
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
@@ -483,10 +479,10 @@ public final class MainILCS extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.LEADING)
-            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1373, Short.MAX_VALUE)
+            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1389, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1361, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1369, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

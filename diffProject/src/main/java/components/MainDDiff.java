@@ -1,10 +1,15 @@
 package components;
 
+import algorithms.DiffException;
 import diretorioDiff.DiretorioDiff;
 import diretorioDiff.DiretorioDiffException;
 import diretorioDiff.arvore.Arvore;
+import diretorioDiff.arvore.No;
 import diretorioDiff.resultados.Resultado;
+import diretorioDiff.resultados.ResultadoArquivo;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -78,12 +83,67 @@ public class MainDDiff extends JFrame {
         scrollTreeTo.setViewportView(toTree);
     }
 
+    @Action
+    public void drill(){
+        if(toTree != null) {
+            No no = toTree.getNoSelecionado();
+
+            if (no != null) {
+                for (ResultadoArquivo resultado: no.getResultados()) {
+                    if (resultado.haveFrom() && resultado.haveTo() && resultado.getBase().isText()){
+                        try {
+                            showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), "CHARACTER", true, true, setTags());
+                        } catch (DiffException ex) {
+                            Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+        MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, showDiff, showMove, tags);
+        ilcs.setVisible(true);
+    }
+
+    /**
+     * Set Tags
+     * @return String
+     */
+    private String setTags() {
+        String tag = "[\\s";
+        tag = setTag(tag, true, "\\.");
+        tag = setTag(tag, true, "\\;");
+        tag = setTag(tag, true, "\\,");
+        tag = setTag(tag, true, "\\(\\)");
+        tag = setTag(tag, true, "\\[\\]");
+        tag = setTag(tag,true, "\\{\\}");
+        return tag + "]";
+    }
+
+
+
+    private String setTag(String tag, boolean selected, String separator) {
+        if (selected) {
+            return tag + separator;
+        }
+        return tag;
+    }
+
     /**
      * Init 
      */
     private void init() {
         //setlaf();
         setLocationRelativeTo(null);
+        btnExecute.setIcon(new ImageIcon("src/main/resources/components/icons/execute.png"));
+        btnDrill.setIcon(new ImageIcon("src/main/resources/components/icons/zoom.png"));
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
     }
 
@@ -136,8 +196,10 @@ public class MainDDiff extends JFrame {
         scrollTreeTo = new javax.swing.JScrollPane();
         toolBar = new javax.swing.JToolBar();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        jButton1 = new javax.swing.JButton();
-        drillDownButton1 = new javax.swing.JButton();
+        btnExecute = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnDrill = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
         jPanel1 = new javax.swing.JPanel();
         labelProcess = new javax.swing.JLabel();
 
@@ -214,28 +276,43 @@ public class MainDDiff extends JFrame {
         toolBar.add(jSeparator2);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
-        jButton1.setAction(actionMap.get("execute")); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/execute.png"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setIconTextGap(200);
-        jButton1.setName("jButton1"); // NOI18N
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(jButton1);
+        btnExecute.setAction(actionMap.get("execute")); // NOI18N
+        btnExecute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/execute.png"))); // NOI18N
+        btnExecute.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnExecute.setContentAreaFilled(false);
+        btnExecute.setFocusable(false);
+        btnExecute.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExecute.setIconTextGap(200);
+        btnExecute.setLabel("");
+        btnExecute.setMaximumSize(new java.awt.Dimension(35, 35));
+        btnExecute.setMinimumSize(new java.awt.Dimension(35, 35));
+        btnExecute.setName("btnExecute"); // NOI18N
+        btnExecute.setPreferredSize(new java.awt.Dimension(35, 35));
+        btnExecute.setRequestFocusEnabled(false);
+        btnExecute.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(btnExecute);
+        btnExecute.getAccessibleContext().setAccessibleName("");
 
-        drillDownButton1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        drillDownButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/zoom.png"))); // NOI18N
-        drillDownButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        drillDownButton1.setBorderPainted(false);
-        drillDownButton1.setContentAreaFilled(false);
-        drillDownButton1.setFocusable(false);
-        drillDownButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        drillDownButton1.setIconTextGap(200);
-        drillDownButton1.setName("drillDownButton1"); // NOI18N
-        drillDownButton1.setRequestFocusEnabled(false);
-        drillDownButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(drillDownButton1);
+        jSeparator3.setName("jSeparator3"); // NOI18N
+        toolBar.add(jSeparator3);
+
+        btnDrill.setAction(actionMap.get("drill")); // NOI18N
+        btnDrill.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        btnDrill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/zoom.png"))); // NOI18N
+        btnDrill.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnDrill.setContentAreaFilled(false);
+        btnDrill.setFocusable(false);
+        btnDrill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDrill.setIconTextGap(200);
+        btnDrill.setName("btnDrill"); // NOI18N
+        btnDrill.setOpaque(true);
+        btnDrill.setRequestFocusEnabled(false);
+        btnDrill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(btnDrill);
+        btnDrill.getAccessibleContext().setAccessibleName("");
+
+        jSeparator4.setName("jSeparator4"); // NOI18N
+        toolBar.add(jSeparator4);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setName("jPanel1"); // NOI18N
@@ -289,12 +366,14 @@ public class MainDDiff extends JFrame {
     }//GEN-LAST:event_splitPanelComponentResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDrill;
+    private javax.swing.JButton btnExecute;
     private javax.swing.JPanel directoryPanel1;
     private javax.swing.JPanel directoryPanel2;
-    private javax.swing.JButton drillDownButton1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JLabel labelProcess;
     private javax.swing.JScrollPane scrollTreeFrom;
     private javax.swing.JScrollPane scrollTreeTo;

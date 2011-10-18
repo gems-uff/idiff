@@ -5,6 +5,10 @@ package diretorioDiff.arvore;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -49,6 +53,13 @@ public class Arvore extends JTree {
 
 	private Arvore(File diretorio, Arvore associada) {
 		super(loadNodes(diretorio));
+		
+		this.associada = associada;
+		if (associada != null) {
+			associada.associada = this;
+		}
+		
+		this.base = associada == null;
 
 		getSelectionModel().setSelectionMode(
 				TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
@@ -57,22 +68,72 @@ public class Arvore extends JTree {
 
 		setCellRenderer(new NodeRenderer());
 
-		addMouseListener((new MouseAdapter() {
+		addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent paramMouseEvent) {
+				//executeEvent(paramMouseEvent);
+			}
 
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				super.mouseClicked(e);
-				executeEvent(e);
+			public void mouseDragged(MouseEvent paramMouseEvent) {
+				
 			}
-		}));
+		});
+		
+		addMouseListener(new MouseListener() {
+				
+			@Override
+			public void mouseClicked(MouseEvent paramMouseEvent) {
+				executeEvent(paramMouseEvent);				
+			}
 
-		this.associada = associada;
-		if (associada != null) {
-			associada.associada = this;
+			@Override
+			public void mousePressed(MouseEvent paramMouseEvent) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent paramMouseEvent) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent paramMouseEvent) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent paramMouseEvent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
+		setToolTipText("");
+		
+	}
+
+	@Override
+	public String getToolTipText(MouseEvent evt) {
+		
+		if(resultado != null) {
+			TreePath curPath = getPathForLocation(evt.getX(), evt.getY());
+			if (curPath != null) {
+				Object obj = curPath.getLastPathComponent();
+	
+				if (obj instanceof No) {
+					No no = (No) obj;
+					if (no.getId() != -1 && no.isShowColor() ) {
+						return no.getToolType();
+					}
+				}
+			}
 		}
-
-		this.base = associada == null;
+		return null;
 	}
 
 	public static Arvore getBaseTree(File directory)
@@ -106,7 +167,8 @@ public class Arvore extends JTree {
 		if (obj instanceof DefaultMutableTreeNode) {
 			if (obj instanceof No) {
 				No node = (No) obj;
-
+				node.setBase(isBase());
+				
 				if (node.getId() != -1) {
 					nos.add(node);
 				}
@@ -126,12 +188,11 @@ public class Arvore extends JTree {
 	 * @param me
 	 */
 	private void executeEvent(MouseEvent me) {
-		clearNodesColors();
+		desativarCoresNos();
 
 		if (associada != null) {
-			associada.clearNodesColors();
+			associada.desativarCoresNos();
 			associada.setSelectionPaths(new TreePath[0]);
-			associada.repaint();
 
 			if (resultado != null) {
 
@@ -144,60 +205,31 @@ public class Arvore extends JTree {
 
 					if (object instanceof No) {
 						No no = (No) object;
-
-						List<ResultadoArquivo> resultados = new ArrayList<ResultadoArquivo>();
-
-						if (isBase()) {
-							resultados = resultado.getResultadosByFrom(no
-									.getId());
-						} else {
-							resultados = resultado
-									.getResultadosByTo(no.getId());
-						}
-
-						if (resultados.size() > 0) {
-							ResultadoArquivo resultadoArquivo = resultados.get(0);
-							no.setColor(resultadoArquivo.getTipo().getColor());
-
-							if (!isBase()) {
-								String text = "";
-								if(resultadoArquivo.isEscolhaHungaro()){
-									text += "Hungarian Sugestion - ";
-								}
-								text += "(" + resultadoArquivo.getSimilaridade() + "%)";
-								no.setToolType(text);
-							}
-						}
-
-						associada.selecionarNos(resultados);
+						no.setShowColor(true);
+						
+						associada.selecionarNos(no.getIdsRelacionados());
 					}
-				}  else {
+				} else {
 					setSelectionPaths(new TreePath[0]);
 				}
 			}
+			associada.repaint();
 		}
 		repaint();
 	}
 
-	public void selecionarNos(List<ResultadoArquivo> resultados) {
-		if (resultados.isEmpty()) {
+	public void selecionarNos(List<Integer> ids) {
+		if (ids.isEmpty()) {
 			return;
 		}
 
 		List<TreePath> paths = new ArrayList<TreePath>();
 
-		for (ResultadoArquivo resultado : resultados) {
+		for (Integer id : ids) {
 
-			int id = -1;
-			if (!isBase() && resultado.haveTo()) {
-				id = resultado.getPara().getId();
-			} else if (isBase() && resultado.haveFrom()) {
-				id = resultado.getBase().getId();
-			}
-
-			if (id > 0) {
-				No no = getNo(id);
-				no.setColor(resultado.getTipo().getColor());
+			if (id.intValue() > 0) {
+				No no = getNo(id.intValue());
+				no.setShowColor(true);
 
 				TreePath path = new TreePath(no.getPath());
 				paths.add(path);
@@ -211,17 +243,9 @@ public class Arvore extends JTree {
 	/**
 	 * 
 	 */
-	private void clearNodesColors() {
-		TreePath[] selectionPaths = getSelectionPaths();
-		if (selectionPaths != null) {
-			for (TreePath treePath : selectionPaths) {
-				Object lastPathComponent = treePath.getLastPathComponent();
-				if (lastPathComponent instanceof No) {
-					No no = (No) lastPathComponent;
-					no.setColor(null);
-					no.setToolType("");
-				}
-			}
+	private void desativarCoresNos() {
+		for (No no : getNodes()) {
+			no.setShowColor(false);
 		}
 	}
 
@@ -279,8 +303,6 @@ public class Arvore extends JTree {
 			node = new No(nomeNo, idNodeTemp);
 		}
 
-		node.setDirectory(arquivo.isDirectory());
-
 		return node;
 	}
 
@@ -293,6 +315,21 @@ public class Arvore extends JTree {
 
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
+		
+		
+		if (resultado != null) {
+			for (ResultadoArquivo resultadoArquivo : resultado.getResultadosArquivo()) {
+				if (isBase()) {
+					if(resultadoArquivo.haveFrom()) {
+						getNo(resultadoArquivo.getBase().getId()).addResultado(resultadoArquivo);
+					}
+				} else {
+					if(resultadoArquivo.haveTo()) {
+						getNo(resultadoArquivo.getPara().getId()).addResultado(resultadoArquivo);
+					}
+				}
+			}
+		}
 	}
 
 	public Resultado getResultado() {
@@ -338,4 +375,18 @@ public class Arvore extends JTree {
 			collapsePath(parent);
 		}
 	}
+
+        public No getNoSelecionado() {
+            TreePath[] ps = getSelectionPaths();
+
+            if (ps.length > 0) {
+                Object obj = ps[0].getLastPathComponent();
+
+                if (obj instanceof No) {
+                    return (No) obj;
+                }
+            }
+
+            return null;
+        }
 }

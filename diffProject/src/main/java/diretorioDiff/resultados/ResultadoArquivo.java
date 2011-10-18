@@ -13,7 +13,7 @@ public class ResultadoArquivo {
 	private boolean escolhaHungaro = false;
 
 	/**
-	 * Cria uma classe para representar o resultado da comparação entre arquivos
+	 * Cria uma classe para representar o resultado da comparaï¿½ï¿½o entre arquivos
 	 * @param arquivo1
 	 * @param arquivo2
 	 * @param tipo
@@ -160,5 +160,17 @@ public class ResultadoArquivo {
 	
 	public boolean haveFrom() {
 		return getBase() != null;
+	}
+
+	public boolean isDirectory() {
+		if (haveFrom()) {
+			return getBase().isDirectory();
+		}
+		
+		if (haveTo()) {
+			return getPara().isDirectory();
+		}
+		
+		return false;
 	}
 }

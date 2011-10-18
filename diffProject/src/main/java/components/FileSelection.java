@@ -24,7 +24,7 @@ public class FileSelection extends javax.swing.JFrame {
      * Constructor 
      */
     public FileSelection() {
-        setlaf();
+        //setlaf();
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
         initComponents();
         setLocationRelativeTo(null);

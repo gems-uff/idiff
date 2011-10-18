@@ -14,11 +14,13 @@ public class NodeRenderer extends DefaultTreeCellRenderer  {
 	private static final long serialVersionUID = -1067924469099958702L;
 	private final Color backgroundColor2;
 	private final Color backgroundSelectionColor2;
+	private Color backgroundNonSelectionColor2;
 
 	public NodeRenderer() {
 		super();
 		backgroundColor2 = getBackground();
 		backgroundSelectionColor2 = getBackgroundSelectionColor();
+		backgroundNonSelectionColor2 = getBackgroundNonSelectionColor();
 	}
 	
 	@Override
@@ -38,24 +40,12 @@ public class NodeRenderer extends DefaultTreeCellRenderer  {
 		if (value instanceof No) {
 			No no = (No) value;
 			
-			if(no.getId() != -1){			
-				if(no.getColor() != null) {
-					setBackground(no.getColor());
-					setBackgroundSelectionColor(no.getColor());
-				} else {
-					setBackground(backgroundColor2);
-					setBackgroundSelectionColor(backgroundSelectionColor2);
-				}
-				
-				if(!no.getToolType().trim().isEmpty()) {
-					setToolTipText(no.getToolType());
-				} else {
-					setToolTipText(null);
-				}
+			if(no.isShowColor() && no.getId() != -1) {
+				setBackgroundSelectionColor(no.getColor());
+				setBackgroundNonSelectionColor(no.getColor());
 			} else {
-				setBackground(backgroundColor2);
 				setBackgroundSelectionColor(backgroundSelectionColor2);
-				setToolTipText(null);
+				setBackgroundNonSelectionColor(backgroundNonSelectionColor2);
 			}
 			
 			if (no.isDirectory()) {
@@ -65,6 +55,10 @@ public class NodeRenderer extends DefaultTreeCellRenderer  {
 					setIcon(getDefaultClosedIcon());
 				}
 			}
+		} else {
+			setBackground(backgroundColor2);
+			setBackgroundSelectionColor(backgroundSelectionColor2);
+			setBackgroundSelectionColor(backgroundNonSelectionColor2);
 		}
 		
 		return this;

@@ -19,7 +19,7 @@ import algorithms.LineGrain;
 
 
 /**
- * Guarda a representação do arquivo que deve ser comparado.
+ * Guarda a representaï¿½ï¿½o do arquivo que deve ser comparado.
  * 
  * @author Eraldo
  * 
@@ -32,7 +32,7 @@ public class Arquivo {
 	private File arquivo = null;
 
 	/**
-	 * Código hash do conteúdo do arquivo.
+	 * Cï¿½digo hash do conteï¿½do do arquivo.
 	 */
 	private String hash = "";
 	
@@ -42,17 +42,17 @@ public class Arquivo {
 	private List<Linha> linhas;
 
 	/**
-	 * Id como referência ao diretório base de comparação
+	 * Id como referï¿½ncia ao diretï¿½rio base de comparaï¿½ï¿½o
 	 */
 	private int id;
 
 	/**
-	 * Armazena se já foi localizado match do arquivo
+	 * Armazena se jï¿½ foi localizado match do arquivo
 	 */
 	private boolean match;
 
 	/**
-	 * Path diretório base comparação
+	 * Path diretï¿½rio base comparaï¿½ï¿½o
 	 */
 	private String pathBaseComparacao;
 
@@ -68,7 +68,7 @@ public class Arquivo {
 	}
 
 	/**
-	 * Getter para o hash do conteúdo do arquivo
+	 * Getter para o hash do conteï¿½do do arquivo
 	 * 
 	 * @return
 	 */
@@ -78,7 +78,7 @@ public class Arquivo {
 
 	
 	/**
-	 * Construtor padrão
+	 * Construtor padrï¿½o
 	 * 
 	 * @param arquivo
 	 *            Arquivo que deve ser representado.
@@ -139,9 +139,9 @@ public class Arquivo {
 	
 	
 	/**
-	 * Gera um código hash MD5 com o conteúdo do arquivo representado.
+	 * Gera um cï¿½digo hash MD5 com o conteï¿½do do arquivo representado.
 	 * 
-	 * @return Código hash MD5
+	 * @return Cï¿½digo hash MD5
 	 */
 	private void gerarHash() {
 		if(isArquivo()) {
@@ -160,20 +160,20 @@ public class Arquivo {
 					output = bigInt.toString(16);
 				} catch (IOException e) {
 					throw new RuntimeException(
-							"Não foi possivel processar o arquivo.", e);
+							"Nï¿½o foi possivel processar o arquivo.", e);
 				} finally {
 					try {
 						is.close();
 					} catch (IOException e) {
 						throw new RuntimeException(
-								"Não foi possivel fechar o arquivo", e);
+								"Nï¿½o foi possivel fechar o arquivo", e);
 					}
 				}
 				hash = output;
 			} catch (NoSuchAlgorithmException e) {
-				throw new RuntimeException("Algoritmo MD5 não foi encontrado.", e);
+				throw new RuntimeException("Algoritmo MD5 nï¿½o foi encontrado.", e);
 			} catch (FileNotFoundException e) {
-				throw new RuntimeException("Não foi possivel carregar o arquivo.",
+				throw new RuntimeException("Nï¿½o foi possivel carregar o arquivo.",
 						e);
 			}
 		}
@@ -245,7 +245,7 @@ public class Arquivo {
 	}
 
 	/**
-	 * Retorna o path relativo ao diretório base de comparação.
+	 * Retorna o path relativo ao diretï¿½rio base de comparaï¿½ï¿½o.
 	 * 
 	 * @return String com o path.
 	 */
@@ -254,7 +254,7 @@ public class Arquivo {
 	}
 
 	/**
-	 * Calcula o tamanho das linhas sem match, desconsiderando os espaços em branco.
+	 * Calcula o tamanho das linhas sem match, desconsiderando os espaï¿½os em branco.
 	 * 
 	 * @return tamanho as linhas
 	 */
@@ -294,5 +294,13 @@ public class Arquivo {
 	 */
 	public int getId() {
 		return id;
+	}
+
+	public boolean isDirectory() {
+		if (getArquivo() != null) {
+			return getArquivo().isDirectory();
+		}
+		
+		return false;
 	}
 }
