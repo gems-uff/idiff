@@ -45,7 +45,7 @@ public class FileComponent {
      * @throws MalformedURLException
      * @throws IOException 
      */
-    private boolean submitFile(File file, JTextPane editorPane) throws MalformedURLException, IOException {
+    public boolean submitFile(File file, JTextPane editorPane) throws MalformedURLException, IOException {
         java.net.URL transferURL = file.toURI().toURL();
         editorPane.setPage(transferURL);
         return true;

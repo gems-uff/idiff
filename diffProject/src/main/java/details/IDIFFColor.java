@@ -1,4 +1,4 @@
-package components;
+package details;
 
 import java.awt.Color;
 
@@ -6,7 +6,7 @@ import java.awt.Color;
  * GranularityColor
  * @author Fernanda Floriano Silva
  */
-public class GranularityColor {
+public class IDIFFColor {
 
     /**
      * Get removed color
@@ -50,5 +50,13 @@ public class GranularityColor {
 
     static Color getDisabledForeground() {
         return Color.decode("#bebebe");
+    }
+
+    static Color getSimilarityColor() {
+        return Color.decode("#FFFF00");
+    }
+
+    static Color getSimilarityHighLightColor() {
+        return Color.decode("#FFAE42");
     }
 }

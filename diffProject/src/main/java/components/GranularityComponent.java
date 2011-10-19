@@ -1,5 +1,6 @@
 package components;
 
+import details.IDIFFStyles;
 import algorithms.Grain;
 import algorithms.GrainBean;
 import algorithms.IResultDiff;
@@ -69,7 +70,6 @@ public class GranularityComponent {
         }
     }
 
-    
     /**
      * Set Moved Granularity
      * @param grainBeanFrom

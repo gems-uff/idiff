@@ -1,4 +1,4 @@
-package components;
+package details;
 
 import java.awt.Point;
 import java.awt.event.AdjustmentEvent;

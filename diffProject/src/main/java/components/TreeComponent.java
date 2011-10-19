@@ -1,6 +1,5 @@
 package components;
 
-import java.awt.Insets;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

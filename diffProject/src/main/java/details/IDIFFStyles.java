@@ -1,4 +1,4 @@
-package components;
+package details;
 
 import algorithms.GrainBean;
 import java.awt.Color;
@@ -28,7 +28,7 @@ public class IDIFFStyles {
     public static void setStyleData(String styleName, StyledDocument doc, Color backgroundColor) {
         Style style = doc.addStyle(styleName, null);
         StyleConstants.setBackground(style, backgroundColor);
-        StyleConstants.setForeground(style, GranularityColor.getForegroundBlack());
+        StyleConstants.setForeground(style, IDIFFColor.getForegroundBlack());
     }
 
     /**
@@ -36,7 +36,7 @@ public class IDIFFStyles {
      * @param doc 
      */
     public static void setMoveStyle(StyledDocument doc) {
-        setStyleData("MoveStyle", doc, GranularityColor.getMovedColor());
+        setStyleData("MoveStyle", doc, IDIFFColor.getMovedColor());
     }
 
     /**
@@ -45,7 +45,7 @@ public class IDIFFStyles {
      */
     public static void setDisabledStyle(StyledDocument doc) {
         Style style = doc.addStyle("DisabledStyle", null);
-        StyleConstants.setForeground(style, GranularityColor.getDisabledForeground());
+        StyleConstants.setForeground(style, IDIFFColor.getDisabledForeground());
     }
 
     /**
@@ -53,7 +53,7 @@ public class IDIFFStyles {
      * @param doc 
      */
     public static void setAddStyle(StyledDocument doc) {
-        setStyleData("AddStyle", doc, GranularityColor.getAddedColor());
+        setStyleData("AddStyle", doc, IDIFFColor.getAddedColor());
     }
 
     /**
@@ -61,7 +61,7 @@ public class IDIFFStyles {
      * @param doc 
      */
     public static void setRemoveStyle(StyledDocument doc) {
-        setStyleData("RemoveStyle", doc, GranularityColor.getRemovedColor());
+        setStyleData("RemoveStyle", doc, IDIFFColor.getRemovedColor());
     }
 
     /**
@@ -69,7 +69,7 @@ public class IDIFFStyles {
      * @param doc 
      */
     public static void setUnchangedStyle(StyledDocument doc) {
-        setStyleData("UnchangedStyle", doc, GranularityColor.getUnchangedColor());
+        setStyleData("UnchangedStyle", doc, IDIFFColor.getUnchangedColor());
     }
 
     /** 
