@@ -1,15 +1,13 @@
 package components;
 
 import algorithms.DiffException;
-import java.awt.Color;
+import details.Icon;
+import details.Laf;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Action;
 
 /**
@@ -18,33 +16,15 @@ import org.jdesktop.application.Action;
  */
 public class FileSelection extends javax.swing.JFrame {
 
-    private JFileChooser fileChooser;
-
+    //private JFileChooser fileChooser;
     /**
      * Constructor 
      */
     public FileSelection() {
-        //setlaf();
-        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
+        Laf.setlaf();
+        setIconImage(Icon.getIcon());
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    /**
-     * Set Look and Feel
-     */
-    private void setlaf() {
-        try {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            } catch (Exception ex) {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            }
-        } catch (ClassNotFoundException ex) {
-        } catch (InstantiationException ex) {
-        } catch (IllegalAccessException ex) {
-        } catch (UnsupportedLookAndFeelException ex) {
-        }
     }
 
     /**
@@ -419,21 +399,11 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @param tField 
      */
     private void findFile(JTextField tField) {
-        translateFileChooser();
+        FileChooser.translateFileChooser();
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
-
-        fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("File Chooser");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-
-        int resultado = fileChooser.showOpenDialog(this);
-        if (resultado == JFileChooser.CANCEL_OPTION) {
-            fileChooser.setVisible(false);
-        } else {
-            tField.setText(fileChooser.getSelectedFile().getAbsolutePath());
-            tField.setForeground(Color.BLACK);
-        }
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setFileChooser(tField);
     }
 
     /**
@@ -562,51 +532,6 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     @Action
     public void close() {
         this.setVisible(false);
-    }
-
-    /**
-     * Translate File Chooser
-     */
-    private void translateFileChooser() {
-        UIManager.put("FileChooser.lookInLabelMnemonic", "L");
-        UIManager.put("FileChooser.lookInLabelText", "Look in");
-        UIManager.put("FileChooser.saveInLabelMnemonic", "I");
-        UIManager.put("FileChooser.saveInLabelText", "Save in");
-        UIManager.put("FileChooser.upFolderToolTipText", "Up Folder");
-        UIManager.put("FileChooser.upFolderAccessibleName", "Up Folder");
-        UIManager.put("FileChooser.homeFolderToolTipText", "Home Folder");
-        UIManager.put("FileChooser.homeFolderAccessibleName", "Home Folder");
-        UIManager.put("FileChooser.newFolderToolTipText", "New Folder");
-        UIManager.put("FileChooser.newFolderAccessibleName", "New Folder");
-        UIManager.put("FileChooser.listViewButtonToolTipText", "List View");
-        UIManager.put("FileChooser.listViewButtonAccessibleName", "List View");
-        UIManager.put("FileChooser.detailsViewButtonToolTipText", "Details");
-        UIManager.put("FileChooser.detailsViewButtonAccessibleName", "Details");
-        UIManager.put("FileChooser.fileNameLabelMnemonic", "N");
-        UIManager.put("FileChooser.fileNameLabelText", "File Name");
-        UIManager.put("FileChooser.filesOfTypeLabelMnemonic", "A");
-        UIManager.put("FileChooser.filesOfTypeLabelText", "Files of Type");
-        UIManager.put("FileChooser.fileNameHeaderText", "Name");
-        UIManager.put("FileChooser.fileSizeHeaderText", "File Size");
-        UIManager.put("FileChooser.fileTypeHeaderText", "File Type");
-        UIManager.put("FileChooser.fileDateHeaderText", "File Date");
-        UIManager.put("FileChooser.fileAttrHeaderText", "File Attr");
-        UIManager.put("FileChooser.cancelButtonText", "Cancel");
-        UIManager.put("FileChooser.cancelButtonMnemonic", "C");
-        UIManager.put("FileChooser.cancelButtonToolTipText", "Cancel");
-        UIManager.put("FileChooser.openButtonText", "Open");
-        UIManager.put("FileChooser.openButtonMnemonic", "O");
-        UIManager.put("FileChooser.openButtonToolTipText", "Open");
-        UIManager.put("FileChooser.saveButtonText", "Save");
-        UIManager.put("FileChooser.saveButtonToolTipText", "S");
-        UIManager.put("FileChooser.saveButtonToolTipText", "Save");
-        UIManager.put("FileChooser.updateButtonText", "Update");
-        UIManager.put("FileChooser.updateButtonToolTipText", "U");
-        UIManager.put("FileChooser.updateButtonToolTipText", "Update");
-        UIManager.put("FileChooser.helpButtonText", "Help");
-        UIManager.put("FileChooser.helpButtonToolTipText", "H");
-        UIManager.put("FileChooser.helpButtonToolTipText", "Help");
-        UIManager.put("FileChooser.acceptAllFileFilterText", "All files");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton aboutTeam;

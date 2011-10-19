@@ -1,8 +1,7 @@
 package components;
 
-import javax.swing.ImageIcon;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import details.Icon;
+import details.Laf;
 import org.jdesktop.application.Action;
 
 /**
@@ -14,27 +13,10 @@ public class Error extends javax.swing.JDialog {
     /** Creates new form Error */
     public Error(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        setlaf();
+        Laf.setlaf();
         initComponents();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
-    }
-
-    /**
-     * Set Look and Feel
-     */
-    private void setlaf() {
-        try {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            } catch (Exception ex) {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            }
-        } catch (ClassNotFoundException ex) {
-        } catch (InstantiationException ex) {
-        } catch (IllegalAccessException ex) {
-        } catch (UnsupportedLookAndFeelException ex) {
-        }
+        setIconImage(Icon.getIcon());
     }
 
     /** This method is called from within the constructor to

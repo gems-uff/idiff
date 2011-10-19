@@ -1,6 +1,7 @@
 package components;
 
 import algorithms.DiffException;
+import details.Icon;
 import diretorioDiff.DiretorioDiff;
 import diretorioDiff.DiretorioDiffException;
 import diretorioDiff.arvore.Arvore;
@@ -10,13 +11,13 @@ import diretorioDiff.resultados.ResultadoArquivo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import org.jdesktop.application.Action;
+import overView.FileOverView;
 
 /**
  * MainDDiff
@@ -25,11 +26,8 @@ import org.jdesktop.application.Action;
 public class MainDDiff extends JFrame {
 
     private Arvore fromTree;
-
     private Arvore toTree;
-
     private File from;
-    
     private File to;
 
     /**
@@ -48,7 +46,7 @@ public class MainDDiff extends JFrame {
 
         from = directoryFrom;
         to = directoryTo;
-        
+
         try {
             loadTree();
         } catch (DiretorioDiffException ex) {
@@ -67,7 +65,7 @@ public class MainDDiff extends JFrame {
     public void execute() {
         labelProcess.setText("Processing...");
 
-	Resultado resultado = DiretorioDiff.compararDiretorios(from, to);
+        Resultado resultado = DiretorioDiff.compararDiretorios(from, to);
 
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
@@ -84,13 +82,13 @@ public class MainDDiff extends JFrame {
     }
 
     @Action
-    public void drill(){
-        if(toTree != null) {
+    public void drill() {
+        if (toTree != null) {
             No no = toTree.getNoSelecionado();
 
             if (no != null) {
-                for (ResultadoArquivo resultado: no.getResultados()) {
-                    if (resultado.haveFrom() && resultado.haveTo() && resultado.getBase().isText()){
+                for (ResultadoArquivo resultado : no.getResultados()) {
+                    if (resultado.haveFrom() && resultado.haveTo() && resultado.getBase().isText()) {
                         try {
                             showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), "CHARACTER", true, true, setTags());
                         } catch (DiffException ex) {
@@ -123,11 +121,9 @@ public class MainDDiff extends JFrame {
         tag = setTag(tag, true, "\\,");
         tag = setTag(tag, true, "\\(\\)");
         tag = setTag(tag, true, "\\[\\]");
-        tag = setTag(tag,true, "\\{\\}");
+        tag = setTag(tag, true, "\\{\\}");
         return tag + "]";
     }
-
-
 
     private String setTag(String tag, boolean selected, String separator) {
         if (selected) {
@@ -140,11 +136,11 @@ public class MainDDiff extends JFrame {
      * Init 
      */
     private void init() {
-        //setlaf();
+        //Laf.setlaf();
         setLocationRelativeTo(null);
         btnExecute.setIcon(new ImageIcon("src/main/resources/components/icons/execute.png"));
         btnDrill.setIcon(new ImageIcon("src/main/resources/components/icons/zoom.png"));
-        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
+        setIconImage(Icon.getIcon());
     }
 
     /**
@@ -162,22 +158,21 @@ public class MainDDiff extends JFrame {
             }
         });
     }
-
-    /**
-     * Set Laf
-     */
-    private void setlaf() {
-        try {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            } catch (Exception ex) {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    
+        @Action
+    public void showFileOverView(final File file) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new FileOverView(file).setVisible(true);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } catch (ClassNotFoundException ex) {
-        } catch (InstantiationException ex) {
-        } catch (IllegalAccessException ex) {
-        } catch (UnsupportedLookAndFeelException ex) {
-        }
+        });
     }
 
     /** This method is called from within the constructor to
@@ -200,8 +195,17 @@ public class MainDDiff extends JFrame {
         jSeparator3 = new javax.swing.JToolBar.Separator();
         btnDrill = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField7 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         labelProcess = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Directory Diff");
@@ -230,14 +234,14 @@ public class MainDDiff extends JFrame {
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addContainerGap())
         );
         directoryPanel1Layout.setVerticalGroup(
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -254,14 +258,14 @@ public class MainDDiff extends JFrame {
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
                 .addContainerGap())
         );
         directoryPanel2Layout.setVerticalGroup(
             directoryPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -277,13 +281,11 @@ public class MainDDiff extends JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
         btnExecute.setAction(actionMap.get("execute")); // NOI18N
-        btnExecute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/execute.png"))); // NOI18N
         btnExecute.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnExecute.setContentAreaFilled(false);
         btnExecute.setFocusable(false);
         btnExecute.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExecute.setIconTextGap(200);
-        btnExecute.setLabel("");
         btnExecute.setMaximumSize(new java.awt.Dimension(35, 35));
         btnExecute.setMinimumSize(new java.awt.Dimension(35, 35));
         btnExecute.setName("btnExecute"); // NOI18N
@@ -291,14 +293,12 @@ public class MainDDiff extends JFrame {
         btnExecute.setRequestFocusEnabled(false);
         btnExecute.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBar.add(btnExecute);
-        btnExecute.getAccessibleContext().setAccessibleName("");
 
         jSeparator3.setName("jSeparator3"); // NOI18N
         toolBar.add(jSeparator3);
 
         btnDrill.setAction(actionMap.get("drill")); // NOI18N
-        btnDrill.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnDrill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/zoom.png"))); // NOI18N
+        btnDrill.setFont(new java.awt.Font("sansserif", 1, 12));
         btnDrill.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnDrill.setContentAreaFilled(false);
         btnDrill.setFocusable(false);
@@ -314,23 +314,90 @@ public class MainDDiff extends JFrame {
         jSeparator4.setName("jSeparator4"); // NOI18N
         toolBar.add(jSeparator4);
 
+        jTextField1.setEditable(false);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("components/Bundle"); // NOI18N
+        jTextField1.setText(bundle.getString("MainILCS.jTextField1.text")); // NOI18N
+        jTextField1.setName("jTextField1"); // NOI18N
+        toolBar.add(jTextField1);
+
+        jTextField2.setBackground(new java.awt.Color(255, 174, 185));
+        jTextField2.setEditable(false);
+        jTextField2.setText(bundle.getString("MainILCS.jTextField2.text")); // NOI18N
+        jTextField2.setName("jTextField2"); // NOI18N
+        toolBar.add(jTextField2);
+
+        jTextField3.setBackground(new java.awt.Color(193, 255, 193));
+        jTextField3.setEditable(false);
+        jTextField3.setText(bundle.getString("MainILCS.jTextField3.text")); // NOI18N
+        jTextField3.setName("jTextField3"); // NOI18N
+        toolBar.add(jTextField3);
+
+        jTextField4.setBackground(new java.awt.Color(126, 192, 238));
+        jTextField4.setEditable(false);
+        jTextField4.setText(bundle.getString("MainILCS.jTextField4.text")); // NOI18N
+        jTextField4.setName("jTextField4"); // NOI18N
+        toolBar.add(jTextField4);
+
+        jTextField6.setBackground(new java.awt.Color(53, 94, 121));
+        jTextField6.setEditable(false);
+        jTextField6.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField6.setText(bundle.getString("MainILCS.jTextField6.text")); // NOI18N
+        jTextField6.setName("jTextField6"); // NOI18N
+        toolBar.add(jTextField6);
+
+        jTextField7.setBackground(new java.awt.Color(255, 255, 0));
+        jTextField7.setEditable(false);
+        jTextField7.setText(bundle.getString("MainILCS.jTextField6.text")); // NOI18N
+        jTextField7.setName("jTextField7"); // NOI18N
+        toolBar.add(jTextField7);
+
+        jTextField8.setBackground(new java.awt.Color(255, 174, 66));
+        jTextField8.setEditable(false);
+        jTextField8.setText(bundle.getString("MainILCS.jTextField6.text")); // NOI18N
+        jTextField8.setName("jTextField8"); // NOI18N
+        toolBar.add(jTextField8);
+
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setName("jPanel1"); // NOI18N
 
         labelProcess.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelProcess.setName("labelProcess"); // NOI18N
 
+        jButton1.setAction(actionMap.get("showFileOverView")); // NOI18N
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDDiff.class);
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setToolTipText(resourceMap.getString("jButton1.toolTipText")); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setName("jButton1"); // NOI18N
+
+        jButton2.setAction(actionMap.get("showFileOverView")); // NOI18N
+        jButton2.setIcon(resourceMap.getIcon("jButton2.icon")); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setName("jButton2"); // NOI18N
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(351, Short.MAX_VALUE)
+                .addContainerGap()
+                .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(28, 28, 28)
+                .add(jButton1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 522, Short.MAX_VALUE)
                 .add(labelProcess, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 75, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(labelProcess, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+            .add(labelProcess, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jButton2)
+                    .add(jButton1))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -341,8 +408,8 @@ public class MainDDiff extends JFrame {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-                    .add(toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
+                    .add(splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                    .add(toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -364,16 +431,24 @@ public class MainDDiff extends JFrame {
         // TODO add your handling code here:
         resize();
     }//GEN-LAST:event_splitPanelComponentResized
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDrill;
     private javax.swing.JButton btnExecute;
     private javax.swing.JPanel directoryPanel1;
     private javax.swing.JPanel directoryPanel2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel labelProcess;
     private javax.swing.JScrollPane scrollTreeFrom;
     private javax.swing.JScrollPane scrollTreeTo;

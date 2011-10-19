@@ -1,5 +1,6 @@
 package components;
 
+import details.Scroll;
 import algorithms.Diff;
 import algorithms.DiffException;
 import algorithms.FileGrain;
@@ -7,6 +8,8 @@ import algorithms.Grain;
 import algorithms.ILCSBean;
 import algorithms.IResultDiff;
 import algorithms.Result;
+import details.Icon;
+import details.Laf;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -37,8 +40,6 @@ import javax.swing.JToolBar.Separator;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.table.DefaultTableModel;
@@ -172,9 +173,9 @@ public final class MainILCS extends javax.swing.JFrame {
      * Init 
      */
     private void init() {
-        setlaf();
+        Laf.setlaf();
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage());
+        setIconImage(Icon.getIcon());
     }
 
     private String setWordGrainName(String granularity) {
@@ -182,23 +183,6 @@ public final class MainILCS extends javax.swing.JFrame {
             granularity = "Word";
         }
         return granularity;
-    }
-
-    /**
-     * Set Look and Feel
-     */
-    private void setlaf() {
-        try {
-            try {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            } catch (Exception ex) {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            }
-        } catch (ClassNotFoundException ex) {
-        } catch (InstantiationException ex) {
-        } catch (IllegalAccessException ex) {
-        } catch (UnsupportedLookAndFeelException ex) {
-        }
     }
 
     /** This method is called from within the constructor to
@@ -259,8 +243,8 @@ public final class MainILCS extends javax.swing.JFrame {
 
         exitLabel.setText(bundle.getString("MainILCS.exitLabel.text")); // NOI18N
 
-
         jLabel1.setIcon(new ImageIcon(getClass().getResource("/components/icons/icone_help.png"))); // NOI18N
+
         GroupLayout exitDialogLayout = new GroupLayout(exitDialog.getContentPane());
         exitDialog.getContentPane().setLayout(exitDialogLayout);
         exitDialogLayout.setHorizontalGroup(
@@ -432,8 +416,8 @@ public final class MainILCS extends javax.swing.JFrame {
 
         splitPaneRight.setLeftComponent(leftScrollPane);
 
-
         rightScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.rightScrollPane.border.title"))); // NOI18N
+
         rightPane.setMaximumSize(new Dimension(800, 600));
         rightPane.setMinimumSize(new Dimension(102, 18));
         rightPane.setPreferredSize(new Dimension(131, 65));
@@ -457,7 +441,9 @@ public final class MainILCS extends javax.swing.JFrame {
                 "Content", "Situation", "From (Left)", "To (Right)"
             }
         ) {
-            Class[] types = new Class[]{String.class, String.class, String.class, String.class};
+            Class[] types = new Class [] {
+                String.class, String.class, String.class, String.class
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
@@ -482,7 +468,7 @@ public final class MainILCS extends javax.swing.JFrame {
             .add(toolBar, GroupLayout.DEFAULT_SIZE, 1389, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1369, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1377, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
