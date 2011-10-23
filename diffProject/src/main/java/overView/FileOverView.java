@@ -25,8 +25,7 @@ public class FileOverView extends javax.swing.JFrame {
     }
 
     private void init(File file) throws MalformedURLException, IOException {
-        fileComponent.submitFile(file, jTextPane1);
-
+        fileComponent.submitFile(file, FilePane);
     }
 
     /** This method is called from within the constructor to
@@ -40,7 +39,7 @@ public class FileOverView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        FilePane = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("File Overview");
@@ -50,8 +49,8 @@ public class FileOverView extends javax.swing.JFrame {
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        jTextPane1.setName("jTextPane1"); // NOI18N
-        jScrollPane1.setViewportView(jTextPane1);
+        FilePane.setName("FilePane"); // NOI18N
+        jScrollPane1.setViewportView(FilePane);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,8 +87,8 @@ public class FileOverView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane FilePane;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
 }
