@@ -3,28 +3,28 @@
  */
 package diretorioDiff.arvore;
 
-import java.awt.event.MouseAdapter;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.JTree;
+import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
 
 import diretorioDiff.DiretorioDiffException;
 import diretorioDiff.Util;
 import diretorioDiff.resultados.Resultado;
 import diretorioDiff.resultados.ResultadoArquivo;
-
-import javax.swing.tree.TreeSelectionModel;
 
 /**
  * @author eborel
@@ -37,7 +37,7 @@ public class Arvore extends JTree {
 	 */
 	private static final long serialVersionUID = -4235871073840441251L;
 
-	private static int idNodeTemp = 0;
+	private int idNodeTemp = 0;
 
 	private Arvore associada = null;
 
@@ -47,93 +47,71 @@ public class Arvore extends JTree {
 
 	private boolean base = false;
 
+	private DefaultTreeModel modelTree;
+
+	private NodeRenderer renderer;
+
+	private No selectedNode;
+
+    public No getSelectedNode() {
+        return selectedNode;
+    }
+
 	private Arvore(File diretorio) {
 		this(diretorio, null);
 	}
 
 	private Arvore(File diretorio, Arvore associada) {
-		super(loadNodes(diretorio));
-		
+		super();
+
 		this.associada = associada;
 		if (associada != null) {
 			associada.associada = this;
 		}
-		
 		this.base = associada == null;
 
+		modelTree = new DefaultTreeModel(loadNodes(diretorio));
+		setModel(modelTree);
 		getSelectionModel().setSelectionMode(
 				TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+		renderer = new NodeRenderer();
+		setCellRenderer(renderer);
 
-		nodes = carregarListaNos(getModel().getRoot());
+		setUI(new BasicTreeUI());
 
-		setCellRenderer(new NodeRenderer());
+		adicionarEventos();
+	}
 
-		addMouseMotionListener(new MouseMotionListener() {
-			
-			@Override
-			public void mouseMoved(MouseEvent paramMouseEvent) {
-				//executeEvent(paramMouseEvent);
-			}
-
-			@Override
-			public void mouseDragged(MouseEvent paramMouseEvent) {
-				
-			}
-		});
-		
+	/**
+	 * 
+	 */
+	private void adicionarEventos() {
 		addMouseListener(new MouseListener() {
-				
+
 			@Override
 			public void mouseClicked(MouseEvent paramMouseEvent) {
-				executeEvent(paramMouseEvent);				
+				
 			}
 
 			@Override
 			public void mousePressed(MouseEvent paramMouseEvent) {
-				// TODO Auto-generated method stub
-				
+				executeEvent(paramMouseEvent);
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent paramMouseEvent) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent paramMouseEvent) {
-				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent paramMouseEvent) {
-				// TODO Auto-generated method stub
-				
+
 			}
 		});
-
-		setToolTipText("");
-		
-	}
-
-	@Override
-	public String getToolTipText(MouseEvent evt) {
-		
-		if(resultado != null) {
-			TreePath curPath = getPathForLocation(evt.getX(), evt.getY());
-			if (curPath != null) {
-				Object obj = curPath.getLastPathComponent();
-	
-				if (obj instanceof No) {
-					No no = (No) obj;
-					if (no.getId() != -1 && no.isShowColor() ) {
-						return no.getToolType();
-					}
-				}
-			}
-		}
-		return null;
 	}
 
 	public static Arvore getBaseTree(File directory)
@@ -159,94 +137,122 @@ public class Arvore extends JTree {
 	}
 
 	/**
-	 * @param root
-	 */
-	private List<No> carregarListaNos(Object obj) {
-		List<No> nos = new ArrayList<No>();
-
-		if (obj instanceof DefaultMutableTreeNode) {
-			if (obj instanceof No) {
-				No node = (No) obj;
-				node.setBase(isBase());
-				
-				if (node.getId() != -1) {
-					nos.add(node);
-				}
-
-				Enumeration children = node.children();
-				while (children.hasMoreElements()) {
-					nos.addAll(carregarListaNos(children.nextElement()));
-				}
-			}
-
-		}
-
-		return nos;
-	}
-
-	/**
 	 * @param me
 	 */
 	private void executeEvent(MouseEvent me) {
-		desativarCoresNos();
 
-		if (associada != null) {
-			associada.desativarCoresNos();
-			associada.setSelectionPaths(new TreePath[0]);
+		TreePath tp = getPathForLocation(me.getX(), me.getY());
 
-			if (resultado != null) {
-
-				TreePath tp = getPathForLocation(me.getX(), me.getY());
-
-				if (tp != null) {
-					TreePath path = new TreePath(tp.getPath());
-
-					Object object = path.getLastPathComponent();
-
-					if (object instanceof No) {
-						No no = (No) object;
-						no.setShowColor(true);
+		if (tp != null && tp.getLastPathComponent() instanceof No) {
+			if (associada != null && resultado != null) {
+				No no = (No) tp.getLastPathComponent();
+				if (no.getId() != -1) {
+					
+					if (!no.isBaseSelection() && no.getIdStart() == -1) {
+						clearNodeSelection();
+						no.select();
 						
-						associada.selecionarNos(no.getIdsRelacionados());
+						associada.selecionarNos(no.getIdsRelacionados(), no.getId());
 					}
-				} else {
-					setSelectionPaths(new TreePath[0]);
+					
+					if (isCheckBoxArea(me)) {
+						setSelectedNode(no);
+					}
 				}
 			}
-			associada.repaint();
+		} else {
+			clearNodeSelection();
+			associada.clearNodeSelection();
+			associada.reloadTree(true);
 		}
-		repaint();
+
+		reloadTree(true);
 	}
 
-	public void selecionarNos(List<Integer> ids) {
-		if (ids.isEmpty()) {
-			return;
-		}
+	private void setSelectedNode(No no) {
 
-		List<TreePath> paths = new ArrayList<TreePath>();
-
-		for (Integer id : ids) {
-
-			if (id.intValue() > 0) {
-				No no = getNo(id.intValue());
-				no.setShowColor(true);
-
-				TreePath path = new TreePath(no.getPath());
-				paths.add(path);
-				expandParents(path);
+		if (no.isBaseSelection() || no.getIdStart() != -1) {
+			if (selectedNode != null) {
+				if (!selectedNode.equals(no)) {
+					selectedNode.setSelected(false);
+					selectedNode = null;
+				}
 			}
+			
+			no.setSelected(!no.isSelected());
+			selectedNode = no;
 		}
-
-		setSelectionPaths(paths.toArray(new TreePath[paths.size()]));
 	}
 
 	/**
 	 * 
 	 */
-	private void desativarCoresNos() {
+	private void clearNodeSelection() {
 		for (No no : getNodes()) {
-			no.setShowColor(false);
+			no.clearSelection();
 		}
+	}
+
+	/**
+	 * @param me
+	 * @return
+	 */
+	private boolean isCheckBoxArea(MouseEvent me) {
+		Rectangle localRectangle = getPathBounds(getPathForLocation(me.getX(),
+				me.getY()));
+
+		Point point = me.getPoint();
+		Dimension size = localRectangle.getSize();
+		localRectangle.setSize(14, (int) size.getHeight());
+		return localRectangle.contains(point);
+	}
+
+	private void reloadTree(boolean keepOldExpanded) {
+		Enumeration<TreePath> expandedDescendants = null;
+		if (keepOldExpanded) {
+			TreeNode[] path = ((DefaultMutableTreeNode) modelTree.getRoot())
+					.getPath();
+			expandedDescendants = getExpandedDescendants(new TreePath(path));
+		}
+
+		TreePath[] paths = getSelectionPaths();
+		modelTree.reload();
+		setSelectionPaths(paths);
+
+		if (expandedDescendants != null) {
+			while (expandedDescendants.hasMoreElements()) {
+				TreePath treePath = (TreePath) expandedDescendants
+						.nextElement();
+
+				expandParents(treePath);
+			}
+		}
+	}
+
+	public void selecionarNos(List<Integer> ids, int idStart) {
+		clearNodeSelection();
+		TreePath[] treePaths = getSelectionPaths();
+
+		if (!ids.isEmpty()) {
+			List<TreePath> paths = new ArrayList<TreePath>();
+
+			for (Integer id : ids) {
+
+				if (id.intValue() > 0) {
+					No no = getNo(id.intValue());
+					no.setIdStart(idStart);
+
+					TreePath path = new TreePath(no.getPath());
+					paths.add(path);
+					expandParents(path);
+				}
+			}
+
+			treePaths = paths.toArray(new TreePath[paths.size()]);
+		}
+
+		setSelectionPaths(treePaths);
+		reloadTree(false);
 	}
 
 	/**
@@ -273,12 +279,12 @@ public class Arvore extends JTree {
 		return null;
 	}
 
-	private static No loadNodes(File arquivo) {
+	private No loadNodes(File arquivo) {
 		idNodeTemp = 0;
 		return loadNodes(arquivo, false);
 	}
 
-	private static No loadNodes(File arquivo, boolean removeBase) {
+	private No loadNodes(File arquivo, boolean removeBase) {
 		String nomeNo = arquivo.getAbsolutePath();
 		if (removeBase) {
 			nomeNo = nomeNo.replace(arquivo.getParent(), "");
@@ -292,7 +298,7 @@ public class Arvore extends JTree {
 		File[] filhos = arquivo.listFiles();
 
 		if (arquivo.isDirectory() && filhos.length > 0) {
-			node = new No(nomeNo, -1);
+			node = new No(nomeNo, -1, isBase());
 			for (File filho : filhos) {
 				if (!filho.isHidden()) {
 					node.add(loadNodes(filho, true));
@@ -300,7 +306,11 @@ public class Arvore extends JTree {
 			}
 		} else {
 			idNodeTemp++;
-			node = new No(nomeNo, idNodeTemp);
+			node = new No(nomeNo, idNodeTemp, isBase());
+		}
+
+		if (node.getId() != -1) {
+			nodes.add(node);
 		}
 
 		return node;
@@ -315,21 +325,25 @@ public class Arvore extends JTree {
 
 	public void setResultado(Resultado resultado) {
 		this.resultado = resultado;
-		
-		
+
 		if (resultado != null) {
-			for (ResultadoArquivo resultadoArquivo : resultado.getResultadosArquivo()) {
+			for (ResultadoArquivo resultadoArquivo : resultado
+					.getResultadosArquivo()) {
 				if (isBase()) {
-					if(resultadoArquivo.haveFrom()) {
-						getNo(resultadoArquivo.getBase().getId()).addResultado(resultadoArquivo);
+					if (resultadoArquivo.haveFrom()) {
+						getNo(resultadoArquivo.getBase().getId()).addResultado(
+								resultadoArquivo);
 					}
 				} else {
-					if(resultadoArquivo.haveTo()) {
-						getNo(resultadoArquivo.getPara().getId()).addResultado(resultadoArquivo);
+					if (resultadoArquivo.haveTo()) {
+						getNo(resultadoArquivo.getPara().getId()).addResultado(
+								resultadoArquivo);
 					}
 				}
 			}
 		}
+
+		modelTree.reload();
 	}
 
 	public Resultado getResultado() {
@@ -375,18 +389,4 @@ public class Arvore extends JTree {
 			collapsePath(parent);
 		}
 	}
-
-        public No getNoSelecionado() {
-            TreePath[] ps = getSelectionPaths();
-
-            if (ps.length > 0) {
-                Object obj = ps[0].getLastPathComponent();
-
-                if (obj instanceof No) {
-                    return (No) obj;
-                }
-            }
-
-            return null;
-        }
 }

@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
+import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -92,8 +93,12 @@ public class Arquivo {
 		this.pathBaseComparacao = pathBaseComparacao;
 		gerarHash();
 		
-		contentType = new MimetypesFileTypeMap().getContentType(getArquivo());
 
+        contentType = URLConnection.getFileNameMap().getContentTypeFor(getArquivo().getAbsolutePath());
+		if (contentType == null) {
+			contentType = new MimetypesFileTypeMap().getContentType(getArquivo());
+		}
+		
 		carregarLinhas();
 	}
 
@@ -101,8 +106,27 @@ public class Arquivo {
 	 * 
 	 * @return
 	 */
-	public boolean isText() {
-		return contentType.startsWith("text");
+	public boolean isText() {		
+		if (contentType.startsWith("text")) {
+			return true;
+		}
+		
+		if (contentType.equalsIgnoreCase("application/octet-stream")){
+			String lowerCase = getArquivo().getName().toLowerCase();
+			if(lowerCase.endsWith(".java")) {
+				return true;
+			}
+			
+			if(lowerCase.endsWith(".form")) {
+				return true;
+			}
+			
+			if(lowerCase.endsWith(".properties")) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 

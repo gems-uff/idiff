@@ -29,11 +29,11 @@ public class ResultadoArquivo {
 	public ResultadoArquivo(Arquivo arquivo, TipoResultado tipo) {
 		
 		switch (tipo) {
-			case DELETADO:
+			case REMOVED:
 				base = arquivo;			
 				break;
 	
-			case ADICIONADO:
+			case ADDED:
 				para = arquivo;
 				break;
 				
@@ -50,14 +50,14 @@ public class ResultadoArquivo {
 		this.similaridade = similaridade;		
 		
 		
-		if (base.getPathRelativo().equalsIgnoreCase(comparado.getPathRelativo())) {
-			if (similaridade == Resultado.PERCENTUAL_IDENTICO) {
-				this.tipo = TipoResultado.INALTERADO;
+		if (similaridade == Resultado.PERCENTUAL_IDENTICO) {
+			if (base.getPathRelativo().equalsIgnoreCase(comparado.getPathRelativo())) {
+				this.tipo = TipoResultado.UNCHANGED;				
 			} else {
-				this.tipo = TipoResultado.EDITADO;
+				this.tipo = TipoResultado.MOVED;
 			}
 		} else {
-			this.tipo = TipoResultado.MOVIDO;
+			this.tipo = TipoResultado.CHANGED;
 		}	
 	}
 
@@ -87,14 +87,14 @@ public class ResultadoArquivo {
 		sb.append("\n");
 
 		switch (tipo) {
-			case ADICIONADO:
+			case ADDED:
 				
 				sb.append("ADD: " + para.getPathRelativo() + " ");
 				sb.append("\n");
 				
 				break;
 				
-			case DELETADO:
+			case REMOVED:
 				
 				sb.append("DEL: " + base.getPathRelativo() + " ");
 				sb.append("\n");
@@ -169,6 +169,22 @@ public class ResultadoArquivo {
 		
 		if (haveTo()) {
 			return getPara().isDirectory();
+		}
+		
+		return false;
+	}
+
+	public boolean isIdFrom(int id) {
+		if (haveFrom() && getBase().getId() == id) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean isIdTo(int id) {
+		if (haveTo() && getPara().getId() == id) {
+			return true;
 		}
 		
 		return false;

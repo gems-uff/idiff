@@ -52,7 +52,7 @@ public class Resultado {
 	 * @param deletado Arquivo que foi removido do diret�rio base.
 	 */
 	public void addDeletado(Arquivo deletado) {
-		add(new ResultadoArquivo(deletado, TipoResultado.DELETADO));
+		add(new ResultadoArquivo(deletado, TipoResultado.REMOVED));
 		
 	}
 
@@ -62,7 +62,7 @@ public class Resultado {
 	 * @param adicionado Arquivo que foi adicionado no diret�rio comparado.
 	 */
 	public void addAdicionado(Arquivo adicionado) {
-		add(new ResultadoArquivo(adicionado, TipoResultado.ADICIONADO));
+		add(new ResultadoArquivo(adicionado, TipoResultado.ADDED));
 	}
 
 	/**

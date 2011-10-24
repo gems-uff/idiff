@@ -1,67 +1,129 @@
 package diretorioDiff.arvore;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 
+import javax.swing.Icon;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-public class NodeRenderer extends DefaultTreeCellRenderer  {
+import diretorioDiff.resultados.ResultadoArquivo;
+import diretorioDiff.resultados.TipoResultado;
 
+public class NodeRenderer extends DefaultTreeCellRenderer {
+
+	private static final Color EXTRA_TEXT_COLOR = Color.RED;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1067924469099958702L;
-	private final Color backgroundColor2;
-	private final Color backgroundSelectionColor2;
-	private Color backgroundNonSelectionColor2;
-
+	
 	public NodeRenderer() {
 		super();
-		backgroundColor2 = getBackground();
-		backgroundSelectionColor2 = getBackgroundSelectionColor();
-		backgroundNonSelectionColor2 = getBackgroundNonSelectionColor();
 	}
-	
-	@Override
-	public Component getTreeCellRendererComponent(JTree tree,  
-            Object value,  
-            boolean sel,  
-            boolean expanded,  
-            boolean leaf,  
-            int row,  
-            boolean hasFocus) {
 
-		super.getTreeCellRendererComponent(  
-				tree, value, sel,  
-				expanded, leaf, row,  
-				hasFocus);
-		
+	@Override
+	public Component getTreeCellRendererComponent(JTree tree, Object value,
+			boolean sel, boolean expanded, boolean leaf, int row,
+			boolean hasFocus) {
+
+		Component base = super.getTreeCellRendererComponent(tree, value, sel,
+				expanded, leaf, row, hasFocus);
+
 		if (value instanceof No) {
 			No no = (No) value;
-			
-			if(no.isShowColor() && no.getId() != -1) {
-				setBackgroundSelectionColor(no.getColor());
-				setBackgroundNonSelectionColor(no.getColor());
+
+			JCheckBox checkbox = new JCheckBox();
+			checkbox.setSelected(no.isSelected());
+			checkbox.setOpaque(false);
+
+			JLabel label = new JLabel(getIcon(no, expanded));
+			label.setOpaque(false);
+			label.setText(getText());
+			label.setFont(getFont());
+
+			JLabel extraText = new JLabel(getExtraText(no));
+			extraText.setOpaque(false);
+			extraText.setFont(getFont());
+			extraText.setForeground(EXTRA_TEXT_COLOR);
+
+			JPanel mainPanel = new JPanel(new BorderLayout());
+			mainPanel.setOpaque(false);
+
+			JPanel checkPanel = new JPanel(new BorderLayout());
+
+			if (no.getChildCount() == 0) {
+				checkPanel.add(checkbox, BorderLayout.WEST);
+				checkPanel.add(label, BorderLayout.EAST);
+
+				mainPanel.add(checkPanel, BorderLayout.WEST);
+				mainPanel.add(extraText, BorderLayout.EAST);
 			} else {
-				setBackgroundSelectionColor(backgroundSelectionColor2);
-				setBackgroundNonSelectionColor(backgroundNonSelectionColor2);
+				checkPanel.add(label, BorderLayout.WEST);
+
+				mainPanel.add(checkPanel, BorderLayout.WEST);
+				mainPanel.add(extraText, BorderLayout.EAST);
 			}
-			
-			if (no.isDirectory()) {
-				if (expanded) {
-					setIcon(getDefaultOpenIcon());
-				} else {
-					setIcon(getDefaultClosedIcon());
-				}
+
+			Color color = getColor(no);
+			if (color != null) {
+				checkPanel.setBackground(color);
+			} else {
+				checkPanel.setOpaque(false);
 			}
-		} else {
-			setBackground(backgroundColor2);
-			setBackgroundSelectionColor(backgroundSelectionColor2);
-			setBackgroundSelectionColor(backgroundNonSelectionColor2);
+
+			mainPanel.revalidate();
+			return mainPanel;
 		}
-		
-		return this;
+
+		return base;
 	}
 
+	private String getExtraText(No no) {
+		String text = "";
+		if (no.isModified()) {
+			if (no.isDirectory() && no.children().hasMoreElements()) {
+				text += " *";
+			} else {
+				ResultadoArquivo resultado = no.getResultInReference();
+				if (resultado != null && !resultado.getTipo().equals(TipoResultado.MOVED)) {
+					if (no.isHugarian()) {
+						text += " *";
+					}
+
+					text += " " + no.getSimilaridade() + "%";
+				}
+			}
+		}
+
+		return text;
+	}
+
+	private Color getColor(No no) {
+		for (ResultadoArquivo resultado : no.getResultados()) {
+			if (no.isBaseSelection() || no.getIdStart() != -1) {
+				return resultado.getTipo().getHigthLigthcolor();
+			}
+
+			return resultado.getTipo().getColor();
+		}
+
+		return null;
+	}
+
+	private Icon getIcon(No no, boolean expanded) {
+		if (no.isDirectory()) {
+			if (expanded) {
+				return getDefaultOpenIcon();
+			} else {
+				return getDefaultClosedIcon();
+			}
+		}
+
+		return getDefaultLeafIcon();
+	}
 }
