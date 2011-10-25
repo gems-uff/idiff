@@ -10,15 +10,12 @@ import diretorioDiff.arvore.No;
 import diretorioDiff.resultados.Resultado;
 import diretorioDiff.resultados.ResultadoArquivo;
 import diretorioDiff.resultados.TipoResultado;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.jdesktop.application.Action;
@@ -67,8 +64,8 @@ public class MainDDiff extends JFrame {
         splitPanel.setDividerLocation(largura);
     }
 
-    @Action
-    public void execute() {
+   
+    private void execute() {
         Resultado resultado = DiretorioDiff.compararDiretorios(from, to);
 
         fromTree.setResultado(resultado);
@@ -214,6 +211,12 @@ public class MainDDiff extends JFrame {
         });
     }
 
+    private void expandNodesDiff(Arvore tree) {
+        if (tree != null) {
+            tree.expandNodesWithDiff();
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -261,6 +264,11 @@ public class MainDDiff extends JFrame {
         jRadioButton1.setFocusable(false);
         jRadioButton1.setName("jRadioButton1"); // NOI18N
         jRadioButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButton1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton1ItemStateChanged(evt);
+            }
+        });
 
         scrollTreeFrom.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         scrollTreeFrom.setName("scrollTreeFrom"); // NOI18N
@@ -279,11 +287,11 @@ public class MainDDiff extends JFrame {
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel1Layout.createSequentialGroup()
                 .add(24, 24, 24)
-                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
+                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
             .add(directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(directoryPanel1Layout.createSequentialGroup()
                     .add(jRadioButton1)
-                    .addContainerGap(587, Short.MAX_VALUE)))
+                    .addContainerGap(274, Short.MAX_VALUE)))
         );
 
         splitPanel.setLeftComponent(directoryPanel1);
@@ -298,6 +306,11 @@ public class MainDDiff extends JFrame {
         jRadioButton3.setFocusable(false);
         jRadioButton3.setName("jRadioButton3"); // NOI18N
         jRadioButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jRadioButton3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jRadioButton3ItemStateChanged(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout directoryPanel2Layout = new org.jdesktop.layout.GroupLayout(directoryPanel2);
         directoryPanel2.setLayout(directoryPanel2Layout);
@@ -313,7 +326,7 @@ public class MainDDiff extends JFrame {
             .add(directoryPanel2Layout.createSequentialGroup()
                 .add(jRadioButton3)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+                .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE))
         );
 
         splitPanel.setRightComponent(directoryPanel2);
@@ -398,6 +411,19 @@ public class MainDDiff extends JFrame {
         // TODO add your handling code here:
         resize();
     }//GEN-LAST:event_splitPanelComponentResized
+
+    private void jRadioButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton1ItemStateChanged
+        if (jRadioButton1.isSelected()) {
+            expandNodesDiff(fromTree);
+        }
+    }//GEN-LAST:event_jRadioButton1ItemStateChanged
+
+    private void jRadioButton3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton3ItemStateChanged
+        if (jRadioButton3.isSelected()) {
+            expandNodesDiff(toTree);
+        }
+    }//GEN-LAST:event_jRadioButton3ItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel directoryPanel1;
     private javax.swing.JPanel directoryPanel2;

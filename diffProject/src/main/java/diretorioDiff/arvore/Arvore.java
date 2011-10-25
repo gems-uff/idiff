@@ -389,4 +389,12 @@ public class Arvore extends JTree {
 			collapsePath(parent);
 		}
 	}
+
+	public void expandNodesWithDiff() {
+		for (No no : nodes) {
+			if(no.isModified()) {
+				expandParents(new TreePath(no.getPath()));
+			}
+		}
+	}
 }

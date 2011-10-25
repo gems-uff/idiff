@@ -201,8 +201,8 @@ public class DiretorioDiff {
 
 		// Verifica quais arquivos foram adicionados
 		if (isPrimeiraIteracao()) {
-			for (int i = 0; i < adicionados.length; i++) {
-				if (adicionados[i]) {
+			for (int i = 0; i < arquivosSemMatch2.size(); i++) {
+                                if (adicionados[i]) {
 					Arquivo arquivo2 = arquivosSemMatch2.get(i);
 					arquivo2.setMatch(true);
 					resultado.addAdicionado(arquivo2);
