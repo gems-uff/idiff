@@ -7,9 +7,9 @@ public enum TipoResultado {
 	
 	UNCHANGED(Color.WHITE, new Color(240,240,240), "Unchanged"),
 	
-	REMOVED(new Color(255,174,185), new Color(205,140,149), "Removed"),
+	REMOVED(new Color(255,174,185), new Color(255,174,185), "Removed"),
 
-	ADDED(new Color(193,255,193), new Color(155,205,155), "Added"),
+	ADDED(new Color(193,255,193), new Color(193,255,193), "Added"),
 		
 	MOVED(new Color(126,192,238), new Color(108,166,205), "Moved"),
 	

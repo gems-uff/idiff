@@ -25,6 +25,7 @@ import diretorioDiff.DiretorioDiffException;
 import diretorioDiff.Util;
 import diretorioDiff.resultados.Resultado;
 import diretorioDiff.resultados.ResultadoArquivo;
+import java.awt.event.MouseMotionListener;
 
 /**
  * @author eborel
@@ -95,7 +96,7 @@ public class Arvore extends JTree {
 
 			@Override
 			public void mousePressed(MouseEvent paramMouseEvent) {
-				executeEvent(paramMouseEvent);
+				executeEvent(paramMouseEvent, true);
 			}
 
 			@Override
@@ -112,6 +113,19 @@ public class Arvore extends JTree {
 
 			}
 		});
+                
+                addMouseMotionListener(new MouseMotionListener() {
+
+                    @Override
+                    public void mouseDragged(MouseEvent me) {
+                        
+                    }
+
+                    @Override
+                    public void mouseMoved(MouseEvent me) {
+                        //executeEvent(me);
+                    }
+                });
 	}
 
 	public static Arvore getBaseTree(File directory)
@@ -136,10 +150,14 @@ public class Arvore extends JTree {
 		return new Arvore(directory, base);
 	}
 
+        private void executeEvent(MouseEvent me) {
+            executeEvent(me, false);
+        }
+        
 	/**
 	 * @param me
 	 */
-	private void executeEvent(MouseEvent me) {
+	private void executeEvent(MouseEvent me, boolean click) {
 
 		TreePath tp = getPathForLocation(me.getX(), me.getY());
 
@@ -155,7 +173,7 @@ public class Arvore extends JTree {
 						associada.selecionarNos(no.getIdsRelacionados(), no.getId());
 					}
 					
-					if (isCheckBoxArea(me)) {
+					if (isCheckBoxArea(me) && click) {
 						setSelectedNode(no);
 					}
 				}

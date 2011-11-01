@@ -91,11 +91,13 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
 			} else {
 				ResultadoArquivo resultado = no.getResultInReference();
 				if (resultado != null && !resultado.getTipo().equals(TipoResultado.MOVED)) {
+                                        text += " (" + no.getSimilaridade() + "% similar";
+                                    
 					if (no.isHugarian()) {
-						text += " *";
+						text += " - Best Choice";
 					}
 
-					text += " " + no.getSimilaridade() + "%";
+					text += ")";
 				}
 			}
 		}
