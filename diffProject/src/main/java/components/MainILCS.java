@@ -280,7 +280,6 @@ public final class MainILCS extends javax.swing.JFrame {
         setMinimumSize(new Dimension(1365, 700));
         setModalExclusionType(null);
         setName("frame"); // NOI18N
-        setResizable(false);
 
         toolBar.setRollover(true);
         toolBar.setName("Menu Bar"); // NOI18N
@@ -476,7 +475,7 @@ public final class MainILCS extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.RELATED)
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

@@ -52,4 +52,12 @@ public class Scroll {
             }
         });
     }
+
+    public static void removeAdjustmentScroll(JScrollPane leftScrollPane, JScrollPane rightScrollPane) {
+           leftScrollPane.getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+            @Override
+            public void adjustmentValueChanged(AdjustmentEvent arg0) {
+              }
+        });
+    }
 }

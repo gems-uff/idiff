@@ -5,6 +5,7 @@ import algorithms.Grain;
 import algorithms.GrainBean;
 import algorithms.IResultDiff;
 import java.util.Iterator;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
 /**
@@ -23,14 +24,14 @@ public class GranularityComponent {
      * @param paneTo
      * @param perspective  
      */
-    public void setMoves(IResultDiff result, JTextPane paneFrom, JTextPane paneTo, int perspective) {
+    public void setMoves(IResultDiff result, JTextPane paneFrom, JTextPane paneTo, int perspective, final JScrollPane scrollFrom, final JScrollPane scrollTo) {
         Iterator<Grain> itFrom = result.getGrainsFrom().iterator();
         Iterator<Grain> itTo = result.getGrainsTo().iterator();
         while (itFrom.hasNext() || itTo.hasNext()) {
             Grain grainFrom = itFrom.next();
             Grain grainTo = itTo.next();
             if (verifyConditions(grainFrom, grainTo, perspective)) {
-                setMovedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo);
+                setMovedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo,scrollFrom,scrollTo);
             } else {
                 setUnchangedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo);
             }
@@ -79,15 +80,15 @@ public class GranularityComponent {
      * @param paneTo
      * @param scrollTo 
      */
-    private void setMovedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo) {
+    private void setMovedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollFrom, final JScrollPane scrollTo) {
 
         IDIFFStyles.setStyle(paneFrom, grainBeanFrom, "MoveStyle");
         Listener.setMouseAdapter(paneFrom, paneTo);
-        Listener.setMouseMotion(paneFrom, grainBeanFrom, grainBeanTo, paneTo);
+        Listener.setMouseMotion(paneFrom, grainBeanFrom, grainBeanTo, paneTo,scrollFrom,scrollTo);
 
         IDIFFStyles.setStyle(paneTo, grainBeanTo, "MoveStyle");
         Listener.setMouseAdapter(paneTo, paneFrom);
-        Listener.setMouseMotion(paneTo, grainBeanTo, grainBeanFrom, paneFrom);
+        Listener.setMouseMotion(paneTo, grainBeanTo, grainBeanFrom, paneFrom,scrollFrom,scrollTo);
     }
 
     void clean(JTextPane paneFrom, JTextPane paneTo) {

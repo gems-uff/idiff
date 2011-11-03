@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import org.jdesktop.application.Action;
-import overView.FileOverView;
 
 /**
  * MainDDiff
@@ -201,7 +200,7 @@ public class MainDDiff extends JFrame {
             @Override
             public void run() {
                 try {
-                    new FileOverView(file).setVisible(true);
+                    new MainFDiff(file).setVisible(true);
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {

@@ -1,4 +1,4 @@
-package overView;
+package components;
 
 import components.FileComponent;
 import details.Icon;
@@ -11,12 +11,12 @@ import java.net.MalformedURLException;
  *
  * @author Fernanda Floriano Silva
  */
-public class FileOverView extends javax.swing.JFrame {
+public class MainFDiff extends javax.swing.JFrame {
 
     private FileComponent fileComponent = new FileComponent();
 
     /** Creates new form FileOverView */
-    public FileOverView(File file) throws MalformedURLException, IOException {
+    public MainFDiff(File file) throws MalformedURLException, IOException {
         initComponents();
         Laf.setlaf();
         setLocationRelativeTo(null);

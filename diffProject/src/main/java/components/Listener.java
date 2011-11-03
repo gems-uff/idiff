@@ -1,10 +1,12 @@
 package components;
 
 import algorithms.GrainBean;
+import details.Scroll;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
 /**
@@ -40,7 +42,7 @@ public class Listener {
      * @param grainBeanTo
      * @param paneTo
      */
-    public static void setMouseMotion(final JTextPane paneFrom, final GrainBean grainBeanFrom, final GrainBean grainBeanTo, final JTextPane paneTo) {
+    public static void setMouseMotion(final JTextPane paneFrom, final GrainBean grainBeanFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane leftScrollPane, final JScrollPane rightScrollPane) {
         paneFrom.addMouseMotionListener(new MouseMotionListener() {
 
             @Override
@@ -51,6 +53,8 @@ public class Listener {
             public void mouseMoved(MouseEvent e) {
                 Point pt = new Point(e.getX(), e.getY());
                 GrainHighLight.setHighLightPoint(pt, grainBeanFrom, paneFrom, grainBeanTo, paneTo);
+                Scroll.removeAdjustmentScroll(leftScrollPane, rightScrollPane);
+
             }
         });
     }
@@ -69,6 +73,4 @@ public class Listener {
             }
         });
     }
-    
-
 }
