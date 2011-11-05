@@ -60,13 +60,9 @@ public final class MainILCS extends javax.swing.JFrame {
 
     private static MainILCS instance;
 
-    /**
-     * Get Comparator
-     * @return
-     */
     public static MainILCS setInstance(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
         if (instance != null) {
-            instance.setVisible(false);
+            instance.dispose();
         }
         instance = new MainILCS(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         return instance;
@@ -91,6 +87,7 @@ public final class MainILCS extends javax.swing.JFrame {
         initialSteps(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
         setListenerRadioButton();
+        runProject();
     }
 
     /**
@@ -203,8 +200,6 @@ public final class MainILCS extends javax.swing.JFrame {
         buttonGroup = new ButtonGroup();
         toolBar = new JToolBar();
         jSeparator4 = new Separator();
-        runMenuBar = new JButton();
-        jSeparator1 = new Separator();
         fileSelectionMenuBar = new JButton();
         jSeparator3 = new Separator();
         diffRadioButton = new JRadioButton();
@@ -234,6 +229,7 @@ public final class MainILCS extends javax.swing.JFrame {
         jScrollPane1 = new JScrollPane();
         tableDetails = new JTable();
 
+        exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         ResourceBundle bundle = ResourceBundle.getBundle("components/Bundle"); // NOI18N
         exitDialog.setTitle(bundle.getString("MainILCS.exitDialog.title")); // NOI18N
 
@@ -281,28 +277,14 @@ public final class MainILCS extends javax.swing.JFrame {
         setModalExclusionType(null);
         setName("frame"); // NOI18N
 
+        toolBar.setFloatable(false);
         toolBar.setRollover(true);
         toolBar.setName("Menu Bar"); // NOI18N
         toolBar.add(jSeparator4);
 
         ActionMap actionMap = Application.getInstance().getContext().getActionMap(MainILCS.class, this);
-        runMenuBar.setAction(actionMap.get("runProject")); // NOI18N
-        ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(MainILCS.class);
-        runMenuBar.setIcon(resourceMap.getIcon("runMenuBar.icon")); // NOI18N
-        runMenuBar.setToolTipText(resourceMap.getString("runMenuBar.toolTipText")); // NOI18N
-        runMenuBar.setBorder(null);
-        mainButtonGroup.add(runMenuBar);
-        runMenuBar.setContentAreaFilled(false);
-        runMenuBar.setFocusable(false);
-        runMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
-        runMenuBar.setMaximumSize(new Dimension(60, 44));
-        runMenuBar.setMinimumSize(new Dimension(60, 44));
-        runMenuBar.setPreferredSize(new Dimension(60, 44));
-        runMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
-        toolBar.add(runMenuBar);
-        toolBar.add(jSeparator1);
-
         fileSelectionMenuBar.setAction(actionMap.get("fileSelection")); // NOI18N
+        ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(MainILCS.class);
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
         fileSelectionMenuBar.setToolTipText(resourceMap.getString("fileSelectionMenuBar.toolTipText")); // NOI18N
         mainButtonGroup.add(fileSelectionMenuBar);
@@ -475,7 +457,7 @@ public final class MainILCS extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(LayoutStyle.RELATED)
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -519,7 +501,6 @@ public final class MainILCS extends javax.swing.JFrame {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    @Action
     public void runProject() throws DiffException, FileNotFoundException, IOException {
         System.out.println("Run Project Action Executed");
         startDiff(ilcsBean.getFileFrom(), ilcsBean.getFileTo());
@@ -534,7 +515,7 @@ public final class MainILCS extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                new FileSelection().setVisible(true);
+                FileSelection.setInstance();
             }
         });
     }
@@ -548,7 +529,7 @@ public final class MainILCS extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                new MainDDiff().setVisible(true);
+                MainDDiff.setInstance();
             }
         });
     }
@@ -604,7 +585,6 @@ public final class MainILCS extends javax.swing.JFrame {
     private JButton fileSelectionMenuBar;
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
-    private Separator jSeparator1;
     private Separator jSeparator2;
     private Separator jSeparator3;
     private Separator jSeparator4;
@@ -622,7 +602,6 @@ public final class MainILCS extends javax.swing.JFrame {
     private JButton noButton;
     private JTextPane rightPane;
     private JScrollPane rightScrollPane;
-    private JButton runMenuBar;
     private JRadioButton similarRadioButton;
     private JSplitPane splitPaneLeft;
     private JSplitPane splitPaneRight;

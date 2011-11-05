@@ -32,6 +32,10 @@ public class IDIFFColor {
         return Color.decode("#CAE1FF");
     }
 
+        public static Color getHighLightColor() {
+        return Color.decode("#355E79");
+    }
+        
     /**
      * Get unchanged color
      * @return Color
@@ -48,15 +52,15 @@ public class IDIFFColor {
         return Color.decode("#000000");
     }
 
-    static Color getDisabledForeground() {
+    public static Color getDisabledForeground() {
         return Color.decode("#bebebe");
     }
 
-    static Color getSimilarityColor() {
-        return Color.decode("#FFFF00");
+    public static Color getSimilarityColor() {
+        return Color.decode("#FFFF99");
     }
 
-    static Color getSimilarityHighLightColor() {
-        return Color.decode("#FFAE42");
+    public static Color getSimilarityHighLightColor() {
+        return Color.decode("#FFCC66");
     }
 }

@@ -33,7 +33,7 @@ public class GranularityComponent {
             if (verifyConditions(grainFrom, grainTo, perspective)) {
                 setMovedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo,scrollFrom,scrollTo);
             } else {
-                setUnchangedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo);
+                setUnchangedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo,scrollFrom,scrollTo);
             }
         }
     }
@@ -83,11 +83,11 @@ public class GranularityComponent {
     private void setMovedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollFrom, final JScrollPane scrollTo) {
 
         IDIFFStyles.setStyle(paneFrom, grainBeanFrom, "MoveStyle");
-        Listener.setMouseAdapter(paneFrom, paneTo);
+        Listener.setMouseAdapter(paneFrom, paneTo,scrollFrom,scrollTo);
         Listener.setMouseMotion(paneFrom, grainBeanFrom, grainBeanTo, paneTo,scrollFrom,scrollTo);
 
         IDIFFStyles.setStyle(paneTo, grainBeanTo, "MoveStyle");
-        Listener.setMouseAdapter(paneTo, paneFrom);
+        Listener.setMouseAdapter(paneTo, paneFrom,scrollFrom,scrollTo);
         Listener.setMouseMotion(paneTo, grainBeanTo, grainBeanFrom, paneFrom,scrollFrom,scrollTo);
     }
 
@@ -97,10 +97,10 @@ public class GranularityComponent {
         IDIFFStyles.setStyle(paneTo, new GrainBean(0, paneTo.getText().length()), "UnchangedStyle");
     }
 
-    private void setUnchangedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo) {
+    private void setUnchangedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollFrom, final JScrollPane scrollTo) {
         IDIFFStyles.setStyle(paneFrom, grainBeanFrom, "UnchangedStyle");
-        Listener.cleanMouseListener(paneFrom, paneTo);
+        Listener.cleanMouseListener(paneFrom, paneTo,scrollFrom,scrollTo);
         IDIFFStyles.setStyle(paneTo, grainBeanTo, "UnchangedStyle");
-        Listener.cleanMouseListener(paneTo, paneFrom);
+        Listener.cleanMouseListener(paneTo, paneFrom,scrollFrom,scrollTo);
     }
 }

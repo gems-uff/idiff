@@ -16,6 +16,17 @@ import org.jdesktop.application.Action;
  */
 public class FileSelection extends javax.swing.JFrame {
 
+    private static FileSelection instance;
+
+       public static FileSelection setInstance(){
+        if (instance != null) {
+            instance.dispose();
+        }
+        instance = new FileSelection();
+        return instance;
+    }
+
+    
     //private JFileChooser fileChooser;
     /**
      * Constructor 
@@ -25,8 +36,10 @@ public class FileSelection extends javax.swing.JFrame {
         setIconImage(Icon.getIcon());
         initComponents();
         setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
+    
     /**
      * Show About Team
      */
@@ -211,7 +224,6 @@ public class FileSelection extends javax.swing.JFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Select Granularity"));
         jPanel7.setName("jPanel7"); // NOI18N
 
-        granularityComboBox.setBackground(new java.awt.Color(255, 255, 255));
         granularityComboBox.setMaximumRowCount(4);
         granularityComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Word (Default)", "File", "Line", "Character" }));
         granularityComboBox.setName("granularityComboBox"); // NOI18N
@@ -230,7 +242,7 @@ public class FileSelection extends javax.swing.JFrame {
             .add(jPanel7Layout.createSequentialGroup()
                 .add(15, 15, 15)
                 .add(granularityComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Select Tabs"));
@@ -256,7 +268,7 @@ public class FileSelection extends javax.swing.JFrame {
         comma.setText(",");
         comma.setName("comma"); // NOI18N
 
-        key.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        key.setFont(new java.awt.Font("sansserif", 1, 12));
         key.setSelected(true);
         key.setText("{ }");
         key.setName("key"); // NOI18N
@@ -324,8 +336,8 @@ public class FileSelection extends javax.swing.JFrame {
                 .add(6, 6, 6)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Parameters", jPanel2);
@@ -425,8 +437,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
             } else {
                 showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags());
             }
-            this.setVisible(false);
-
+            this.dispose();
         } else {
             showError();
         }
@@ -485,7 +496,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
 
             @Override
             public void run() {
-                new FileSelection().setVisible(true);
+                FileSelection.setInstance();
             }
         });
     }
@@ -522,7 +533,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * Show Diff
      */
     private void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
-        MainDDiff ddiff = new MainDDiff(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
+        MainDDiff ddiff = MainDDiff.setInstance(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
         ddiff.setVisible(true);
     }
 
@@ -531,7 +542,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      */
     @Action
     public void close() {
-        this.setVisible(false);
+        this.dispose();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton aboutTeam;

@@ -20,17 +20,21 @@ public class Listener {
      * @param paneFrom
      * @param paneTo 
      */
-    public static void setMouseAdapter(final JTextPane paneFrom, final JTextPane paneTo) {
+    public static void setMouseAdapter(final JTextPane paneFrom, final JTextPane paneTo, final JScrollPane leftScrollPane, final JScrollPane rightScrollPane) {
         paneFrom.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseEntered(MouseEvent e) {
                 GrainHighLight.removeAllHighLight(paneFrom, paneTo);
+                Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
+
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 GrainHighLight.removeAllHighLight(paneFrom, paneTo);
+                Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
+
             }
         });
     }
@@ -47,28 +51,30 @@ public class Listener {
 
             @Override
             public void mouseDragged(MouseEvent e) {
+               Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
+                Scroll.removeAdjustmentScroll(leftScrollPane, rightScrollPane);
                 Point pt = new Point(e.getX(), e.getY());
                 GrainHighLight.setHighLightPoint(pt, grainBeanFrom, paneFrom, grainBeanTo, paneTo);
-                Scroll.removeAdjustmentScroll(leftScrollPane, rightScrollPane);
-
             }
         });
     }
 
-    public static void cleanMouseListener(final JTextPane paneFrom, final JTextPane paneTo) {
+    public static void cleanMouseListener(final JTextPane paneFrom, final JTextPane paneTo, final JScrollPane leftScrollPane, final JScrollPane rightScrollPane) {
         paneFrom.addMouseMotionListener(new MouseMotionListener() {
 
             @Override
             public void mouseDragged(MouseEvent e) {
                 GrainHighLight.removeAllHighLight(paneFrom, paneTo);
+                Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
+                Scroll.removeAdjustmentScroll(leftScrollPane, rightScrollPane);
                 GrainHighLight.removeAllHighLight(paneFrom, paneTo);
             }
         });

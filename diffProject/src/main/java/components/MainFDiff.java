@@ -6,6 +6,8 @@ import details.Laf;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,14 +16,31 @@ import java.net.MalformedURLException;
 public class MainFDiff extends javax.swing.JFrame {
 
     private FileComponent fileComponent = new FileComponent();
+    private static MainFDiff instance;
 
-    /** Creates new form FileOverView */
-    public MainFDiff(File file) throws MalformedURLException, IOException {
+    public static MainFDiff setInstance(File file) {
+        if (instance != null) {
+            instance.dispose();
+        }
+        instance = new MainFDiff(file);
+        return instance;
+    }
+
+    /** Creates new form FileOverView
+     * @param file 
+     */
+    public MainFDiff(File file) {
         initComponents();
         Laf.setlaf();
         setLocationRelativeTo(null);
         setIconImage(Icon.getIcon());
-        init(file);
+        try {
+            init(file);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void init(File file) throws MalformedURLException, IOException {
@@ -41,7 +60,7 @@ public class MainFDiff extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         FilePane = new javax.swing.JTextPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("File Overview");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("File Name"));

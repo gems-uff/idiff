@@ -10,13 +10,20 @@ import org.jdesktop.application.Action;
  */
 public class Error extends javax.swing.JDialog {
 
-    /** Creates new form Error */
+    /** Creates new form Error
+     * @param parent
+     * @param modal  
+     */
     public Error(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         Laf.setlaf();
         initComponents();
         setLocationRelativeTo(null);
         setIconImage(Icon.getIcon());
+    }
+
+    public void setErrorLabel(String errorLabel) {
+        this.errorLabel.setText(errorLabel);
     }
 
     /** This method is called from within the constructor to
@@ -75,10 +82,11 @@ public class Error extends javax.swing.JDialog {
      */
     @Action
     public void closeError() {
-        this.setVisible(false);
+        this.dispose();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
     private javax.swing.JLabel errorLabel;
     // End of variables declaration//GEN-END:variables
+
 }
