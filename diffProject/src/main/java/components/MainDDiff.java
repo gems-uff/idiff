@@ -213,40 +213,31 @@ public class MainDDiff extends JFrame {
     @Action
     public void overView() {
         if (toTree != null || fromTree != null) {
-            No noTo = toTree.getSelectedNode();
             No noFrom = fromTree.getSelectedNode();
+            No noTo = toTree.getSelectedNode();
 
             if ((noFrom == null) && (noTo == null)) {
+                Error dialog = new Error(new javax.swing.JFrame(), true);
+                dialog.setErrorLabel("Select one file");
+                dialog.setVisible(true);
                 return;
             }
 
-            if (noFrom.isSelected() && noTo.isSelected()) {
+            if (((noFrom != null) && (noTo != null)) && (noFrom.isSelected() && noTo.isSelected())) {
                 Error dialog = new Error(new javax.swing.JFrame(), true);
                 dialog.setErrorLabel("Select only one file");
                 dialog.setVisible(true);
+                return;
             }
 
+
+
             for (ResultadoArquivo resultado : noFrom.getResultados()) {
-                if (!resultado.isIdFrom(noFrom.getId())) {
-                    continue;
-                }
+                if (resultado.getBase().getArquivo() != null) {
+                    showFileOverView(resultado.getBase().getArquivo());
 
-                if (!resultado.isIdTo(noTo.getId())) {
-                    continue;
-                }
-
-                if (!resultado.getBase().isText()) {
-                    continue;
-                }
-
-                try {
-                    showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), granularity, true, true, tags);
-                } catch (DiffException ex) {
-                    Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+                } else {
+                    showFileOverView(resultado.getPara().getArquivo());
                 }
                 break;
             }
@@ -311,6 +302,8 @@ public class MainDDiff extends JFrame {
         });
 
         directoryPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Left Directory"));
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDDiff.class);
+        directoryPanel1.setToolTipText(resourceMap.getString("directoryPanel1.toolTipText")); // NOI18N
         directoryPanel1.setName("directoryPanel1"); // NOI18N
         directoryPanel1.setPreferredSize(new java.awt.Dimension(300, 646));
 
@@ -333,11 +326,11 @@ public class MainDDiff extends JFrame {
             directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(directoryPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .add(scrollTreeFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
                 .addContainerGap())
             .add(directoryPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(directoryPanel1Layout.createSequentialGroup()
-                    .add(jRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                    .add(jRadioButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         directoryPanel1Layout.setVerticalGroup(
@@ -355,6 +348,7 @@ public class MainDDiff extends JFrame {
         splitPanel.setLeftComponent(directoryPanel1);
 
         directoryPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Right Directory"));
+        directoryPanel2.setToolTipText(resourceMap.getString("directoryPanel2.toolTipText")); // NOI18N
         directoryPanel2.setName("directoryPanel2"); // NOI18N
 
         scrollTreeTo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -379,7 +373,7 @@ public class MainDDiff extends JFrame {
                     .add(jRadioButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 229, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, directoryPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1013, Short.MAX_VALUE)))
+                        .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         directoryPanel2Layout.setVerticalGroup(
@@ -404,7 +398,6 @@ public class MainDDiff extends JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
         jButton3.setAction(actionMap.get("drill")); // NOI18N
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainDDiff.class);
         jButton3.setIcon(resourceMap.getIcon("jButton3.icon")); // NOI18N
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setToolTipText(resourceMap.getString("jButton3.toolTipText")); // NOI18N
