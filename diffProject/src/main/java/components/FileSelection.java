@@ -18,7 +18,7 @@ public class FileSelection extends javax.swing.JFrame {
 
     private static FileSelection instance;
 
-       public static FileSelection setInstance(){
+    public static FileSelection setInstance() {
         if (instance != null) {
             instance.dispose();
         }
@@ -26,7 +26,6 @@ public class FileSelection extends javax.swing.JFrame {
         return instance;
     }
 
-    
     //private JFileChooser fileChooser;
     /**
      * Constructor 
@@ -39,7 +38,6 @@ public class FileSelection extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
-    
     /**
      * Show About Team
      */
@@ -486,33 +484,6 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     private boolean filesOk() {
 
         return (new File(fileTextField.getText()).exists()) && (new File(fileTextField2.getText()).exists());
-    }
-
-    /**
-     * Create and Show Gui
-     */
-    private static void createAndShowGUI() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                FileSelection.setInstance();
-            }
-        });
-    }
-
-    /**
-     * Main
-     * @param args 
-     */
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                createAndShowGUI();
-            }
-        });
     }
 
     /**

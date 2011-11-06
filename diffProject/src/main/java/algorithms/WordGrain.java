@@ -32,6 +32,7 @@ public class WordGrain extends Grain {
     /**
      * Start word grain
      * @param list
+     * @param ilcsB 
      * @return List<Grain>
      * @throws IOException 
      */

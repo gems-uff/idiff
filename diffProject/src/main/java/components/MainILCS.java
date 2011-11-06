@@ -199,6 +199,7 @@ public final class MainILCS extends javax.swing.JFrame {
         mainButtonGroup = new ButtonGroup();
         buttonGroup = new ButtonGroup();
         toolBar = new JToolBar();
+        jButton1 = new JButton();
         jSeparator4 = new Separator();
         fileSelectionMenuBar = new JButton();
         jSeparator3 = new Separator();
@@ -280,9 +281,21 @@ public final class MainILCS extends javax.swing.JFrame {
         toolBar.setFloatable(false);
         toolBar.setRollover(true);
         toolBar.setName("Menu Bar"); // NOI18N
-        toolBar.add(jSeparator4);
 
         ActionMap actionMap = Application.getInstance().getContext().getActionMap(MainILCS.class, this);
+        jButton1.setAction(actionMap.get("backToDDiff")); // NOI18N
+        jButton1.setIcon(new ImageIcon(getClass().getResource("/components/icons/back.png"))); // NOI18N
+        jButton1.setText(bundle.getString("MainILCS.jButton1.text_2")); // NOI18N
+        jButton1.setToolTipText(bundle.getString("MainILCS.jButton1.toolTipText")); // NOI18N
+        jButton1.setBorderPainted(false);
+        mainButtonGroup.add(jButton1);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(SwingConstants.BOTTOM);
+        toolBar.add(jButton1);
+        toolBar.add(jSeparator4);
+
         fileSelectionMenuBar.setAction(actionMap.get("fileSelection")); // NOI18N
         ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(MainILCS.class);
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
@@ -535,6 +548,14 @@ public final class MainILCS extends javax.swing.JFrame {
     }
 
     /**
+     * Show Diff
+     */
+    @Action
+    public void backToDDiff() {
+        this.dispose();
+    }
+
+    /**
      * Load Tree Files
      * @param fileFrom
      * @param fileTo 
@@ -583,6 +604,7 @@ public final class MainILCS extends javax.swing.JFrame {
     private JDialog exitDialog;
     private JLabel exitLabel;
     private JButton fileSelectionMenuBar;
+    private JButton jButton1;
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
     private Separator jSeparator2;
