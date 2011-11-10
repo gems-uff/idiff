@@ -20,7 +20,7 @@ public class Wrap {
         setWrapPane(rightPane);
     }
 
-    private void setWrapPane(JEditorPane pane) {
+    public void setWrapPane(JEditorPane pane) {
         pane.setEditorKit(new WrapEditorKit());
         initKeyMap(pane);
     }

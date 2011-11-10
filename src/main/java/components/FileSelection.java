@@ -424,7 +424,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      */
     @Action
     public void loadFiles() throws DiffException, FileNotFoundException, IOException {
-        System.out.println("Load Files...");
+
         if (filesOk()) {
             File artifact1 = new File(fileTextField.getText());
             File artifact2 = new File(fileTextField2.getText());
@@ -496,16 +496,26 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @throws IOException 
      */
     private void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+        Splash splash = new Splash();
+        splash.setVisible(true);
+        splash.setMessage("Open Files");
+
         MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         ilcs.setVisible(true);
+        splash.setVisible(false);
     }
 
     /**
      * Show Diff
      */
     private void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+        Splash splash = new Splash();
+        splash.setVisible(true);
+        splash.setMessage("Open Directories");
+
         MainDDiff ddiff = MainDDiff.setInstance(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
         ddiff.setVisible(true);
+        splash.setVisible(false);
     }
 
     /**

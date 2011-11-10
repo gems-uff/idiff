@@ -8,16 +8,6 @@ import java.awt.Cursor;
  */
 public class Splash extends javax.swing.JDialog {
 
-    /** Creates new form Splash
-     * @param parent
-     * @param modal  
-     */
-    public Splash(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-
-        initComponents();
-    }
-
     public Splash() {
         super();
         initComponents();
@@ -26,8 +16,8 @@ public class Splash extends javax.swing.JDialog {
     @Override
     public void setVisible(boolean visible) {
         this.setLocationRelativeTo(this.getOwner());
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         super.setVisible(visible);
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
     }
 
     /**
@@ -49,7 +39,6 @@ public class Splash extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         msgLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -70,21 +59,8 @@ public class Splash extends javax.swing.JDialog {
         jLabel1.setBorder(null);
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jPanel2.setBackground(java.awt.Color.blue);
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.setName("jPanel2"); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 361, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        msgLabel.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        msgLabel.setForeground(new java.awt.Color(255, 255, 255));
         msgLabel.setText("Message...");
         msgLabel.setName("msgLabel"); // NOI18N
 
@@ -93,24 +69,22 @@ public class Splash extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1))
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(msgLabel)
-                .addContainerGap(291, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(msgLabel))
+                    .addComponent(jLabel1))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(msgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,7 +103,6 @@ public class Splash extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel msgLabel;
     // End of variables declaration//GEN-END:variables
 }

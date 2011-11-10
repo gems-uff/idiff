@@ -177,7 +177,7 @@ public final class MainILCS extends javax.swing.JFrame {
 
     private String setWordGrainName(String granularity) {
         if ("Word (Default)".equals(granularity)) {
-            granularity = "Word";
+            return "Word";
         }
         return granularity;
     }
@@ -529,20 +529,6 @@ public final class MainILCS extends javax.swing.JFrame {
             @Override
             public void run() {
                 FileSelection.setInstance();
-            }
-        });
-    }
-
-    /**
-     * Show Diff
-     */
-    @Action
-    public void showDDiff() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                MainDDiff.setInstance();
             }
         });
     }

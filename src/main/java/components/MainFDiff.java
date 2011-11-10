@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import wrap.Wrap;
 
 /**
  *
@@ -34,6 +36,7 @@ public class MainFDiff extends javax.swing.JFrame {
         Laf.setlaf();
         setLocationRelativeTo(null);
         setIconImage(Icon.getIcon());
+
         try {
             init(file);
         } catch (MalformedURLException ex) {
@@ -44,7 +47,9 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private void init(File file) throws MalformedURLException, IOException {
-        fileComponent.submitFile(file, FilePane);
+        new Wrap().setWrapPane(pane);
+        fileComponent.submitFile(file, pane);
+        panel.setBorder(BorderFactory.createTitledBorder(file.getName()));
     }
 
     /** This method is called from within the constructor to
@@ -56,32 +61,32 @@ public class MainFDiff extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        FilePane = new javax.swing.JTextPane();
+        pane = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("File Overview");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("File Name"));
-        jPanel1.setName("jPanel1"); // NOI18N
+        panel.setBorder(javax.swing.BorderFactory.createTitledBorder("File Name"));
+        panel.setName("panel"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        FilePane.setName("FilePane"); // NOI18N
-        jScrollPane1.setViewportView(FilePane);
+        pane.setName("pane"); // NOI18N
+        jScrollPane1.setViewportView(pane);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -92,22 +97,22 @@ public class MainFDiff extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane FilePane;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextPane pane;
+    private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }
