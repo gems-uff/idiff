@@ -18,7 +18,6 @@ import javax.activation.MimetypesFileTypeMap;
 
 import algorithms.LineGrain;
 
-
 /**
  * Guarda a representa��o do arquivo que deve ser comparado.
  * 
@@ -27,304 +26,293 @@ import algorithms.LineGrain;
  */
 public class Arquivo {
 
-	/**
-	 * Arquivo representado.
-	 */
-	private File arquivo = null;
+    /**
+     * Arquivo representado.
+     */
+    private File arquivo = null;
+    /**
+     * C�digo hash do conte�do do arquivo.
+     */
+    private String hash = "";
+    /**
+     * Linhas do arquivo
+     */
+    private List<Linha> linhas;
+    /**
+     * Id como refer�ncia ao diret�rio base de compara��o
+     */
+    private int id;
+    /**
+     * Armazena se j� foi localizado match do arquivo
+     */
+    private boolean match;
+    /**
+     * Path diret�rio base compara��o
+     */
+    private String pathBaseComparacao;
+    private String contentType;
 
-	/**
-	 * C�digo hash do conte�do do arquivo.
-	 */
-	private String hash = "";
-	
-	/**
-	 * Linhas do arquivo
-	 */
-	private List<Linha> linhas;
+    /**
+     * Getter para o arquivo.
+     * 
+     * @return retorna o arquivo
+     */
+    public File getArquivo() {
+        return arquivo;
+    }
 
-	/**
-	 * Id como refer�ncia ao diret�rio base de compara��o
-	 */
-	private int id;
+    /**
+     * Getter para o hash do conte�do do arquivo
+     * 
+     * @return
+     */
+    public String getHash() {
+        return hash;
+    }
 
-	/**
-	 * Armazena se j� foi localizado match do arquivo
-	 */
-	private boolean match;
+    /**
+     * Construtor padr�o
+     * 
+     * @param arquivo
+     *            Arquivo que deve ser representado.
+     * @param id
+     * 
+     * @param pathBaseComparacao
+     */
+    public Arquivo(File arquivo, int id, String pathBaseComparacao) {
+        this.arquivo = arquivo;
+        this.id = id;
+        this.pathBaseComparacao = pathBaseComparacao;
+        gerarHash();
 
-	/**
-	 * Path diret�rio base compara��o
-	 */
-	private String pathBaseComparacao;
-
-	private String contentType;
-	
-	/**
-	 * Getter para o arquivo.
-	 * 
-	 * @return retorna o arquivo
-	 */
-	public File getArquivo() {
-		return arquivo;
-	}
-
-	/**
-	 * Getter para o hash do conte�do do arquivo
-	 * 
-	 * @return
-	 */
-	public String getHash() {
-		return hash;
-	}
-
-	
-	/**
-	 * Construtor padr�o
-	 * 
-	 * @param arquivo
-	 *            Arquivo que deve ser representado.
-	 * @param id
-	 * 
-	 * @param pathBaseComparacao
-	 */
-	public Arquivo(File arquivo, int id, String pathBaseComparacao) {
-		this.arquivo = arquivo;
-		this.id = id;
-		this.pathBaseComparacao = pathBaseComparacao;
-		gerarHash();
-		
 
         contentType = URLConnection.getFileNameMap().getContentTypeFor(getArquivo().getAbsolutePath());
-		if (contentType == null) {
-			contentType = new MimetypesFileTypeMap().getContentType(getArquivo());
-		}
-		
-		carregarLinhas();
-	}
+        if (contentType == null) {
+            contentType = new MimetypesFileTypeMap().getContentType(getArquivo());
+        }
 
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean isText() {		
-		if (contentType.startsWith("text")) {
-			return true;
-		}
-		
-		if (contentType.equalsIgnoreCase("application/octet-stream")){
-			String lowerCase = getArquivo().getName().toLowerCase();
-			if(lowerCase.endsWith(".java")) {
-				return true;
-			}
-			
-			if(lowerCase.endsWith(".form")) {
-				return true;
-			}
-			
-			if(lowerCase.endsWith(".properties")) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
+        carregarLinhas();
+    }
 
-	/**
-	 * Carrega as linhas contidas no arquivo.
-	 */
-	private void carregarLinhas() {
-		if (isArquivo() || isText()) {		
-			linhas = new ArrayList<Linha>();
-			String line = null;
-			BufferedReader reader = null;
-			try {
-				int idStart = 0;
-				reader = new BufferedReader(new FileReader(getArquivo()));
-				while ((line = reader.readLine()) != null) {
-					linhas.add(new Linha(line, linhas.size() + 1, idStart));
-					idStart = idStart + line.length()+1;
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (reader != null) {
-					try {
-						reader.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-	
-	
-	/**
-	 * Gera um c�digo hash MD5 com o conte�do do arquivo representado.
-	 * 
-	 * @return C�digo hash MD5
-	 */
-	private void gerarHash() {
-		if(isArquivo()) {
-			try {
-				MessageDigest digest = MessageDigest.getInstance("MD5");
-				InputStream is = new FileInputStream(getArquivo());
-				byte[] buffer = new byte[8192];
-				String output = "";
-				int read = 0;
-				try {
-					while ((read = is.read(buffer)) > 0) {
-						digest.update(buffer, 0, read);
-					}
-					byte[] md5sum = digest.digest();
-					BigInteger bigInt = new BigInteger(1, md5sum);
-					output = bigInt.toString(16);
-				} catch (IOException e) {
-					throw new RuntimeException(
-							"N�o foi possivel processar o arquivo.", e);
-				} finally {
-					try {
-						is.close();
-					} catch (IOException e) {
-						throw new RuntimeException(
-								"N�o foi possivel fechar o arquivo", e);
-					}
-				}
-				hash = output;
-			} catch (NoSuchAlgorithmException e) {
-				throw new RuntimeException("Algoritmo MD5 n�o foi encontrado.", e);
-			} catch (FileNotFoundException e) {
-				throw new RuntimeException("N�o foi possivel carregar o arquivo.",
-						e);
-			}
-		}
-	}
+    /**
+     * 
+     * @return
+     */
+    public boolean isText() {
+        if (contentType.startsWith("text")) {
+            return true;
+        }
 
-	boolean isArquivo() {
-		return getArquivo().isFile();
-	}
+        if (contentType.equalsIgnoreCase("application/octet-stream")) {
+            String lowerCase = getArquivo().getName().toLowerCase();
+            if (lowerCase.endsWith(".java")) {
+                return true;
+            }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof Arquivo)) {
-			return false;
-		}
+            if (lowerCase.endsWith(".form")) {
+                return true;
+            }
 
-		Arquivo other = (Arquivo) obj;
-		
-		if(!isArquivo()) {			
-			if(other.isArquivo()) {
-				return false;
-			}
-			
-			return other.getPathRelativo().equals(getPathRelativo());
-		}
-		
-		if (hash == null) {
-			if (other.hash != null) {
-				return false;
-			}
-		} else if (!hash.equals(other.hash)) {
-			return false;
-		}
+            if (lowerCase.endsWith(".properties")) {
+                return true;
+            }
+        }
 
-		return true;
-	}
+        return false;
+    }
 
-	public void setLinhas(List<Linha> linhas) {
-		this.linhas = linhas;
-	}
+    /**
+     * Carrega as linhas contidas no arquivo.
+     */
+    private void carregarLinhas() {
+        if (isArquivo() || isText()) {
+            linhas = new ArrayList<Linha>();
+            String line = null;
+            BufferedReader reader = null;
+            try {
+                int idStart = 0;
+                reader = new BufferedReader(new FileReader(getArquivo()));
+                while ((line = reader.readLine()) != null) {
+                    linhas.add(new Linha(line, linhas.size() + 1, idStart));
+                    idStart = idStart + line.length() + 1;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 
-	public List<Linha> getLinhas() {
-		return linhas;
-	}
+    /**
+     * Gera um c�digo hash MD5 com o conte�do do arquivo representado.
+     * 
+     * @return C�digo hash MD5
+     */
+    private void gerarHash() {
+        if (isArquivo()) {
+            try {
+                MessageDigest digest = MessageDigest.getInstance("MD5");
+                InputStream is = new FileInputStream(getArquivo());
+                byte[] buffer = new byte[8192];
+                String output = "";
+                int read = 0;
+                try {
+                    while ((read = is.read(buffer)) > 0) {
+                        digest.update(buffer, 0, read);
+                    }
+                    byte[] md5sum = digest.digest();
+                    BigInteger bigInt = new BigInteger(1, md5sum);
+                    output = bigInt.toString(16);
+                } catch (IOException e) {
+                    throw new RuntimeException(
+                            "N�o foi possivel processar o arquivo.", e);
+                } finally {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(
+                                "N�o foi possivel fechar o arquivo", e);
+                    }
+                }
+                hash = output;
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException("Algoritmo MD5 n�o foi encontrado.", e);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException("N�o foi possivel carregar o arquivo.",
+                        e);
+            }
+        }
+    }
 
-	/**
-	 * Seta se o arquivo esta com match localizado.
-	 * @param match true | false
-	 */
-	public void setMatch(boolean match) {
-		this.match = match;		
-	}
+    boolean isArquivo() {
+        return getArquivo().isFile();
+    }
 
-	/**
-	 * @return the match
-	 */
-	public boolean isMatch() {
-		return match;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Arquivo)) {
+            return false;
+        }
 
-	/**
-	 * Retorna o path relativo ao diret�rio base de compara��o.
-	 * 
-	 * @return String com o path.
-	 */
-	public String getPathRelativo() {
-		return arquivo.getAbsolutePath().replace(pathBaseComparacao, "");
-	}
+        Arquivo other = (Arquivo) obj;
 
-	/**
-	 * Calcula o tamanho das linhas sem match, desconsiderando os espa�os em branco.
-	 * 
-	 * @return tamanho as linhas
-	 */
-	public int getTamanhoAtual() {
-		int tamanho = 0;
-		
-		for (LineGrain linha : getLinhasSemMatch()) {
-			String line = linha.getGrain();
+        if (!isArquivo()) {
+            if (other.isArquivo()) {
+                return false;
+            }
 
-			for (int i = 0; i < line.length(); i++) {
-				if (line.charAt(i) != ' ') {
-					tamanho++;
-				}
-			}
-		}
-		
-		return tamanho;
-	}
+            return other.getPathRelativo().equals(getPathRelativo());
+        }
 
-	/**
-	 * Retorna as linhas sem match
-	 * @return Uma lista com as linhas sem match
-	 */
-	private List<Linha> getLinhasSemMatch() {
-		List<Linha> linhasSemMatch = new ArrayList<Linha>();
-		for (Linha linha : getLinhas()) {
-			if(! linha.isMatch()) {
-				linhasSemMatch.add(linha);
-			}
-		}
-		
-		return linhasSemMatch;
-	}
+        if (hash == null) {
+            if (other.hash != null) {
+                return false;
+            }
+        } else if (!hash.equals(other.hash)) {
+            return false;
+        }
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+        return true;
+    }
 
-	public boolean isDirectory() {
-		if (getArquivo() != null) {
-			return getArquivo().isDirectory();
-		}
-		
-		return false;
-	}
+    public void setLinhas(List<Linha> linhas) {
+        this.linhas = linhas;
+    }
+
+    public List<Linha> getLinhas() {
+        return linhas;
+    }
+
+    /**
+     * Seta se o arquivo esta com match localizado.
+     * @param match true | false
+     */
+    public void setMatch(boolean match) {
+        this.match = match;
+    }
+
+    /**
+     * @return the match
+     */
+    public boolean isMatch() {
+        return match;
+    }
+
+    /**
+     * Retorna o path relativo ao diret�rio base de compara��o.
+     * 
+     * @return String com o path.
+     */
+    public String getPathRelativo() {
+        return arquivo.getAbsolutePath().replace(pathBaseComparacao, "");
+    }
+
+    /**
+     * Calcula o tamanho das linhas sem match, desconsiderando os espa�os em branco.
+     * 
+     * @return tamanho as linhas
+     */
+    public int getTamanhoAtual() {
+        int tamanho = 0;
+
+        for (LineGrain linha : getLinhasSemMatch()) {
+            String line = linha.getGrain();
+
+            for (int i = 0; i < line.length(); i++) {
+                if (line.charAt(i) != ' ') {
+                    tamanho++;
+                }
+            }
+        }
+
+        return tamanho;
+    }
+
+    /**
+     * Retorna as linhas sem match
+     * @return Uma lista com as linhas sem match
+     */
+    private List<Linha> getLinhasSemMatch() {
+        List<Linha> linhasSemMatch = new ArrayList<Linha>();
+        for (Linha linha : getLinhas()) {
+            if (!linha.isMatch()) {
+                linhasSemMatch.add(linha);
+            }
+        }
+
+        return linhasSemMatch;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    public boolean isDirectory() {
+        if (getArquivo() != null) {
+            return getArquivo().isDirectory();
+        }
+
+        return false;
+    }
 }

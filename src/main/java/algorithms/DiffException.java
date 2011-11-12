@@ -15,6 +15,7 @@ public class DiffException extends Exception {
     public static final String MSG_INVALID_START_CHARACTER_GRANULARITY = "Error trying to start Character Granularity";
     public static final String MSG_INVALID_GRAIN = "Unsupported Granularity";
     public static final String MSG_INVALID_REDUCTION = "Reduction of granularity not allowed";
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructor

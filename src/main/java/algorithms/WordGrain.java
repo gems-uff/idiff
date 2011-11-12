@@ -39,8 +39,8 @@ public class WordGrain extends Grain {
     public List<Grain> start(List<Grain> list,ILCSBean ilcsB) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
         finalList.add(null);
-        for (Iterator it = list.iterator(); it.hasNext();) {
-            Grain grain = (Grain) it.next();
+        for (Iterator<Grain> it = list.iterator(); it.hasNext();) {
+            Grain grain = it.next();
             if (grain != null) {
                 Pattern p = Pattern.compile(ilcsB.getTags());
                 String[] token = p.split(grain.getGrain());
@@ -95,6 +95,7 @@ public class WordGrain extends Grain {
      * Start Word Granularity
      * @param listFileFrom
      * @param listFileTo
+     * @param ilcsB 
      * @throws DiffException 
      */
     public void startWordGranularity(List<Grain> listFileFrom, List<Grain> listFileTo,ILCSBean ilcsB) throws DiffException {

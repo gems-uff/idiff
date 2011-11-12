@@ -32,5 +32,5 @@ public interface IResultLCS {
      * @param it
      * @return Grain
      */
-    Grain getNext(Iterator it);
+    Grain getNext(Iterator<Grain> it);
 }

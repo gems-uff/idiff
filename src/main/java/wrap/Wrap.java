@@ -45,6 +45,7 @@ public class Wrap {
     protected void initKeyMap(final JEditorPane pane) {
         Keymap kMap = pane.getKeymap();
         AbstractAction a = new AbstractAction() {
+            private static final long serialVersionUID = 1L;
 
             @Override
             public void actionPerformed(ActionEvent e) {

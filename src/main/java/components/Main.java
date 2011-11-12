@@ -11,6 +11,6 @@ public class Main {
         splash.setVisible(true);
         splash.setMessage("Starting IDIFF...");
         FileSelection.setInstance();
-        splash.setVisible(false);
+        splash.dispose();
     }
 }

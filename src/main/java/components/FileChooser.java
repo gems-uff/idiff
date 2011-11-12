@@ -12,21 +12,21 @@ import javax.swing.UIManager;
 public class FileChooser extends JFileChooser {
     private static final long serialVersionUID = 1L;
 
-    JFileChooser fileChooser;
+    private JFileChooser fileChooser;
 
     public FileChooser() {
        this.fileChooser = new JFileChooser();
     }
 
     public void setFileChooser(JTextField tField) {
-        fileChooser.setDialogTitle("File Chooser");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        getFileChooser().setDialogTitle("File Chooser");
+        getFileChooser().setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
-        int resultado = fileChooser.showOpenDialog(this);
+        int resultado = getFileChooser().showOpenDialog(this);
         if (resultado == JFileChooser.CANCEL_OPTION) {
-            fileChooser.setVisible(false);
+            getFileChooser().setVisible(false);
         } else {
-            tField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+            tField.setText(getFileChooser().getSelectedFile().getAbsolutePath());
             tField.setForeground(Color.BLACK);
         }
     }
@@ -75,5 +75,19 @@ public class FileChooser extends JFileChooser {
         UIManager.put("FileChooser.helpButtonToolTipText", "H");
         UIManager.put("FileChooser.helpButtonToolTipText", "Help");
         UIManager.put("FileChooser.acceptAllFileFilterText", "All files");
+    }
+
+    /**
+     * @return the fileChooser
+     */
+    public JFileChooser getFileChooser() {
+        return fileChooser;
+    }
+
+    /**
+     * @param fileChooser the fileChooser to set
+     */
+    public void setFileChooser(JFileChooser fileChooser) {
+        this.fileChooser = fileChooser;
     }
 }

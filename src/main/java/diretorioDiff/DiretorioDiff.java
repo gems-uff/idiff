@@ -134,7 +134,6 @@ public class DiretorioDiff {
 			}
 		} catch (DiretorioDiffException e) {
 			System.out.println("Erro: " + e.getMessage());
-			e.printStackTrace();
 		}
 
 		return resultado;
@@ -268,12 +267,12 @@ public class DiretorioDiff {
 			}
 		}
 
-		int similaridade = (int) (qtdeCharsIguais * 100 / base
-				.getTamanhoAtual());
+		int similaridade = qtdeCharsIguais * 100 / base
+                         .getTamanhoAtual();
 
 		if (similaridade == 100) {
-			similaridade = (int) (qtdeCharsIguais * 100 / comparado
-					.getTamanhoAtual());
+			similaridade = qtdeCharsIguais * 100 / comparado
+                                 .getTamanhoAtual();
 		}
 
 		return similaridade;

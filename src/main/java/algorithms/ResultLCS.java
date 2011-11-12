@@ -61,8 +61,8 @@ public class ResultLCS implements IResultLCS {
      * @throws DiffException
      */
     private void loadResult() throws DiffException {
-        Iterator itF1 = this.arrayFileVersionOne.iterator();
-        Iterator itF2 = this.arrayFileVersionTwo.iterator();
+        Iterator<Grain> itF1 = this.arrayFileVersionOne.iterator();
+        Iterator<Grain> itF2 = this.arrayFileVersionTwo.iterator();
 
         Grain grainF1 = getNext(itF1);
         Grain grainF2 = getNext(itF2);
@@ -185,7 +185,7 @@ public class ResultLCS implements IResultLCS {
      * @return Grain
      */
     @Override
-    public Grain getNext(Iterator it) {
+    public Grain getNext(Iterator<Grain> it) {
         Object obj = null;
         if (it.hasNext()) {
             obj = it.next();

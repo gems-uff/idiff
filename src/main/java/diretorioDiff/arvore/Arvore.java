@@ -226,7 +226,7 @@ public class Arvore extends JTree {
 
         if (expandedDescendants != null) {
             while (expandedDescendants.hasMoreElements()) {
-                TreePath treePath = (TreePath) expandedDescendants.nextElement();
+                TreePath treePath = expandedDescendants.nextElement();
 
                 expandParents(treePath);
             }
@@ -378,8 +378,8 @@ public class Arvore extends JTree {
         // Traverse children
         TreeNode node = (TreeNode) parent.getLastPathComponent();
         if (node.getChildCount() >= 0) {
-            for (Enumeration e = node.children(); e.hasMoreElements();) {
-                TreeNode n = (TreeNode) e.nextElement();
+            for (@SuppressWarnings("unchecked") Enumeration<TreeNode> e = node.children(); e.hasMoreElements();) {
+                TreeNode n = e.nextElement();
                 TreePath path = parent.pathByAddingChild(n);
                 expandAll(path, expand);
             }

@@ -36,8 +36,8 @@ public class CharacterGrain extends Grain {
     public List<Grain> start(List<Grain> list) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
         finalList.add(null);
-        for (Iterator it = list.iterator(); it.hasNext();) {
-            Grain grain = (Grain) it.next();
+        for (Iterator<Grain> it = list.iterator(); it.hasNext();) {
+            Grain grain = it.next();
 
             if (grain != null) {
                 char[] letras = grain.getGrain().toCharArray();

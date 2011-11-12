@@ -76,6 +76,7 @@ public class LCS implements IDiff {
 
     /**
      * Main steps of the lcs
+     * @param iteration 
      * @return IResultLCS
      * @throws DiffException
      */
@@ -117,11 +118,12 @@ public class LCS implements IDiff {
 
     /**
      * Print LCS
+     * @param iteration 
      * @return IResultLCS
      * @throws DiffException
      */
     public IResultLCS printLCS(int iteration) throws DiffException {
-        List<Grain> lcs = new ArrayList();
+        List<Grain> lcs = new ArrayList<Grain>();
         lcs.clear();
         printLCS(lcs, this.linesFileOne.size() - 1, this.columnFileTwo.size() - 1,iteration);
         return new ResultLCS(this.linesFileOne, this.columnFileTwo, lcs);
@@ -202,7 +204,7 @@ public class LCS implements IDiff {
         List<Grain> result = new ArrayList<Grain>();
 
         result.add(null);
-        for (Iterator it = arrayFile.iterator(); it.hasNext();) {
+        for (Iterator<Grain> it = arrayFile.iterator(); it.hasNext();) {
             grain = getNext(it);
             if (grain.getSituation() != Grain.Situation.UNCHANGED) {
                 result.add(grain);
@@ -216,7 +218,7 @@ public class LCS implements IDiff {
      * @param it
      * @return Grain
      */
-    public Grain getNext(Iterator it) {
+    public Grain getNext(Iterator<Grain> it) {
         Object obj = null;
         if (it.hasNext()) {
             obj = it.next();
