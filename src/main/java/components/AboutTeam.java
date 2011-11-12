@@ -7,6 +7,7 @@ import details.Laf;
  * AboutTeam
  * @author Fernanda Floriano Silva
  */
+@SuppressWarnings("serial")
 public class AboutTeam extends javax.swing.JFrame {
 
     /**

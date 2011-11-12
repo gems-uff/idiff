@@ -21,6 +21,7 @@ import org.jdesktop.application.Action;
  * MainDDiff
  * @author Fernanda Floriano Silva
  */
+@SuppressWarnings("serial")
 public class MainDDiff extends JFrame {
 
     private Arvore fromTree;
@@ -58,7 +59,6 @@ public class MainDDiff extends JFrame {
         super();
 
         initComponents();
-
         init();
 
         from = directoryFrom;
@@ -102,15 +102,14 @@ public class MainDDiff extends JFrame {
             No noTo = toTree.getSelectedNode();
             No noFrom = fromTree.getSelectedNode();
 
-            if (noFrom == null) {
+            if ((noFrom == null) || (noTo == null)) {
+                Error dialog = new Error(new javax.swing.JFrame(), true);
+                dialog.setErrorLabel("Select two files");
+                dialog.setVisible(true);
                 return;
             }
 
             if (!noFrom.isSelected()) {
-                return;
-            }
-
-            if (noTo == null) {
                 return;
             }
 
@@ -513,7 +512,6 @@ public class MainDDiff extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void splitPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_splitPanelComponentResized
-        // TODO add your handling code here:
         resize();
     }//GEN-LAST:event_splitPanelComponentResized
 

@@ -17,6 +17,7 @@ import org.jdesktop.application.Action;
 public class FileSelection extends javax.swing.JFrame {
 
     private static FileSelection instance;
+    private static final long serialVersionUID = 1L;
 
     public static FileSelection setInstance() {
         if (instance != null) {
@@ -385,7 +386,6 @@ public class FileSelection extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dotActionPerformed
-// TODO add your handling code here:
 }//GEN-LAST:event_dotActionPerformed
 
     /**
@@ -423,22 +423,26 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @throws IOException 
      */
     @Action
-    public void loadFiles() throws DiffException, FileNotFoundException, IOException {
+    public synchronized void loadFiles() throws DiffException, FileNotFoundException, IOException {
+        Splash splash = new Splash();
+        splash.setVisible(true);
 
         if (filesOk()) {
             File artifact1 = new File(fileTextField.getText());
             File artifact2 = new File(fileTextField2.getText());
 
             if ((artifact1.isDirectory()) || (artifact2.isDirectory())) {
+                splash.setMessage("Loading Directories...");
                 showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags());
-
             } else {
+                splash.setMessage("Loading Files...");
                 showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags());
             }
             this.dispose();
         } else {
             showError();
         }
+        splash.setVisible(false);
     }
 
     /**
@@ -495,27 +499,17 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    private void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
-        Splash splash = new Splash();
-        splash.setVisible(true);
-        splash.setMessage("Open Files");
-
+    private synchronized void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
         MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         ilcs.setVisible(true);
-        splash.setVisible(false);
     }
 
     /**
      * Show Diff
      */
-    private void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
-        Splash splash = new Splash();
-        splash.setVisible(true);
-        splash.setMessage("Open Directories");
-
+    private synchronized void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
         MainDDiff ddiff = MainDDiff.setInstance(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
         ddiff.setVisible(true);
-        splash.setVisible(false);
     }
 
     /**

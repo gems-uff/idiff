@@ -9,6 +9,7 @@ import org.jdesktop.application.Action;
  * @author Fernanda Floriano Silva
  */
 public class Error extends javax.swing.JDialog {
+    private static final long serialVersionUID = 1L;
 
     /** Creates new form Error
      * @param parent

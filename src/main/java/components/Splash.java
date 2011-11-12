@@ -6,6 +6,7 @@ import java.awt.Cursor;
  *
  * @author Fernanda Floriano Silva
  */
+@SuppressWarnings("serial")
 public class Splash extends javax.swing.JDialog {
 
     public Splash() {
@@ -38,53 +39,56 @@ public class Splash extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         msgLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("IDIFF");
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(Splash.class);
         setBackground(resourceMap.getColor("background")); // NOI18N
-        setMinimumSize(new java.awt.Dimension(372, 370));
+        setMinimumSize(new java.awt.Dimension(360, 325));
 
         jPanel1.setBackground(resourceMap.getColor("jPanel1.background")); // NOI18N
-        jPanel1.setMaximumSize(new java.awt.Dimension(361, 332));
-        jPanel1.setMinimumSize(new java.awt.Dimension(361, 332));
+        jPanel1.setMaximumSize(new java.awt.Dimension(360, 325));
+        jPanel1.setMinimumSize(new java.awt.Dimension(360, 325));
         jPanel1.setName("jPanel1"); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(360, 325));
+
+        msgLabel.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        msgLabel.setForeground(resourceMap.getColor("msgLabel.foreground")); // NOI18N
+        msgLabel.setText("Message...");
+        msgLabel.setName("msgLabel"); // NOI18N
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(resourceMap.getIcon("jLabel1.icon")); // NOI18N
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setToolTipText(resourceMap.getString("jLabel1.toolTipText")); // NOI18N
-        jLabel1.setBorder(null);
+        jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel1.setInheritsPopupMenu(false);
         jLabel1.setName("jLabel1"); // NOI18N
-
-        msgLabel.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
-        msgLabel.setForeground(new java.awt.Color(255, 255, 255));
-        msgLabel.setText("Message...");
-        msgLabel.setName("msgLabel"); // NOI18N
+        jLabel1.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(msgLabel))
                     .addComponent(jLabel1))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(msgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

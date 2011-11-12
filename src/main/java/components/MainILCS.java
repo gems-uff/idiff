@@ -56,6 +56,7 @@ import wrap.Wrap;
  * MainILCS
  * @author Fernanda Floriano Silva
  */
+@SuppressWarnings("serial")
 public final class MainILCS extends javax.swing.JFrame {
 
     private static MainILCS instance;

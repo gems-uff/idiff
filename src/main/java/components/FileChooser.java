@@ -10,6 +10,7 @@ import javax.swing.UIManager;
  * @author Fernanda Floriano Silva
  */
 public class FileChooser extends JFileChooser {
+    private static final long serialVersionUID = 1L;
 
     JFileChooser fileChooser;
 

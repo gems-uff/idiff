@@ -1,6 +1,5 @@
 package components;
 
-import components.FileComponent;
 import details.Icon;
 import details.Laf;
 import java.io.File;
@@ -15,6 +14,7 @@ import wrap.Wrap;
  *
  * @author Fernanda Floriano Silva
  */
+@SuppressWarnings("serial")
 public class MainFDiff extends javax.swing.JFrame {
 
     private FileComponent fileComponent = new FileComponent();
