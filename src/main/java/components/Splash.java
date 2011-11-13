@@ -2,12 +2,14 @@ package components;
 
 import java.awt.Cursor;
 
+import diretorioDiff.ProgressMessager;
+
 /**
  *
  * @author Fernanda Floriano Silva
  */
 @SuppressWarnings("serial")
-public class Splash extends javax.swing.JDialog {
+public class Splash extends javax.swing.JDialog implements ProgressMessager {
 
     public Splash() {
         super();

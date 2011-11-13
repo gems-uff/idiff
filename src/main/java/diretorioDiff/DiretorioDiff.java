@@ -4,15 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import diretorioDiff.resultados.Resultado;
-
-
 import algorithms.Diff;
 import algorithms.DiffException;
 import algorithms.FileGrain;
 import algorithms.Grain;
 import algorithms.ILCSBean;
 import algorithms.IResultDiff;
+import diretorioDiff.resultados.Resultado;
 
 /**
  * Realiza diff de diret�rios.
@@ -36,6 +34,12 @@ public class DiretorioDiff {
 
 	private int iteracao;
 
+	private final ProgressMessager progressMessager;
+
+
+	public DiretorioDiff(ProgressMessager progressMessager) {
+		this.progressMessager = progressMessager;
+	}
 
 	/**
 	 * Realiza a compara��o entre dois diret�rios. <br>
@@ -73,7 +77,15 @@ public class DiretorioDiff {
 	 */
 	public static Resultado compararDiretorios(String nomeDiretorio1,
 			String nomeDiretorio2) {
-		return compararDiretorios(new File(nomeDiretorio1), new File(nomeDiretorio2));
+		ProgressMessager defaultProgressMessager = new ProgressMessager() {
+			
+			@Override
+			public void setMessage(String message) {
+				System.out.println(message);
+			}
+		};
+		
+		return compararDiretorios(new File(nomeDiretorio1), new File(nomeDiretorio2), defaultProgressMessager);
 	}
 	
 	/**
@@ -109,21 +121,28 @@ public class DiretorioDiff {
 	 *            - Diret�rio 1
 	 * @param diretorio2
 	 *            - Diret�rio 2
+	 * @param progressMessager Messager of progress
 	 * 
 	 * @return Resultado da compara��o.
 	 */
-	public static Resultado compararDiretorios(File diretorio1, File diretorio2) {
-		return new DiretorioDiff().compararDiretoriosInterno(diretorio1, diretorio2);
+	public static Resultado compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager) {
+		return new DiretorioDiff(progressMessager).compararDiretoriosInterno(diretorio1, diretorio2);
 	}
 	
 	private Resultado compararDiretoriosInterno(File diretorio1, File diretorio2) {
 		resultado = new Resultado();
 		iteracao = 0;
-
+		
 		try {
+			progressMessager.setMessage("Loading directories.");
+			
 			serializarDiretorios(diretorio1, diretorio2);
 
+			progressMessager.setMessage("Searching same files.");
+			
 			buscaArquivosIdenticos();
+			
+			progressMessager.setMessage("Searching deleted and added files.");
 			
 			marcarArquivosInclassificaveis();
 
@@ -173,6 +192,8 @@ public class DiretorioDiff {
 		int[][] matrizILCS = new int[tamanhoHungaro][tamanhoHungaro];
 		Util.atribuir(matrizILCS, 0);
 
+		progressMessager.setMessage("Find similarity of files.");
+		
 		for (int i = 0; i < arquivosSemMatch1.size(); i++) {
 			Arquivo base = arquivosSemMatch1.get(i);
 
@@ -181,6 +202,8 @@ public class DiretorioDiff {
 			for (int j = 0; j < arquivosSemMatch2.size(); j++) {
 				Arquivo comparado = arquivosSemMatch2.get(j);
 
+				progressMessager.setMessage("Comparing '" + base.getArquivo().getName() + "' and '" + comparado.getArquivo().getName() + "'.");
+				
 				int similaridade = calculaSimilaridade(base, comparado);
 
 				matrizILCS[i][j] = similaridade;
@@ -209,6 +232,8 @@ public class DiretorioDiff {
 			}
 		}
 
+		progressMessager.setMessage("Searching best similarity.");
+		
 		int[][] resultadoHungaro = executaHungaro(matrizILCS);
 		
 		for (int i = 0; i < arquivosSemMatch1.size(); i++) {

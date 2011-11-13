@@ -5,6 +5,7 @@ import details.Icon;
 import details.Laf;
 import diretorioDiff.DiretorioDiff;
 import diretorioDiff.DiretorioDiffException;
+import diretorioDiff.ProgressMessager;
 import diretorioDiff.arvore.Arvore;
 import diretorioDiff.arvore.No;
 import diretorioDiff.resultados.Resultado;
@@ -66,13 +67,17 @@ public class MainDDiff extends JFrame {
         this.granularity = granularity;
         this.tags = tags;
 
-        try {
-            loadTree();
-        } catch (DiretorioDiffException ex) {
-            Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        execute();
     }
+    
+
+	public void start() {
+		try {
+			loadTree();
+		} catch (DiretorioDiffException ex) {
+			Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		execute();
+	}
 
     @Action
     public void resize() {
@@ -82,10 +87,18 @@ public class MainDDiff extends JFrame {
     }
 
     private void execute() {
-        Resultado resultado = DiretorioDiff.compararDiretorios(from, to);
+    	Splash progressMessager = new Splash();
+    	progressMessager.setLocationRelativeTo(this);
+    	progressMessager.setVisible(true);
+    	
+		Resultado resultado = DiretorioDiff.compararDiretorios(from, to, progressMessager);
 
-        fromTree.setResultado(resultado);
+		progressMessager.setMessage("Loading result of comparing.");
+
+		fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
+        
+        progressMessager.setVisible(false);
     }
 
     private void loadTree() throws DiretorioDiffException {
@@ -549,4 +562,5 @@ public class MainDDiff extends JFrame {
     private javax.swing.JSplitPane splitPanel;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
+
 }
