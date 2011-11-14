@@ -1,6 +1,19 @@
 package components;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRootPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+
 
 import diretorioDiff.ProgressMessager;
 
@@ -11,6 +24,17 @@ import diretorioDiff.ProgressMessager;
 @SuppressWarnings("serial")
 public class Splash extends javax.swing.JDialog implements ProgressMessager {
 
+    JLabel msg;
+
+    public Splash(JFrame owner) {
+        super(owner, true);
+        this.setLocationRelativeTo(owner);
+        initComponents();
+    }
+
+    /**
+     * Construct a non-modal splash screen
+     */
     public Splash() {
         super();
         initComponents();
@@ -20,13 +44,13 @@ public class Splash extends javax.swing.JDialog implements ProgressMessager {
     public void setVisible(boolean visible) {
         this.setLocationRelativeTo(this.getOwner());
         super.setVisible(visible);
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
     }
 
     /**
      * Write a new status message
      * @param message 
      */
+    @Override
     public void setMessage(String message) {
         msgLabel.setText(message);
     }

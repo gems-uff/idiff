@@ -32,10 +32,16 @@ public class FileSelection extends javax.swing.JFrame {
      * Constructor 
      */
     public FileSelection() {
+        Splash splash = new Splash();
+        splash.setVisible(true);
+        splash.setMessage("Starting IDIFF...");
+
         Laf.setlaf();
         setIconImage(Icon.getIcon());
         initComponents();
         setLocationRelativeTo(null);
+
+        splash.dispose();
         this.setVisible(true);
     }
 
@@ -424,25 +430,20 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      */
     @Action
     public synchronized void loadFiles() throws DiffException, FileNotFoundException, IOException {
-        Splash splash = new Splash();
-        splash.setVisible(true);
 
         if (filesOk()) {
             File artifact1 = new File(fileTextField.getText());
             File artifact2 = new File(fileTextField2.getText());
 
             if ((artifact1.isDirectory()) || (artifact2.isDirectory())) {
-                splash.setMessage("Loading Directories...");
                 showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags());
             } else {
-                splash.setMessage("Loading Files...");
                 showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags());
             }
             this.dispose();
         } else {
             showError();
         }
-        splash.setVisible(false);
     }
 
     /**
@@ -499,7 +500,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    private synchronized void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+    private void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
         MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, showDiff, showMove, tags);
         ilcs.setVisible(true);
     }
@@ -507,7 +508,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     /**
      * Show Diff
      */
-    private synchronized void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+    private void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
         MainDDiff ddiff = MainDDiff.setInstance(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
         ddiff.setVisible(true);
         ddiff.start();
