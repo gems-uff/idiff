@@ -61,12 +61,16 @@ public final class MainILCS extends javax.swing.JFrame {
 
     private static MainILCS instance;
 
-    public static MainILCS setInstance(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
+    public synchronized static MainILCS getInstance(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
         if (instance != null) {
             instance.dispose();
         }
         instance = new MainILCS(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         return instance;
+    }
+
+    public static synchronized void resetInstance() {
+        instance = null;
     }
 
     /**
@@ -92,16 +96,16 @@ public final class MainILCS extends javax.swing.JFrame {
 
         splash.setMessage("Initial Steps...");
 
-        initialSteps(fileFrom, fileTo, granularity, tags,getPerspective(isQuiteSimilar));
+        initialSteps(fileFrom, fileTo, granularity, tags, getPerspective(isQuiteSimilar));
         Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
 
         setListenerRadioButton();
 
         splash.setMessage("Loading Files...");
         splash.setMessage("Runing ...");
+        splash.dispose();
 
         runProject();
-        splash.dispose();
 
     }
 
@@ -115,13 +119,13 @@ public final class MainILCS extends javax.swing.JFrame {
 
     public int getPerspective(boolean isQuiteSimilar) {
         if (isQuiteSimilar) {
-            this.diffRadioButton.setSelected(false);
-            this.similarRadioButton.setSelected(true);
-            return 2;
-        } else {
             this.diffRadioButton.setSelected(true);
             this.similarRadioButton.setSelected(false);
             return 1;
+        } else {
+            this.diffRadioButton.setSelected(false);
+            this.similarRadioButton.setSelected(true);
+            return 2;
         }
     }
 
@@ -166,10 +170,10 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param showMove
      * @throws IOException 
      */
-    private void initialSteps(File fileFrom, File fileTo, String granularity, String tags,int perspective) throws IOException {
+    private void initialSteps(File fileFrom, File fileTo, String granularity, String tags, int perspective) throws IOException {
         init();
         initFiles(fileFrom, fileTo);
-        initParameters(granularity, tags,perspective);
+        initParameters(granularity, tags, perspective);
         setLayoutPane();
     }
 
@@ -554,7 +558,7 @@ public final class MainILCS extends javax.swing.JFrame {
 
             @Override
             public void run() {
-                FileSelection.setInstance();
+                FileSelection.getInstance();
             }
         });
     }
@@ -600,7 +604,7 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param emptyLine
      * @param whiteSpace 
      */
-    private void initParameters(String granularity, String tags,int perspective) {
+    private void initParameters(String granularity, String tags, int perspective) {
         ilcsBean.setGranularity(setWordGrainName(granularity));
         ilcsBean.setTags(tags);
         ilcsBean.setPerspective(perspective);

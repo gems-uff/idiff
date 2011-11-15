@@ -34,11 +34,11 @@ public class DiretorioDiff {
 
 	private int iteracao;
 
-	private final ProgressMessager progressMessager;
+	//private final ProgressMessager progressMessager;
 
 
-	public DiretorioDiff(ProgressMessager progressMessager) {
-		this.progressMessager = progressMessager;
+	public DiretorioDiff(){//ProgressMessager progressMessager) {
+		//this.progressMessager = progressMessager;
 	}
 
 	/**
@@ -77,15 +77,15 @@ public class DiretorioDiff {
 	 */
 	public static Resultado compararDiretorios(String nomeDiretorio1,
 			String nomeDiretorio2) {
-		ProgressMessager defaultProgressMessager = new ProgressMessager() {
-			
-			@Override
-			public void setMessage(String message) {
-				System.out.println(message);
-			}
-		};
+		//ProgressMessager defaultProgressMessager = new ProgressMessager() {
+		//	
+		//	@Override
+			//public void setMessage(String message) {
+		//		System.out.println(message);
+			//}
+		//};
 		
-		return compararDiretorios(new File(nomeDiretorio1), new File(nomeDiretorio2), defaultProgressMessager);
+		return compararDiretorios(new File(nomeDiretorio1), new File(nomeDiretorio2));//, defaultProgressMessager);
 	}
 	
 	/**
@@ -125,24 +125,25 @@ public class DiretorioDiff {
 	 * 
 	 * @return Resultado da compara��o.
 	 */
-	public static Resultado compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager) {
-		return new DiretorioDiff(progressMessager).compararDiretoriosInterno(diretorio1, diretorio2);
-	}
+	public static Resultado compararDiretorios(File diretorio1, File diretorio2){//, ProgressMessager progressMessager) {
+		return new DiretorioDiff().compararDiretoriosInterno(diretorio1, diretorio2);
+//       		return new DiretorioDiff(progressMessager).compararDiretoriosInterno(diretorio1, diretorio2);
+}
 	
 	private Resultado compararDiretoriosInterno(File diretorio1, File diretorio2) {
 		resultado = new Resultado();
 		iteracao = 0;
 		
 		try {
-			progressMessager.setMessage("Loading directories.");
+		//	progressMessager.setMessage("Loading directories.");
 			
 			serializarDiretorios(diretorio1, diretorio2);
 
-			progressMessager.setMessage("Searching same files.");
+			//progressMessager.setMessage("Searching same files.");
 			
 			buscaArquivosIdenticos();
 			
-			progressMessager.setMessage("Searching deleted and added files.");
+			//progressMessager.setMessage("Searching deleted and added files.");
 			
 			marcarArquivosInclassificaveis();
 
@@ -192,7 +193,7 @@ public class DiretorioDiff {
 		int[][] matrizILCS = new int[tamanhoHungaro][tamanhoHungaro];
 		Util.atribuir(matrizILCS, 0);
 
-		progressMessager.setMessage("Find similarity of files.");
+		//progressMessager.setMessage("Find similarity of files.");
 		
 		for (int i = 0; i < arquivosSemMatch1.size(); i++) {
 			Arquivo base = arquivosSemMatch1.get(i);
@@ -202,7 +203,7 @@ public class DiretorioDiff {
 			for (int j = 0; j < arquivosSemMatch2.size(); j++) {
 				Arquivo comparado = arquivosSemMatch2.get(j);
 
-				progressMessager.setMessage("Comparing '" + base.getArquivo().getName() + "' and '" + comparado.getArquivo().getName() + "'.");
+				//progressMessager.setMessage("Comparing '" + base.getArquivo().getName() + "' and '" + comparado.getArquivo().getName() + "'.");
 				
 				int similaridade = calculaSimilaridade(base, comparado);
 
@@ -232,7 +233,7 @@ public class DiretorioDiff {
 			}
 		}
 
-		progressMessager.setMessage("Searching best similarity.");
+		//progressMessager.setMessage("Searching best similarity.");
 		
 		int[][] resultadoHungaro = executaHungaro(matrizILCS);
 		
@@ -278,7 +279,6 @@ public class DiretorioDiff {
 
 			compare.cleanResult();
 		} catch (DiffException e) {
-			e.printStackTrace();
 		}
 
 		int qtdeCharsIguais = 0;

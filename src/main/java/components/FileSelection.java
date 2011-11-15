@@ -6,6 +6,8 @@ import details.Laf;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import org.jdesktop.application.Action;
@@ -19,30 +21,38 @@ public class FileSelection extends javax.swing.JFrame {
     private static FileSelection instance;
     private static final long serialVersionUID = 1L;
 
-    public static FileSelection setInstance() {
+    public static FileSelection getInstance() {
         if (instance != null) {
             instance.dispose();
         }
         instance = new FileSelection();
         return instance;
     }
-
     //private JFileChooser fileChooser;
+
     /**
      * Constructor 
      */
     public FileSelection() {
-        Splash splash = new Splash();
-        splash.setVisible(true);
-        splash.setMessage("Starting IDIFF...");
+        try {
+            Splash splash = new Splash();
+            splash.setVisible(true);
+            splash.setMessage("Starting IDIFF...");
+            init();
+            splash.setVisible(false);
+            Thread.sleep(10);
+            this.setVisible(true);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(FileSelection.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
+
+    private void init() {
         Laf.setlaf();
         setIconImage(Icon.getIcon());
         initComponents();
         setLocationRelativeTo(null);
-
-        splash.dispose();
-        this.setVisible(true);
     }
 
     /**
@@ -438,7 +448,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
             if ((artifact1.isDirectory()) || (artifact2.isDirectory())) {
                 showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags());
             } else {
-                showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags(),false);
+                showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags(), false);
             }
             this.dispose();
         } else {
@@ -501,7 +511,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @throws IOException 
      */
     private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
-        MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
+        MainILCS ilcs = MainILCS.getInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         ilcs.setVisible(true);
     }
 
@@ -509,7 +519,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * Show Diff
      */
     private void showDDiff(File directoryFrom, File directoryTo, String granularity, String tags) throws DiffException, FileNotFoundException, IOException {
-        MainDDiff ddiff = MainDDiff.setInstance(directoryFrom, directoryTo, granularity,tags);
+        MainDDiff ddiff = MainDDiff.getInstance(directoryFrom, directoryTo, granularity, tags);
         ddiff.setVisible(true);
         ddiff.start();
     }

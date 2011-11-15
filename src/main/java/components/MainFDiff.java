@@ -21,12 +21,16 @@ public class MainFDiff extends javax.swing.JFrame {
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
 
-    public static MainFDiff setInstance(File file, ResultadoArquivo result) {
+    public synchronized static MainFDiff getInstance(File file, ResultadoArquivo result) {
         if (instance != null) {
             instance.dispose();
         }
         instance = new MainFDiff(file, result);
         return instance;
+    }
+
+    public static synchronized void resetInstance() {
+        instance = null;
     }
 
     /** Creates new form FileOverView
@@ -56,7 +60,6 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private void showResult(ResultadoArquivo result) {
-        
     }
 
     /** This method is called from within the constructor to

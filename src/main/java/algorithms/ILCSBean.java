@@ -12,7 +12,7 @@ public class ILCSBean {
     private File fileTo;
     private String granularity;
     private String tags;
-    private int perspective = 1; // Default - ILCS
+    private int perspective; // Default - ILCS
 
     /**
      * Constructor

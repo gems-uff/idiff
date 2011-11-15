@@ -1,18 +1,8 @@
 package components;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
 
-import javax.swing.BorderFactory;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRootPane;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 
 
 import diretorioDiff.ProgressMessager;

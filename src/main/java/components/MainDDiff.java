@@ -9,6 +9,7 @@ import diretorioDiff.arvore.Arvore;
 import diretorioDiff.arvore.No;
 import diretorioDiff.resultados.Resultado;
 import diretorioDiff.resultados.ResultadoArquivo;
+import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class MainDDiff extends JFrame {
     private String tags;
     private static MainDDiff instance;
 
-    public static MainDDiff setInstance() {
+    public synchronized static MainDDiff getInstance() {
         if (instance != null) {
             instance.dispose();
         }
@@ -40,7 +41,7 @@ public class MainDDiff extends JFrame {
         return instance;
     }
 
-    public static MainDDiff setInstance(File directoryFrom, File directoryTo, String granularity, String tags) {
+    public synchronized static MainDDiff getInstance(File directoryFrom, File directoryTo, String granularity, String tags) {
         if (instance != null) {
             instance.dispose();
         }
@@ -53,6 +54,10 @@ public class MainDDiff extends JFrame {
      */
     public MainDDiff() {
         super();
+    }
+
+    public static synchronized void resetInstance() {
+        instance = null;
     }
 
     public MainDDiff(File directoryFrom, File directoryTo, String granularity, String tags) {
@@ -68,11 +73,15 @@ public class MainDDiff extends JFrame {
 
     }
 
-    public boolean isQuiteSimilar(No noFrom, No noTo) {
-        if (noFrom.getSimilaridade() <= 50 || noTo.getSimilaridade() <= 50) {
-            return false;
-        } else {
+    private boolean isQuiteSimilar(No from, No to) {
+        return (from.getSimilaridade() == 0 && to.getSimilaridade() > 50);
+    }
+
+    public boolean isSimilar(No noFrom, No noTo) {
+        if (isQuiteSimilar(noFrom, noTo) || (isQuiteSimilar(noTo, noFrom))) {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -97,7 +106,7 @@ public class MainDDiff extends JFrame {
         progressMessager.setLocationRelativeTo(this);
         progressMessager.setVisible(true);
 
-        Resultado resultado = DiretorioDiff.compararDiretorios(from, to, progressMessager);
+        Resultado resultado = DiretorioDiff.compararDiretorios(from, to);//, progressMessager);
 
         progressMessager.setMessage("Loading result of comparing.");
 
@@ -122,9 +131,7 @@ public class MainDDiff extends JFrame {
             No noFrom = fromTree.getSelectedNode();
 
             if ((noFrom == null) || (noTo == null)) {
-                Error dialog = new Error(new javax.swing.JFrame(), true);
-                dialog.setErrorLabel("Select two files");
-                dialog.setVisible(true);
+                showError("Select two files");
                 return;
             }
 
@@ -151,7 +158,7 @@ public class MainDDiff extends JFrame {
 
                 try {
 
-                    showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), granularity, tags, isQuiteSimilar(noFrom, noTo));
+                    showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), granularity, tags, isSimilar(noFrom, noTo));
                 } catch (DiffException ex) {
                     Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (FileNotFoundException ex) {
@@ -164,32 +171,17 @@ public class MainDDiff extends JFrame {
         }
     }
 
+    private void showError(String msg) throws HeadlessException {
+        Error dialog = new Error(new javax.swing.JFrame(), true);
+        dialog.setErrorLabel(msg);
+        dialog.setVisible(true);
+    }
+
     private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
-        MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, tags,isQuiteSimilar);
+        MainILCS ilcs = MainILCS.getInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         ilcs.setVisible(true);
     }
 
-    /**
-     * Set Tags
-     * @return String
-     */
-    /**    private String setTags() {
-    String tag = "[\\s";
-    tag = setTag(tag, true, "\\.");
-    tag = setTag(tag, true, "\\;");
-    tag = setTag(tag, true, "\\,");
-    tag = setTag(tag, true, "\\(\\)");
-    tag = setTag(tag, true, "\\[\\]");
-    tag = setTag(tag, true, "\\{\\}");
-    return tag + "]";
-    }
-    
-    private String setTag(String tag, boolean selected, String separator) {
-    if (selected) {
-    return tag + separator;
-    }
-    return tag;
-    }*/
     /**
      * Init 
      */
@@ -198,19 +190,6 @@ public class MainDDiff extends JFrame {
         setLocationRelativeTo(null);
         setIconImage(Icon.getIcon());
 
-        /*     for (TipoResultado tipo : TipoResultado.values()) {
-        JLabel label = new JLabel(tipo.getLabel());
-        label.setBackground(tipo.getColor());
-        label.setOpaque(true);
-        
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        label.setMaximumSize(new java.awt.Dimension(80, 30));
-        label.setMinimumSize(new java.awt.Dimension(80, 30));
-        label.setPreferredSize(new java.awt.Dimension(80, 30));
-        label.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        legend.add(label);
-        }*/
     }
 
     /**
@@ -236,25 +215,17 @@ public class MainDDiff extends JFrame {
             No noTo = toTree.getSelectedNode();
 
             if ((noFrom == null) && (noTo == null)) {
-                Error dialog = new Error(new javax.swing.JFrame(), true);
-                dialog.setErrorLabel("Select one file");
-                dialog.setVisible(true);
+                showError("Select one file");
                 return;
             }
 
             if (((noFrom != null) && (noTo != null)) && (noFrom.isSelected() && noTo.isSelected())) {
-                Error dialog = new Error(new javax.swing.JFrame(), true);
-                dialog.setErrorLabel("Select only one file");
-                dialog.setVisible(true);
+                showError("Select only one file");
                 return;
             }
-
-
-
             for (ResultadoArquivo resultado : noFrom.getResultados()) {
                 if (resultado.getBase().getArquivo() != null) {
                     showFileOverView(resultado.getBase().getArquivo(), resultado);
-
                 } else {
                     showFileOverView(resultado.getPara().getArquivo(), resultado);
                 }
@@ -264,7 +235,7 @@ public class MainDDiff extends JFrame {
     }
 
     private void showFileOverView(File file, ResultadoArquivo result) {
-        MainFDiff fdiff = MainFDiff.setInstance(file, result);
+        MainFDiff fdiff = MainFDiff.getInstance(file, result);
         fdiff.setVisible(true);
     }
 
