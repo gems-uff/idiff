@@ -101,6 +101,35 @@ public class MainDDiff extends JFrame {
         splitPanel.setDividerLocation(largura);
     }
 
+    public boolean verifyError(No noFrom, No noTo) throws HeadlessException {
+        if ((noFrom == null) && (noTo == null)) {
+            showError("Select one file");
+            return true;
+        }
+        if (((noFrom != null) && (noTo != null)) && (noFrom.isSelected() && noTo.isSelected())) {
+            showError("Select only one file");
+            return true;
+        }
+        return false;
+    }
+
+    private void initOverView(No no) {
+        for (ResultadoArquivo resultado : no.getResultados()) {
+            if (resultado.getBase().getArquivo() != null) {
+                showFileOverView(resultado.getBase().getArquivo(), resultado);
+            } else {
+                showFileOverView(resultado.getPara().getArquivo(), resultado);
+            }
+            break;
+        }
+    }
+
+    private void showError(String msg) throws HeadlessException {
+        Error dialog = new Error(new javax.swing.JFrame(), true);
+        dialog.setErrorLabel(msg);
+        dialog.setVisible(true);
+    }
+
     private void execute() {
         Splash progressMessager = new Splash();
         progressMessager.setLocationRelativeTo(this);
@@ -171,12 +200,6 @@ public class MainDDiff extends JFrame {
         }
     }
 
-    private void showError(String msg) throws HeadlessException {
-        Error dialog = new Error(new javax.swing.JFrame(), true);
-        dialog.setErrorLabel(msg);
-        dialog.setVisible(true);
-    }
-
     private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
         MainILCS ilcs = MainILCS.getInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         ilcs.setVisible(true);
@@ -214,22 +237,29 @@ public class MainDDiff extends JFrame {
             No noFrom = fromTree.getSelectedNode();
             No noTo = toTree.getSelectedNode();
 
-            if ((noFrom == null) && (noTo == null)) {
-                showError("Select one file");
-                return;
-            }
-
-            if (((noFrom != null) && (noTo != null)) && (noFrom.isSelected() && noTo.isSelected())) {
-                showError("Select only one file");
-                return;
-            }
-            for (ResultadoArquivo resultado : noFrom.getResultados()) {
-                if (resultado.getBase().getArquivo() != null) {
-                    showFileOverView(resultado.getBase().getArquivo(), resultado);
-                } else {
-                    showFileOverView(resultado.getPara().getArquivo(), resultado);
+            if (verifyError(noFrom, noTo)) {
+                if ((noFrom == null) && (noTo == null)) {
+                    showError("Select one file");
+                    return;
                 }
-                break;
+
+                if (noTo.getResultados().isEmpty()) {
+                    initOverView(noFrom);
+                } else {
+                    initOverView(noTo);
+                    if (((noFrom != null) && (noTo != null)) && (noFrom.isSelected() && noTo.isSelected())) {
+                        showError("Select only one file");
+                        return;
+                    }
+                    for (ResultadoArquivo resultado : noFrom.getResultados()) {
+                        if (resultado.getBase().getArquivo() != null) {
+                            showFileOverView(resultado.getBase().getArquivo(), resultado);
+                        } else {
+                            showFileOverView(resultado.getPara().getArquivo(), resultado);
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
