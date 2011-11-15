@@ -61,11 +61,11 @@ public final class MainILCS extends javax.swing.JFrame {
 
     private static MainILCS instance;
 
-    public static MainILCS setInstance(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+    public static MainILCS setInstance(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
         if (instance != null) {
             instance.dispose();
         }
-        instance = new MainILCS(fileFrom, fileTo, granularity, showDiff, showMove, tags);
+        instance = new MainILCS(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         return instance;
     }
 
@@ -74,26 +74,27 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param fileFrom
      * @param fileTo
      * @param granularity
-     * @param showDiff 
-     * @param showMove 
      * @param tags 
+     * @param isQuiteSimilar 
      * @throws DiffException
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public MainILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
+    public MainILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
         Splash splash = new Splash();
         splash.setVisible(true);
         splash.setMessage("Starting components...");
 
         initComponents();
+
         new Wrap().setWrap(leftPane, rightPane);
         ilcsBean = new ILCSBean(fileFrom, fileTo);
 
         splash.setMessage("Initial Steps...");
 
-        initialSteps(fileFrom, fileTo, granularity, showDiff, showMove, tags);
+        initialSteps(fileFrom, fileTo, granularity, tags,getPerspective(isQuiteSimilar));
         Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
+
         setListenerRadioButton();
 
         splash.setMessage("Loading Files...");
@@ -110,6 +111,18 @@ public final class MainILCS extends javax.swing.JFrame {
     private void setListenerRadioButton() throws FileNotFoundException, IOException {
         setListenerRadioButton(diffRadioButton, 1);
         setListenerRadioButton(similarRadioButton, 2);
+    }
+
+    public int getPerspective(boolean isQuiteSimilar) {
+        if (isQuiteSimilar) {
+            this.diffRadioButton.setSelected(false);
+            this.similarRadioButton.setSelected(true);
+            return 2;
+        } else {
+            this.diffRadioButton.setSelected(true);
+            this.similarRadioButton.setSelected(false);
+            return 1;
+        }
     }
 
     /**
@@ -153,10 +166,10 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param showMove
      * @throws IOException 
      */
-    private void initialSteps(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws IOException {
+    private void initialSteps(File fileFrom, File fileTo, String granularity, String tags,int perspective) throws IOException {
         init();
         initFiles(fileFrom, fileTo);
-        initParameters(granularity, showDiff, showMove, tags);
+        initParameters(granularity, tags,perspective);
         setLayoutPane();
     }
 
@@ -529,7 +542,6 @@ public final class MainILCS extends javax.swing.JFrame {
      * @throws IOException 
      */
     public void runProject() throws DiffException, FileNotFoundException, IOException {
-        System.out.println("Run Project Action Executed");
         startDiff(ilcsBean.getFileFrom(), ilcsBean.getFileTo());
     }
 
@@ -588,9 +600,10 @@ public final class MainILCS extends javax.swing.JFrame {
      * @param emptyLine
      * @param whiteSpace 
      */
-    private void initParameters(String granularity, boolean diffPerspective, boolean movePerspective, String tags) {
+    private void initParameters(String granularity, String tags,int perspective) {
         ilcsBean.setGranularity(setWordGrainName(granularity));
         ilcsBean.setTags(tags);
+        ilcsBean.setPerspective(perspective);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonGroup buttonGroup;

@@ -2,6 +2,7 @@ package components;
 
 import details.Icon;
 import details.Laf;
+import diretorioDiff.resultados.ResultadoArquivo;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -20,18 +21,19 @@ public class MainFDiff extends javax.swing.JFrame {
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
 
-    public static MainFDiff setInstance(File file) {
+    public static MainFDiff setInstance(File file, ResultadoArquivo result) {
         if (instance != null) {
             instance.dispose();
         }
-        instance = new MainFDiff(file);
+        instance = new MainFDiff(file, result);
         return instance;
     }
 
     /** Creates new form FileOverView
-     * @param file 
+     * @param file
+     * @param result  
      */
-    public MainFDiff(File file) {
+    public MainFDiff(File file, ResultadoArquivo result) {
         initComponents();
         Laf.setlaf();
         setLocationRelativeTo(null);
@@ -39,6 +41,7 @@ public class MainFDiff extends javax.swing.JFrame {
 
         try {
             init(file);
+            showResult(result);
         } catch (MalformedURLException ex) {
             Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -50,6 +53,10 @@ public class MainFDiff extends javax.swing.JFrame {
         new Wrap().setWrapPane(pane);
         fileComponent.submitFile(file, pane);
         panel.setBorder(BorderFactory.createTitledBorder(file.getName()));
+    }
+
+    private void showResult(ResultadoArquivo result) {
+        
     }
 
     /** This method is called from within the constructor to

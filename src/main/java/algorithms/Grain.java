@@ -228,7 +228,6 @@ public class Grain {
      * @throws IOException 
      */
     public void init(File fileVersionOne, File fileVersionTwo, Grain.LevelGranularity levelGrain, IResultLCS result, ILCSBean ilcsb) throws DiffException, IOException {
-        System.out.println();
         switch (levelGrain) {
             case LINE:
                 new LineGrain().startLineGranularity(fileVersionOne, fileVersionTwo, ilcsb);

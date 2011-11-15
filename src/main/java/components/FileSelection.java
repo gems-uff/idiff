@@ -436,9 +436,9 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
             File artifact2 = new File(fileTextField2.getText());
 
             if ((artifact1.isDirectory()) || (artifact2.isDirectory())) {
-                showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags());
+                showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags());
             } else {
-                showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), true, true, setTags());
+                showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags(),false);
             }
             this.dispose();
         } else {
@@ -500,16 +500,16 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    private void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
-        MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, showDiff, showMove, tags);
+    private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
+        MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         ilcs.setVisible(true);
     }
 
     /**
      * Show Diff
      */
-    private void showDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
-        MainDDiff ddiff = MainDDiff.setInstance(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
+    private void showDDiff(File directoryFrom, File directoryTo, String granularity, String tags) throws DiffException, FileNotFoundException, IOException {
+        MainDDiff ddiff = MainDDiff.setInstance(directoryFrom, directoryTo, granularity,tags);
         ddiff.setVisible(true);
         ddiff.start();
     }

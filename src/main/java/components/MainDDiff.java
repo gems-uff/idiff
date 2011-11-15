@@ -40,11 +40,11 @@ public class MainDDiff extends JFrame {
         return instance;
     }
 
-    public static MainDDiff setInstance(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) {
+    public static MainDDiff setInstance(File directoryFrom, File directoryTo, String granularity, String tags) {
         if (instance != null) {
             instance.dispose();
         }
-        instance = new MainDDiff(directoryFrom, directoryTo, granularity, showDiff, showMove, tags);
+        instance = new MainDDiff(directoryFrom, directoryTo, granularity, tags);
         return instance;
     }
 
@@ -55,7 +55,7 @@ public class MainDDiff extends JFrame {
         super();
     }
 
-    public MainDDiff(File directoryFrom, File directoryTo, String granularity, boolean showDiff, boolean showMove, String tags) {
+    public MainDDiff(File directoryFrom, File directoryTo, String granularity, String tags) {
         super();
 
         initComponents();
@@ -66,6 +66,14 @@ public class MainDDiff extends JFrame {
         this.granularity = granularity;
         this.tags = tags;
 
+    }
+
+    public boolean isQuiteSimilar(No noFrom, No noTo) {
+        if (noFrom.getSimilaridade() <= 50 || noTo.getSimilaridade() <= 50) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void start() {
@@ -95,7 +103,7 @@ public class MainDDiff extends JFrame {
 
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
-       
+
         progressMessager.dispose();
     }
 
@@ -142,7 +150,8 @@ public class MainDDiff extends JFrame {
                 }
 
                 try {
-                    showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), granularity, true, true, tags);
+
+                    showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), granularity, tags, isQuiteSimilar(noFrom, noTo));
                 } catch (DiffException ex) {
                     Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (FileNotFoundException ex) {
@@ -155,8 +164,8 @@ public class MainDDiff extends JFrame {
         }
     }
 
-    private void showILCS(File fileFrom, File fileTo, String granularity, boolean showDiff, boolean showMove, String tags) throws DiffException, FileNotFoundException, IOException {
-        MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, showDiff, showMove, tags);
+    private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
+        MainILCS ilcs = MainILCS.setInstance(fileFrom, fileTo, granularity, tags,isQuiteSimilar);
         ilcs.setVisible(true);
     }
 
@@ -244,18 +253,18 @@ public class MainDDiff extends JFrame {
 
             for (ResultadoArquivo resultado : noFrom.getResultados()) {
                 if (resultado.getBase().getArquivo() != null) {
-                    showFileOverView(resultado.getBase().getArquivo());
+                    showFileOverView(resultado.getBase().getArquivo(), resultado);
 
                 } else {
-                    showFileOverView(resultado.getPara().getArquivo());
+                    showFileOverView(resultado.getPara().getArquivo(), resultado);
                 }
                 break;
             }
         }
     }
 
-    public void showFileOverView(File file) {
-        MainFDiff fdiff = MainFDiff.setInstance(file);
+    private void showFileOverView(File file, ResultadoArquivo result) {
+        MainFDiff fdiff = MainFDiff.setInstance(file, result);
         fdiff.setVisible(true);
     }
 
