@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 
+import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -13,6 +14,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 import diretorioDiff.resultados.ResultadoArquivo;
 import diretorioDiff.resultados.TipoResultado;
+import java.awt.event.MouseListener;
 
 public class NodeRenderer extends DefaultTreeCellRenderer {
 
@@ -36,10 +38,11 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
 
 		if (value instanceof No) {
 			No no = (No) value;
-
 			JCheckBox checkbox = new JCheckBox();
-			checkbox.setSelected(no.isSelected());
-			checkbox.setOpaque(false);
+                        
+                        checkbox.setSelected(no.isSelected());
+			
+                        checkbox.setOpaque(false);
 
 			JLabel label = new JLabel(getIcon(no, expanded));
 			label.setOpaque(false);

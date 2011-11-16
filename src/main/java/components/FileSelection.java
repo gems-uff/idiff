@@ -39,7 +39,7 @@ public class FileSelection extends javax.swing.JFrame {
             splash.setVisible(true);
             splash.setMessage("Starting IDIFF...");
             init();
-            splash.setVisible(false);
+            splash.dispose();
             Thread.sleep(10);
             this.setVisible(true);
         } catch (InterruptedException ex) {

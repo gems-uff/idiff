@@ -1,6 +1,6 @@
 package components;
 
-
+import details.Icon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -33,6 +33,7 @@ public class Splash extends javax.swing.JDialog implements ProgressMessager {
     @Override
     public void setVisible(boolean visible) {
         this.setLocationRelativeTo(this.getOwner());
+        setIconImage(Icon.getIcon());
         super.setVisible(visible);
     }
 
@@ -70,7 +71,7 @@ public class Splash extends javax.swing.JDialog implements ProgressMessager {
         jPanel1.setName("jPanel1"); // NOI18N
         jPanel1.setPreferredSize(new java.awt.Dimension(360, 325));
 
-        msgLabel.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        msgLabel.setFont(new java.awt.Font("sansserif", 1, 14));
         msgLabel.setForeground(resourceMap.getColor("msgLabel.foreground")); // NOI18N
         msgLabel.setText("Message...");
         msgLabel.setName("msgLabel"); // NOI18N
@@ -89,18 +90,16 @@ public class Splash extends javax.swing.JDialog implements ProgressMessager {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(msgLabel))
-                    .addComponent(jLabel1))
-                .addContainerGap(9, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(msgLabel))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(msgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,11 +110,11 @@ public class Splash extends javax.swing.JDialog implements ProgressMessager {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
         );
 
         pack();

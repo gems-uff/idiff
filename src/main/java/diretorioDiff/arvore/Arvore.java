@@ -44,7 +44,7 @@ public class Arvore extends JTree {
     private boolean base = false;
     private DefaultTreeModel modelTree;
     private NodeRenderer renderer;
-    private No selectedNode;
+    private No selectedNode = null;
 
     public No getSelectedNode() {
         return selectedNode;
@@ -153,14 +153,12 @@ public class Arvore extends JTree {
             if (associada != null && resultado != null) {
                 No no = (No) tp.getLastPathComponent();
                 if (no.getId() != -1) {
-
                     if (!no.isBaseSelection() && no.getIdStart() == -1) {
                         clearNodeSelection();
                         no.select();
 
                         associada.selecionarNos(no.getIdsRelacionados(), no.getId());
                     }
-
                     if (isCheckBoxArea(me) && click) {
                         setSelectedNode(no);
                     }
@@ -176,18 +174,22 @@ public class Arvore extends JTree {
     }
 
     private void setSelectedNode(No no) {
-
-        if (no.isBaseSelection() || no.getIdStart() != -1) {
-            if (selectedNode != null) {
-                if (!selectedNode.equals(no)) {
+        if (selectedNode != null) {
+            if (no.isSelected() && !selectedNode.equals(no)) {
+                selectedNode.setSelected(false);
+                selectedNode = null;
+            } else {
+                if (no.isSelected() && selectedNode.equals(no)) {
                     selectedNode.setSelected(false);
                     selectedNode = null;
+                    no.setSelected(false);
+                    return;
                 }
             }
-
-            no.setSelected(!no.isSelected());
-            selectedNode = no;
         }
+
+        no.setSelected(!no.isSelected());
+        selectedNode = no;
     }
 
     /**

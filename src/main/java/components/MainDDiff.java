@@ -115,10 +115,13 @@ public class MainDDiff extends JFrame {
 
     private void initOverView(No no) {
         for (ResultadoArquivo resultado : no.getResultados()) {
-            if (resultado.getBase().getArquivo() != null) {
+            if (resultado.getBase()!= null) {
                 showFileOverView(resultado.getBase().getArquivo(), resultado);
-            } else {
+                return;
+            } 
+            if (resultado.getPara() != null) {
                 showFileOverView(resultado.getPara().getArquivo(), resultado);
+                return;
             }
             break;
         }
@@ -238,33 +241,18 @@ public class MainDDiff extends JFrame {
             No noTo = toTree.getSelectedNode();
 
             if (verifyError(noFrom, noTo)) {
-                if ((noFrom == null) && (noTo == null)) {
-                    showError("Select one file");
-                    return;
-                }
+                return;
+            }
 
-                if (noTo.getResultados().isEmpty()) {
-                    initOverView(noFrom);
-                } else {
-                    initOverView(noTo);
-                    if (((noFrom != null) && (noTo != null)) && (noFrom.isSelected() && noTo.isSelected())) {
-                        showError("Select only one file");
-                        return;
-                    }
-                    for (ResultadoArquivo resultado : noFrom.getResultados()) {
-                        if (resultado.getBase().getArquivo() != null) {
-                            showFileOverView(resultado.getBase().getArquivo(), resultado);
-                        } else {
-                            showFileOverView(resultado.getPara().getArquivo(), resultado);
-                        }
-                        break;
-                    }
-                }
+            if (noFrom != null) {
+                initOverView(noFrom);
+            } else {
+                initOverView(noTo);
             }
         }
     }
 
-    private void showFileOverView(File file, ResultadoArquivo result) {
+private void showFileOverView(File file, ResultadoArquivo result) {
         MainFDiff fdiff = MainFDiff.getInstance(file, result);
         fdiff.setVisible(true);
     }
@@ -531,7 +519,6 @@ public class MainDDiff extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void splitPanelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_splitPanelComponentResized
         resize();
     }//GEN-LAST:event_splitPanelComponentResized

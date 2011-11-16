@@ -184,6 +184,7 @@ public class No extends DefaultMutableTreeNode {
 		this.baseSelection = false;	
 		this.idStart = -1;
 		this.selected = false;
+                
 	}
 	
 	public void select() {
