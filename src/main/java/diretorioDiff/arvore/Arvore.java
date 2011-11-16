@@ -156,7 +156,6 @@ public class Arvore extends JTree {
                     if (!no.isBaseSelection() && no.getIdStart() == -1) {
                         clearNodeSelection();
                         no.select();
-
                         associada.selecionarNos(no.getIdsRelacionados(), no.getId());
                     }
                     if (isCheckBoxArea(me) && click) {
@@ -166,6 +165,7 @@ public class Arvore extends JTree {
             }
         } else {
             clearNodeSelection();
+            clearSelectedNode();
             associada.clearNodeSelection();
             associada.reloadTree(true);
         }
@@ -173,21 +173,20 @@ public class Arvore extends JTree {
         reloadTree(true);
     }
 
-    private void setSelectedNode(No no) {
-        if (selectedNode != null) {
-            if (no.isSelected() && !selectedNode.equals(no)) {
-                selectedNode.setSelected(false);
-                selectedNode = null;
-            } else {
-                if (no.isSelected() && selectedNode.equals(no)) {
-                    selectedNode.setSelected(false);
-                    selectedNode = null;
-                    no.setSelected(false);
-                    return;
-                }
+    public void clearSelectedNode() {
+        selectedNode.setSelected(false);
+        selectedNode = null;
+    }
+
+    public void setSelectedNode(No no) {
+        No selected = selectedNode;
+        if (selected != null && no.isSelected()) {
+            clearSelectedNode();
+            if (selected.equals(no)) {
+                no.setSelected(false);
+                return;
             }
         }
-
         no.setSelected(!no.isSelected());
         selectedNode = no;
     }

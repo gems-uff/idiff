@@ -115,10 +115,10 @@ public class MainDDiff extends JFrame {
 
     private void initOverView(No no) {
         for (ResultadoArquivo resultado : no.getResultados()) {
-            if (resultado.getBase()!= null) {
+            if (resultado.getBase() != null) {
                 showFileOverView(resultado.getBase().getArquivo(), resultado);
                 return;
-            } 
+            }
             if (resultado.getPara() != null) {
                 showFileOverView(resultado.getPara().getArquivo(), resultado);
                 return;
@@ -154,6 +154,7 @@ public class MainDDiff extends JFrame {
 
         scrollTreeFrom.setViewportView(fromTree);
         scrollTreeTo.setViewportView(toTree);
+
     }
 
     @Action
@@ -252,7 +253,7 @@ public class MainDDiff extends JFrame {
         }
     }
 
-private void showFileOverView(File file, ResultadoArquivo result) {
+    private void showFileOverView(File file, ResultadoArquivo result) {
         MainFDiff fdiff = MainFDiff.getInstance(file, result);
         fdiff.setVisible(true);
     }
