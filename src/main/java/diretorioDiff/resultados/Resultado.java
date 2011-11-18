@@ -35,7 +35,7 @@ public class Resultado {
 	
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
 		for (ResultadoArquivo resultadoArquivo : resultadosArquivo) {
 			sb.append(resultadoArquivo);

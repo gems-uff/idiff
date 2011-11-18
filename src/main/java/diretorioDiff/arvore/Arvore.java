@@ -154,7 +154,7 @@ public class Arvore extends JTree {
                 No no = (No) tp.getLastPathComponent();
                 if (no.getId() != -1) {
                     if (!no.isBaseSelection() && no.getIdStart() == -1) {
-                        clearNodeSelection();
+                       clearNodeSelection();
                         no.select();
                         associada.selecionarNos(no.getIdsRelacionados(), no.getId());
                     }
@@ -189,6 +189,7 @@ public class Arvore extends JTree {
         }
         no.setSelected(!no.isSelected());
         selectedNode = no;
+
     }
 
     /**
@@ -198,6 +199,7 @@ public class Arvore extends JTree {
         for (No no : getNodes()) {
             no.clearSelection();
         }
+        selectedNode = null;
     }
 
     /**

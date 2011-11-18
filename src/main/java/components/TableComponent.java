@@ -3,6 +3,7 @@ package components;
 import algorithms.Grain;
 import algorithms.ILCSBean;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
@@ -62,8 +63,8 @@ public class TableComponent {
     private void printNotFound(JTable tableDetails) {
         if (tableDetails.getRowCount() == 0) {
             ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{" Differences not found ", "---", "---", "---"});
-            tableDetails.setBackground(Color.BLUE);
-            tableDetails.setForeground(Color.YELLOW);
+            tableDetails.setForeground(Color.RED);
+
         }
     }
 

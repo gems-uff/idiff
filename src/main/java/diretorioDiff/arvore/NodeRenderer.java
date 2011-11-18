@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 
-import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -14,7 +13,6 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 import diretorioDiff.resultados.ResultadoArquivo;
 import diretorioDiff.resultados.TipoResultado;
-import java.awt.event.MouseListener;
 
 public class NodeRenderer extends DefaultTreeCellRenderer {
 

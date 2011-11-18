@@ -7,7 +7,6 @@ public class ResultadoArquivo {
 
 	private Arquivo base;
 	private Arquivo para;
-	
 	private TipoResultado tipo;
 	private int similaridade = 0;
 	private boolean escolhaHungaro = false;
@@ -79,32 +78,32 @@ public class ResultadoArquivo {
 
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		
-		sb.append("TIPO: " + tipo + " ");
-		sb.append("SIMILARIDADE: " + getSimilaridade() + " ");
-		sb.append("HUNGARO: " + isEscolhaHungaro() + " ");
+		sb.append("TIPO: ").append(tipo).append(" ");
+		sb.append("SIMILARIDADE: ").append(getSimilaridade()).append(" ");
+		sb.append("HUNGARO: ").append(isEscolhaHungaro()).append(" ");
 		sb.append("\n");
 
 		switch (tipo) {
 			case ADDED:
 				
-				sb.append("ADD: " + para.getPathRelativo() + " ");
+				sb.append("ADD: ").append(para.getPathRelativo()).append(" ");
 				sb.append("\n");
 				
 				break;
 				
 			case REMOVED:
 				
-				sb.append("DEL: " + base.getPathRelativo() + " ");
+				sb.append("DEL: ").append(base.getPathRelativo()).append(" ");
 				sb.append("\n");
 				
 				break;
 	
 			default:
-				sb.append("DE: " + base.getPathRelativo() + " ");
+				sb.append("DE: ").append(base.getPathRelativo()).append(" ");
 				sb.append("\n");
-				sb.append("PARA: " + para.getPathRelativo() + " ");
+				sb.append("PARA: ").append(para.getPathRelativo()).append(" ");
 				sb.append("\n");
 				break;
 		}
