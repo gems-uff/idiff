@@ -31,9 +31,9 @@ public class GranularityComponent {
             Grain grainFrom = itFrom.next();
             Grain grainTo = itTo.next();
             if (verifyConditions(grainFrom, grainTo, perspective)) {
-                setMovedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo,scrollFrom,scrollTo);
+                setMovedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo, scrollFrom, scrollTo);
             } else {
-                setUnchangedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo,scrollFrom,scrollTo);
+                setUnchangedGranularity(grainFrom.getGrainBean(), paneFrom, grainTo.getGrainBean(), paneTo, scrollFrom, scrollTo);
             }
         }
     }
@@ -83,12 +83,12 @@ public class GranularityComponent {
     private void setMovedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollFrom, final JScrollPane scrollTo) {
 
         IDIFFStyles.setStyle(paneFrom, grainBeanFrom, "MoveStyle");
-        Listener.setMouseAdapter(paneFrom, paneTo,scrollFrom,scrollTo);
-        Listener.setMouseMotion(paneFrom, grainBeanFrom, grainBeanTo, paneTo,scrollFrom,scrollTo);
+        Listener.setMouseAdapter(paneFrom, paneTo, scrollFrom, scrollTo);
+        Listener.setMouseMotion(paneFrom, grainBeanFrom, grainBeanTo, paneTo, scrollFrom, scrollTo);
 
         IDIFFStyles.setStyle(paneTo, grainBeanTo, "MoveStyle");
-        Listener.setMouseAdapter(paneTo, paneFrom,scrollFrom,scrollTo);
-        Listener.setMouseMotion(paneTo, grainBeanTo, grainBeanFrom, paneFrom,scrollFrom,scrollTo);
+        Listener.setMouseAdapter(paneTo, paneFrom, scrollFrom, scrollTo);
+        Listener.setMouseMotion(paneTo, grainBeanTo, grainBeanFrom, paneFrom, scrollFrom, scrollTo);
     }
 
     void clean(JTextPane paneFrom, JTextPane paneTo) {
@@ -99,8 +99,12 @@ public class GranularityComponent {
 
     private void setUnchangedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollFrom, final JScrollPane scrollTo) {
         IDIFFStyles.setStyle(paneFrom, grainBeanFrom, "UnchangedStyle");
-        Listener.cleanMouseListener(paneFrom, paneTo,scrollFrom,scrollTo);
+        Listener.cleanMouseListener(paneFrom, paneTo, scrollFrom, scrollTo);
         IDIFFStyles.setStyle(paneTo, grainBeanTo, "UnchangedStyle");
-        Listener.cleanMouseListener(paneTo, paneFrom,scrollFrom,scrollTo);
+        Listener.cleanMouseListener(paneTo, paneFrom, scrollFrom, scrollTo);
+    }
+
+    void setToolTipText(JTextPane pane, String fileName) {
+        pane.setToolTipText("Similar code in the file: " + fileName);
     }
 }

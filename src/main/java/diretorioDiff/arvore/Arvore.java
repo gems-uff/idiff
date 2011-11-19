@@ -54,13 +54,16 @@ public class Arvore extends JTree {
         this(diretorio, null);
     }
 
+    public void setAssociada(Arvore associada) {
+        this.associada = associada;
+    }
     private Arvore(File diretorio, Arvore associada) {
         super();
 
         this.associada = associada;
 
         if (associada != null) {
-            associada.associada = this;
+            associada.setAssociada(this);
         }
         this.base = associada == null;
 

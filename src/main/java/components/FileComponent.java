@@ -60,7 +60,7 @@ public class FileComponent {
      * @param scrollTo 
      */
     public void repaint(IResultDiff result, JTextPane paneFrom, JScrollPane scrollFrom, JTextPane paneTo, JScrollPane scrollTo, ILCSBean ilcsb) {
-        granularityComponent.setMoves(result, paneFrom, paneTo, ilcsb.getPerspective(),scrollFrom,scrollTo);
+        granularityComponent.setMoves(result, paneFrom, paneTo, ilcsb.getPerspective(), scrollFrom, scrollTo);
         if (ilcsb.getPerspective() == 1) {
             granularityComponent.setDifferences(result, paneFrom, paneTo, "RemoveStyle", "AddStyle");
 
@@ -72,5 +72,9 @@ public class FileComponent {
 
     public void clear(JTextPane paneFrom, JTextPane paneTo) {
         granularityComponent.clean(paneFrom, paneTo);
+    }
+
+    public void setToolTipText(JTextPane pane, String fileName) {
+        this.granularityComponent.setToolTipText(pane, fileName);
     }
 }

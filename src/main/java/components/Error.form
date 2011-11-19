@@ -61,6 +61,7 @@
           <action class="components.Error" id="closeError" methodName="closeError"/>
         </Property>
         <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="closeButton.toolTipText"/>
         <Property name="name" type="java.lang.String" value="closeButton" noResource="true"/>
       </Properties>
     </Component>

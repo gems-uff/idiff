@@ -84,11 +84,18 @@ public class MainFDiff extends javax.swing.JFrame {
         pane = new javax.swing.JTextPane();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("File Overview");
+        setResizable(false);
 
         panel.setBorder(javax.swing.BorderFactory.createTitledBorder("File Name"));
+        panel.setMaximumSize(new java.awt.Dimension(717, 619));
+        panel.setMinimumSize(new java.awt.Dimension(717, 619));
         panel.setName("panel"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
@@ -101,27 +108,27 @@ public class MainFDiff extends javax.swing.JFrame {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
-        jToolBar1.setMaximumSize(new java.awt.Dimension(40, 40));
         jToolBar1.setName("jToolBar1"); // NOI18N
-        jToolBar1.setPreferredSize(new java.awt.Dimension(40, 40));
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainFDiff.class, this);
         jButton1.setAction(actionMap.get("backToDDiff")); // NOI18N
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainFDiff.class);
         jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -129,22 +136,52 @@ public class MainFDiff extends javax.swing.JFrame {
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton1);
 
+        jSeparator1.setName("jSeparator1"); // NOI18N
+        jToolBar1.add(jSeparator1);
+
+        jTextField3.setEditable(false);
+        jTextField3.setToolTipText("");
+        jTextField3.setEnabled(false);
+        jTextField3.setFocusable(false);
+        jTextField3.setMaximumSize(new java.awt.Dimension(460, 28));
+        jTextField3.setMinimumSize(new java.awt.Dimension(460, 28));
+        jTextField3.setName("jTextField3"); // NOI18N
+        jTextField3.setPreferredSize(new java.awt.Dimension(460, 28));
+        jToolBar1.add(jTextField3);
+
+        jTextField1.setBackground(new java.awt.Color(53, 94, 121));
+        jTextField1.setEditable(false);
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setText("Refactoring Highlight");
+        jTextField1.setMaximumSize(new java.awt.Dimension(127, 28));
+        jTextField1.setMinimumSize(new java.awt.Dimension(127, 28));
+        jTextField1.setName("jTextField1"); // NOI18N
+        jToolBar1.add(jTextField1);
+
+        jTextField2.setBackground(new java.awt.Color(126, 192, 238));
+        jTextField2.setEditable(false);
+        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
+        jTextField2.setMaximumSize(new java.awt.Dimension(75, 28));
+        jTextField2.setMinimumSize(new java.awt.Dimension(75, 28));
+        jTextField2.setName("jTextField2"); // NOI18N
+        jToolBar1.add(jTextField2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addGap(6, 6, 6)
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -153,6 +190,10 @@ public class MainFDiff extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextPane pane;
     private javax.swing.JPanel panel;

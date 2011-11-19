@@ -230,8 +230,6 @@ public final class MainILCS extends javax.swing.JFrame {
         mainButtonGroup = new ButtonGroup();
         buttonGroup = new ButtonGroup();
         toolBar = new JToolBar();
-        jButton1 = new JButton();
-        jSeparator4 = new Separator();
         fileSelectionMenuBar = new JButton();
         jSeparator3 = new Separator();
         diffRadioButton = new JRadioButton();
@@ -314,19 +312,6 @@ public final class MainILCS extends javax.swing.JFrame {
         toolBar.setName("Menu Bar"); // NOI18N
 
         ActionMap actionMap = Application.getInstance().getContext().getActionMap(MainILCS.class, this);
-        jButton1.setAction(actionMap.get("backToDDiff")); // NOI18N
-        jButton1.setIcon(new ImageIcon(getClass().getResource("/components/icons/back.png"))); // NOI18N
-        jButton1.setText(bundle.getString("MainILCS.jButton1.text_2")); // NOI18N
-        jButton1.setToolTipText(bundle.getString("MainILCS.jButton1.toolTipText")); // NOI18N
-        jButton1.setBorderPainted(false);
-        mainButtonGroup.add(jButton1);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(SwingConstants.BOTTOM);
-        toolBar.add(jButton1);
-        toolBar.add(jSeparator4);
-
         fileSelectionMenuBar.setAction(actionMap.get("fileSelection")); // NOI18N
         ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(MainILCS.class);
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
@@ -359,31 +344,44 @@ public final class MainILCS extends javax.swing.JFrame {
         jTextField5.setEditable(false);
         jTextField5.setText(bundle.getString("MainILCS.jTextField5.text")); // NOI18N
         jTextField5.setEnabled(false);
+        jTextField5.setMaximumSize(new Dimension(710, 28));
+        jTextField5.setMinimumSize(new Dimension(710, 28));
+        jTextField5.setPreferredSize(new Dimension(710, 28));
         toolBar.add(jTextField5);
 
         jTextField1.setEditable(false);
         jTextField1.setText(bundle.getString("MainILCS.jTextField1.text")); // NOI18N
+        jTextField1.setMaximumSize(new Dimension(82, 28));
+        jTextField1.setMinimumSize(new Dimension(82, 28));
         toolBar.add(jTextField1);
 
         jTextField2.setBackground(new Color(255, 174, 185));
         jTextField2.setEditable(false);
         jTextField2.setText(bundle.getString("MainILCS.jTextField2.text")); // NOI18N
+        jTextField2.setMaximumSize(new Dimension(71, 28));
+        jTextField2.setMinimumSize(new Dimension(71, 28));
         toolBar.add(jTextField2);
 
         jTextField3.setBackground(new Color(193, 255, 193));
         jTextField3.setEditable(false);
         jTextField3.setText(bundle.getString("MainILCS.jTextField3.text")); // NOI18N
+        jTextField3.setMaximumSize(new Dimension(47, 28));
+        jTextField3.setMinimumSize(new Dimension(47, 28));
         toolBar.add(jTextField3);
 
         jTextField4.setBackground(new Color(126, 192, 238));
         jTextField4.setEditable(false);
         jTextField4.setText(bundle.getString("MainILCS.jTextField4.text")); // NOI18N
+        jTextField4.setMaximumSize(new Dimension(50, 28));
+        jTextField4.setMinimumSize(new Dimension(50, 28));
         toolBar.add(jTextField4);
 
         jTextField6.setBackground(new Color(53, 94, 121));
         jTextField6.setEditable(false);
         jTextField6.setForeground(new Color(255, 255, 255));
         jTextField6.setText(bundle.getString("MainILCS.jTextField6.text")); // NOI18N
+        jTextField6.setMaximumSize(new Dimension(99, 28));
+        jTextField6.setMinimumSize(new Dimension(99, 28));
         toolBar.add(jTextField6);
 
         mainSplitPane.setDividerLocation(500);
@@ -490,10 +488,10 @@ public final class MainILCS extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.LEADING)
-            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1389, Short.MAX_VALUE)
+            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1406, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1377, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1394, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -621,12 +619,10 @@ public final class MainILCS extends javax.swing.JFrame {
     private JDialog exitDialog;
     private JLabel exitLabel;
     private JButton fileSelectionMenuBar;
-    private JButton jButton1;
     private JLabel jLabel1;
     private JScrollPane jScrollPane1;
     private Separator jSeparator2;
     private Separator jSeparator3;
-    private Separator jSeparator4;
     private Separator jSeparator6;
     private JTextField jTextField1;
     private JTextField jTextField2;

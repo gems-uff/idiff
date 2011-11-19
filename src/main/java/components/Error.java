@@ -52,6 +52,7 @@ public class Error extends javax.swing.JDialog {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(Error.class, this);
         closeButton.setAction(actionMap.get("closeError")); // NOI18N
         closeButton.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        closeButton.setToolTipText(resourceMap.getString("closeButton.toolTipText")); // NOI18N
         closeButton.setName("closeButton"); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());

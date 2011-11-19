@@ -78,11 +78,7 @@ public class MainDDiff extends JFrame {
     }
 
     public boolean isSimilar(No noFrom, No noTo) {
-        if (isQuiteSimilar(noFrom, noTo) || (isQuiteSimilar(noTo, noFrom))) {
-            return true;
-        } else {
-            return false;
-        }
+        return (isQuiteSimilar(noFrom, noTo) || (isQuiteSimilar(noTo, noFrom)));
     }
 
     public void start() {
@@ -443,16 +439,19 @@ public class MainDDiff extends JFrame {
 
         jTextField5.setEditable(false);
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField5.setText("                                                                                                                                                                                                                            ");
         jTextField5.setEnabled(false);
-        jTextField5.setMaximumSize(new java.awt.Dimension(642, 28));
+        jTextField5.setMaximumSize(new java.awt.Dimension(672, 28));
+        jTextField5.setMinimumSize(new java.awt.Dimension(672, 28));
         jTextField5.setName("jTextField5"); // NOI18N
+        jTextField5.setPreferredSize(new java.awt.Dimension(672, 28));
         toolBar.add(jTextField5);
 
         jTextField1.setEditable(false);
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("components/Bundle"); // NOI18N
         jTextField1.setText(bundle.getString("MainILCS.jTextField1.text")); // NOI18N
+        jTextField1.setMaximumSize(new java.awt.Dimension(82, 28));
+        jTextField1.setMinimumSize(new java.awt.Dimension(82, 28));
         jTextField1.setName("jTextField1"); // NOI18N
         toolBar.add(jTextField1);
 
@@ -460,6 +459,8 @@ public class MainDDiff extends JFrame {
         jTextField2.setEditable(false);
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField2.setText(bundle.getString("MainILCS.jTextField2.text")); // NOI18N
+        jTextField2.setMaximumSize(new java.awt.Dimension(71, 28));
+        jTextField2.setMinimumSize(new java.awt.Dimension(71, 28));
         jTextField2.setName("jTextField2"); // NOI18N
         toolBar.add(jTextField2);
 
@@ -467,6 +468,8 @@ public class MainDDiff extends JFrame {
         jTextField3.setEditable(false);
         jTextField3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField3.setText(bundle.getString("MainILCS.jTextField3.text")); // NOI18N
+        jTextField3.setMaximumSize(new java.awt.Dimension(47, 28));
+        jTextField3.setMinimumSize(new java.awt.Dimension(47, 28));
         jTextField3.setName("jTextField3"); // NOI18N
         toolBar.add(jTextField3);
 
@@ -474,6 +477,8 @@ public class MainDDiff extends JFrame {
         jTextField4.setEditable(false);
         jTextField4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField4.setText(bundle.getString("MainILCS.jTextField4.text")); // NOI18N
+        jTextField4.setMaximumSize(new java.awt.Dimension(50, 28));
+        jTextField4.setMinimumSize(new java.awt.Dimension(50, 28));
         jTextField4.setName("jTextField4"); // NOI18N
         toolBar.add(jTextField4);
 
@@ -482,17 +487,23 @@ public class MainDDiff extends JFrame {
         jTextField6.setForeground(new java.awt.Color(255, 255, 255));
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField6.setText(bundle.getString("MainILCS.jTextField6.text")); // NOI18N
+        jTextField6.setMaximumSize(new java.awt.Dimension(99, 28));
+        jTextField6.setMinimumSize(new java.awt.Dimension(99, 28));
         jTextField6.setName("jTextField6"); // NOI18N
         toolBar.add(jTextField6);
 
         jTextField9.setBackground(new java.awt.Color(255, 255, 153));
         jTextField9.setText("Similarity");
+        jTextField9.setMaximumSize(new java.awt.Dimension(62, 28));
+        jTextField9.setMinimumSize(new java.awt.Dimension(62, 28));
         jTextField9.setName("jTextField9"); // NOI18N
         toolBar.add(jTextField9);
 
         jTextField10.setBackground(new java.awt.Color(255, 204, 102));
         jTextField10.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField10.setText("Similarity HighLight");
+        jTextField10.setMaximumSize(new java.awt.Dimension(118, 28));
+        jTextField10.setMinimumSize(new java.awt.Dimension(118, 28));
         jTextField10.setName("jTextField10"); // NOI18N
         toolBar.add(jTextField10);
 
