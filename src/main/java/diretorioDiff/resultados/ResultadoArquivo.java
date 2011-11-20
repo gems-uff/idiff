@@ -1,5 +1,9 @@
 package diretorioDiff.resultados;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import algorithms.Grain;
 import diretorioDiff.Arquivo;
 
 
@@ -10,6 +14,8 @@ public class ResultadoArquivo {
 	private TipoResultado tipo;
 	private int similaridade = 0;
 	private boolean escolhaHungaro = false;
+	private List<Grain> grainsFrom = new ArrayList<Grain>();
+	private List<Grain> grainsTo = new ArrayList<Grain>();
 
 	/**
 	 * Cria uma classe para representar o resultado da compara��o entre arquivos
@@ -58,6 +64,13 @@ public class ResultadoArquivo {
 		} else {
 			this.tipo = TipoResultado.CHANGED;
 		}	
+	}
+
+	public ResultadoArquivo(Arquivo base, Arquivo comparado,
+			int similaridade, List<Grain> grainsFrom, List<Grain> grainsTo) {
+		this(base, comparado, similaridade);
+		this.grainsFrom = grainsFrom;
+		this.grainsTo = grainsTo;
 	}
 
 	/**
@@ -187,5 +200,19 @@ public class ResultadoArquivo {
 		}
 		
 		return false;
+	}
+
+	/**
+	 * @return the grainsFrom
+	 */
+	public List<Grain> getGrainsFrom() {
+		return grainsFrom;
+	}
+
+	/**
+	 * @return the grainsTo
+	 */
+	public List<Grain> getGrainsTo() {
+		return grainsTo;
 	}
 }

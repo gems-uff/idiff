@@ -202,17 +202,55 @@ public class DiretorioDiff {
 
 			for (int j = 0; j < arquivosSemMatch2.size(); j++) {
 				Arquivo comparado = arquivosSemMatch2.get(j);
+				File fileBase = base.getArquivo();
+				File fileComparado = comparado.getArquivo();
+				
+				List<Grain> grainsTo = new ArrayList<Grain>();
+				List<Grain> grainsFrom = new ArrayList<Grain>();
+				
+				Grain baseGrain = new FileGrain();
+				Diff diff = new Diff(fileBase, fileComparado);
+				try {
+					ILCSBean iLCSBean = new ILCSBean(fileBase, fileComparado);
+					iLCSBean.setGranularity("LINE");
+					IResultDiff compare = diff.compare(baseGrain, iLCSBean);
+				
+					grainsTo.addAll(compare.getGrainsTo());
+					grainsFrom.addAll(compare.getGrainsFrom());
+				
+					compare.cleanResult();
+				} catch (DiffException e) {
+				}
+				
+				int qtdeCharsIguais = 0;
+				for (Grain grain : grainsTo) {
+					String line = grain.getGrain();
+				
+					for (int i1 = 0; i1 < line.length(); i1++) {
+						if (line.charAt(i1) != ' ') {
+							qtdeCharsIguais++;
+						}
+					}
+				}
+				
+				int similaridade1 = qtdeCharsIguais * 100 / base
+				                 .getTamanhoAtual();
+				
+				if (similaridade1 == 100) {
+					similaridade1 = qtdeCharsIguais * 100 / comparado
+				                         .getTamanhoAtual();
+				}
 
 				//progressMessager.setMessage("Comparing '" + base.getArquivo().getName() + "' and '" + comparado.getArquivo().getName() + "'.");
 				
-				int similaridade = calculaSimilaridade(base, comparado);
+				int similaridade = similaridade1;
 
 				matrizILCS[i][j] = similaridade;
 
 				if (similaridade > 0) {
 					adicionados[j] = false;
 					baseExcluido = false;
-					resultado.add(base, comparado, similaridade);
+					resultado.add(base, comparado, similaridade, grainsTo, grainsFrom);
 				}
 			}
 
@@ -250,57 +288,6 @@ public class DiretorioDiff {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Calcula a similaridade entre dois arquivos atrav�s do ILCS
-	 * 
-	 * @param base
-	 *            Arquivo base da compara��o
-	 * @param comparado
-	 *            Arquivo a ser comparado com o arquivo base.
-	 * 
-	 * @return O percentual de similaridade valor entre 0 e 100.
-	 */
-	private int calculaSimilaridade(Arquivo base, Arquivo comparado) {
-		File fileBase = base.getArquivo();
-		File fileComparado = comparado.getArquivo();
-
-		List<Grain> grainsTo = new ArrayList<Grain>();
-
-		Grain baseGrain = new FileGrain();
-		Diff diff = new Diff(fileBase, fileComparado);
-		try {
-			ILCSBean iLCSBean = new ILCSBean(fileBase, fileComparado);
-			iLCSBean.setGranularity("LINE");
-			IResultDiff compare = diff.compare(baseGrain, iLCSBean);
-
-			grainsTo.addAll(compare.getGrainsTo());
-
-			compare.cleanResult();
-		} catch (DiffException e) {
-		}
-
-		int qtdeCharsIguais = 0;
-		for (Grain grain : grainsTo) {
-			String line = grain.getGrain();
-
-			for (int i1 = 0; i1 < line.length(); i1++) {
-				if (line.charAt(i1) != ' ') {
-					qtdeCharsIguais++;
-				}
-			}
-		}
-
-		int similaridade = qtdeCharsIguais * 100 / base
-                         .getTamanhoAtual();
-
-		if (similaridade == 100) {
-			similaridade = qtdeCharsIguais * 100 / comparado
-                                 .getTamanhoAtual();
-		}
-
-		return similaridade;
 	}
 
 	private boolean isPrimeiraIteracao() {
@@ -384,24 +371,6 @@ public class DiretorioDiff {
 			File diretorio2) throws DiretorioDiffException {
 		dirSerializado1 = new DiretorioSerializado(diretorio1, 1);
 		dirSerializado2 = new DiretorioSerializado(diretorio2, 2);
-	}
-
-	/**
-	 * @param matriz
-	 */
-	private void escreverMatriz(int[][] matriz) {
-		for (int[] linha : matriz) {
-			for (int valor : linha) {
-
-				String valorStr = Integer.toString(valor);
-				while (valorStr.length() < 3) {
-					valorStr = "_" + valorStr;
-				}
-
-				System.out.print(" | " + valorStr);
-			}
-			System.out.println();
-		}
 	}
 
 	/**

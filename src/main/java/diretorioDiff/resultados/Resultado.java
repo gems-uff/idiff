@@ -3,6 +3,8 @@ package diretorioDiff.resultados;
 import java.util.ArrayList;
 import java.util.List;
 
+import algorithms.Grain;
+
 import diretorioDiff.Arquivo;
 
 
@@ -23,6 +25,12 @@ public class Resultado {
 	 * Resultados para arquivos.
 	 */
 	private List<ResultadoArquivo> resultadosArquivo =  new ArrayList<ResultadoArquivo>();
+
+	/**
+	 * 
+	 */
+	private List<Grain> paramGrainsTo = new ArrayList<Grain>();
+	private List<Grain> paramGrainsFrom = new ArrayList<Grain>();
 
 	/**
 	 * Adiciona um resultado na lista de resultados para Arquivos.
@@ -67,18 +75,30 @@ public class Resultado {
 
 	/**
 	 * Adiciona um resultado que pode ser do tipo INALTERADO, EDITADO ou MOVIDO.
-	 * @param base Arquivo base da compara��o.
+	 * @param base Arquivo base da comparação.
 	 * @param comparado Arquivo comparado.
 	 * @param similaridade Grau de similaridade entre os arquivos.
 	 */
 	public void add(Arquivo base, Arquivo comparado, int similaridade) {
 		add(new ResultadoArquivo(base, comparado, similaridade));		
 	}
+	
+	/**
+	 * Adiciona um resultado que pode ser do tipo INALTERADO, EDITADO ou MOVIDO.
+	 * @param base Arquivo base da comparação.
+	 * @param comparado Arquivo comparado.
+	 * @param similaridade Grau de similaridade entre os arquivos.
+	 * @param grainsFrom Resultado ILCS from.
+	 * @param grainsTo Resultado ILCS to.
+	 */
+	public void add(Arquivo base, Arquivo comparado, int similaridade, List<Grain> grainsFrom, List<Grain> grainsTo) {
+		add(new ResultadoArquivo(base, comparado, similaridade, grainsFrom, grainsTo));		
+	}
 
 	/**
-	 * Marca um resultado como escolha do Algoritmo H�ngaro.
+	 * Marca um resultado como escolha do Algoritmo Húngaro.
 	 *  
-	 * @param base Arquivo base da compara��o.
+	 * @param base Arquivo base da comparação.
 	 * @param comparado Arquivo comparado.
 	 */
 	public void setEscolhaHungaro(Arquivo base, Arquivo comparado) {
@@ -135,4 +155,5 @@ public class Resultado {
 		
 		return lista;
 	}
+
 }
