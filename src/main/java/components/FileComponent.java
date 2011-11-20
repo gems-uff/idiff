@@ -73,8 +73,4 @@ public class FileComponent {
     public void clear(JTextPane paneFrom, JTextPane paneTo) {
         granularityComponent.clean(paneFrom, paneTo);
     }
-
-    public void setToolTipText(JTextPane pane, String fileName) {
-        this.granularityComponent.setToolTipText(pane, fileName);
-    }
 }

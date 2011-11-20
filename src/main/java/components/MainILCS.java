@@ -65,6 +65,7 @@ public final class MainILCS extends javax.swing.JFrame {
         instance = new MainILCS(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         return instance;
     }
+
     public synchronized static MainILCS getInstance() {
         return instance;
     }
@@ -516,21 +517,15 @@ public final class MainILCS extends javax.swing.JFrame {
 
             @Override
             public void run() {
-               if (MainILCS.getInstance().isVisible()){
-                    MainILCS.getInstance().dispose();
+                if (MainDDiff.getInstance().isVisible()) {
+                    FileSelection.getInstance().dispose();
+                    MainDDiff.getInstance();
+                } else {
+                    FileSelection.getInstance();
                 }
-  
-                FileSelection.getInstance();
-            }            
+                MainILCS.getInstance().dispose();
+            }
         });
-    }
-
-    /**
-     * Show Diff
-     */
-    @Action
-    public void backToDDiff() {
-        this.dispose();
     }
 
     /**

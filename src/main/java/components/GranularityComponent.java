@@ -104,7 +104,7 @@ public class GranularityComponent {
         Listener.cleanMouseListener(paneTo, paneFrom, scrollFrom, scrollTo);
     }
 
-    void setToolTipText(JTextPane pane, String fileName) {
-        pane.setToolTipText("Similar code in the file: " + fileName);
+    public String getToolTipText(String fileName) {
+        return ("Similar code in the file: " + fileName);
     }
 }

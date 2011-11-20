@@ -2,7 +2,6 @@ package components;
 
 import algorithms.IResultDiff;
 import java.io.File;
-import java.util.List;
 
 /**
  *
@@ -11,14 +10,14 @@ import java.util.List;
 public class FileOverView {
 
     private File file;
-    private List<IResultDiff> resultILCS;
-    private String percentageSimilarity;
+    private IResultDiff resultILCS;
+    private int percentageSimilarity;
 
-    public List<IResultDiff> getResultILCS() {
+    public IResultDiff getResultILCS() {
         return resultILCS;
     }
 
-    public void setResultILCS(List<IResultDiff> resultILCS) {
+    public void setResultILCS(IResultDiff resultILCS) {
         this.resultILCS = resultILCS;
     }
 
@@ -30,11 +29,11 @@ public class FileOverView {
         this.file = file;
     }
 
-    public String getPercentageSimilarity() {
+    public int getPercentageSimilarity() {
         return percentageSimilarity;
     }
 
-    public void setPercentageSimilarity(String percentageSimilarity) {
+    public void setPercentageSimilarity(int percentageSimilarity) {
         this.percentageSimilarity = percentageSimilarity;
     }
 }
