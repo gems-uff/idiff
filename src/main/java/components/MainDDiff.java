@@ -260,6 +260,23 @@ public class MainDDiff extends JFrame {
         }
     }
 
+    /**
+     * File Selection
+     */
+    @Action
+    public void fileSelection() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (MainDDiff.getInstance().isVisible()){
+                    MainDDiff.getInstance().dispose();
+                }
+                FileSelection.getInstance();
+            }
+        });
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -278,6 +295,8 @@ public class MainDDiff extends JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         toolBar = new javax.swing.JToolBar();
         jSeparator2 = new javax.swing.JToolBar.Separator();
+        jButton1 = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
         jButton3 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
@@ -378,7 +397,7 @@ public class MainDDiff extends JFrame {
                     .add(jRadioButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 229, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, directoryPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)))
+                        .add(scrollTreeTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         directoryPanel2Layout.setVerticalGroup(
@@ -402,6 +421,22 @@ public class MainDDiff extends JFrame {
         toolBar.add(jSeparator2);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
+        jButton1.setAction(actionMap.get("fileSelection")); // NOI18N
+        jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setToolTipText(resourceMap.getString("jButton1.toolTipText")); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusPainted(false);
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setName("jButton1"); // NOI18N
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(jButton1);
+
+        jSeparator3.setName("jSeparator3"); // NOI18N
+        toolBar.add(jSeparator3);
+
         jButton3.setAction(actionMap.get("drill")); // NOI18N
         jButton3.setIcon(resourceMap.getIcon("jButton3.icon")); // NOI18N
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
@@ -440,10 +475,10 @@ public class MainDDiff extends JFrame {
         jTextField5.setEditable(false);
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField5.setEnabled(false);
-        jTextField5.setMaximumSize(new java.awt.Dimension(672, 28));
-        jTextField5.setMinimumSize(new java.awt.Dimension(672, 28));
+        jTextField5.setMaximumSize(new java.awt.Dimension(652, 28));
+        jTextField5.setMinimumSize(new java.awt.Dimension(652, 28));
         jTextField5.setName("jTextField5"); // NOI18N
-        jTextField5.setPreferredSize(new java.awt.Dimension(672, 28));
+        jTextField5.setPreferredSize(new java.awt.Dimension(652, 28));
         toolBar.add(jTextField5);
 
         jTextField1.setEditable(false);
@@ -514,9 +549,9 @@ public class MainDDiff extends JFrame {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1371, Short.MAX_VALUE)
+                    .add(toolBar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1398, Short.MAX_VALUE)
                     .add(layout.createSequentialGroup()
-                        .add(splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1365, Short.MAX_VALUE)
+                        .add(splitPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 1392, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -549,12 +584,14 @@ public class MainDDiff extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel directoryPanel1;
     private javax.swing.JPanel directoryPanel2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;

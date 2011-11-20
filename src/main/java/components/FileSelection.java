@@ -6,8 +6,6 @@ import details.Laf;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import org.jdesktop.application.Action;
@@ -34,18 +32,8 @@ public class FileSelection extends javax.swing.JFrame {
      * Constructor 
      */
     public FileSelection() {
-        try {
-            Splash splash = new Splash();
-            splash.setVisible(true);
-            splash.setMessage("Starting IDIFF...");
-            init();
-            splash.dispose();
-            Thread.sleep(10);
-            this.setVisible(true);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(FileSelection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        init();
+        this.setVisible(true);
     }
 
     private void init() {
@@ -445,15 +433,23 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
             File artifact1 = new File(fileTextField.getText());
             File artifact2 = new File(fileTextField2.getText());
 
-            if ((artifact1.isDirectory()) || (artifact2.isDirectory())) {
+            if ((artifact1.isDirectory()) && (artifact2.isDirectory())) {
                 showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags());
+                this.dispose();
+
             } else {
-                showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags(), false);
+                if ((artifact1.isFile()) && (artifact2.isFile())) {
+                    showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags(), true);
+                    this.dispose();
+
+                } else {
+                    showError("Select same type artifacts");
+                }
             }
-            this.dispose();
         } else {
-            showError();
+            showError("Select a valid artifact");
         }
+
     }
 
     /**
@@ -481,12 +477,13 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     /**
      * Show error frame
      */
-    private void showError() {
+    private void showError(final String msg) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             @Override
             public void run() {
                 Error dialog = new Error(new javax.swing.JFrame(), true);
+                dialog.setErrorLabel(msg);
                 dialog.setVisible(true);
             }
         });

@@ -47,6 +47,7 @@ public class Error extends javax.swing.JDialog {
         errorLabel.setForeground(resourceMap.getColor("jLabel2.foreground")); // NOI18N
         errorLabel.setIcon(resourceMap.getIcon("jLabel2.icon")); // NOI18N
         errorLabel.setText("  Please enter a valid file ");
+        errorLabel.setToolTipText(resourceMap.getString("errorLabel.toolTipText")); // NOI18N
         errorLabel.setName("errorLabel"); // NOI18N
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(Error.class, this);

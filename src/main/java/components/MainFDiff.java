@@ -83,6 +83,7 @@ public class MainFDiff extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         pane = new javax.swing.JTextPane();
         jToolBar1 = new javax.swing.JToolBar();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jTextField3 = new javax.swing.JTextField();
@@ -121,6 +122,9 @@ public class MainFDiff extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
         jToolBar1.setName("jToolBar1"); // NOI18N
+
+        jSeparator2.setName("jSeparator2"); // NOI18N
+        jToolBar1.add(jSeparator2);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainFDiff.class, this);
         jButton1.setAction(actionMap.get("backToDDiff")); // NOI18N
@@ -191,6 +195,7 @@ public class MainFDiff extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

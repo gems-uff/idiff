@@ -52,6 +52,7 @@
         <Property name="foreground" type="java.awt.Color" resourceKey="jLabel2.foreground"/>
         <Property name="icon" type="javax.swing.Icon" resourceKey="jLabel2.icon"/>
         <Property name="text" type="java.lang.String" value="  Please enter a valid file "/>
+        <Property name="toolTipText" type="java.lang.String" resourceKey="errorLabel.toolTipText"/>
         <Property name="name" type="java.lang.String" value="errorLabel" noResource="true"/>
       </Properties>
     </Component>

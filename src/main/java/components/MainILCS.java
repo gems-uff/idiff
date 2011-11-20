@@ -25,10 +25,7 @@ import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -66,6 +63,9 @@ public final class MainILCS extends javax.swing.JFrame {
             instance.dispose();
         }
         instance = new MainILCS(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
+        return instance;
+    }
+    public synchronized static MainILCS getInstance() {
         return instance;
     }
 
@@ -222,14 +222,10 @@ public final class MainILCS extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        exitDialog = new JDialog();
-        noButton = new JButton();
-        yesButton = new JButton();
-        exitLabel = new JLabel();
-        jLabel1 = new JLabel();
         mainButtonGroup = new ButtonGroup();
         buttonGroup = new ButtonGroup();
         toolBar = new JToolBar();
+        jSeparator1 = new Separator();
         fileSelectionMenuBar = new JButton();
         jSeparator3 = new Separator();
         diffRadioButton = new JRadioButton();
@@ -259,48 +255,8 @@ public final class MainILCS extends javax.swing.JFrame {
         jScrollPane1 = new JScrollPane();
         tableDetails = new JTable();
 
-        exitDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        ResourceBundle bundle = ResourceBundle.getBundle("components/Bundle"); // NOI18N
-        exitDialog.setTitle(bundle.getString("MainILCS.exitDialog.title")); // NOI18N
-
-        noButton.setText(bundle.getString("MainILCS.noButton.text")); // NOI18N
-
-        yesButton.setText(bundle.getString("MainILCS.yesButton.text")); // NOI18N
-
-        exitLabel.setText(bundle.getString("MainILCS.exitLabel.text")); // NOI18N
-
-        jLabel1.setIcon(new ImageIcon(getClass().getResource("/components/icons/icone_help.png"))); // NOI18N
-
-        GroupLayout exitDialogLayout = new GroupLayout(exitDialog.getContentPane());
-        exitDialog.getContentPane().setLayout(exitDialogLayout);
-        exitDialogLayout.setHorizontalGroup(
-            exitDialogLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(exitDialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel1)
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(exitLabel, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(yesButton)
-                .addPreferredGap(LayoutStyle.RELATED)
-                .add(noButton)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        exitDialogLayout.setVerticalGroup(
-            exitDialogLayout.createParallelGroup(GroupLayout.LEADING)
-            .add(exitDialogLayout.createSequentialGroup()
-                .add(exitDialogLayout.createParallelGroup(GroupLayout.LEADING)
-                    .add(exitDialogLayout.createSequentialGroup()
-                        .add(31, 31, 31)
-                        .add(exitDialogLayout.createParallelGroup(GroupLayout.BASELINE)
-                            .add(exitLabel)
-                            .add(yesButton)
-                            .add(noButton)))
-                    .add(jLabel1))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        ResourceBundle bundle = ResourceBundle.getBundle("components/Bundle"); // NOI18N
         setTitle(bundle.getString("MainILCS.title")); // NOI18N
         setIconImages(null);
         setMinimumSize(new Dimension(1365, 700));
@@ -310,14 +266,17 @@ public final class MainILCS extends javax.swing.JFrame {
         toolBar.setFloatable(false);
         toolBar.setRollover(true);
         toolBar.setName("Menu Bar"); // NOI18N
+        toolBar.add(jSeparator1);
 
         ActionMap actionMap = Application.getInstance().getContext().getActionMap(MainILCS.class, this);
         fileSelectionMenuBar.setAction(actionMap.get("fileSelection")); // NOI18N
         ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(MainILCS.class);
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
         fileSelectionMenuBar.setToolTipText(resourceMap.getString("fileSelectionMenuBar.toolTipText")); // NOI18N
+        fileSelectionMenuBar.setBorderPainted(false);
         mainButtonGroup.add(fileSelectionMenuBar);
         fileSelectionMenuBar.setContentAreaFilled(false);
+        fileSelectionMenuBar.setFocusPainted(false);
         fileSelectionMenuBar.setFocusable(false);
         fileSelectionMenuBar.setHorizontalTextPosition(SwingConstants.CENTER);
         fileSelectionMenuBar.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -343,6 +302,7 @@ public final class MainILCS extends javax.swing.JFrame {
 
         jTextField5.setEditable(false);
         jTextField5.setText(bundle.getString("MainILCS.jTextField5.text")); // NOI18N
+        jTextField5.setToolTipText(bundle.getString("MainILCS.jTextField5.toolTipText")); // NOI18N
         jTextField5.setEnabled(false);
         jTextField5.setMaximumSize(new Dimension(710, 28));
         jTextField5.setMinimumSize(new Dimension(710, 28));
@@ -488,10 +448,10 @@ public final class MainILCS extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.LEADING)
-            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1406, Short.MAX_VALUE)
+            .add(toolBar, GroupLayout.DEFAULT_SIZE, 1439, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1394, Short.MAX_VALUE)
+                .add(mainSplitPane, GroupLayout.DEFAULT_SIZE, 1427, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -556,8 +516,12 @@ public final class MainILCS extends javax.swing.JFrame {
 
             @Override
             public void run() {
+               if (MainILCS.getInstance().isVisible()){
+                    MainILCS.getInstance().dispose();
+                }
+  
                 FileSelection.getInstance();
-            }
+            }            
         });
     }
 
@@ -616,11 +580,9 @@ public final class MainILCS extends javax.swing.JFrame {
     private JScrollPane dirScrollPane2;
     private JTree dirTree1;
     private JTree dirTree2;
-    private JDialog exitDialog;
-    private JLabel exitLabel;
     private JButton fileSelectionMenuBar;
-    private JLabel jLabel1;
     private JScrollPane jScrollPane1;
+    private Separator jSeparator1;
     private Separator jSeparator2;
     private Separator jSeparator3;
     private Separator jSeparator6;
@@ -634,7 +596,6 @@ public final class MainILCS extends javax.swing.JFrame {
     private JScrollPane leftScrollPane;
     private ButtonGroup mainButtonGroup;
     private JSplitPane mainSplitPane;
-    private JButton noButton;
     private JTextPane rightPane;
     private JScrollPane rightScrollPane;
     private JRadioButton similarRadioButton;
@@ -643,7 +604,6 @@ public final class MainILCS extends javax.swing.JFrame {
     private JSplitPane splitPaneUp;
     private JTable tableDetails;
     private JToolBar toolBar;
-    private JButton yesButton;
     // End of variables declaration//GEN-END:variables
     private ILCSBean ilcsBean;
     private IResultDiff result = new Result();
