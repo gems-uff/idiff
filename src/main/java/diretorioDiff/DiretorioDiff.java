@@ -233,18 +233,19 @@ public class DiretorioDiff {
 					}
 				}
 				
-				int similaridade1 = qtdeCharsIguais * 100 / base
-				                 .getTamanhoAtual();
-				
-				if (similaridade1 == 100) {
-					similaridade1 = qtdeCharsIguais * 100 / comparado
+                                int similaridade = 0;
+                                
+                                if (base.getTamanhoAtual() > 0) {
+                                    similaridade = qtdeCharsIguais * 100 / base.getTamanhoAtual();
+				}
+                                
+				if (similaridade == 100 && comparado.getTamanhoAtual() > 0) {
+					similaridade = qtdeCharsIguais * 100 / comparado
 				                         .getTamanhoAtual();
 				}
 
 				//progressMessager.setMessage("Comparing '" + base.getArquivo().getName() + "' and '" + comparado.getArquivo().getName() + "'.");
 				
-				int similaridade = similaridade1;
-
 				matrizILCS[i][j] = similaridade;
 
 				if (similaridade > 0) {
