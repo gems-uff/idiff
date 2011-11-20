@@ -53,10 +53,10 @@ public class Arvore extends JTree {
 
 	private No selectedNode;
 
-        public No getSelectedNode() {
-            return selectedNode;
-        }
-        
+	public No getSelectedNode() {
+		return selectedNode;
+	}
+
 	private Arvore(File diretorio) {
 		this(diretorio, null);
 	}
@@ -90,7 +90,7 @@ public class Arvore extends JTree {
 
 			@Override
 			public void mouseClicked(MouseEvent paramMouseEvent) {
-				
+
 			}
 
 			@Override
@@ -147,26 +147,36 @@ public class Arvore extends JTree {
 			if (associada != null && resultado != null) {
 				No no = (No) tp.getLastPathComponent();
 				if (no.getId() != -1) {
-					
+
 					if (!no.isBaseSelection() && no.getIdStart() == -1) {
 						clearNodeSelection();
 						no.select();
-						
-						associada.selecionarNos(no.getIdsRelacionados(), no.getId());
+
+						associada.selecionarNos(no.getIdsRelacionados(),
+								no.getId());
 					}
-					
+
 					if (isCheckBoxArea(me)) {
 						setSelectedNode(no);
 					}
 				}
 			}
 		} else {
+			clearNodeSelected();
 			clearNodeSelection();
 			associada.clearNodeSelection();
+			associada.clearNodeSelected();
 			associada.reloadTree(true);
 		}
 
 		reloadTree(true);
+	}
+
+	private void clearNodeSelected() {
+		if (selectedNode != null) {
+			selectedNode.clearSelection();
+			selectedNode = null;
+		}
 	}
 
 	private void setSelectedNode(No no) {
@@ -178,7 +188,7 @@ public class Arvore extends JTree {
 					selectedNode = null;
 				}
 			}
-			
+
 			no.setSelected(!no.isSelected());
 			selectedNode = no;
 		}
@@ -406,7 +416,7 @@ public class Arvore extends JTree {
 
 	public void expandNodesWithDiff() {
 		for (No no : nodes) {
-			if(no.isModified()) {
+			if (no.isModified()) {
 				expandParents(new TreePath(no.getPath()));
 			}
 		}
