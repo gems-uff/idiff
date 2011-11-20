@@ -25,7 +25,6 @@ import diretorioDiff.DiretorioDiffException;
 import diretorioDiff.Util;
 import diretorioDiff.resultados.Resultado;
 import diretorioDiff.resultados.ResultadoArquivo;
-import java.awt.event.MouseMotionListener;
 
 /**
  * @author eborel
@@ -33,377 +32,383 @@ import java.awt.event.MouseMotionListener;
  */
 public class Arvore extends JTree {
 
-    /**
-     * Serialização.
-     */
-    private static final long serialVersionUID = -4235871073840441251L;
-    private int idNodeTemp = 0;
-    private Arvore associada = null;
-    private List<No> nodes = new ArrayList<No>();
-    private Resultado resultado = null;
-    private boolean base = false;
-    private DefaultTreeModel modelTree;
-    private NodeRenderer renderer;
-    private No selectedNode = null;
+	/**
+	 * Serialização.
+	 */
+	private static final long serialVersionUID = -4235871073840441251L;
 
-    public No getSelectedNode() {
-        return selectedNode;
-    }
+	private int idNodeTemp = 0;
 
-    private Arvore(File diretorio) {
-        this(diretorio, null);
-    }
+	private Arvore associada = null;
 
-    public void setAssociada(Arvore associada) {
-        this.associada = associada;
-    }
-    private Arvore(File diretorio, Arvore associada) {
-        super();
+	private List<No> nodes = new ArrayList<No>();
 
-        this.associada = associada;
+	private Resultado resultado = null;
 
-        if (associada != null) {
-            associada.setAssociada(this);
+	private boolean base = false;
+
+	private DefaultTreeModel modelTree;
+
+	private NodeRenderer renderer;
+
+	private No selectedNode;
+
+        public No getSelectedNode() {
+            return selectedNode;
         }
-        this.base = associada == null;
+        
+	private Arvore(File diretorio) {
+		this(diretorio, null);
+	}
 
-        modelTree = new DefaultTreeModel(loadNodes(diretorio));
-        setModel(modelTree);
-        getSelectionModel().setSelectionMode(
-                TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
-        renderer = new NodeRenderer();
-        setCellRenderer(renderer);
+	private Arvore(File diretorio, Arvore associada) {
+		super();
 
-        setUI(new BasicTreeUI());
-        adicionarEventos();
-    }
+		this.associada = associada;
+		if (associada != null) {
+			associada.associada = this;
+		}
+		this.base = associada == null;
 
-    /**
-     * 
-     */
-    private void adicionarEventos() {
-        addMouseListener(new MouseListener() {
+		modelTree = new DefaultTreeModel(loadNodes(diretorio));
+		setModel(modelTree);
+		getSelectionModel().setSelectionMode(
+				TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+		renderer = new NodeRenderer();
+		setCellRenderer(renderer);
 
-            @Override
-            public void mouseClicked(MouseEvent paramMouseEvent) {
-            }
+		setUI(new BasicTreeUI());
 
-            @Override
-            public void mousePressed(MouseEvent paramMouseEvent) {
-                executeEvent(paramMouseEvent, true);
-            }
+		adicionarEventos();
+	}
 
-            @Override
-            public void mouseReleased(MouseEvent paramMouseEvent) {
-            }
+	/**
+	 * 
+	 */
+	private void adicionarEventos() {
+		addMouseListener(new MouseListener() {
 
-            @Override
-            public void mouseEntered(MouseEvent paramMouseEvent) {
-            }
+			@Override
+			public void mouseClicked(MouseEvent paramMouseEvent) {
+				
+			}
 
-            @Override
-            public void mouseExited(MouseEvent paramMouseEvent) {
-            }
-        });
+			@Override
+			public void mousePressed(MouseEvent paramMouseEvent) {
+				executeEvent(paramMouseEvent);
+			}
 
-        addMouseMotionListener(new MouseMotionListener() {
+			@Override
+			public void mouseReleased(MouseEvent paramMouseEvent) {
+			}
 
-            @Override
-            public void mouseDragged(MouseEvent me) {
-            }
+			@Override
+			public void mouseEntered(MouseEvent paramMouseEvent) {
 
-            @Override
-            public void mouseMoved(MouseEvent me) {
-                //executeEvent(me);
-            }
-        });
-    }
+			}
 
-    public static Arvore getBaseTree(File directory)
-            throws DiretorioDiffException {
-        if (Util.isNotValidDirectory(directory)) {
-            throw new DiretorioDiffException("Invalid directory.");
-        }
+			@Override
+			public void mouseExited(MouseEvent paramMouseEvent) {
 
-        return new Arvore(directory);
-    }
+			}
+		});
+	}
 
-    public static Arvore getComparedTree(File directory, Arvore base)
-            throws DiretorioDiffException {
-        if (Util.isNotValidDirectory(directory)) {
-            throw new DiretorioDiffException("Invalid directory.");
-        }
+	public static Arvore getBaseTree(File directory)
+			throws DiretorioDiffException {
+		if (Util.isNotValidDirectory(directory)) {
+			throw new DiretorioDiffException("Invalid directory.");
+		}
 
-        if (base == null || !base.isBase()) {
-            throw new DiretorioDiffException("Invalid base tree.");
-        }
+		return new Arvore(directory);
+	}
 
-        return new Arvore(directory, base);
-    }
+	public static Arvore getComparedTree(File directory, Arvore base)
+			throws DiretorioDiffException {
+		if (Util.isNotValidDirectory(directory)) {
+			throw new DiretorioDiffException("Invalid directory.");
+		}
 
-    private void executeEvent(MouseEvent me) {
-        executeEvent(me, false);
-    }
+		if (base == null || !base.isBase()) {
+			throw new DiretorioDiffException("Invalid base tree.");
+		}
 
-    /**
-     * @param me
-     */
-    private void executeEvent(MouseEvent me, boolean click) {
+		return new Arvore(directory, base);
+	}
 
-        TreePath tp = getPathForLocation(me.getX(), me.getY());
+	/**
+	 * @param me
+	 */
+	private void executeEvent(MouseEvent me) {
 
-        if (tp != null && tp.getLastPathComponent() instanceof No) {
-            if (associada != null && resultado != null) {
-                No no = (No) tp.getLastPathComponent();
-                if (no.getId() != -1) {
-                    if (!no.isBaseSelection() && no.getIdStart() == -1) {
-                       clearNodeSelection();
-                        no.select();
-                        associada.selecionarNos(no.getIdsRelacionados(), no.getId());
-                    }
-                    if (isCheckBoxArea(me) && click) {
-                        setSelectedNode(no);
-                    }
-                }
-            }
-        } else {
-            clearNodeSelection();
-            clearSelectedNode();
-            associada.clearNodeSelection();
-            associada.reloadTree(true);
-        }
+		TreePath tp = getPathForLocation(me.getX(), me.getY());
 
-        reloadTree(true);
-    }
+		if (tp != null && tp.getLastPathComponent() instanceof No) {
+			if (associada != null && resultado != null) {
+				No no = (No) tp.getLastPathComponent();
+				if (no.getId() != -1) {
+					
+					if (!no.isBaseSelection() && no.getIdStart() == -1) {
+						clearNodeSelection();
+						no.select();
+						
+						associada.selecionarNos(no.getIdsRelacionados(), no.getId());
+					}
+					
+					if (isCheckBoxArea(me)) {
+						setSelectedNode(no);
+					}
+				}
+			}
+		} else {
+			clearNodeSelection();
+			associada.clearNodeSelection();
+			associada.reloadTree(true);
+		}
 
-    public void clearSelectedNode() {
-        selectedNode.setSelected(false);
-        selectedNode = null;
-    }
+		reloadTree(true);
+	}
 
-    public void setSelectedNode(No no) {
-        No selected = selectedNode;
-        if (selected != null && no.isSelected()) {
-            clearSelectedNode();
-            if (selected.equals(no)) {
-                no.setSelected(false);
-                return;
-            }
-        }
-        no.setSelected(!no.isSelected());
-        selectedNode = no;
+	private void setSelectedNode(No no) {
 
-    }
+		if (no.isBaseSelection() || no.getIdStart() != -1) {
+			if (selectedNode != null) {
+				if (!selectedNode.equals(no)) {
+					selectedNode.setSelected(false);
+					selectedNode = null;
+				}
+			}
+			
+			no.setSelected(!no.isSelected());
+			selectedNode = no;
+		}
+	}
 
-    /**
-     * 
-     */
-    private void clearNodeSelection() {
-        for (No no : getNodes()) {
-            no.clearSelection();
-        }
-        selectedNode = null;
-    }
+	/**
+	 * 
+	 */
+	private void clearNodeSelection() {
+		for (No no : getNodes()) {
+			no.clearSelection();
+		}
+	}
 
-    /**
-     * @param me
-     * @return
-     */
-    private boolean isCheckBoxArea(MouseEvent me) {
-        Rectangle localRectangle = getPathBounds(getPathForLocation(me.getX(),
-                me.getY()));
+	/**
+	 * @param me
+	 * @return
+	 */
+	private boolean isCheckBoxArea(MouseEvent me) {
+		Rectangle localRectangle = getPathBounds(getPathForLocation(me.getX(),
+				me.getY()));
 
-        Point point = me.getPoint();
-        Dimension size = localRectangle.getSize();
-        localRectangle.setSize(14, (int) size.getHeight());
-        return localRectangle.contains(point);
-    }
+		Point point = me.getPoint();
+		Dimension size = localRectangle.getSize();
+		localRectangle.setSize(14, (int) size.getHeight());
+		return localRectangle.contains(point);
+	}
 
-    private void reloadTree(boolean keepOldExpanded) {
-        Enumeration<TreePath> expandedDescendants = null;
-        if (keepOldExpanded) {
-            TreeNode[] path = ((DefaultMutableTreeNode) modelTree.getRoot()).getPath();
-            expandedDescendants = getExpandedDescendants(new TreePath(path));
-        }
+	private void reloadTree(boolean keepOldExpanded) {
+		Enumeration<TreePath> expandedDescendants = null;
+		if (keepOldExpanded) {
+			TreeNode[] path = ((DefaultMutableTreeNode) modelTree.getRoot())
+					.getPath();
+			expandedDescendants = getExpandedDescendants(new TreePath(path));
+		}
 
-        TreePath[] paths = getSelectionPaths();
-        modelTree.reload();
-        setSelectionPaths(paths);
+		TreePath[] paths = getSelectionPaths();
+		modelTree.reload();
+		setSelectionPaths(paths);
 
-        if (expandedDescendants != null) {
-            while (expandedDescendants.hasMoreElements()) {
-                TreePath treePath = expandedDescendants.nextElement();
+		if (expandedDescendants != null) {
+			while (expandedDescendants.hasMoreElements()) {
+				TreePath treePath = (TreePath) expandedDescendants
+						.nextElement();
 
-                expandParents(treePath);
-            }
-        }
-    }
+				expandParents(treePath);
+			}
+		}
+	}
 
-    public void selecionarNos(List<Integer> ids, int idStart) {
-        clearNodeSelection();
-        TreePath[] treePaths = getSelectionPaths();
+	public void selecionarNos(List<Integer> ids, int idStart) {
+		clearNodeSelection();
+		TreePath[] treePaths = getSelectionPaths();
 
-        if (!ids.isEmpty()) {
-            List<TreePath> paths = new ArrayList<TreePath>();
+		if (!ids.isEmpty()) {
+			List<TreePath> paths = new ArrayList<TreePath>();
 
-            for (Integer id : ids) {
+			for (Integer id : ids) {
 
-                if (id.intValue() > 0) {
-                    No no = getNo(id.intValue());
-                    no.setIdStart(idStart);
+				if (id.intValue() > 0) {
+					No no = getNo(id.intValue());
+					no.setIdStart(idStart);
 
-                    TreePath path = new TreePath(no.getPath());
-                    paths.add(path);
-                    expandParents(path);
-                }
-            }
+					TreePath path = new TreePath(no.getPath());
+					paths.add(path);
+					expandParents(path);
+				}
+			}
 
-            treePaths = paths.toArray(new TreePath[paths.size()]);
-        }
+			treePaths = paths.toArray(new TreePath[paths.size()]);
+		}
 
-        setSelectionPaths(treePaths);
-        reloadTree(false);
-    }
+		setSelectionPaths(treePaths);
+		reloadTree(false);
+	}
 
-    /**
-     * @param treeNode
-     */
-    private void expandParents(TreePath treeNode) {
-        if (treeNode == null) {
-            return;
-        }
+	/**
+	 * @param treeNode
+	 */
+	private void expandParents(TreePath treeNode) {
+		if (treeNode == null) {
+			return;
+		}
 
-        setExpandedState(treeNode, true);
+		setExpandedState(treeNode, true);
 
-        expandParents(treeNode.getParentPath());
-    }
+		expandParents(treeNode.getParentPath());
+	}
 
-    /**
-     * @param idNo2
-     */
-    private No getNo(int idNo2) {
-        if (idNo2 > 0 && idNo2 <= nodes.size()) {
-            return nodes.get(idNo2 - 1);
-        }
+	/**
+	 * @param idNo2
+	 */
+	private No getNo(int idNo2) {
+		if (idNo2 > 0 && idNo2 <= nodes.size()) {
+			return nodes.get(idNo2 - 1);
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    private No loadNodes(File arquivo) {
-        idNodeTemp = 0;
-        return loadNodes(arquivo, false);
-    }
+	private No loadNodes(File arquivo) {
+		idNodeTemp = 0;
+		return loadNodes(arquivo, false);
+	}
 
-    private No loadNodes(File arquivo, boolean removeBase) {
-        String nomeNo = arquivo.getAbsolutePath();
-        if (removeBase) {
-            nomeNo = nomeNo.replace(arquivo.getParent(), "");
+	private No loadNodes(File arquivo, boolean removeBase) {
+		String nomeNo = arquivo.getAbsolutePath();
+		if (removeBase) {
+			nomeNo = nomeNo.replace(arquivo.getParent(), "");
 
-            if (nomeNo.startsWith(File.separator)) {
-                nomeNo = nomeNo.replace(File.separator, "");
-            }
-        }
+			if (nomeNo.startsWith(File.separator)) {
+				nomeNo = nomeNo.replace(File.separator, "");
+			}
+		}
 
-        No node;
-        File[] filhos = arquivo.listFiles();
+		No node;
+		File[] filhos = arquivo.listFiles();
 
-        if (arquivo.isDirectory() && filhos.length > 0) {
-            node = new No(nomeNo, -1, isBase());
-            for (File filho : filhos) {
-                if (!filho.isHidden()) {
-                    node.add(loadNodes(filho, true));
-                }
-            }
-        } else {
-            idNodeTemp++;
-            node = new No(nomeNo, idNodeTemp, isBase());
-        }
+		if (arquivo.isDirectory() && filhos.length > 0) {
+			node = new No(nomeNo, -1, isBase());
+			for (File filho : filhos) {
+				if (!filho.isHidden()) {
+					node.add(loadNodes(filho, true));
+				}
+			}
+		} else {
+			idNodeTemp++;
+			node = new No(nomeNo, idNodeTemp, isBase());
+		}
 
-        if (node.getId() != -1) {
-            nodes.add(node);
-        }
+		if (node.getId() != -1) {
+			nodes.add(node);
+		}
 
-        return node;
-    }
+		return node;
+	}
 
-    /**
-     * @return Getter para <code>associada</code>.
-     */
-    public Arvore getAssociada() {
-        return associada;
-    }
+	/**
+	 * @return Getter para <code>associada</code>.
+	 */
+	public Arvore getAssociada() {
+		return associada;
+	}
 
-    public void setResultado(Resultado resultado) {
-        this.resultado = resultado;
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 
-        if (resultado != null) {
-            for (ResultadoArquivo resultadoArquivo : resultado.getResultadosArquivo()) {
-                if (isBase()) {
-                    if (resultadoArquivo.haveFrom()) {
-                        getNo(resultadoArquivo.getBase().getId()).addResultado(
-                                resultadoArquivo);
-                    }
-                } else {
-                    if (resultadoArquivo.haveTo()) {
-                        getNo(resultadoArquivo.getPara().getId()).addResultado(
-                                resultadoArquivo);
-                    }
-                }
-            }
-        }
+		if (resultado != null) {
+			for (ResultadoArquivo resultadoArquivo : resultado
+					.getResultadosArquivo()) {
+				if (isBase()) {
+					if (resultadoArquivo.haveFrom()) {
+						getNo(resultadoArquivo.getBase().getId()).addResultado(
+								resultadoArquivo);
+					}
+				} else {
+					if (resultadoArquivo.haveTo()) {
+						getNo(resultadoArquivo.getPara().getId()).addResultado(
+								resultadoArquivo);
+					}
+				}
+			}
+		}
 
-        modelTree.reload();
-    }
+		modelTree.reload();
+	}
 
-    public Resultado getResultado() {
-        return resultado;
-    }
+	public Resultado getResultado() {
+		return resultado;
+	}
 
-    /**
-     * @return the nodes
-     */
-    public List<No> getNodes() {
-        return nodes;
-    }
+	/**
+	 * @return the nodes
+	 */
+	public List<No> getNodes() {
+		return nodes;
+	}
 
-    /**
-     * @return the base
-     */
-    public boolean isBase() {
-        return base;
-    }
+	/**
+	 * @return the base
+	 */
+	public boolean isBase() {
+		return base;
+	}
 
-    public void expandAll(boolean expand) {
-        TreeNode root = (TreeNode) getModel().getRoot();
+	public void expandAll(boolean expand) {
+		TreeNode root = (TreeNode) getModel().getRoot();
 
-        // Traverse tree from root
-        expandAll(new TreePath(root), expand);
-    }
+		// Traverse tree from root
+		expandAll(new TreePath(root), expand);
+	}
 
-    private void expandAll(TreePath parent, boolean expand) {
-        // Traverse children
-        TreeNode node = (TreeNode) parent.getLastPathComponent();
-        if (node.getChildCount() >= 0) {
-            for (@SuppressWarnings("unchecked") Enumeration<TreeNode> e = node.children(); e.hasMoreElements();) {
-                TreeNode n = e.nextElement();
-                TreePath path = parent.pathByAddingChild(n);
-                expandAll(path, expand);
-            }
-        }
+	private void expandAll(TreePath parent, boolean expand) {
+		// Traverse children
+		TreeNode node = (TreeNode) parent.getLastPathComponent();
+		if (node.getChildCount() >= 0) {
+			for (Enumeration e = node.children(); e.hasMoreElements();) {
+				TreeNode n = (TreeNode) e.nextElement();
+				TreePath path = parent.pathByAddingChild(n);
+				expandAll(path, expand);
+			}
+		}
 
-        // Expansion or collapse must be done bottom-up
-        if (expand) {
-            expandPath(parent);
-        } else {
-            collapsePath(parent);
-        }
-    }
+		// Expansion or collapse must be done bottom-up
+		if (expand) {
+			expandPath(parent);
+		} else {
+			collapsePath(parent);
+		}
+	}
 
-    public void expandNodesWithDiff() {
-        for (No no : nodes) {
-            if (no.isModified()) {
-                expandParents(new TreePath(no.getPath()));
-            }
-        }
-    }
+	public No getNoSelecionado() {
+		TreePath[] ps = getSelectionPaths();
+
+		if (ps.length > 0) {
+			Object obj = ps[0].getLastPathComponent();
+
+			if (obj instanceof No) {
+				return (No) obj;
+			}
+		}
+
+		return null;
+	}
+
+	public void expandNodesWithDiff() {
+		for (No no : nodes) {
+			if(no.isModified()) {
+				expandParents(new TreePath(no.getPath()));
+			}
+		}
+	}
 }
