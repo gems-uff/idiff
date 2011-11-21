@@ -75,7 +75,7 @@
         <Component class="javax.swing.JButton" name="fileSelectionMenuBar">
           <Properties>
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-              <action class="components.MainILCS" id="fileSelection" methodName="fileSelection"/>
+              <action class="components.MainILCS" id="back" methodName="back"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="fileSelectionMenuBar.icon"/>
             <Property name="toolTipText" type="java.lang.String" resourceKey="fileSelectionMenuBar.toolTipText"/>

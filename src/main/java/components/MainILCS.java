@@ -270,7 +270,7 @@ public final class MainILCS extends javax.swing.JFrame {
         toolBar.add(jSeparator1);
 
         ActionMap actionMap = Application.getInstance().getContext().getActionMap(MainILCS.class, this);
-        fileSelectionMenuBar.setAction(actionMap.get("fileSelection")); // NOI18N
+        fileSelectionMenuBar.setAction(actionMap.get("back")); // NOI18N
         ResourceMap resourceMap = Application.getInstance().getContext().getResourceMap(MainILCS.class);
         fileSelectionMenuBar.setIcon(resourceMap.getIcon("fileSelectionMenuBar.icon")); // NOI18N
         fileSelectionMenuBar.setToolTipText(resourceMap.getString("fileSelectionMenuBar.toolTipText")); // NOI18N
@@ -512,20 +512,8 @@ public final class MainILCS extends javax.swing.JFrame {
      * File Selection
      */
     @Action
-    public void fileSelection() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                if (MainDDiff.getInstance().isVisible()) {
-                    FileSelection.getInstance().dispose();
-                    MainDDiff.getInstance();
-                } else {
-                    FileSelection.getInstance();
-                }
-                MainILCS.getInstance().dispose();
-            }
-        });
+    public void back() {
+        this.dispose();
     }
 
     /**

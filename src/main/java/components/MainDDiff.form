@@ -239,7 +239,7 @@
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-              <action class="components.MainDDiff" id="fileSelection" methodName="fileSelection"/>
+              <action class="components.MainDDiff" id="back" methodName="back"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" resourceKey="jButton1.icon"/>
             <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
@@ -323,14 +323,14 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[652, 28]"/>
+              <Dimension value="[632, 28]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[652, 28]"/>
+              <Dimension value="[632, 28]"/>
             </Property>
             <Property name="name" type="java.lang.String" value="jTextField5" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[652, 28]"/>
+              <Dimension value="[632, 28]"/>
             </Property>
           </Properties>
         </Component>

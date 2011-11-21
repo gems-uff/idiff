@@ -264,17 +264,8 @@ public class MainDDiff extends JFrame {
      * File Selection
      */
     @Action
-    public void fileSelection() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                if (MainDDiff.getInstance().isVisible()){
-                    MainDDiff.getInstance().dispose();
-                }
-                FileSelection.getInstance();
-            }
-        });
+    public void back() {
+        this.dispose();
     }
 
     /** This method is called from within the constructor to
@@ -421,7 +412,7 @@ public class MainDDiff extends JFrame {
         toolBar.add(jSeparator2);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainDDiff.class, this);
-        jButton1.setAction(actionMap.get("fileSelection")); // NOI18N
+        jButton1.setAction(actionMap.get("back")); // NOI18N
         jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setToolTipText(resourceMap.getString("jButton1.toolTipText")); // NOI18N
@@ -475,10 +466,10 @@ public class MainDDiff extends JFrame {
         jTextField5.setEditable(false);
         jTextField5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField5.setEnabled(false);
-        jTextField5.setMaximumSize(new java.awt.Dimension(652, 28));
-        jTextField5.setMinimumSize(new java.awt.Dimension(652, 28));
+        jTextField5.setMaximumSize(new java.awt.Dimension(632, 28));
+        jTextField5.setMinimumSize(new java.awt.Dimension(632, 28));
         jTextField5.setName("jTextField5"); // NOI18N
-        jTextField5.setPreferredSize(new java.awt.Dimension(652, 28));
+        jTextField5.setPreferredSize(new java.awt.Dimension(632, 28));
         toolBar.add(jTextField5);
 
         jTextField1.setEditable(false);

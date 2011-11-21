@@ -435,13 +435,9 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
 
             if ((artifact1.isDirectory()) && (artifact2.isDirectory())) {
                 showDDiff(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags());
-                this.dispose();
-
             } else {
                 if ((artifact1.isFile()) && (artifact2.isFile())) {
                     showILCS(artifact1, artifact2, (String) granularityComboBox.getSelectedItem(), setTags(), true);
-                    this.dispose();
-
                 } else {
                     showError("Select same type artifacts");
                 }

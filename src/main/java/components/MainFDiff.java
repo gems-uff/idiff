@@ -63,7 +63,7 @@ public class MainFDiff extends javax.swing.JFrame {
      * Show Diff
      */
     @Action
-    public void backToDDiff() {
+    public void back() {
         this.dispose();
     }
 
@@ -127,7 +127,7 @@ public class MainFDiff extends javax.swing.JFrame {
         jToolBar1.add(jSeparator2);
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainFDiff.class, this);
-        jButton1.setAction(actionMap.get("backToDDiff")); // NOI18N
+        jButton1.setAction(actionMap.get("back")); // NOI18N
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainFDiff.class);
         jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
