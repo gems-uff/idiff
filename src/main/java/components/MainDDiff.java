@@ -13,6 +13,7 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -34,19 +35,14 @@ public class MainDDiff extends JFrame {
     private static MainDDiff instance;
 
     public synchronized static MainDDiff getInstance() {
-        if (instance != null) {
-            instance.dispose();
-        }
-        instance = new MainDDiff();
         return instance;
     }
 
-    public synchronized static MainDDiff getInstance(File directoryFrom, File directoryTo, String granularity, String tags) {
+    public synchronized static void setInstance(File directoryFrom, File directoryTo, String granularity, String tags) {
         if (instance != null) {
             instance.dispose();
         }
         instance = new MainDDiff(directoryFrom, directoryTo, granularity, tags);
-        return instance;
     }
 
     /**
@@ -112,11 +108,11 @@ public class MainDDiff extends JFrame {
     private void initOverView(No no) {
         for (ResultadoArquivo resultado : no.getResultados()) {
             if (resultado.getBase() != null) {
-                showFileOverView(resultado.getBase().getArquivo(), resultado);
+                showFileOverView(resultado.getBase().getArquivo(), no.getResultados());
                 return;
             }
             if (resultado.getPara() != null) {
-                showFileOverView(resultado.getPara().getArquivo(), resultado);
+                showFileOverView(resultado.getPara().getArquivo(), no.getResultados());
                 return;
             }
             break;
@@ -201,8 +197,9 @@ public class MainDDiff extends JFrame {
     }
 
     private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
-        MainILCS ilcs = MainILCS.getInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
-        ilcs.setVisible(true);
+        MainILCS.setInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
+        MainILCS.getInstance().setVisible(true);
+    
     }
 
     /**
@@ -249,7 +246,7 @@ public class MainDDiff extends JFrame {
         }
     }
 
-    private void showFileOverView(File file, ResultadoArquivo result) {
+    private void showFileOverView(File file, List<ResultadoArquivo> result) {
         MainFDiff fdiff = MainFDiff.getInstance(file, result);
         fdiff.setVisible(true);
     }
@@ -260,12 +257,20 @@ public class MainDDiff extends JFrame {
         }
     }
 
+    private void cleanResults() {
+        MainFDiff.resetInstance();
+        MainILCS.resetInstance();
+        MainDDiff.resetInstance();
+    }
+
     /**
      * File Selection
      */
     @Action
     public void back() {
         this.dispose();
+        cleanResults();
+        FileSelection.getInstance();
     }
 
     /** This method is called from within the constructor to
@@ -322,7 +327,7 @@ public class MainDDiff extends JFrame {
         directoryPanel1.setName("directoryPanel1"); // NOI18N
         directoryPanel1.setPreferredSize(new java.awt.Dimension(300, 646));
 
-        jRadioButton1.setText("Expand Folders With Diferences");
+        jRadioButton1.setText("Expand Folders With Differences");
         jRadioButton1.setFocusable(false);
         jRadioButton1.setName("jRadioButton1"); // NOI18N
         jRadioButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -369,7 +374,7 @@ public class MainDDiff extends JFrame {
         scrollTreeTo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         scrollTreeTo.setName("scrollTreeTo"); // NOI18N
 
-        jRadioButton3.setText("Expand Folders With Diferences");
+        jRadioButton3.setText("Expand Folders With Differences");
         jRadioButton3.setFocusable(false);
         jRadioButton3.setName("jRadioButton3"); // NOI18N
         jRadioButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

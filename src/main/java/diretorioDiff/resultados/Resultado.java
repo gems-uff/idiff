@@ -29,8 +29,8 @@ public class Resultado {
 	/**
 	 * 
 	 */
-	private List<Grain> paramGrainsTo = new ArrayList<Grain>();
-	private List<Grain> paramGrainsFrom = new ArrayList<Grain>();
+	//private List<Grain> paramGrainsTo = new ArrayList<Grain>();
+	//private List<Grain> paramGrainsFrom = new ArrayList<Grain>();
 
 	/**
 	 * Adiciona um resultado na lista de resultados para Arquivos.

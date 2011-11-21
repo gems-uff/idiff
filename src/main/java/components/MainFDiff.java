@@ -6,6 +6,7 @@ import diretorioDiff.resultados.ResultadoArquivo;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -22,12 +23,15 @@ public class MainFDiff extends javax.swing.JFrame {
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
 
-    public synchronized static MainFDiff getInstance(File file, ResultadoArquivo result) {
+    public synchronized static MainFDiff getInstance(File file, List<ResultadoArquivo> result) {
+        return instance;
+    }
+
+    public synchronized static void setInstance(File file, List<ResultadoArquivo> result) {
         if (instance != null) {
             instance.dispose();
         }
         instance = new MainFDiff(file, result);
-        return instance;
     }
 
     public static synchronized void resetInstance() {
@@ -38,7 +42,8 @@ public class MainFDiff extends javax.swing.JFrame {
      * @param file
      * @param result  
      */
-    public MainFDiff(File file, ResultadoArquivo result) {
+
+    public MainFDiff(File file, List<ResultadoArquivo> result) {
         initComponents();
         Laf.setlaf();
         setLocationRelativeTo(null);
@@ -59,6 +64,7 @@ public class MainFDiff extends javax.swing.JFrame {
         fileComponent.submitFile(file, pane);
         panel.setBorder(BorderFactory.createTitledBorder(file.getName()));
     }
+
     /**
      * Show Diff
      */
@@ -67,7 +73,7 @@ public class MainFDiff extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void showResult(ResultadoArquivo result) {
+    private void showResult(List<ResultadoArquivo> result) {
     }
 
     /** This method is called from within the constructor to

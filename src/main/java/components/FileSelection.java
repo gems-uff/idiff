@@ -504,15 +504,16 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @throws IOException 
      */
     private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
-        MainILCS ilcs = MainILCS.getInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
-        ilcs.setVisible(true);
+        MainILCS.setInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
+        MainILCS.getInstance().setVisible(true);
     }
 
     /**
      * Show Diff
      */
     private void showDDiff(File directoryFrom, File directoryTo, String granularity, String tags) throws DiffException, FileNotFoundException, IOException {
-        MainDDiff ddiff = MainDDiff.getInstance(directoryFrom, directoryTo, granularity, tags);
+        MainDDiff.setInstance(directoryFrom, directoryTo, granularity, tags);
+        MainDDiff ddiff = MainDDiff.getInstance();
         ddiff.setVisible(true);
         ddiff.start();
     }
@@ -522,7 +523,7 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      */
     @Action
     public void close() {
-        this.dispose();
+        System.exit(0);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton aboutTeam;

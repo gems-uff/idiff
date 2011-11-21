@@ -125,7 +125,7 @@
           <SubComponents>
             <Component class="javax.swing.JRadioButton" name="jRadioButton1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Expand Folders With Diferences"/>
+                <Property name="text" type="java.lang.String" value="Expand Folders With Differences"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="jRadioButton1" noResource="true"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -205,7 +205,7 @@
             </Container>
             <Component class="javax.swing.JRadioButton" name="jRadioButton3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Expand Folders With Diferences"/>
+                <Property name="text" type="java.lang.String" value="Expand Folders With Differences"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="jRadioButton3" noResource="true"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>

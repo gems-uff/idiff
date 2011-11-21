@@ -58,12 +58,11 @@ public final class MainILCS extends javax.swing.JFrame {
 
     private static MainILCS instance;
 
-    public synchronized static MainILCS getInstance(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
+    public synchronized static void setInstance(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
         if (instance != null) {
             instance.dispose();
         }
         instance = new MainILCS(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
-        return instance;
     }
 
     public synchronized static MainILCS getInstance() {
@@ -120,14 +119,17 @@ public final class MainILCS extends javax.swing.JFrame {
 
     public int getPerspective(boolean isQuiteSimilar) {
         if (isQuiteSimilar) {
-            this.diffRadioButton.setSelected(true);
-            this.similarRadioButton.setSelected(false);
+            setRadios(true, false);//Diff Perspective
             return 1;
         } else {
-            this.diffRadioButton.setSelected(false);
-            this.similarRadioButton.setSelected(true);
+            setRadios(false, true);//Similarity Perspective
             return 2;
         }
+    }
+
+    private void setRadios(boolean diffValue, boolean similarValue) {
+        this.diffRadioButton.setSelected(diffValue);
+        this.similarRadioButton.setSelected(similarValue);
     }
 
     /**
