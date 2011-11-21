@@ -3,9 +3,12 @@ package components;
 import details.Icon;
 import details.Laf;
 import diretorioDiff.resultados.ResultadoArquivo;
+import diretorioDiff.resultados.TipoResultado;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +26,7 @@ public class MainFDiff extends javax.swing.JFrame {
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
 
-    public synchronized static MainFDiff getInstance(File file, List<ResultadoArquivo> result) {
+    public synchronized static MainFDiff getInstance() {
         return instance;
     }
 
@@ -42,7 +45,6 @@ public class MainFDiff extends javax.swing.JFrame {
      * @param file
      * @param result  
      */
-
     public MainFDiff(File file, List<ResultadoArquivo> result) {
         initComponents();
         Laf.setlaf();
@@ -73,7 +75,45 @@ public class MainFDiff extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void showResult(List<ResultadoArquivo> result) {
+    private void showResult(List<ResultadoArquivo> listResult) {
+        List<ResultadoArquivo> orderResult = sort(listResult);
+        for (ResultadoArquivo result : orderResult) {
+            printResults(result);
+        }
+    }
+
+    private void printResults(ResultadoArquivo result) {
+       
+        //TODO REVER
+        if (result.getTipo() == TipoResultado.CHANGED) {
+           printColor(result);
+           insertMousesEvent(result);
+           insertToolTip(result);
+          
+        } else {
+            showError("Refactorig not found");
+
+        }
+
+        result.getGrainsFrom();
+        result.getGrainsTo();
+        result.getPara();
+        result.getSimilaridade();
+        result.getTipo();
+    }
+
+    public List<ResultadoArquivo> sort(List<ResultadoArquivo> list) {
+        Collections.sort(list, new Comparator<ResultadoArquivo>() {
+
+            @Override
+            public int compare(ResultadoArquivo o1, ResultadoArquivo o2) {
+                ResultadoArquivo p1 = o1;
+                ResultadoArquivo p2 = o2;
+                return p1.getSimilaridade() < p2.getSimilaridade() ? -1 : (p1.getSimilaridade() > p2.getSimilaridade() ? +1 : 0);
+            }
+        });
+
+        return list;
     }
 
     /** This method is called from within the constructor to
@@ -209,4 +249,22 @@ public class MainFDiff extends javax.swing.JFrame {
     private javax.swing.JTextPane pane;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
+
+    private void showError(String msg) {
+        Error dialog = new Error(new javax.swing.JFrame(), true);
+        dialog.setErrorLabel(msg);
+        dialog.setVisible(true);
+    }
+
+    private void printColor(ResultadoArquivo result) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private void insertMousesEvent(ResultadoArquivo result) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    private void insertToolTip(ResultadoArquivo result) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

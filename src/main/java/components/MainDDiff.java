@@ -95,7 +95,6 @@ public class MainDDiff extends JFrame {
 
     public boolean verifyError(No noFrom, No noTo) throws HeadlessException {
         if ((noFrom == null) && (noTo == null)) {
-            showError("Select one file");
             return true;
         }
         if (((noFrom != null) && (noTo != null)) && (noFrom.isSelected() && noTo.isSelected())) {
@@ -247,8 +246,8 @@ public class MainDDiff extends JFrame {
     }
 
     private void showFileOverView(File file, List<ResultadoArquivo> result) {
-        MainFDiff fdiff = MainFDiff.getInstance(file, result);
-        fdiff.setVisible(true);
+        MainFDiff.setInstance(file, result);
+        MainFDiff.getInstance().setVisible(true);
     }
 
     private void expandNodesDiff(Arvore tree) {
