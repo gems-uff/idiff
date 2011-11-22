@@ -1,5 +1,6 @@
 package components;
 
+import algorithms.Grain;
 import details.Icon;
 import details.Laf;
 import diretorioDiff.resultados.ResultadoArquivo;
@@ -17,7 +18,7 @@ import wrap.Wrap;
 import org.jdesktop.application.Action;
 
 /**
- *
+ * MainFDiff
  * @author Fernanda Floriano Silva
  */
 @SuppressWarnings("serial")
@@ -72,7 +73,7 @@ public class MainFDiff extends javax.swing.JFrame {
      */
     @Action
     public void back() {
-        if (Warning.isVisible()){
+        if (Warning.isVisible()) {
             Warning.dispose();
         }
         this.dispose();
@@ -81,27 +82,28 @@ public class MainFDiff extends javax.swing.JFrame {
     private void showResult(List<ResultadoArquivo> listResult) {
         List<ResultadoArquivo> orderResult = sort(listResult);
         for (ResultadoArquivo result : orderResult) {
-            printResults(result);
+            printResult(result);
         }
+        printResult(getHungarianChoice(listResult));
     }
 
-    private void printResults(ResultadoArquivo result) {
+    private ResultadoArquivo getHungarianChoice(List<ResultadoArquivo> listResult) {
+        for (ResultadoArquivo result : listResult) {
+            if (result.isEscolhaHungaro()) {
+                return result;
+            }
+        }
+        return listResult.get(0);
+    }
 
-        //TODO REVER
+    private void printResult(ResultadoArquivo result) {
         if (result.getTipo() == TipoResultado.CHANGED) {
-            printColor(result);
-            insertMousesEvent(result);
-            insertToolTip(result);
+            showRefactory(result);
+            addMouseEvent(result);
 
         } else {
             showWarning();
         }
-
-        result.getGrainsFrom();
-        result.getGrainsTo();
-        result.getPara();
-        result.getSimilaridade();
-        result.getTipo();
     }
 
     public List<ResultadoArquivo> sort(List<ResultadoArquivo> list) {
@@ -118,6 +120,24 @@ public class MainFDiff extends javax.swing.JFrame {
         return list;
     }
 
+    private void showWarning() {
+        Laf.setlaf();
+        Warning.setLocationRelativeTo(null);
+        Warning.setIconImage(Icon.getIcon());
+        Warning.setVisible(true);
+    }
+
+    private void showRefactory(ResultadoArquivo result) {
+        List<Grain> grains = result.getGrainsTo();
+        for (Grain grain : grains) {
+            GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane);
+        }
+
+    }
+
+    private void addMouseEvent(ResultadoArquivo result) {
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -131,7 +151,7 @@ public class MainFDiff extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         warningMsg = new javax.swing.JLabel();
         panel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollPane = new javax.swing.JScrollPane();
         pane = new javax.swing.JTextPane();
         jToolBar1 = new javax.swing.JToolBar();
         jSeparator2 = new javax.swing.JToolBar.Separator();
@@ -185,23 +205,23 @@ public class MainFDiff extends javax.swing.JFrame {
         panel.setMinimumSize(new java.awt.Dimension(717, 619));
         panel.setName("panel"); // NOI18N
 
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
+        scrollPane.setName("scrollPane"); // NOI18N
 
         pane.setName("pane"); // NOI18N
-        jScrollPane1.setViewportView(pane);
+        scrollPane.setViewportView(pane);
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -280,7 +300,6 @@ public class MainFDiff extends javax.swing.JFrame {
     private javax.swing.JDialog Warning;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTextField jTextField1;
@@ -289,25 +308,7 @@ public class MainFDiff extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextPane pane;
     private javax.swing.JPanel panel;
+    private javax.swing.JScrollPane scrollPane;
     private javax.swing.JLabel warningMsg;
     // End of variables declaration//GEN-END:variables
-
-    private void showWarning() {
-        Laf.setlaf();
-        Warning.setLocationRelativeTo(null);
-        Warning.setIconImage(Icon.getIcon());
-        Warning.setVisible(true);
-    }
-
-    private void printColor(ResultadoArquivo result) {
-//        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private void insertMousesEvent(ResultadoArquivo result) {
-        //     throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    private void insertToolTip(ResultadoArquivo result) {
-        //     throw new UnsupportedOperationException("Not yet implemented");
-    }
 }

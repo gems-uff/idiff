@@ -104,7 +104,9 @@ public class GranularityComponent {
         Listener.cleanMouseListener(paneTo, paneFrom, scrollFrom, scrollTo);
     }
 
-    public String getToolTipText(String fileName) {
-        return ("Similar code in the file: " + fileName);
+    public static void setRefactoryGranularity(final GrainBean grainBean, final JTextPane pane, final JScrollPane scroll) {
+        IDIFFStyles.setStyle(pane, grainBean, "MoveStyle");
+        Listener.setMouseAdapter(pane, pane, scroll, scroll);
+        Listener.setMouseMotion(pane, grainBean,scroll);
     }
 }

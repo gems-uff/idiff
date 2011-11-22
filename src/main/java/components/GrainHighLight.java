@@ -26,10 +26,15 @@ public class GrainHighLight {
     public static void setHighLightPoint(Point pt, GrainBean grainBeanFrom, JTextPane paneFrom, GrainBean grainBeanTo, JTextPane paneTo) {
         if ((grainBeanFrom.getStartPosition() <= paneFrom.viewToModel(pt)) && (paneFrom.viewToModel(pt) <= grainBeanFrom.getStartPosition() + grainBeanFrom.getLength())) {
             setHighLight(paneFrom, grainBeanFrom.getStartPosition(), grainBeanFrom.getStartPosition() + grainBeanFrom.getLength());
-            setHighLight(paneTo, grainBeanTo.getStartPosition(), grainBeanTo.getStartPosition() + grainBeanFrom.getLength());
+            setHighLight(paneTo, grainBeanTo.getStartPosition(), grainBeanTo.getStartPosition() + grainBeanTo.getLength());
         }
     }
-
+   public static void setHighLightPoint(Point pt, GrainBean grainBean, JTextPane pane) {
+        if ((grainBean.getStartPosition() <= pane.viewToModel(pt))&& (pane.viewToModel(pt) <= grainBean.getStartPosition() + grainBean.getLength())) {
+            setHighLight(pane, grainBean.getStartPosition(), grainBean.getStartPosition() + grainBean.getLength());
+            pane.setToolTipText(null);
+        }
+    }
     /**
      * Set HighLight
      * @param pane

@@ -62,6 +62,20 @@ public class Listener {
             }
         });
     }
+      public static void setMouseMotion(final JTextPane pane, final GrainBean grainBean, final JScrollPane scrollPane) {
+        pane.addMouseMotionListener(new MouseMotionListener() {
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                Point pt = new Point(e.getX(), e.getY());
+                GrainHighLight.setHighLightPoint(pt, grainBean, pane);                
+            }
+        });
+    }
 
     public static void cleanMouseListener(final JTextPane paneFrom, final JTextPane paneTo, final JScrollPane leftScrollPane, final JScrollPane rightScrollPane) {
         paneFrom.addMouseMotionListener(new MouseMotionListener() {
