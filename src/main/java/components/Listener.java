@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
@@ -39,6 +41,21 @@ public class Listener {
         });
     }
 
+    public static void setMouseAdapter(final JTextPane pane) {
+        pane.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                GrainHighLight.removeHighLight(pane);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                GrainHighLight.removeHighLight(pane);
+            }
+        });
+    }
+
     /**
      * Set Mouse Motion
      * @param paneFrom
@@ -51,7 +68,7 @@ public class Listener {
 
             @Override
             public void mouseDragged(MouseEvent e) {
-               Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
+                Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
             }
 
             @Override
@@ -62,7 +79,9 @@ public class Listener {
             }
         });
     }
-      public static void setMouseMotion(final JTextPane pane, final GrainBean grainBean, final JScrollPane scrollPane) {
+
+    public static void setMouseMotion(final JTextPane pane, final GrainBean grainBean, final JScrollPane scrollPane) {
+
         pane.addMouseMotionListener(new MouseMotionListener() {
 
             @Override
@@ -72,7 +91,9 @@ public class Listener {
             @Override
             public void mouseMoved(MouseEvent e) {
                 Point pt = new Point(e.getX(), e.getY());
-                GrainHighLight.setHighLightPoint(pt, grainBean, pane);                
+                GrainHighLight.setHighLightPoint(pt, grainBean, pane);
+                GrainHighLight.setMenu(e.getComponent(), e.getX(), e.getY());
+
             }
         });
     }

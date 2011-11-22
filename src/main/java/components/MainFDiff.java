@@ -31,11 +31,11 @@ public class MainFDiff extends javax.swing.JFrame {
         return instance;
     }
 
-    public synchronized static void setInstance(File file, List<ResultadoArquivo> result) {
+    public synchronized static void setInstance(File file, List<ResultadoArquivo> result,int idDirectory) {
         if (instance != null) {
             instance.dispose();
         }
-        instance = new MainFDiff(file, result);
+        instance = new MainFDiff(file, result,idDirectory);
     }
 
     public static synchronized void resetInstance() {
@@ -46,7 +46,7 @@ public class MainFDiff extends javax.swing.JFrame {
      * @param file
      * @param result  
      */
-    public MainFDiff(File file, List<ResultadoArquivo> result) {
+    public MainFDiff(File file, List<ResultadoArquivo> result, int idDirectory) {
         initComponents();
         Laf.setlaf();
         setLocationRelativeTo(null);
@@ -54,7 +54,7 @@ public class MainFDiff extends javax.swing.JFrame {
 
         try {
             init(file);
-            showResult(result);
+            showResult(result, idDirectory);
         } catch (MalformedURLException ex) {
             Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -79,12 +79,12 @@ public class MainFDiff extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void showResult(List<ResultadoArquivo> listResult) {
+    private void showResult(List<ResultadoArquivo> listResult, int idDirectory) {
         List<ResultadoArquivo> orderResult = sort(listResult);
         for (ResultadoArquivo result : orderResult) {
-            printResult(result);
+            printResult(result, idDirectory);
         }
-        printResult(getHungarianChoice(listResult));
+        printResult(getHungarianChoice(listResult), idDirectory);
     }
 
     private ResultadoArquivo getHungarianChoice(List<ResultadoArquivo> listResult) {
@@ -96,11 +96,9 @@ public class MainFDiff extends javax.swing.JFrame {
         return listResult.get(0);
     }
 
-    private void printResult(ResultadoArquivo result) {
+    private void printResult(ResultadoArquivo result, int idDirectory) {
         if (result.getTipo() == TipoResultado.CHANGED) {
-            showRefactory(result);
-            addMouseEvent(result);
-
+            showRefactory(result, idDirectory);
         } else {
             showWarning();
         }
@@ -127,15 +125,22 @@ public class MainFDiff extends javax.swing.JFrame {
         Warning.setVisible(true);
     }
 
-    private void showRefactory(ResultadoArquivo result) {
-        List<Grain> grains = result.getGrainsTo();
+    private void showRefactory(ResultadoArquivo result, int idDirectory) {
+
+        switch (idDirectory) {
+            case 1:
+                setRefactory(result.getGrainsTo());
+                break;
+            case 2:
+                setRefactory(result.getGrainsFrom());
+                break;
+        }
+    }
+
+    private void setRefactory(List<Grain> grains) {
         for (Grain grain : grains) {
             GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane);
         }
-
-    }
-
-    private void addMouseEvent(ResultadoArquivo result) {
     }
 
     /** This method is called from within the constructor to

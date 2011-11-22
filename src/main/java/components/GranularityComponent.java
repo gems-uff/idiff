@@ -106,7 +106,7 @@ public class GranularityComponent {
 
     public static void setRefactoryGranularity(final GrainBean grainBean, final JTextPane pane, final JScrollPane scroll) {
         IDIFFStyles.setStyle(pane, grainBean, "MoveStyle");
-        Listener.setMouseAdapter(pane, pane, scroll, scroll);
+        Listener.setMouseAdapter(pane);
         Listener.setMouseMotion(pane, grainBean,scroll);
     }
 }

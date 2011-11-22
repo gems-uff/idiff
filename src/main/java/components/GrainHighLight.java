@@ -1,9 +1,13 @@
 package components;
 
 import algorithms.GrainBean;
+import details.Menu;
+import java.awt.Component;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -14,6 +18,8 @@ import javax.swing.text.Highlighter;
  * @author Fernanda Floriano Silva
  */
 public class GrainHighLight {
+
+    
 
     /**
      * Set HighLight Point
@@ -29,12 +35,13 @@ public class GrainHighLight {
             setHighLight(paneTo, grainBeanTo.getStartPosition(), grainBeanTo.getStartPosition() + grainBeanTo.getLength());
         }
     }
-   public static void setHighLightPoint(Point pt, GrainBean grainBean, JTextPane pane) {
-        if ((grainBean.getStartPosition() <= pane.viewToModel(pt))&& (pane.viewToModel(pt) <= grainBean.getStartPosition() + grainBean.getLength())) {
+
+    public static void setHighLightPoint(Point pt, GrainBean grainBean, JTextPane pane) {
+        if ((grainBean.getStartPosition() <= pane.viewToModel(pt)) && (pane.viewToModel(pt) <= grainBean.getStartPosition() + grainBean.getLength())) {
             setHighLight(pane, grainBean.getStartPosition(), grainBean.getStartPosition() + grainBean.getLength());
-            pane.setToolTipText(null);
         }
     }
+
     /**
      * Set HighLight
      * @param pane
@@ -69,5 +76,9 @@ public class GrainHighLight {
     public static void removeAllHighLight(final JTextPane paneFrom, final JTextPane paneTo) {
         removeHighLight(paneFrom);
         removeHighLight(paneTo);
+    }
+
+    public static void setMenu(Component component, int x, int y) {
+        new Menu("TESTES").show(component, x, y);
     }
 }

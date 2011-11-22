@@ -108,10 +108,10 @@ public class MainDDiff extends JFrame {
         for (ResultadoArquivo resultado : no.getResultados()) {
             switch (idDirectory) {
                 case 1:
-                    showFileOverView(resultado.getBase().getArquivo(), no.getResultados());
+                    showFileOverView(resultado.getBase().getArquivo(), no.getResultados(),1);
                     break;
                 case 2:
-                    showFileOverView(resultado.getPara().getArquivo(), no.getResultados());
+                    showFileOverView(resultado.getPara().getArquivo(), no.getResultados(),2);
                     break;
             }
         }
@@ -244,8 +244,8 @@ public class MainDDiff extends JFrame {
         }
     }
 
-    private void showFileOverView(File file, List<ResultadoArquivo> result) {
-        MainFDiff.setInstance(file, result);
+    private void showFileOverView(File file, List<ResultadoArquivo> result, int idDirectory) {
+        MainFDiff.setInstance(file, result,idDirectory);
         MainFDiff.getInstance().setVisible(true);
     }
 
