@@ -91,7 +91,7 @@ public class FileSelection extends javax.swing.JFrame {
         brackets = new javax.swing.JCheckBox();
         parenthesis = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comparable Artifacts Selection");
         setResizable(false);
 
