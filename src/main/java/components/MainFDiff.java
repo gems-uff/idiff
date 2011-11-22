@@ -72,6 +72,9 @@ public class MainFDiff extends javax.swing.JFrame {
      */
     @Action
     public void back() {
+        if (Warning.isVisible()){
+            Warning.dispose();
+        }
         this.dispose();
     }
 
@@ -83,16 +86,15 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private void printResults(ResultadoArquivo result) {
-       
+
         //TODO REVER
         if (result.getTipo() == TipoResultado.CHANGED) {
-           printColor(result);
-           insertMousesEvent(result);
-           insertToolTip(result);
-          
-        } else {
-            showError("Refactorig not found");
+            printColor(result);
+            insertMousesEvent(result);
+            insertToolTip(result);
 
+        } else {
+            showWarning();
         }
 
         result.getGrainsFrom();
@@ -125,6 +127,9 @@ public class MainFDiff extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Warning = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        warningMsg = new javax.swing.JLabel();
         panel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pane = new javax.swing.JTextPane();
@@ -135,6 +140,41 @@ public class MainFDiff extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
+
+        Warning.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        Warning.setTitle("Warning");
+        Warning.setAlwaysOnTop(true);
+        Warning.setFocusTraversalPolicyProvider(true);
+        Warning.setMinimumSize(new java.awt.Dimension(234, 91));
+        Warning.setName("Warning"); // NOI18N
+        Warning.setResizable(false);
+
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainFDiff.class);
+        jLabel1.setIcon(resourceMap.getIcon("jLabel1.icon")); // NOI18N
+        jLabel1.setToolTipText("");
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        warningMsg.setFont(resourceMap.getFont("warningMsg.font")); // NOI18N
+        warningMsg.setForeground(new java.awt.Color(0, 0, 102));
+        warningMsg.setText("Refactoring Not Found");
+        warningMsg.setName("warningMsg"); // NOI18N
+
+        javax.swing.GroupLayout WarningLayout = new javax.swing.GroupLayout(Warning.getContentPane());
+        Warning.getContentPane().setLayout(WarningLayout);
+        WarningLayout.setHorizontalGroup(
+            WarningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WarningLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(warningMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        WarningLayout.setVerticalGroup(
+            WarningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(warningMsg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("File Overview");
@@ -174,7 +214,6 @@ public class MainFDiff extends javax.swing.JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainFDiff.class, this);
         jButton1.setAction(actionMap.get("back")); // NOI18N
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainFDiff.class);
         jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setBorderPainted(false);
@@ -238,7 +277,9 @@ public class MainFDiff extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Warning;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
@@ -248,23 +289,25 @@ public class MainFDiff extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextPane pane;
     private javax.swing.JPanel panel;
+    private javax.swing.JLabel warningMsg;
     // End of variables declaration//GEN-END:variables
 
-    private void showError(String msg) {
-        Error dialog = new Error(new javax.swing.JFrame(), true);
-        dialog.setErrorLabel(msg);
-        dialog.setVisible(true);
+    private void showWarning() {
+        Laf.setlaf();
+        Warning.setLocationRelativeTo(null);
+        Warning.setIconImage(Icon.getIcon());
+        Warning.setVisible(true);
     }
 
     private void printColor(ResultadoArquivo result) {
-        throw new UnsupportedOperationException("Not yet implemented");
+//        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     private void insertMousesEvent(ResultadoArquivo result) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        //     throw new UnsupportedOperationException("Not yet implemented");
     }
 
     private void insertToolTip(ResultadoArquivo result) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        //     throw new UnsupportedOperationException("Not yet implemented");
     }
 }

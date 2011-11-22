@@ -104,17 +104,16 @@ public class MainDDiff extends JFrame {
         return false;
     }
 
-    private void initOverView(No no) {
+    private void initOverView(No no, int idDirectory) {
         for (ResultadoArquivo resultado : no.getResultados()) {
-            if (resultado.getBase() != null) {
-                showFileOverView(resultado.getBase().getArquivo(), no.getResultados());
-                return;
+            switch (idDirectory) {
+                case 1:
+                    showFileOverView(resultado.getBase().getArquivo(), no.getResultados());
+                    break;
+                case 2:
+                    showFileOverView(resultado.getPara().getArquivo(), no.getResultados());
+                    break;
             }
-            if (resultado.getPara() != null) {
-                showFileOverView(resultado.getPara().getArquivo(), no.getResultados());
-                return;
-            }
-            break;
         }
     }
 
@@ -198,7 +197,7 @@ public class MainDDiff extends JFrame {
     private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
         MainILCS.setInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         MainILCS.getInstance().setVisible(true);
-    
+
     }
 
     /**
@@ -238,9 +237,9 @@ public class MainDDiff extends JFrame {
             }
 
             if (noFrom != null) {
-                initOverView(noFrom);
+                initOverView(noFrom, 1);//1 - Left Directory 2 - Right Directory
             } else {
-                initOverView(noTo);
+                initOverView(noTo,2);
             }
         }
     }

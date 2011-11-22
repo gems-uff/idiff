@@ -161,8 +161,10 @@ public class Arvore extends JTree {
     }
 
     public void clearSelectedNode() {
-        selectedNode.setSelected(false);
-        selectedNode = null;
+        if (selectedNode != null) {
+            selectedNode.setSelected(false);
+            selectedNode = null;
+        }
     }
 
     public void setSelectedNode(No no) {
