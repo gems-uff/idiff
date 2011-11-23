@@ -226,6 +226,7 @@ public class MainFDiff extends javax.swing.JFrame {
 
         scrollPane.setName("scrollPane"); // NOI18N
 
+        pane.setEditable(false);
         pane.setName("pane"); // NOI18N
         scrollPane.setViewportView(pane);
 

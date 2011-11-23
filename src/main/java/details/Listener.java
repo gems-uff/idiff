@@ -1,6 +1,7 @@
-package components;
+package details;
 
 import algorithms.GrainBean;
+import components.GrainHighLight;
 import details.Scroll;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;

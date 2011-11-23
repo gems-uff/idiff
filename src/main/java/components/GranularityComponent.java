@@ -1,5 +1,6 @@
 package components;
 
+import details.Listener;
 import details.IDIFFStyles;
 import algorithms.Grain;
 import algorithms.GrainBean;

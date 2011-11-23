@@ -396,6 +396,7 @@ public final class MainILCS extends javax.swing.JFrame {
         leftScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.leftScrollPane.border.title"))); // NOI18N
 
         leftPane.setBorder(null);
+        leftPane.setEditable(false);
         leftPane.setMaximumSize(new Dimension(800, 600));
         leftPane.setMinimumSize(new Dimension(102, 18));
         leftScrollPane.setViewportView(leftPane);
@@ -404,6 +405,7 @@ public final class MainILCS extends javax.swing.JFrame {
 
         rightScrollPane.setBorder(BorderFactory.createTitledBorder(bundle.getString("MainILCS.rightScrollPane.border.title"))); // NOI18N
 
+        rightPane.setEditable(false);
         rightPane.setMaximumSize(new Dimension(800, 600));
         rightPane.setMinimumSize(new Dimension(102, 18));
         rightPane.setPreferredSize(new Dimension(131, 65));

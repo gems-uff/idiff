@@ -150,6 +150,7 @@
           <SubComponents>
             <Component class="javax.swing.JTextPane" name="pane">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="name" type="java.lang.String" value="pane" noResource="true"/>
               </Properties>
             </Component>
