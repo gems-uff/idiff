@@ -41,23 +41,6 @@ public class Listener {
         });
     }
 
-    public static void setMouseAdapter(final JTextPane pane) {
-        pane.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                GrainHighLight.removeHighLight(pane);
-                pane.setToolTipText(null);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                GrainHighLight.removeHighLight(pane);
-                pane.setToolTipText(null);
-            }
-        });
-    }
-
     /**
      * Set Mouse Motion
      * @param paneFrom
@@ -78,25 +61,6 @@ public class Listener {
                 Scroll.removeAdjustmentScroll(leftScrollPane, rightScrollPane);
                 Point pt = new Point(e.getX(), e.getY());
                 GrainHighLight.setHighLightPoint(pt, grainBeanFrom, paneFrom, grainBeanTo, paneTo);
-            }
-        });
-    }
-
-    public static void setMouseMotion(final JTextPane pane, final GrainBean grainBean, final JScrollPane scrollPane) {
-
-        pane.addMouseMotionListener(new MouseMotionListener() {
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                pane.setToolTipText(null);
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                Point pt = new Point(e.getX(), e.getY());
-                GrainHighLight.setHighLightPoint(pt, grainBean, pane);
-                pane.setToolTipText("teste");
-
             }
         });
     }

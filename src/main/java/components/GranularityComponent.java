@@ -4,6 +4,7 @@ import details.IDIFFStyles;
 import algorithms.Grain;
 import algorithms.GrainBean;
 import algorithms.IResultDiff;
+import java.awt.Color;
 import java.util.Iterator;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -104,9 +105,9 @@ public class GranularityComponent {
         Listener.cleanMouseListener(paneTo, paneFrom, scrollFrom, scrollTo);
     }
 
-    public static void setRefactoryGranularity(final GrainBean grainBean, final JTextPane pane, final JScrollPane scroll) {
-        IDIFFStyles.setStyle(pane, grainBean, "MoveStyle");
-        Listener.setMouseAdapter(pane);
-        Listener.setMouseMotion(pane, grainBean,scroll);
+    public static void setRefactoryGranularity(final GrainBean grainBean, final JTextPane pane, final JScrollPane scroll,Color color) {
+        IDIFFStyles.setStyle(pane, grainBean, "RefactoringStyle",color);
+        //Listener.setMouseAdapter(pane);
+        //Listener.setMouseMotion(pane, grainBean,scroll);
     }
 }

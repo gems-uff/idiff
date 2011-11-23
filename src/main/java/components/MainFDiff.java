@@ -5,12 +5,14 @@ import details.Icon;
 import details.Laf;
 import diretorioDiff.resultados.ResultadoArquivo;
 import diretorioDiff.resultados.TipoResultado;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -26,7 +28,7 @@ public class MainFDiff extends javax.swing.JFrame {
 
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
-    
+
     public synchronized static MainFDiff getInstance() {
         return instance;
     }
@@ -52,7 +54,7 @@ public class MainFDiff extends javax.swing.JFrame {
         Laf.setlaf();
         setLocationRelativeTo(null);
         setIconImage(Icon.getIcon());
-       
+
         try {
             init(file);
             showResult(result, idDirectory);
@@ -61,6 +63,10 @@ public class MainFDiff extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private int getIdColor(Random random) {
+        return random.nextInt(100) + 156;
     }
 
     private void init(File file) throws MalformedURLException, IOException {
@@ -139,9 +145,16 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private void setRefactory(List<Grain> grains) {
+        Color color = getColor();
         for (Grain grain : grains) {
-            GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane);
+            GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane, color);
         }
+    }
+
+    private Color getColor() {
+        Random random = new Random();
+        Color color = new Color(getIdColor(random), getIdColor(random), getIdColor(random));
+        return color;
     }
 
     /** This method is called from within the constructor to
@@ -164,8 +177,8 @@ public class MainFDiff extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jTextField3 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        scrollLegend = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
 
         Warning.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         Warning.setTitle("Warning");
@@ -221,7 +234,7 @@ public class MainFDiff extends javax.swing.JFrame {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelLayout.setVerticalGroup(
@@ -258,45 +271,52 @@ public class MainFDiff extends javax.swing.JFrame {
         jTextField3.setToolTipText("");
         jTextField3.setEnabled(false);
         jTextField3.setFocusable(false);
-        jTextField3.setMaximumSize(new java.awt.Dimension(460, 28));
-        jTextField3.setMinimumSize(new java.awt.Dimension(460, 28));
+        jTextField3.setMaximumSize(new java.awt.Dimension(940, 28));
+        jTextField3.setMinimumSize(new java.awt.Dimension(940, 28));
         jTextField3.setName("jTextField3"); // NOI18N
-        jTextField3.setPreferredSize(new java.awt.Dimension(460, 28));
+        jTextField3.setPreferredSize(new java.awt.Dimension(940, 28));
         jToolBar1.add(jTextField3);
 
-        jTextField1.setBackground(new java.awt.Color(53, 94, 121));
-        jTextField1.setEditable(false);
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("Refactoring Highlight");
-        jTextField1.setMaximumSize(new java.awt.Dimension(127, 28));
-        jTextField1.setMinimumSize(new java.awt.Dimension(127, 28));
-        jTextField1.setName("jTextField1"); // NOI18N
-        jToolBar1.add(jTextField1);
+        scrollLegend.setBorder(javax.swing.BorderFactory.createTitledBorder("Color Legend"));
+        scrollLegend.setMaximumSize(new java.awt.Dimension(100, 100));
+        scrollLegend.setMinimumSize(new java.awt.Dimension(100, 100));
+        scrollLegend.setName("scrollLegend"); // NOI18N
 
-        jTextField2.setBackground(new java.awt.Color(126, 192, 238));
-        jTextField2.setEditable(false);
-        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
-        jTextField2.setMaximumSize(new java.awt.Dimension(75, 28));
-        jTextField2.setMinimumSize(new java.awt.Dimension(75, 28));
-        jTextField2.setName("jTextField2"); // NOI18N
-        jToolBar1.add(jTextField2);
+        jPanel1.setName("jPanel1"); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 205, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 573, Short.MAX_VALUE)
+        );
+
+        scrollLegend.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollLegend, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollLegend, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -306,14 +326,14 @@ public class MainFDiff extends javax.swing.JFrame {
     private javax.swing.JDialog Warning;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextPane pane;
     private javax.swing.JPanel panel;
+    private javax.swing.JScrollPane scrollLegend;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JLabel warningMsg;
     // End of variables declaration//GEN-END:variables
