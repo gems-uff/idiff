@@ -167,18 +167,36 @@ public class Arvore extends JTree {
         }
     }
 
-    public void setSelectedNode(No no) {
-        No selected = selectedNode;
-        if (selected != null && no.isSelected()) {
-            clearSelectedNode();
-            if (selected.equals(no)) {
-                no.setSelected(false);
-                return;
+    /*    public void setSelectedNode(No no) {
+    No selected = selectedNode;
+    if (selected != null && no.isSelected()) {
+    clearSelectedNode();
+    if (selected.equals(no)) {//desmarcar
+    no.setSelected(false);
+    return;
+    }
+    }
+    no.setSelected(!no.isSelected());
+    selectedNode = no;
+    }
+     */
+    private void setSelectedNode(No no) {
+        if (no.isBaseSelection() || no.getIdStart() != -1) {
+            if (selectedNode != null) {
+                if (selectedNode.equals(no)) {
+                    if (no.isSelected()) {
+                        clearSelectedNode();
+                    }
+                    no.setSelected(false);
+                    return;
+                } else {
+                    selectedNode.setSelected(false);
+                    selectedNode = null;
+                }
             }
+            no.setSelected(!no.isSelected());
+            selectedNode = no;
         }
-        no.setSelected(!no.isSelected());
-        selectedNode = no;
-
     }
 
     /**

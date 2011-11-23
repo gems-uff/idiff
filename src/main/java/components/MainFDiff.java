@@ -26,16 +26,16 @@ public class MainFDiff extends javax.swing.JFrame {
 
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
-
+    
     public synchronized static MainFDiff getInstance() {
         return instance;
     }
 
-    public synchronized static void setInstance(File file, List<ResultadoArquivo> result,int idDirectory) {
+    public synchronized static void setInstance(File file, List<ResultadoArquivo> result, int idDirectory) {
         if (instance != null) {
             instance.dispose();
         }
-        instance = new MainFDiff(file, result,idDirectory);
+        instance = new MainFDiff(file, result, idDirectory);
     }
 
     public static synchronized void resetInstance() {
@@ -44,14 +44,15 @@ public class MainFDiff extends javax.swing.JFrame {
 
     /** Creates new form FileOverView
      * @param file
-     * @param result  
+     * @param result
+     * @param idDirectory  
      */
     public MainFDiff(File file, List<ResultadoArquivo> result, int idDirectory) {
         initComponents();
         Laf.setlaf();
         setLocationRelativeTo(null);
         setIconImage(Icon.getIcon());
-
+       
         try {
             init(file);
             showResult(result, idDirectory);

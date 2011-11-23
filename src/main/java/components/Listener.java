@@ -6,8 +6,6 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
@@ -20,7 +18,9 @@ public class Listener {
     /**
      * Set Mouse Adapter
      * @param paneFrom
-     * @param paneTo 
+     * @param paneTo
+     * @param leftScrollPane
+     * @param rightScrollPane  
      */
     public static void setMouseAdapter(final JTextPane paneFrom, final JTextPane paneTo, final JScrollPane leftScrollPane, final JScrollPane rightScrollPane) {
         paneFrom.addMouseListener(new MouseAdapter() {
@@ -47,11 +47,13 @@ public class Listener {
             @Override
             public void mouseEntered(MouseEvent e) {
                 GrainHighLight.removeHighLight(pane);
+                pane.setToolTipText(null);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 GrainHighLight.removeHighLight(pane);
+                pane.setToolTipText(null);
             }
         });
     }
@@ -86,13 +88,14 @@ public class Listener {
 
             @Override
             public void mouseDragged(MouseEvent e) {
+                pane.setToolTipText(null);
             }
 
             @Override
             public void mouseMoved(MouseEvent e) {
                 Point pt = new Point(e.getX(), e.getY());
                 GrainHighLight.setHighLightPoint(pt, grainBean, pane);
-                GrainHighLight.setMenu(e.getComponent(), e.getX(), e.getY());
+                pane.setToolTipText("teste");
 
             }
         });

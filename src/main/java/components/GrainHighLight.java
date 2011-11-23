@@ -1,13 +1,9 @@
 package components;
 
 import algorithms.GrainBean;
-import details.Menu;
-import java.awt.Component;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -78,7 +74,4 @@ public class GrainHighLight {
         removeHighLight(paneTo);
     }
 
-    public static void setMenu(Component component, int x, int y) {
-        new Menu("TESTES").show(component, x, y);
-    }
 }
