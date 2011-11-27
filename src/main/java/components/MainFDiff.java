@@ -4,6 +4,7 @@ import algorithms.Grain;
 import algorithms.GrainBean;
 import details.Icon;
 import details.Laf;
+import details.Listener;
 import diretorioDiff.resultados.ResultadoArquivo;
 import diretorioDiff.resultados.TipoResultado;
 import java.awt.Color;
@@ -58,7 +59,6 @@ public class MainFDiff extends javax.swing.JFrame {
 
         try {
             init(file);
-            GranularityComponent.setCleanGranularity(new GrainBean(0, pane.getText().length()), pane,msgRefatory);
             showResult(result, idDirectory);
         } catch (MalformedURLException ex) {
             Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,6 +89,8 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private void showResult(List<ResultadoArquivo> listResult, int idDirectory) {
+        GranularityComponent.setCleanGranularity(new GrainBean(0, pane.getText().length()), pane, msgRefatory);
+  
         List<ResultadoArquivo> orderResult = sort(listResult);
         for (ResultadoArquivo result : orderResult) {
             if (!result.isEscolhaHungaro()) {
@@ -151,7 +153,6 @@ public class MainFDiff extends javax.swing.JFrame {
     private void setRefactory(List<Grain> grains, String fileName) {
         Color color = getColor();
         String message = getMsgRefactory(fileName);
-
         for (Grain grain : grains) {
             GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane, color, msgRefatory, message);
         }

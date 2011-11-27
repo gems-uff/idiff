@@ -100,14 +100,22 @@ public class Listener {
 
             @Override
             public void mouseMoved(MouseEvent e) {
-                cleanTextFiel(textField);
-
                 Point pt = new Point(e.getX(), e.getY());
                 GrainHighLight.setHighLightPoint(pt, grainBean, pane);
 
-                textField.setBackground(color);
-                textField.setText(msg);
-                textField.setEnabled(true);
+                if (verifyStart(pt) && verifyEnd(pt)) {
+                    textField.setBackground(color);
+                    textField.setText(msg);
+                    textField.setEnabled(true);
+                }
+            }
+
+            private boolean verifyEnd(Point pt) {
+                return pane.viewToModel(pt) <= grainBean.getStartPosition() + grainBean.getLength();
+            }
+
+            private boolean verifyStart(Point pt) {
+                return grainBean.getStartPosition() <= pane.viewToModel(pt);
             }
         });
     }
