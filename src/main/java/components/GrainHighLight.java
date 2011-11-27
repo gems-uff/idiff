@@ -15,8 +15,6 @@ import javax.swing.text.Highlighter;
  */
 public class GrainHighLight {
 
-    
-
     /**
      * Set HighLight Point
      * @param pt
@@ -73,5 +71,4 @@ public class GrainHighLight {
         removeHighLight(paneFrom);
         removeHighLight(paneTo);
     }
-
 }

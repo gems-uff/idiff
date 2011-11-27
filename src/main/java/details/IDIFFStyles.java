@@ -71,14 +71,20 @@ public class IDIFFStyles {
     public static void setUnchangedStyle(StyledDocument doc) {
         setStyleData("UnchangedStyle", doc, IDIFFColor.getUnchangedColor());
     }
+
     /**
      * Set refactory style
      * @param doc
      * @param color  
      */
-    public static void setRefactoryStyle(StyledDocument doc,Color color) {
+    public static void setRefactoryStyle(StyledDocument doc, Color color) {
         setStyleData("RefactoringStyle", doc, color);
     }
+
+    public static void setCleanGranularityStyle(StyledDocument doc, Color color) {
+        setStyleData("CleanGranularity", doc, color);
+    }
+
     /** 
      * Add style
      * @param doc
@@ -103,6 +109,7 @@ public class IDIFFStyles {
                 break;
         }
     }
+
     /**
      * Set style
      * @param pane
@@ -111,13 +118,13 @@ public class IDIFFStyles {
      */
     public static void setStyle(JTextPane pane, GrainBean grain, String style) {
         StyledDocument doc = pane.getStyledDocument();
-        IDIFFStyles.addStyle(doc, style);
+        IDIFFStyles.setCleanGranularityStyle(doc, IDIFFColor.getUnchangedColor());
         doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle(style), true);
     }
-    public static void setStyle(JTextPane pane, GrainBean grain, String style,Color color) {
+
+    public static void setStyle(JTextPane pane, GrainBean grain, String style, Color color) {
         StyledDocument doc = pane.getStyledDocument();
         IDIFFStyles.setRefactoryStyle(doc, color);
         doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle(style), true);
     }
-
 }

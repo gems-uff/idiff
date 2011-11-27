@@ -1,13 +1,12 @@
 package components;
 
 import algorithms.Grain;
+import algorithms.GrainBean;
 import details.Icon;
 import details.Laf;
-import details.Legend;
 import diretorioDiff.resultados.ResultadoArquivo;
 import diretorioDiff.resultados.TipoResultado;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,7 +17,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 import wrap.Wrap;
 import org.jdesktop.application.Action;
 
@@ -60,6 +58,7 @@ public class MainFDiff extends javax.swing.JFrame {
 
         try {
             init(file);
+            GranularityComponent.setCleanGranularity(new GrainBean(0, pane.getText().length()), pane,msgRefatory);
             showResult(result, idDirectory);
         } catch (MalformedURLException ex) {
             Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,22 +88,8 @@ public class MainFDiff extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void setLegend(String fileName, Color color) {
-        Legend legend = new Legend("Similarity found in " + fileName, color);
-        panelLegend.add(legend.getLegend());
-        setScrollLegend();
-        panelLegend.setVisible(true);
-    }
-
-    private void setScrollLegend() {
-        scrollLegend.setViewportView(panelLegend);
-        scrollLegend.setVisible(true);
-    }
-
     private void showResult(List<ResultadoArquivo> listResult, int idDirectory) {
         List<ResultadoArquivo> orderResult = sort(listResult);
-        panelLegend = new JPanel(new GridLayout(orderResult.size(), 1));
-
         for (ResultadoArquivo result : orderResult) {
             if (!result.isEscolhaHungaro()) {
                 printResult(result, idDirectory);
@@ -165,10 +150,15 @@ public class MainFDiff extends javax.swing.JFrame {
 
     private void setRefactory(List<Grain> grains, String fileName) {
         Color color = getColor();
+        String message = getMsgRefactory(fileName);
+
         for (Grain grain : grains) {
-            GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane, color);
+            GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane, color, msgRefatory, message);
         }
-        setLegend(fileName, color);
+    }
+
+    private String getMsgRefactory(String fileName) {
+        return "Similarity found in " + fileName;
     }
 
     private Color getColor() {
@@ -196,8 +186,7 @@ public class MainFDiff extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        jTextField3 = new javax.swing.JTextField();
-        scrollLegend = new javax.swing.JScrollPane();
+        msgRefatory = new javax.swing.JTextField();
 
         Warning.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         Warning.setTitle("Warning");
@@ -287,41 +276,32 @@ public class MainFDiff extends javax.swing.JFrame {
         jSeparator1.setName("jSeparator1"); // NOI18N
         jToolBar1.add(jSeparator1);
 
-        jTextField3.setEditable(false);
-        jTextField3.setToolTipText("");
-        jTextField3.setEnabled(false);
-        jTextField3.setFocusable(false);
-        jTextField3.setMaximumSize(new java.awt.Dimension(940, 28));
-        jTextField3.setMinimumSize(new java.awt.Dimension(940, 28));
-        jTextField3.setName("jTextField3"); // NOI18N
-        jTextField3.setPreferredSize(new java.awt.Dimension(940, 28));
-        jToolBar1.add(jTextField3);
-
-        scrollLegend.setBorder(javax.swing.BorderFactory.createTitledBorder("Color Legend"));
-        scrollLegend.setMaximumSize(new java.awt.Dimension(100, 100));
-        scrollLegend.setMinimumSize(new java.awt.Dimension(100, 100));
-        scrollLegend.setName("scrollLegend"); // NOI18N
+        msgRefatory.setEditable(false);
+        msgRefatory.setToolTipText("");
+        msgRefatory.setEnabled(false);
+        msgRefatory.setFocusable(false);
+        msgRefatory.setMaximumSize(new java.awt.Dimension(690, 28));
+        msgRefatory.setMinimumSize(new java.awt.Dimension(690, 28));
+        msgRefatory.setName("msgRefatory"); // NOI18N
+        msgRefatory.setPreferredSize(new java.awt.Dimension(690, 28));
+        jToolBar1.add(msgRefatory);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 1010, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 760, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollLegend, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollLegend, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -333,13 +313,12 @@ public class MainFDiff extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JTextField msgRefatory;
     private javax.swing.JTextPane pane;
     private javax.swing.JPanel panel;
-    private javax.swing.JScrollPane scrollLegend;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JLabel warningMsg;
     // End of variables declaration//GEN-END:variables
-    private JPanel panelLegend;
+    //  private JPanel panelLegend;
 }

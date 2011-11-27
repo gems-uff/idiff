@@ -8,6 +8,7 @@ import algorithms.IResultDiff;
 import java.awt.Color;
 import java.util.Iterator;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 /**
@@ -105,10 +106,13 @@ public class GranularityComponent {
         IDIFFStyles.setStyle(paneTo, grainBeanTo, "UnchangedStyle");
         Listener.cleanMouseListener(paneTo, paneFrom, scrollFrom, scrollTo);
     }
-
-    public static void setRefactoryGranularity(final GrainBean grainBean, final JTextPane pane, final JScrollPane scroll,Color color) {
+    public static void setCleanGranularity(final GrainBean grainBean, final JTextPane pane, final JTextField textField) {
+        IDIFFStyles.setStyle(pane, grainBean, "CleanGranularity");
+        Listener.cleanMouseListener(pane,textField);
+    }
+    public static void setRefactoryGranularity(final GrainBean grainBean, final JTextPane pane, final JScrollPane scroll,Color color , JTextField msgRefactory,String msg) {
         IDIFFStyles.setStyle(pane, grainBean, "RefactoringStyle",color);
-        Listener.setMouseAdapter(pane);
-        Listener.setMouseMotion(pane, grainBean);
+        Listener.setMouseAdapter(pane,msgRefactory);
+        Listener.setMouseMotion(pane, grainBean,msgRefactory,color,msg);
     }
 }
