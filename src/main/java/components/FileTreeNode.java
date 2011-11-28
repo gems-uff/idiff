@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package components;
 
 import java.io.File;
@@ -18,59 +14,91 @@ import javax.swing.tree.DefaultMutableTreeNode;
 @SuppressWarnings("serial")
 public class FileTreeNode extends DefaultMutableTreeNode {
 
+    /**
+     * 
+     * @param parent
+     * @param name
+     * @throws SecurityException
+     * @throws FileNotFoundException 
+     */
     public FileTreeNode(String parent, String name) throws SecurityException, FileNotFoundException {
         this.name = name;
         fullName = parent == null ? name : parent + File.separator + name;
-        File f = new File(fullName);
+        File f = new File(getFullName());
         isDir = f.isDirectory();
     }
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public boolean isLeaf() {
-        return !isDir;
+        return !isIsDir();
     }
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public boolean getAllowsChildren() {
-        return isDir;
+        return isIsDir();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public boolean isDir() {
-        return isDir;
+        return isIsDir();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getFullName() {
         return fullName;
     }
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public String toString() {
-        return name;
+        return getName();
     }
 
+    /**
+     * 
+     * @param descend
+     * @return 
+     */
     @SuppressWarnings("unchecked")
     boolean populateDirectories(boolean descend) {
         boolean addedNodes = false;
-        if (populated == false) {
+        if (isPopulated() == false) {
             File f;
             try {
-                f = new File(fullName);
+                f = new File(getFullName());
             } catch (SecurityException e) {
-                populated = true;
+                setPopulated(true);
                 return false;
             }
-            if (interim == true) {
+            if (isInterim() == true) {
                 removeAllChildren();
-                interim = false;
+                setInterim(false);
             }
             String[] names = f.list();
             ArrayList<FileTreeNode> list = new ArrayList<FileTreeNode>();
             if (names != null) {
                 for (int i = 0; i < names.length; i++) {
                     String nameLocal = names[i];
-                    File d = new File(fullName, nameLocal);
+                    File d = new File(getFullName(), nameLocal);
                     try {
-                        FileTreeNode node = new FileTreeNode(fullName, nameLocal);
+                        FileTreeNode node = new FileTreeNode(getFullName(), nameLocal);
                         list.add(node);
                         if (descend && d.isDirectory()) {
                             node.populateDirectories(false);
@@ -97,10 +125,10 @@ public class FileTreeNode extends DefaultMutableTreeNode {
                     public int compare(Object o1, Object o2) {
                         FileTreeNode node1 = (FileTreeNode) o1;
                         FileTreeNode node2 = (FileTreeNode) o2;
-                        if (node1.isDir != node2.isDir) {
-                            return node1.isDir ? -1 : +1;
+                        if (node1.isIsDir() != node2.isIsDir()) {
+                            return node1.isIsDir() ? -1 : +1;
                         }
-                        return node1.fullName.compareTo(node2.fullName);
+                        return node1.getFullName().compareTo(node2.getFullName());
                     }
 
                     @Override
@@ -114,29 +142,34 @@ public class FileTreeNode extends DefaultMutableTreeNode {
                 }
             }
             if (descend == true || addedNodes == false) {
-                populated = true;
+                setPopulated(true);
             } else {
-                interim = true;
+                setInterim(true);
             }
         }
         return addedNodes;
     }
 
+    /**
+     * 
+     * @param name
+     * @return 
+     */
     public int addNode(String name) {
-        if (populated == true) {
+        if (isPopulated() == true) {
             int childCount = getChildCount();
             for (int i = 0; i < childCount; i++) {
                 FileTreeNode node = (FileTreeNode) getChildAt(i);
-                if (node.name.equals(name)) {
+                if (node.getName().equals(name)) {
                     if (node.isDir()) {
-                        node.interim = true;
-                        node.populated = false;
+                        node.setInterim(true);
+                        node.setPopulated(false);
                     }
                     return -1;
                 }
             }
             try {
-                FileTreeNode node = new FileTreeNode(fullName, name);
+                FileTreeNode node = new FileTreeNode(getFullName(), name);
                 add(node);
                 return childCount;
             } catch (Exception e) {
@@ -144,10 +177,72 @@ public class FileTreeNode extends DefaultMutableTreeNode {
         }
         return -1;
     }
-    protected String name;
-    protected String fullName;
-    protected boolean populated;
-    protected boolean interim;
-    protected boolean isDir;
-    
+    private String name;
+    private String fullName;
+    private boolean populated;
+    private boolean interim;
+    private boolean isDir;
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @param fullName the fullName to set
+     */
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    /**
+     * @return the populated
+     */
+    public boolean isPopulated() {
+        return populated;
+    }
+
+    /**
+     * @param populated the populated to set
+     */
+    public void setPopulated(boolean populated) {
+        this.populated = populated;
+    }
+
+    /**
+     * @return the isDir
+     */
+    public boolean isIsDir() {
+        return isDir;
+    }
+
+    /**
+     * @param isDir the isDir to set
+     */
+    public void setIsDir(boolean isDir) {
+        this.isDir = isDir;
+    }
+
+    /**
+     * @return the interim
+     */
+    public boolean isInterim() {
+        return interim;
+    }
+
+    /**
+     * @param interim the interim to set
+     */
+    public void setInterim(boolean interim) {
+        this.interim = interim;
+    }
 }

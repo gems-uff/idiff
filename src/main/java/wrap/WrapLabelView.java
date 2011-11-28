@@ -6,13 +6,27 @@ import javax.swing.text.GlyphView;
 import javax.swing.text.LabelView;
 import javax.swing.text.View;
 
+/**
+ * 
+ * @author Fernanda Floriano Silva
+ */
 public class WrapLabelView extends LabelView {
 
-
+    /**
+     * 
+     * @param elem 
+     */
     public WrapLabelView(Element elem) {
         super(elem);
     }
 
+    /**
+     * 
+     * @param axis
+     * @param pos
+     * @param len
+     * @return 
+     */
     @Override
     public int getBreakWeight(int axis, float pos, float len) {
         if (axis == View.X_AXIS) {
@@ -32,6 +46,14 @@ public class WrapLabelView extends LabelView {
         return super.getBreakWeight(axis, pos, len);
     }
 
+    /**
+     * 
+     * @param axis
+     * @param p0
+     * @param pos
+     * @param len
+     * @return 
+     */
     @Override
     public View breakView(int axis, int p0, float pos, float len) {
         if (axis == View.X_AXIS) {

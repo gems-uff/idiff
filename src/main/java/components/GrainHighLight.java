@@ -30,6 +30,12 @@ public class GrainHighLight {
         }
     }
 
+    /**
+     * 
+     * @param pt
+     * @param grainBean
+     * @param pane 
+     */
     public static void setHighLightPoint(Point pt, GrainBean grainBean, JTextPane pane) {
         if ((grainBean.getStartPosition() <= pane.viewToModel(pt)) && (pane.viewToModel(pt) <= grainBean.getStartPosition() + grainBean.getLength())) {
             setHighLight(pane, grainBean.getStartPosition(), grainBean.getStartPosition() + grainBean.getLength());

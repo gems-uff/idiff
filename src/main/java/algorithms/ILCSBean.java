@@ -12,7 +12,7 @@ public class ILCSBean {
     private File fileTo;
     private String granularity;
     private String tags;
-    private int perspective; // Default - ILCS
+    private int perspective;
 
     /**
      * Constructor
@@ -78,18 +78,34 @@ public class ILCSBean {
         this.fileTo = fileTo;
     }
 
+    /**
+     * setTags
+     * @param tags 
+     */
     public void setTags(String tags) {
         this.tags = tags;
     }
 
+    /**
+     * getTags
+     * @return String
+     */
     public String getTags() {
         return tags;
     }
 
+    /**
+     * getPerspective
+     * @return int
+     */
     public int getPerspective() {
         return perspective;
     }
 
+    /**
+     * setPerspective
+     * @param perspective 
+     */
     public void setPerspective(int perspective) {
         this.perspective = perspective;
     }

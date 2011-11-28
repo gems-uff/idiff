@@ -14,8 +14,12 @@ import diretorioDiff.ProgressMessager;
 @SuppressWarnings("serial")
 public class Splash extends javax.swing.JDialog implements ProgressMessager {
 
-    JLabel msg;
+    private JLabel msg;
 
+    /**
+     * Constructor
+     * @param owner 
+     */
     public Splash(JFrame owner) {
         super(owner, true);
         this.setLocationRelativeTo(owner);
@@ -30,6 +34,10 @@ public class Splash extends javax.swing.JDialog implements ProgressMessager {
         initComponents();
     }
 
+    /**
+     * 
+     * @param visible 
+     */
     @Override
     public void setVisible(boolean visible) {
         this.setLocationRelativeTo(this.getOwner());
@@ -44,6 +52,20 @@ public class Splash extends javax.swing.JDialog implements ProgressMessager {
     @Override
     public void setMessage(String message) {
         msgLabel.setText(message);
+    }
+
+    /**
+     * @return the msg
+     */
+    public JLabel getMsg() {
+        return msg;
+    }
+
+    /**
+     * @param msg the msg to set
+     */
+    public void setMsg(JLabel msg) {
+        this.msg = msg;
     }
 
     /** This method is called from within the constructor to

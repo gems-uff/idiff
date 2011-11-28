@@ -34,10 +34,21 @@ public class MainDDiff extends JFrame {
     private String tags;
     private static MainDDiff instance;
 
+    /**
+     * getInstance
+     * @return instance
+     */
     public synchronized static MainDDiff getInstance() {
         return instance;
     }
 
+    /**
+     * setInstance
+     * @param directoryFrom
+     * @param directoryTo
+     * @param granularity
+     * @param tags 
+     */
     public synchronized static void setInstance(File directoryFrom, File directoryTo, String granularity, String tags) {
         if (instance != null) {
             instance.dispose();
@@ -52,10 +63,20 @@ public class MainDDiff extends JFrame {
         super();
     }
 
+    /**
+     * resetInstance
+     */
     public static synchronized void resetInstance() {
         instance = null;
     }
 
+    /**
+     * MainDDiff
+     * @param directoryFrom
+     * @param directoryTo
+     * @param granularity
+     * @param tags 
+     */
     public MainDDiff(File directoryFrom, File directoryTo, String granularity, String tags) {
         super();
 
@@ -69,14 +90,29 @@ public class MainDDiff extends JFrame {
 
     }
 
+    /**
+     * isQuiteSimilar
+     * @param from
+     * @param to
+     * @return 
+     */
     private boolean isQuiteSimilar(No from, No to) {
         return (from.getSimilaridade() == 0 && to.getSimilaridade() > 50);
     }
 
+    /**
+     * isSimilar
+     * @param noFrom
+     * @param noTo
+     * @return 
+     */
     public boolean isSimilar(No noFrom, No noTo) {
         return (isQuiteSimilar(noFrom, noTo) || (isQuiteSimilar(noTo, noFrom)));
     }
 
+    /**
+     * start
+     */
     public void start() {
         try {
             loadTree();
@@ -86,6 +122,9 @@ public class MainDDiff extends JFrame {
         execute();
     }
 
+    /**
+     * 
+     */
     @Action
     public void resize() {
         int largura = (int) splitPanel.getSize().getWidth() / 2;
@@ -93,8 +132,16 @@ public class MainDDiff extends JFrame {
         splitPanel.setDividerLocation(largura);
     }
 
+    /**
+     * 
+     * @param noFrom
+     * @param noTo
+     * @return
+     * @throws HeadlessException 
+     */
     public boolean verifyError(No noFrom, No noTo) throws HeadlessException {
         if ((noFrom == null) && (noTo == null)) {
+            showError("Select one file");
             return true;
         }
         if (((noFrom != null) && (noTo != null)) && (noFrom.isSelected() && noTo.isSelected())) {
@@ -104,25 +151,38 @@ public class MainDDiff extends JFrame {
         return false;
     }
 
+    /**
+     * 
+     * @param no
+     * @param idDirectory 
+     */
     private void initOverView(No no, int idDirectory) {
         for (ResultadoArquivo resultado : no.getResultados()) {
             switch (idDirectory) {
                 case 1:
-                    showFileOverView(resultado.getBase().getArquivo(), no.getResultados(),1);
+                    showFileOverView(resultado.getBase().getArquivo(), no.getResultados(), 1);
                     break;
                 case 2:
-                    showFileOverView(resultado.getPara().getArquivo(), no.getResultados(),2);
+                    showFileOverView(resultado.getPara().getArquivo(), no.getResultados(), 2);
                     break;
             }
         }
     }
 
+    /**
+     * 
+     * @param msg
+     * @throws HeadlessException 
+     */
     private void showError(String msg) throws HeadlessException {
         Error dialog = new Error(new javax.swing.JFrame(), true);
         dialog.setErrorLabel(msg);
         dialog.setVisible(true);
     }
 
+    /**
+     * 
+     */
     private void execute() {
         //Splash progressMessager = new Splash();
         //progressMessager.setLocationRelativeTo(this);
@@ -138,6 +198,10 @@ public class MainDDiff extends JFrame {
         //progressMessager.dispose();
     }
 
+    /**
+     * 
+     * @throws DiretorioDiffException 
+     */
     private void loadTree() throws DiretorioDiffException {
         fromTree = Arvore.getBaseTree(from);
         toTree = Arvore.getComparedTree(to, fromTree);
@@ -147,6 +211,9 @@ public class MainDDiff extends JFrame {
 
     }
 
+    /**
+     * 
+     */
     @Action
     public void drill() {
         if (toTree != null && fromTree != null) {
@@ -194,6 +261,17 @@ public class MainDDiff extends JFrame {
         }
     }
 
+    /**
+     * 
+     * @param fileFrom
+     * @param fileTo
+     * @param granularity
+     * @param tags
+     * @param isQuiteSimilar
+     * @throws DiffException
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     private void showILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
         MainILCS.setInstance(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
         MainILCS.getInstance().setVisible(true);
@@ -226,6 +304,9 @@ public class MainDDiff extends JFrame {
         });
     }
 
+    /**
+     * 
+     */
     @Action
     public void overView() {
         if (toTree != null || fromTree != null) {
@@ -239,22 +320,35 @@ public class MainDDiff extends JFrame {
             if (noFrom != null) {
                 initOverView(noFrom, 1);//1 - Left Directory 2 - Right Directory
             } else {
-                initOverView(noTo,2);
+                initOverView(noTo, 2);
             }
         }
     }
 
+    /**
+     * 
+     * @param file
+     * @param result
+     * @param idDirectory 
+     */
     private void showFileOverView(File file, List<ResultadoArquivo> result, int idDirectory) {
-        MainFDiff.setInstance(file, result,idDirectory);
+        MainFDiff.setInstance(file, result, idDirectory);
         MainFDiff.getInstance().setVisible(true);
     }
 
+    /**
+     * 
+     * @param tree 
+     */
     private void expandNodesDiff(Arvore tree) {
         if (tree != null) {
             tree.expandNodesWithDiff();
         }
     }
 
+    /**
+     * 
+     */
     private void cleanResults() {
         MainFDiff.resetInstance();
         MainILCS.resetInstance();

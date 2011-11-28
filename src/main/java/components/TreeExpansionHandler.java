@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package components;
 
 import javax.swing.JTree;
@@ -12,15 +8,30 @@ import javax.swing.tree.TreePath;
 
 /**
  *
- * @author Sisi
+ * @author Fernanda Floriano Silva
  */
 class TreeExpansionHandler implements TreeExpansionListener {
+
     private TreeComponent outer;
 
+    /**
+     * TreeExpansionHandler
+     */
+    public TreeExpansionHandler() {
+    }
+
+    /**
+     * TreeExpansionHandler
+     * @param outer 
+     */
     protected TreeExpansionHandler(TreeComponent outer) {
         this.outer = outer;
     }
 
+    /**
+     * treeExpanded
+     * @param evt 
+     */
     @Override
     public void treeExpanded(TreeExpansionEvent evt) {
         TreePath path = evt.getPath();
@@ -31,6 +42,10 @@ class TreeExpansionHandler implements TreeExpansionListener {
         }
     }
 
+    /**
+     * treeCollapsed
+     * @param evt 
+     */
     @Override
     public void treeCollapsed(TreeExpansionEvent evt) {
     }
@@ -48,5 +63,4 @@ class TreeExpansionHandler implements TreeExpansionListener {
     public void setOuter(TreeComponent outer) {
         this.outer = outer;
     }
-    
 }

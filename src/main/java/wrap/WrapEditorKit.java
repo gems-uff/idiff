@@ -13,11 +13,19 @@ public class WrapEditorKit extends StyledEditorKit {
 
     private ViewFactory defaultFactory = new WrapColumnFactory();
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public ViewFactory getViewFactory() {
         return getDefaultFactory();
     }
 
+    /**
+     * 
+     * @return 
+     */
     @Override
     public MutableAttributeSet getInputAttributes() {
         MutableAttributeSet mAttrs = super.getInputAttributes();

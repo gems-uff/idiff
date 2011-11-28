@@ -36,7 +36,7 @@ public class WordGrain extends Grain {
      * @return List<Grain>
      * @throws IOException 
      */
-    public List<Grain> start(List<Grain> list,ILCSBean ilcsB) throws IOException {
+    public List<Grain> start(List<Grain> list, ILCSBean ilcsB) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
         finalList.add(null);
         for (Iterator<Grain> it = list.iterator(); it.hasNext();) {
@@ -53,6 +53,14 @@ public class WordGrain extends Grain {
         return finalList;
     }
 
+    /**
+     * setWordData
+     * @param token
+     * @param idReference
+     * @param grain
+     * @param startPosition
+     * @param finalList 
+     */
     private void setWordData(String[] token, int idReference, Grain grain, int startPosition, List<Grain> finalList) {
         int id = idReference;
         int position = startPosition;
@@ -70,7 +78,7 @@ public class WordGrain extends Grain {
      * Set Granularity Start Position 
      * @param startPosition
      * @param word
-     * @return 
+     * @return int
      */
     private int setStartPosition(int startPosition, String word) {
         return (startPosition + word.length() + 1);
@@ -100,10 +108,10 @@ public class WordGrain extends Grain {
      * @param ilcsB 
      * @throws DiffException 
      */
-    public void startWordGranularity(List<Grain> listFileFrom, List<Grain> listFileTo,ILCSBean ilcsB) throws DiffException {
+    public void startWordGranularity(List<Grain> listFileFrom, List<Grain> listFileTo, ILCSBean ilcsB) throws DiffException {
         try {
-            Algorithm.getComparator().setLinesFileOne(this.start(listFileFrom,ilcsB));
-            Algorithm.getComparator().setColumnFileTwo(this.start(listFileTo,ilcsB));
+            Algorithm.getComparator().setLinesFileOne(this.start(listFileFrom, ilcsB));
+            Algorithm.getComparator().setColumnFileTwo(this.start(listFileTo, ilcsB));
         } catch (IOException ex) {
             throw new DiffException(ex, DiffException.MSG_INVALID_START_WORD_GRANULARITY);
         }

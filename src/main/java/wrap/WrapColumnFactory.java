@@ -10,6 +10,10 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
 
+/**
+ * 
+ * @author Fernanda Floriano Silva
+ */
 public class WrapColumnFactory implements ViewFactory {
 
     @Override

@@ -10,14 +10,21 @@ import javax.swing.UIManager;
  * @author Fernanda Floriano Silva
  */
 public class FileChooser extends JFileChooser {
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = 1L;
     private JFileChooser fileChooser;
 
+    /**
+     * 
+     */
     public FileChooser() {
-       this.fileChooser = new JFileChooser();
+        this.fileChooser = new JFileChooser();
     }
 
+    /**
+     * 
+     * @param tField 
+     */
     public void setFileChooser(JTextField tField) {
         getFileChooser().setDialogTitle("File Chooser");
         getFileChooser().setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

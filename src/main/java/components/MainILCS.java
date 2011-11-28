@@ -58,6 +58,17 @@ public final class MainILCS extends javax.swing.JFrame {
 
     private static MainILCS instance;
 
+    /**
+     * Set instance
+     * @param fileFrom
+     * @param fileTo
+     * @param granularity
+     * @param tags
+     * @param isQuiteSimilar
+     * @throws DiffException
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public synchronized static void setInstance(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
         if (instance != null) {
             instance.dispose();
@@ -65,10 +76,17 @@ public final class MainILCS extends javax.swing.JFrame {
         instance = new MainILCS(fileFrom, fileTo, granularity, tags, isQuiteSimilar);
     }
 
+    /**
+     * getInstance
+     * @return instance
+     */
     public synchronized static MainILCS getInstance() {
         return instance;
     }
 
+    /**
+     * resetInstance
+     */
     public static synchronized void resetInstance() {
         instance = null;
     }
@@ -107,6 +125,11 @@ public final class MainILCS extends javax.swing.JFrame {
         setListenerRadioButton(similarRadioButton, 2);
     }
 
+    /**
+     * 
+     * @param isQuiteSimilar
+     * @return 
+     */
     public int getPerspective(boolean isQuiteSimilar) {
         if (isQuiteSimilar) {
             setRadios(true, false);//Diff Perspective
@@ -117,6 +140,11 @@ public final class MainILCS extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Set radio button
+     * @param diffValue
+     * @param similarValue 
+     */
     private void setRadios(boolean diffValue, boolean similarValue) {
         this.diffRadioButton.setSelected(diffValue);
         this.similarRadioButton.setSelected(similarValue);
@@ -137,8 +165,8 @@ public final class MainILCS extends javax.swing.JFrame {
         });
     }
 
-    /** ReStart Components
-     * 
+    /** 
+     * ReStart Components
      */
     private void restartComponents() {
         try {
@@ -199,6 +227,11 @@ public final class MainILCS extends javax.swing.JFrame {
         setIconImage(Icon.getIcon());
     }
 
+    /**
+     * setWordGrainName
+     * @param granularity
+     * @return String
+     */
     private String setWordGrainName(String granularity) {
         if ("Word (Default)".equals(granularity)) {
             return "Word";

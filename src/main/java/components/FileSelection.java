@@ -19,6 +19,10 @@ public class FileSelection extends javax.swing.JFrame {
     private static FileSelection instance;
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 
+     * @return 
+     */
     public static FileSelection getInstance() {
         if (instance != null) {
             instance.dispose();
@@ -36,6 +40,9 @@ public class FileSelection extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * 
+     */
     private void init() {
         Laf.setlaf();
         setIconImage(Icon.getIcon());
@@ -463,6 +470,13 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
         return tag + "]";
     }
 
+    /**
+     * 
+     * @param tag
+     * @param selected
+     * @param separator
+     * @return 
+     */
     private String setTag(String tag, boolean selected, String separator) {
         if (selected) {
             return tag + separator;

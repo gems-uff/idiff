@@ -3,7 +3,6 @@ package components;
 import algorithms.Grain;
 import algorithms.ILCSBean;
 import java.awt.Color;
-import java.awt.Font;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
@@ -39,7 +38,8 @@ public class TableComponent {
      * @param list1
      * @param list2
      * @param diferences 
-     * @param tableDetails 
+     * @param tableDetails
+     * @param ilcsb  
      */
     public void printTableLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences, JTable tableDetails, ILCSBean ilcsb) {
         Iterator<Grain> it1 = list1.iterator();
@@ -109,6 +109,13 @@ public class TableComponent {
         }
     }
 
+    /**
+     * 
+     * @param grain1
+     * @param grain2
+     * @param perpective
+     * @return boolean
+     */
     private boolean verifyConditions(Grain grain1, Grain grain2, int perpective) {
         boolean condition = (grain1 != null) || (grain2 != null);
         if (perpective == 1) {

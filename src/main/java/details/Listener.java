@@ -43,6 +43,11 @@ public class Listener {
         });
     }
 
+    /**
+     * 
+     * @param pane
+     * @param msgRefactory 
+     */
     public static void setMouseAdapter(final JTextPane pane, final JTextField msgRefactory) {
         pane.addMouseListener(new MouseAdapter() {
 
@@ -60,6 +65,10 @@ public class Listener {
         });
     }
 
+    /**
+     * 
+     * @param msgRefactory 
+     */
     private static void cleanTextFiel(JTextField msgRefactory) {
         msgRefactory.setEnabled(false);
         msgRefactory.setText("");
@@ -71,6 +80,8 @@ public class Listener {
      * @param grainBeanFrom
      * @param grainBeanTo
      * @param paneTo
+     * @param leftScrollPane
+     * @param rightScrollPane  
      */
     public static void setMouseMotion(final JTextPane paneFrom, final GrainBean grainBeanFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane leftScrollPane, final JScrollPane rightScrollPane) {
         paneFrom.addMouseMotionListener(new MouseMotionListener() {
@@ -89,6 +100,14 @@ public class Listener {
         });
     }
 
+    /**
+     * 
+     * @param pane
+     * @param grainBean
+     * @param textField
+     * @param color
+     * @param msg 
+     */
     public static void setMouseMotion(final JTextPane pane, final GrainBean grainBean, final JTextField textField, final Color color, final String msg) {
         pane.addMouseMotionListener(new MouseMotionListener() {
 
@@ -120,6 +139,13 @@ public class Listener {
         });
     }
 
+    /**
+     * 
+     * @param paneFrom
+     * @param paneTo
+     * @param leftScrollPane
+     * @param rightScrollPane 
+     */
     public static void cleanMouseListener(final JTextPane paneFrom, final JTextPane paneTo, final JScrollPane leftScrollPane, final JScrollPane rightScrollPane) {
         paneFrom.addMouseMotionListener(new MouseMotionListener() {
 
@@ -137,6 +163,11 @@ public class Listener {
         });
     }
 
+    /**
+     * 
+     * @param pane
+     * @param textField 
+     */
     public static void cleanMouseListener(final JTextPane pane, final JTextField textField) {
         pane.addMouseMotionListener(new MouseMotionListener() {
 

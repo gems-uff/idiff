@@ -15,6 +15,7 @@ import javax.swing.tree.TreeSelectionModel;
  * @author Fernanda Floriano Silva
  */
 public class TreeComponent extends JPanel {
+
     private static final long serialVersionUID = 1L;
 
     /**

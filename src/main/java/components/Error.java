@@ -9,6 +9,7 @@ import org.jdesktop.application.Action;
  * @author Fernanda Floriano Silva
  */
 public class Error extends javax.swing.JDialog {
+
     private static final long serialVersionUID = 1L;
 
     /** Creates new form Error
@@ -23,6 +24,10 @@ public class Error extends javax.swing.JDialog {
         setIconImage(Icon.getIcon());
     }
 
+    /**
+     * 
+     * @param errorLabel 
+     */
     public void setErrorLabel(String errorLabel) {
         this.errorLabel.setText(errorLabel);
     }
@@ -91,5 +96,4 @@ public class Error extends javax.swing.JDialog {
     private javax.swing.JButton closeButton;
     private javax.swing.JLabel errorLabel;
     // End of variables declaration//GEN-END:variables
-
 }

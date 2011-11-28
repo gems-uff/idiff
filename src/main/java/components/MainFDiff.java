@@ -30,10 +30,20 @@ public class MainFDiff extends javax.swing.JFrame {
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
 
+    /**
+     * getInstance
+     * @return instance
+     */
     public synchronized static MainFDiff getInstance() {
         return instance;
     }
 
+    /**
+     * setInstance
+     * @param file
+     * @param result
+     * @param idDirectory 
+     */
     public synchronized static void setInstance(File file, List<ResultadoArquivo> result, int idDirectory) {
         if (instance != null) {
             instance.dispose();
@@ -41,6 +51,9 @@ public class MainFDiff extends javax.swing.JFrame {
         instance = new MainFDiff(file, result, idDirectory);
     }
 
+    /**
+     * resetInstance
+     */
     public static synchronized void resetInstance() {
         instance = null;
     }
@@ -66,10 +79,21 @@ public class MainFDiff extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * getIdColor
+     * @param random
+     * @return int
+     */
     private int getIdColor(Random random) {
         return random.nextInt(100) + 156;
     }
 
+    /**
+     * init
+     * @param file
+     * @throws MalformedURLException
+     * @throws IOException 
+     */
     private void init(File file) throws MalformedURLException, IOException {
         new Wrap().setWrapPane(pane);
         fileComponent.submitFile(file, pane);
@@ -87,6 +111,11 @@ public class MainFDiff extends javax.swing.JFrame {
         this.dispose();
     }
 
+    /**
+     * showResult
+     * @param listResult
+     * @param idDirectory 
+     */
     private void showResult(List<ResultadoArquivo> listResult, int idDirectory) {
         GranularityComponent.setCleanGranularity(new GrainBean(0, pane.getText().length()), pane, msgRefatory);
 
@@ -99,6 +128,11 @@ public class MainFDiff extends javax.swing.JFrame {
         printResult(getHungarianChoice(listResult), idDirectory);
     }
 
+    /**
+     * getHungarianChoice
+     * @param listResult
+     * @return 
+     */
     private ResultadoArquivo getHungarianChoice(List<ResultadoArquivo> listResult) {
         for (ResultadoArquivo result : listResult) {
             if (result.isEscolhaHungaro()) {
@@ -108,6 +142,11 @@ public class MainFDiff extends javax.swing.JFrame {
         return listResult.get(0);
     }
 
+    /**
+     * printResult
+     * @param result
+     * @param idDirectory 
+     */
     private void printResult(ResultadoArquivo result, int idDirectory) {
 
         if (result.getTipo() == TipoResultado.CHANGED) {
@@ -117,6 +156,11 @@ public class MainFDiff extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * sort
+     * @param list
+     * @return List<ResultadoArquivo>
+     */
     public List<ResultadoArquivo> sort(List<ResultadoArquivo> list) {
         Collections.sort(list, new Comparator<ResultadoArquivo>() {
 
@@ -131,6 +175,9 @@ public class MainFDiff extends javax.swing.JFrame {
         return list;
     }
 
+    /**
+     * showWarning
+     */
     private void showWarning() {
         Laf.setlaf();
         Warning.setLocationRelativeTo(null);
@@ -138,6 +185,11 @@ public class MainFDiff extends javax.swing.JFrame {
         Warning.setVisible(true);
     }
 
+    /**
+     * showRefactory
+     * @param result
+     * @param idDirectory 
+     */
     private void showRefactory(ResultadoArquivo result, int idDirectory) {
         switch (idDirectory) {
             case 1:
@@ -149,6 +201,11 @@ public class MainFDiff extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * setRefactory
+     * @param grains
+     * @param file 
+     */
     private void setRefactory(List<Grain> grains, File file) {
         Color color = getColor();
         String message = getMsgRefactory(file);
@@ -157,10 +214,19 @@ public class MainFDiff extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * getMsgRefactory
+     * @param file
+     * @return String
+     */
     private String getMsgRefactory(File file) {
         return "Similarity found in " + file.getName() + " (Path: " + file.getParent() + ")";
     }
 
+    /**
+     * getColor
+     * @return Color
+     */
     private Color getColor() {
         Random random = new Random();
         Color color = new Color(getIdColor(random), getIdColor(random), getIdColor(random));

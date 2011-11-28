@@ -26,7 +26,9 @@ public class GranularityComponent {
      * @param result
      * @param paneFrom
      * @param paneTo
-     * @param perspective  
+     * @param perspective
+     * @param scrollFrom
+     * @param scrollTo  
      */
     public void setMoves(IResultDiff result, JTextPane paneFrom, JTextPane paneTo, int perspective, final JScrollPane scrollFrom, final JScrollPane scrollTo) {
         Iterator<Grain> itFrom = result.getGrainsFrom().iterator();
@@ -42,6 +44,13 @@ public class GranularityComponent {
         }
     }
 
+    /**
+     * 
+     * @param grain1
+     * @param grain2
+     * @param perpective
+     * @return 
+     */
     private boolean verifyConditions(Grain grain1, Grain grain2, int perpective) {
         boolean condition = (grain1 != null) || (grain2 != null);
         if (perpective == 1) {
@@ -95,12 +104,26 @@ public class GranularityComponent {
         Listener.setMouseMotion(paneTo, grainBeanTo, grainBeanFrom, paneFrom, scrollFrom, scrollTo);
     }
 
+    /**
+     * 
+     * @param paneFrom
+     * @param paneTo 
+     */
     void clean(JTextPane paneFrom, JTextPane paneTo) {
         GrainHighLight.removeAllHighLight(paneFrom, paneTo);
         IDIFFStyles.setStyle(paneFrom, new GrainBean(0, paneFrom.getText().length()), "UnchangedStyle");
         IDIFFStyles.setStyle(paneTo, new GrainBean(0, paneTo.getText().length()), "UnchangedStyle");
     }
 
+    /**
+     * 
+     * @param grainBeanFrom
+     * @param paneFrom
+     * @param grainBeanTo
+     * @param paneTo
+     * @param scrollFrom
+     * @param scrollTo 
+     */
     private void setUnchangedGranularity(final GrainBean grainBeanFrom, final JTextPane paneFrom, final GrainBean grainBeanTo, final JTextPane paneTo, final JScrollPane scrollFrom, final JScrollPane scrollTo) {
         IDIFFStyles.setStyle(paneFrom, grainBeanFrom, "UnchangedStyle");
         Listener.cleanMouseListener(paneFrom, paneTo, scrollFrom, scrollTo);
@@ -108,11 +131,26 @@ public class GranularityComponent {
         Listener.cleanMouseListener(paneTo, paneFrom, scrollFrom, scrollTo);
     }
 
+    /**
+     * 
+     * @param grainBean
+     * @param pane
+     * @param textField 
+     */
     public static void setCleanGranularity(final GrainBean grainBean, final JTextPane pane, final JTextField textField) {
         IDIFFStyles.setStyle(pane, grainBean, "CleanGranularity", IDIFFColor.getUnchangedColor());
         Listener.cleanMouseListener(pane, textField);
     }
 
+    /**
+     * 
+     * @param grainBean
+     * @param pane
+     * @param scroll
+     * @param color
+     * @param msgRefactory
+     * @param msg 
+     */
     public static void setRefactoryGranularity(final GrainBean grainBean, final JTextPane pane, final JScrollPane scroll, Color color, JTextField msgRefactory, String msg) {
         IDIFFStyles.setStyle(pane, grainBean, "RefactoringStyle", color);
         Listener.setMouseAdapter(pane, msgRefactory);

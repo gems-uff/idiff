@@ -22,6 +22,7 @@ public class Grain {
     /**
      * Possible situation of grains
      */
+    @SuppressWarnings("PublicInnerClass")
     public enum Situation {
 
         UNCHANGED,
@@ -33,6 +34,7 @@ public class Grain {
     /**
      * Level Granularity
      */
+    @SuppressWarnings("PublicInnerClass")
     public enum LevelGranularity {
 
         FILE,
@@ -101,7 +103,7 @@ public class Grain {
      * @return
      */
     @Override
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+    @SuppressWarnings({"AccessingNonPublicFieldOfAnotherObject", "EqualsWhichDoesntCheckParameterClass"})
     public boolean equals(Object o) {
         return ((this.grainText.compareTo(((Grain) o).grainText)) == 0);
     }
@@ -233,7 +235,7 @@ public class Grain {
                 new LineGrain().startLineGranularity(fileVersionOne, fileVersionTwo, ilcsb);
                 break;
             case WORD:
-                new WordGrain().startWordGranularity(result.getFileVersionOne(), result.getFileVersionTwo(),ilcsb);
+                new WordGrain().startWordGranularity(result.getFileVersionOne(), result.getFileVersionTwo(), ilcsb);
                 break;
             case CHARACTER:
                 new CharacterGrain().startCharacterGranularity(result.getFileVersionOne(), result.getFileVersionTwo());

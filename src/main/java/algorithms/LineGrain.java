@@ -38,6 +38,7 @@ public class LineGrain extends Grain {
      * @return
      * @throws IOException 
      */
+    @SuppressWarnings("NestedAssignment")
     public List<Grain> start(File file, ILCSBean ilcsb, int idFile) throws IOException {
         List<Grain> finalList = new ArrayList<Grain>();
         finalList.add(null);
@@ -46,11 +47,11 @@ public class LineGrain extends Grain {
         int id = 0;
         int idStart = 0;
         while ((line = reader.readLine()) != null) {
-                id++;
-                LineGrain lineGrain = new LineGrain(line, id, idStart);
-                lineGrain.setIdFile(idFile);
-                finalList.add(lineGrain);
-                idStart = idStart + line.length() + 1;
+            id++;
+            LineGrain lineGrain = new LineGrain(line, id, idStart);
+            lineGrain.setIdFile(idFile);
+            finalList.add(lineGrain);
+            idStart = idStart + line.length() + 1;
         }
         return finalList;
     }

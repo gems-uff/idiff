@@ -24,6 +24,11 @@ public class Scroll {
         adjustment(scrollTo, scrollFrom, scrollTo.getVerticalScrollBar());
     }
 
+    /**
+     * 
+     * @param scrollFrom
+     * @param scrollTo 
+     */
     public static void removeAdjustmentScroll(JScrollPane scrollFrom, JScrollPane scrollTo) {
         remove(scrollFrom.getHorizontalScrollBar());
         remove(scrollFrom.getVerticalScrollBar());
@@ -47,6 +52,10 @@ public class Scroll {
         });
     }
 
+    /**
+     * 
+     * @param scrollBar 
+     */
     private static void remove(final JScrollBar scrollBar) {
         for (int i = 0; i < scrollBar.getAdjustmentListeners().length; i++) {
             scrollBar.removeAdjustmentListener(scrollBar.getAdjustmentListeners()[i]);

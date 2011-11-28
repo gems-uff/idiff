@@ -15,6 +15,7 @@ public class CharacterGrain extends Grain {
      * Constructor
      * @param character
      * @param idReference
+     * @param grainBean  
      */
     public CharacterGrain(String character, int idReference, GrainBean grainBean) {
         super(LevelGranularity.CHARACTER, character, idReference, grainBean);

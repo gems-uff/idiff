@@ -9,6 +9,10 @@ import javax.swing.ImageIcon;
  */
 public class Icon {
 
+    /**
+     * 
+     * @return 
+     */
     public static Image getIcon() {
         return new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage();
     }

@@ -81,6 +81,10 @@ public class IDIFFStyles {
         setStyleData("RefactoringStyle", doc, color);
     }
 
+    /**
+     * 
+     * @param doc 
+     */
     public static void setCleanGranularityStyle(StyledDocument doc) {
         setStyleData("CleanGranularity", doc, IDIFFColor.getUnchangedColor());
     }
@@ -122,12 +126,19 @@ public class IDIFFStyles {
         doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle(style), true);
     }
 
+    /**
+     * 
+     * @param pane
+     * @param grain
+     * @param style
+     * @param color 
+     */
     public static void setStyle(JTextPane pane, GrainBean grain, String style, Color color) {
         if (style.equals("CleanGranularity")) {
             StyledDocument doc = pane.getStyledDocument();
             IDIFFStyles.setCleanGranularityStyle(doc);
             doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle(style), true);
-          } else {
+        } else {
             StyledDocument doc = pane.getStyledDocument();
             IDIFFStyles.setRefactoryStyle(doc, color);
             doc.setCharacterAttributes(grain.getStartPosition(), grain.getLength(), pane.getStyle(style), true);

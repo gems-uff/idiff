@@ -57,7 +57,8 @@ public class FileComponent {
      * @param paneFrom
      * @param scrollFrom
      * @param paneTo
-     * @param scrollTo 
+     * @param scrollTo
+     * @param ilcsb  
      */
     public void repaint(IResultDiff result, JTextPane paneFrom, JScrollPane scrollFrom, JTextPane paneTo, JScrollPane scrollTo, ILCSBean ilcsb) {
         granularityComponent.setMoves(result, paneFrom, paneTo, ilcsb.getPerspective(), scrollFrom, scrollTo);
