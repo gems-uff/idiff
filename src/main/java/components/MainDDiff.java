@@ -124,18 +124,18 @@ public class MainDDiff extends JFrame {
     }
 
     private void execute() {
-        Splash progressMessager = new Splash();
-        progressMessager.setLocationRelativeTo(this);
-        progressMessager.setVisible(true);
+        //Splash progressMessager = new Splash();
+        //progressMessager.setLocationRelativeTo(this);
+        //progressMessager.setVisible(true);
 
         Resultado resultado = DiretorioDiff.compararDiretorios(from, to);//, progressMessager);
 
-        progressMessager.setMessage("Loading result of comparing.");
+        //progressMessager.setMessage("Loading result of comparing.");
 
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
 
-        progressMessager.dispose();
+        //progressMessager.dispose();
     }
 
     private void loadTree() throws DiretorioDiffException {

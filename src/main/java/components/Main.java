@@ -12,6 +12,6 @@ public class Main {
         splash.setMessage("Starting IDIFF...");
         FileSelection.getInstance();
         splash.dispose();
-        Thread.sleep(10);
+        Thread.sleep(20);
     }
 }

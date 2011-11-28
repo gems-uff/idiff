@@ -85,25 +85,15 @@ public final class MainILCS extends javax.swing.JFrame {
      * @throws IOException 
      */
     public MainILCS(File fileFrom, File fileTo, String granularity, String tags, boolean isQuiteSimilar) throws DiffException, FileNotFoundException, IOException {
-        Splash splash = new Splash();
-        splash.setVisible(true);
-        splash.setMessage("Starting components...");
-
         initComponents();
 
         new Wrap().setWrap(leftPane, rightPane);
         ilcsBean = new ILCSBean(fileFrom, fileTo);
 
-        splash.setMessage("Initial Steps...");
-
         initialSteps(fileFrom, fileTo, granularity, tags, getPerspective(isQuiteSimilar));
         Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
 
         setListenerRadioButton();
-
-        splash.setMessage("Loading Files...");
-        splash.setMessage("Runing ...");
-        splash.dispose();
 
         runProject();
 

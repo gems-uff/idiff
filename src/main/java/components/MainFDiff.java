@@ -4,7 +4,6 @@ import algorithms.Grain;
 import algorithms.GrainBean;
 import details.Icon;
 import details.Laf;
-import details.Listener;
 import diretorioDiff.resultados.ResultadoArquivo;
 import diretorioDiff.resultados.TipoResultado;
 import java.awt.Color;
@@ -90,7 +89,7 @@ public class MainFDiff extends javax.swing.JFrame {
 
     private void showResult(List<ResultadoArquivo> listResult, int idDirectory) {
         GranularityComponent.setCleanGranularity(new GrainBean(0, pane.getText().length()), pane, msgRefatory);
-  
+
         List<ResultadoArquivo> orderResult = sort(listResult);
         for (ResultadoArquivo result : orderResult) {
             if (!result.isEscolhaHungaro()) {
@@ -142,24 +141,24 @@ public class MainFDiff extends javax.swing.JFrame {
     private void showRefactory(ResultadoArquivo result, int idDirectory) {
         switch (idDirectory) {
             case 1:
-                setRefactory(result.getGrainsTo(), result.getPara().getArquivo().getName());
+                setRefactory(result.getGrainsTo(), result.getPara().getArquivo());
                 break;
             case 2:
-                setRefactory(result.getGrainsFrom(), result.getBase().getArquivo().getName());
+                setRefactory(result.getGrainsFrom(), result.getBase().getArquivo());
                 break;
         }
     }
 
-    private void setRefactory(List<Grain> grains, String fileName) {
+    private void setRefactory(List<Grain> grains, File file) {
         Color color = getColor();
-        String message = getMsgRefactory(fileName);
+        String message = getMsgRefactory(file);
         for (Grain grain : grains) {
             GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane, color, msgRefatory, message);
         }
     }
 
-    private String getMsgRefactory(String fileName) {
-        return "Similarity found in " + fileName;
+    private String getMsgRefactory(File file) {
+        return "Similarity found in " + file.getName() + " (Path: " + file.getParent() + ")";
     }
 
     private Color getColor() {
@@ -278,7 +277,9 @@ public class MainFDiff extends javax.swing.JFrame {
         jToolBar1.add(jSeparator1);
 
         msgRefatory.setEditable(false);
+        msgRefatory.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         msgRefatory.setToolTipText("");
+        msgRefatory.setAutoscrolls(true);
         msgRefatory.setEnabled(false);
         msgRefatory.setFocusable(false);
         msgRefatory.setMaximumSize(new java.awt.Dimension(690, 28));
