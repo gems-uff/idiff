@@ -330,9 +330,9 @@ public final class MainILCS extends javax.swing.JFrame {
         jTextField5.setText(bundle.getString("MainILCS.jTextField5.text")); // NOI18N
         jTextField5.setToolTipText(bundle.getString("MainILCS.jTextField5.toolTipText")); // NOI18N
         jTextField5.setEnabled(false);
-        jTextField5.setMaximumSize(new Dimension(710, 28));
-        jTextField5.setMinimumSize(new Dimension(710, 28));
-        jTextField5.setPreferredSize(new Dimension(710, 28));
+        jTextField5.setMaximumSize(new Dimension(690, 28));
+        jTextField5.setMinimumSize(new Dimension(690, 28));
+        jTextField5.setPreferredSize(new Dimension(690, 28));
         toolBar.add(jTextField5);
 
         jTextField1.setEditable(false);
