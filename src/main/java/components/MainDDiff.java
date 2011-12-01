@@ -26,6 +26,8 @@ import org.jdesktop.application.Action;
 @SuppressWarnings("serial")
 public class MainDDiff extends JFrame {
 
+    public static final int LEFT_DIRECTORY = 1;
+    public static final int RIGHT_DIRECTORY = 2;
     private Arvore fromTree;
     private Arvore toTree;
     private String granularity;
@@ -157,15 +159,14 @@ public class MainDDiff extends JFrame {
      * @param idDirectory 
      */
     private void initOverView(No no, int idDirectory) {
-        for (ResultadoArquivo resultado : no.getResultados()) {
-            switch (idDirectory) {
-                case 1:
-                    showFileOverView(resultado.getBase().getArquivo(), no.getResultados(), 1);
-                    break;
-                case 2:
-                    showFileOverView(resultado.getPara().getArquivo(), no.getResultados(), 2);
-                    break;
-            }
+        ResultadoArquivo resultado = no.getResultados().get(0);
+        switch (idDirectory) {
+            case LEFT_DIRECTORY:
+                showFileOverView(resultado.getBase().getArquivo(), no.getResultados(), LEFT_DIRECTORY);
+                break;
+            case RIGHT_DIRECTORY:
+                showFileOverView(resultado.getPara().getArquivo(), no.getResultados(), RIGHT_DIRECTORY);
+                break;
         }
     }
 
@@ -234,6 +235,7 @@ public class MainDDiff extends JFrame {
             }
 
             for (ResultadoArquivo resultado : noFrom.getResultados()) {
+
                 if (!resultado.isIdFrom(noFrom.getId())) {
                     continue;
                 }
@@ -245,10 +247,9 @@ public class MainDDiff extends JFrame {
                 if (!resultado.getBase().isText()) {
                     continue;
                 }
-
                 try {
-
                     showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), granularity, tags, isSimilar(noFrom, noTo));
+
                 } catch (DiffException ex) {
                     Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (FileNotFoundException ex) {
@@ -256,7 +257,6 @@ public class MainDDiff extends JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                break;
             }
         }
     }
@@ -289,22 +289,6 @@ public class MainDDiff extends JFrame {
     }
 
     /**
-     * Show Diff
-     * @param file1
-     * @param file2 
-     */
-    @Action
-    public void showDDiff(File file1, File file2) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                System.exit(0);
-            }
-        });
-    }
-
-    /**
      * 
      */
     @Action
@@ -318,9 +302,9 @@ public class MainDDiff extends JFrame {
             }
 
             if (noFrom != null) {
-                initOverView(noFrom, 1);//1 - Left Directory 2 - Right Directory
+                initOverView(noFrom, LEFT_DIRECTORY);//1 - Left Directory 2 - Right Directory
             } else {
-                initOverView(noTo, 2);
+                initOverView(noTo, RIGHT_DIRECTORY);
             }
         }
     }
