@@ -3,6 +3,7 @@ package components;
 import algorithms.DiffException;
 import details.Icon;
 import details.Laf;
+import diretorioDiff.Arquivo;
 import diretorioDiff.DiretorioDiff;
 import diretorioDiff.DiretorioDiffException;
 import diretorioDiff.arvore.Arvore;
@@ -185,18 +186,11 @@ public class MainDDiff extends JFrame {
      * 
      */
     private void execute() {
-        //Splash progressMessager = new Splash();
-        //progressMessager.setLocationRelativeTo(this);
-        //progressMessager.setVisible(true);
 
         Resultado resultado = DiretorioDiff.compararDiretorios(from, to);//, progressMessager);
 
-        //progressMessager.setMessage("Loading result of comparing.");
-
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
-
-        //progressMessager.dispose();
     }
 
     /**
@@ -226,37 +220,18 @@ public class MainDDiff extends JFrame {
                 return;
             }
 
-            if (!noFrom.isSelected()) {
-                return;
-            }
+            try {
+                Arquivo fileFrom = noFrom.getResultados().get(0).getBase();
+                Arquivo fileTo = noTo.getResultados().get(0).getPara();
 
-            if (!noTo.isSelected()) {
-                return;
-            }
+                showILCS(fileFrom.getArquivo(), fileTo.getArquivo(), granularity, tags, isSimilar(noFrom, noTo));
 
-            for (ResultadoArquivo resultado : noFrom.getResultados()) {
-
-                if (!resultado.isIdFrom(noFrom.getId())) {
-                    continue;
-                }
-
-                if (!resultado.isIdTo(noTo.getId())) {
-                    continue;
-                }
-
-                if (!resultado.getBase().isText()) {
-                    continue;
-                }
-                try {
-                    showILCS(resultado.getBase().getArquivo(), resultado.getPara().getArquivo(), granularity, tags, isSimilar(noFrom, noTo));
-
-                } catch (DiffException ex) {
-                    Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            } catch (DiffException ex) {
+                Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -302,7 +277,7 @@ public class MainDDiff extends JFrame {
             }
 
             if (noFrom != null) {
-                initOverView(noFrom, LEFT_DIRECTORY);//1 - Left Directory 2 - Right Directory
+                initOverView(noFrom, LEFT_DIRECTORY);
             } else {
                 initOverView(noTo, RIGHT_DIRECTORY);
             }
