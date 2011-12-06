@@ -8,7 +8,6 @@ import javax.swing.text.ViewFactory;
  * 
  * @author Fernanda Floriano Silva
  */
-@SuppressWarnings("serial")
 public class WrapEditorKit extends StyledEditorKit {
 
     private ViewFactory defaultFactory = new WrapColumnFactory();

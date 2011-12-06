@@ -12,7 +12,6 @@ public class LCSBean {
     /**
      * Arrows to be used in lcs algorithm 
      */
-    @SuppressWarnings("PublicInnerClass")
     public enum Arrow {
 
         LEFT,

@@ -11,7 +11,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
  *
  * @author Fernanda Floriano Silva
  */
-@SuppressWarnings("serial")
 public class FileTreeNode extends DefaultMutableTreeNode {
 
     /**
@@ -76,7 +75,6 @@ public class FileTreeNode extends DefaultMutableTreeNode {
      * @param descend
      * @return 
      */
-    @SuppressWarnings("unchecked")
     boolean populateDirectories(boolean descend) {
         boolean addedNodes = false;
         if (isPopulated() == false) {
@@ -116,7 +114,6 @@ public class FileTreeNode extends DefaultMutableTreeNode {
                 Arrays.sort(nodes, new Comparator<Object>() {
 
                     @Override
-                    @SuppressWarnings(value = "EqualsWhichDoesntCheckParameterClass")
                     public boolean equals(Object o) {
                         return false;
                     }
