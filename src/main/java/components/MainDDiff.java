@@ -35,6 +35,7 @@ public class MainDDiff extends JFrame {
     private File to;
     private String tags;
     private static MainDDiff instance;
+    //private SplashScreen splash;
 
     /**
      * getInstance
@@ -84,12 +85,10 @@ public class MainDDiff extends JFrame {
 
         initComponents();
         init();
-
         from = directoryFrom;
         to = directoryTo;
         this.granularity = granularity;
         this.tags = tags;
-
     }
 
     /**
@@ -187,7 +186,6 @@ public class MainDDiff extends JFrame {
     private void execute() {
 
         Resultado resultado = DiretorioDiff.compararDiretorios(from, to);//, progressMessager);
-
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
     }

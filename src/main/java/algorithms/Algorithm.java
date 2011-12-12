@@ -18,4 +18,7 @@ public class Algorithm {
         }
         return lcsInstance;
     }
+        public static void resetComparator() {
+           lcsInstance = null;
+    }
 }

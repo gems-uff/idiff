@@ -3,6 +3,7 @@ package components;
 import algorithms.DiffException;
 import details.Icon;
 import details.Laf;
+import details.Splash;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

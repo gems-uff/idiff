@@ -17,6 +17,7 @@ public class Laf {
     public static void setlaf() {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+            
         } catch (Exception ex) {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
