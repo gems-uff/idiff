@@ -27,7 +27,7 @@ public class Splash {
         renderSplashFrame(g, 1, msgSplash);
         splash.update();
         try {
-            Thread.sleep(100);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
         }
         splash.close();
