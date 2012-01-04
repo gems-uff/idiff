@@ -1,6 +1,7 @@
 package details;
 
 import java.awt.Color;
+import java.util.Random;
 
 /**
  * GranularityColor
@@ -74,5 +75,24 @@ public class IDIFFColor {
      */
     public static Color getSimilarityHighLightColor() {
         return Color.decode("#FFCC66");
+    }
+
+    /**
+     * getColor
+     * @return Color
+     */
+    public static Color getRandomColor() {
+        Random random = new Random();
+        Color color = new Color(getIdColor(random), getIdColor(random), getIdColor(random));
+        return color;
+    }
+
+    /**
+     * getIdColor
+     * @param random
+     * @return int
+     */
+    private static int getIdColor(Random random) {
+        return random.nextInt(100) + 156;
     }
 }

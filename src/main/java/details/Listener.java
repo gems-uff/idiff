@@ -2,10 +2,16 @@ package details;
 
 import algorithms.GrainBean;
 import components.GrainHighLight;
+import components.MainFDiff;
+import diretorioDiff.resultados.ResultadoArquivo;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
@@ -90,4 +96,5 @@ public class Listener {
             }
         });
     }
+
 }

@@ -6,9 +6,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-
+import wrap.Wrap;
 /**
  * FileComponent
  * @author Fernanda Floriano Silva
@@ -73,5 +75,16 @@ public class FileComponent {
 
     public void clear(JTextPane paneFrom, JTextPane paneTo) {
         granularityComponent.clean(paneFrom, paneTo);
+    }
+        /**
+     * init
+     * @param file
+     * @throws MalformedURLException
+     * @throws IOException 
+     */
+    public void setFile( JTextPane editorPane, JPanel panel, File file) throws MalformedURLException, IOException {
+        new Wrap().setWrapPane(editorPane);
+        this.submitFile(file, editorPane);
+        panel.setBorder(BorderFactory.createTitledBorder(file.getName()));
     }
 }
