@@ -24,9 +24,12 @@ import org.jdesktop.application.Action;
  * @author Fernanda Floriano Silva
  */
 public class MainFDiff extends javax.swing.JFrame {
+    public static final int LEFT_DIRECTORY = 1;
+    public static final int RIGHT_DIRECTORY = 2;
 
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
+    private String selectedItem = "Show All Similarities/Refactoring";
 
     /**
      * getInstance
@@ -70,11 +73,10 @@ public class MainFDiff extends javax.swing.JFrame {
      */
     public MainFDiff(File file, List<ResultadoArquivo> result, int idDirectory) {
         init();
-
         try {
             fileComponent.setFile(pane, panel, file);
-            addComboListener(refactoringCombo, result, idDirectory);
-            showAllRefactory(result, idDirectory);
+            addComboListener(refactoringCombo);//, result, idDirectory);
+            showSimilarity(result, idDirectory);
         } catch (MalformedURLException ex) {
             Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -82,28 +84,21 @@ public class MainFDiff extends javax.swing.JFrame {
         }
     }
 
-    public void showSimilarity(String selectedItem, List<ResultadoArquivo> result, int idDirectory) {
-        if (selectedItem.equals("Show All Similarities/Refactoring")) {
-            showAllRefactory(result, idDirectory);
-        } else {
+    private void showSimilarity(List<ResultadoArquivo> listResult, int idDirectory) {
+        for (ResultadoArquivo result : listResult) {
+            printResult(result, idDirectory);
         }
     }
 
-    private void addComboListener(JComboBox combo, final List<ResultadoArquivo> result, final int idDirectory) {
+    private void addComboListener(JComboBox combo){//, final List<ResultadoArquivo> result, final int idDirectory) {
         combo.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox) e.getSource();
-                showSimilarity((String) cb.getSelectedItem(), result, idDirectory);
+                selectedItem = (String) cb.getSelectedItem();
             }
         });
-    }
-
-    private void showAllRefactory(List<ResultadoArquivo> listResult, int idDirectory) {
-        for (ResultadoArquivo result : listResult) {
-            printResult(result, idDirectory);
-        }
     }
 
     /**
@@ -136,27 +131,33 @@ public class MainFDiff extends javax.swing.JFrame {
     private void showRefactory(ResultadoArquivo result, int idDirectory) {
         File file = null;
         switch (idDirectory) {
-            case 1:
+            case MainDDiff.LEFT_DIRECTORY:
                 file = result.getPara().getArquivo();
-                setRefactory(result.getGrainsTo());
+                setRefactory(result.getGrainsTo(), file.getAbsolutePath());
                 break;
-            case 2:
+            case MainDDiff.RIGHT_DIRECTORY:
                 file = result.getBase().getArquivo();
-                setRefactory(result.getGrainsFrom());
+                setRefactory(result.getGrainsFrom(), file.getAbsolutePath());
                 break;
         }
         setCombo(file);
     }
 
     private void setCombo(File file) {
-        refactoringCombo.addItem(file.getAbsolutePath());
+        refactoringCombo.addItem("Show Similarity with " + file.getAbsolutePath());
     }
 
-    private void setRefactory(List<Grain> grains) {
+    private void setRefactory(List<Grain> grains, String fileName) {
         Color color = IDIFFColor.getRandomColor();
+        String message = getMsgRefactory(fileName);
+
         for (Grain grain : grains) {
-            GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane, color);
+            GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane, color, message);
         }
+    }
+
+    private String getMsgRefactory(String fileName) {
+        return "Similarity found in " + fileName;
     }
 
     /** This method is called from within the constructor to
@@ -244,6 +245,7 @@ public class MainFDiff extends javax.swing.JFrame {
         refactoringCombo.setMaximumRowCount(100);
         refactoringCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Show All Similarities/Refactoring" }));
         refactoringCombo.setToolTipText("Similarities/Refactoring List Found");
+        refactoringCombo.setAutoscrolls(true);
         refactoringCombo.setMaximumSize(new java.awt.Dimension(675, 28));
         refactoringCombo.setMinimumSize(new java.awt.Dimension(675, 28));
         refactoringCombo.setName("refactoringCombo"); // NOI18N
@@ -292,7 +294,7 @@ public class MainFDiff extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
