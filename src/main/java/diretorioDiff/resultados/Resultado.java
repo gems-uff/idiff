@@ -102,13 +102,15 @@ public class Resultado {
 	 * @param comparado Arquivo comparado.
 	 */
 	public void setEscolhaHungaro(Arquivo base, Arquivo comparado) {
-		for (ResultadoArquivo resultado : resultadosArquivo) {
-			if (resultado.getBase() != null && resultado.getBase().getId() == base.getId() 
-					&& resultado.getPara().getId() == comparado.getId()) {
-				resultado.setEscolhaHungaro(true);
-				break;
-			}
+            
+            for (ResultadoArquivo resultado : resultadosArquivo) {
+                
+           	if (resultado.getBase() != null && resultado.getBase().getId() == base.getId() 
+                    && resultado.getPara() != null	&& resultado.getPara().getId() == comparado.getId()) {
+                    resultado.setEscolhaHungaro(true);
+                    break;
 		}
+            }
 	}
 
 	/**
