@@ -10,6 +10,7 @@ import algorithms.FileGrain;
 import algorithms.Grain;
 import algorithms.ILCSBean;
 import algorithms.IResultDiff;
+import diretorioDiff.algoritmoHungaro.HungarianAlgorithm;
 import diretorioDiff.resultados.Resultado;
 
 /**
@@ -315,15 +316,12 @@ public class DiretorioDiff {
 
         for (int i = 0; i < arquivosSemMatch1.size(); i++) {
             int[] linhaHungaro = resultadoHungaro[i];
-            Arquivo base = arquivosSemMatch1.get(i);
-
-            for (int j = 0; j < arquivosSemMatch2.size(); j++) {
-                Arquivo comparado = arquivosSemMatch2.get(j);
-
-                if (linhaHungaro[j] == 1 && matrizILCS[i][j] > 0) {
-                    resultado.setEscolhaHungaro(base, comparado);
-                    break;
-                }
+            
+            if (linhaHungaro[0] < arquivosSemMatch1.size() && linhaHungaro[1] < arquivosSemMatch2.size()) {	            
+	            Arquivo base = arquivosSemMatch1.get(linhaHungaro[0]);            
+	            Arquivo comparado = arquivosSemMatch2.get(linhaHungaro[1]);
+	            
+	            resultado.setEscolhaHungaro(base, comparado);
             }
         }
     }
@@ -343,10 +341,25 @@ public class DiretorioDiff {
      * @return Matriz com o resultado do Algoritmo H�ngaro
      */
     private int[][] executaHungaro(int[][] matrizILCS) {
-        AlgoritmoHungaro alHungaro = new AlgoritmoHungaro(matrizILCS);
-        alHungaro.executar();
-        int[][] resultadoHungaro = alHungaro.getAtribuicoes();
-        return resultadoHungaro;
+    	int novaColuna = matrizILCS[0].length;
+    	
+    	if (matrizILCS.length > matrizILCS[0].length) {
+			novaColuna = matrizILCS.length - matrizILCS[0].length;
+		}
+    	
+		double[][] matrizSimilaridade = new double[matrizILCS.length][novaColuna];
+		
+		for (int i = 0; i < matrizSimilaridade.length; i++) {
+			for (int j = 0; j < matrizSimilaridade[i].length; j++) {
+				if (i < matrizILCS.length && j < matrizILCS[0].length) {
+					matrizSimilaridade[i][j] = matrizILCS[i][j];
+				} else {
+					matrizSimilaridade[i][j] = 0;
+				}
+			}
+		}
+		
+		return HungarianAlgorithm.hgAlgorithm(matrizSimilaridade, "max");    	
     }
 
     /**
