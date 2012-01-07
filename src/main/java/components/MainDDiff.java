@@ -6,6 +6,7 @@ import details.Laf;
 import diretorioDiff.Arquivo;
 import diretorioDiff.DiretorioDiff;
 import diretorioDiff.DiretorioDiffException;
+import diretorioDiff.ProgressMessager;
 import diretorioDiff.arvore.Arvore;
 import diretorioDiff.arvore.No;
 import diretorioDiff.resultados.Resultado;
@@ -111,16 +112,16 @@ public class MainDDiff extends JFrame {
         return (isQuiteSimilar(noFrom, noTo) || (isQuiteSimilar(noTo, noFrom)));
     }
 
+    
+    SplashScreen progressMessager = new SplashScreen();
+    Processo p = new Processo(progressMessager, this);
     /**
      * start
      */
-    public void start() {
-        try {
-            loadTree();
-        } catch (DiretorioDiffException ex) {
-            Logger.getLogger(MainDDiff.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        execute();
+    public void start() {   
+        
+       
+        p.start();
     }
 
     /**
@@ -183,7 +184,7 @@ public class MainDDiff extends JFrame {
     /**
      * 
      */
-    private void execute() {
+    public void execute() {
 
         Resultado resultado = DiretorioDiff.compararDiretorios(from, to);//, progressMessager);
         fromTree.setResultado(resultado);
@@ -194,7 +195,7 @@ public class MainDDiff extends JFrame {
      * 
      * @throws DiretorioDiffException 
      */
-    private void loadTree() throws DiretorioDiffException {
+    public void loadTree() throws DiretorioDiffException {
         fromTree = Arvore.getBaseTree(from);
         toTree = Arvore.getComparedTree(to, fromTree);
 
