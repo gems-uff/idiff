@@ -147,6 +147,7 @@ public class Listener {
             @Override
             public void mouseMoved(MouseEvent e) {
                 GrainHighLight.removeHighLight(pane);
+                pane.setToolTipText(null);
             }
         });
     }

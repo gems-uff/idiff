@@ -6,7 +6,6 @@ import details.Laf;
 import diretorioDiff.Arquivo;
 import diretorioDiff.DiretorioDiff;
 import diretorioDiff.DiretorioDiffException;
-import diretorioDiff.ProgressMessager;
 import diretorioDiff.arvore.Arvore;
 import diretorioDiff.arvore.No;
 import diretorioDiff.resultados.Resultado;

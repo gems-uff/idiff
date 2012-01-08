@@ -81,9 +81,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
               <Component id="panel" max="32767" attributes="0"/>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
           </Group>
-          <Component id="jToolBar1" alignment="0" pref="744" max="32767" attributes="1"/>
+          <Component id="jToolBar1" alignment="0" pref="786" max="32767" attributes="1"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -177,7 +177,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="scrollPane" pref="692" max="32767" attributes="0"/>
+                  <Component id="scrollPane" pref="711" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>

@@ -75,7 +75,6 @@ public class MainFDiff extends javax.swing.JFrame {
         init();
         try {
             start(file, result, idDirectory, false);
-
         } catch (MalformedURLException ex) {
             Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -109,7 +108,6 @@ public class MainFDiff extends javax.swing.JFrame {
 
     private void addComboListener(final File file, JComboBox combo, final List<ResultadoArquivo> listResult, final int idDirectory) {
         combo.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox) e.getSource();
@@ -121,13 +119,11 @@ public class MainFDiff extends javax.swing.JFrame {
 
     private void restartComponents(File file, List<ResultadoArquivo> result, int idDirectory) {
         fileComponent.clear(pane);
-        
         try {
             start(file, result, idDirectory, true);
         } catch (IOException ex) {
             Logger.getLogger(MainFDiff.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**
@@ -180,7 +176,6 @@ public class MainFDiff extends javax.swing.JFrame {
 
     private void setRefactory(List<Grain> grains, String fileName) {
         Color color = IDIFFColor.getRandomColor();
-
         for (Grain grain : grains) {
             if (isSelectedItem(fileName)) {
                 GranularityComponent.setRefactoryGranularity(grain.getGrainBean(), pane, scrollPane, color, getMsgRefactory(fileName));
@@ -189,7 +184,7 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private String getMsgRefactory(String fileName) {
-        return "Similarity found in " + fileName;
+        return "Similarity found with " + fileName;
     }
 
     /** This method is called from within the constructor to
@@ -300,7 +295,7 @@ public class MainFDiff extends javax.swing.JFrame {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelLayout.setVerticalGroup(
@@ -317,8 +312,8 @@ public class MainFDiff extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(12, Short.MAX_VALUE))
-            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 744, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE))
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
