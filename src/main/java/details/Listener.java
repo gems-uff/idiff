@@ -136,7 +136,7 @@ public class Listener {
         });
     }
 
-    public static void cleanMouseListener(final JTextPane pane, final JTextField textField) {
+    public static void cleanMouseListener(final JTextPane pane) {
         pane.addMouseMotionListener(new MouseMotionListener() {
 
             @Override

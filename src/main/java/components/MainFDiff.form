@@ -81,9 +81,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="6" pref="6" max="6" attributes="0"/>
               <Component id="panel" max="32767" attributes="0"/>
-              <EmptySpace pref="9" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
           </Group>
-          <Component id="jToolBar1" alignment="0" pref="741" max="32767" attributes="1"/>
+          <Component id="jToolBar1" alignment="0" pref="744" max="32767" attributes="1"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">

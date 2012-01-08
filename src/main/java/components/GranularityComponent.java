@@ -115,11 +115,17 @@ public class GranularityComponent {
         IDIFFStyles.setStyle(paneTo, new GrainBean(0, paneTo.getText().length()), "UnchangedStyle");
     }
 
+    void clean(JTextPane pane) {
+        Listener.cleanMouseListener(pane);
+        GrainHighLight.removeHighLight(pane);
+        IDIFFStyles.setStyle(pane, new GrainBean(0, pane.getText().length()), "UnchangedStyle");
+    }
+
     /**
      * 
      * @param grainBeanFrom
      * @param paneFrom
-     * @param grainBeanTo
+     * @param grainBeanToF
      * @param paneTo
      * @param scrollFrom
      * @param scrollTo 
@@ -139,7 +145,7 @@ public class GranularityComponent {
      */
     public static void setCleanGranularity(final GrainBean grainBean, final JTextPane pane, final JTextField textField) {
         IDIFFStyles.setStyle(pane, grainBean, "CleanGranularity", IDIFFColor.getUnchangedColor());
-        Listener.cleanMouseListener(pane, textField);
+        Listener.cleanMouseListener(pane);
     }
 
     static void setRefactoryGranularity(GrainBean grainBean, JTextPane pane, JScrollPane scrollPane, Color color, String fileName) {
