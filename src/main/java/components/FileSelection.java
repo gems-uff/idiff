@@ -557,7 +557,6 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
     private void showDDiff(File directoryFrom, File directoryTo, String granularity, String tags) throws DiffException, FileNotFoundException, IOException {
         MainDDiff.setInstance(directoryFrom, directoryTo, granularity, tags);
         MainDDiff ddiff = MainDDiff.getInstance();
-        ddiff.setVisible(true);
         ddiff.start();
 
     }

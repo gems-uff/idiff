@@ -311,7 +311,7 @@ public class Arvore extends JTree {
         No node;
         File[] filhos = arquivo.listFiles();
 
-        if (arquivo.isDirectory() && filhos.length > 0) {
+        if (arquivo.isDirectory() && filhos != null && filhos.length > 0) {
             node = new No(nomeNo, -1, isBase());
             for (File filho : filhos) {
                 if (!filho.isHidden()) {

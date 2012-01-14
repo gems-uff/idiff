@@ -3,9 +3,11 @@ package components;
 import algorithms.DiffException;
 import details.Icon;
 import details.Laf;
+import details.Splash;
 import diretorioDiff.Arquivo;
 import diretorioDiff.DiretorioDiff;
 import diretorioDiff.DiretorioDiffException;
+import diretorioDiff.ProgressMessager;
 import diretorioDiff.arvore.Arvore;
 import diretorioDiff.arvore.No;
 import diretorioDiff.resultados.Resultado;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import org.jdesktop.application.Action;
 
 /**
@@ -112,15 +115,28 @@ public class MainDDiff extends JFrame {
     }
 
     
-    SplashScreen progressMessager = new SplashScreen();
+//    ProgressMessager progressMessager = new ProgressMessager() {
+//
+//        @Override
+//        public void setMessage(String message) {
+//            Splash.setMessage(message);
+//        }
+//    };
+    DDiffProgress progressMessager = new DDiffProgress(this, true);
+    
     Processo p = new Processo(progressMessager, this);
     /**
      * start
      */
     public void start() {   
-        
-       
+        this.setVisible(true);
         p.start();
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {                
+                progressMessager.setVisible(true);
+            }
+        });
     }
 
     /**
@@ -185,7 +201,7 @@ public class MainDDiff extends JFrame {
      */
     public void execute() {
 
-        Resultado resultado = DiretorioDiff.compararDiretorios(from, to);//, progressMessager);
+        Resultado resultado = DiretorioDiff.compararDiretorios(from, to, progressMessager);
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
     }

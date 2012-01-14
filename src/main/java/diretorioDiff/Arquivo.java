@@ -37,7 +37,7 @@ public class Arquivo {
     /**
      * Linhas do arquivo
      */
-    private List<Linha> linhas;
+    private List<Linha> linhas =  new ArrayList<Linha>();
     /**
      * Id como refer�ncia ao diret�rio base de compara��o
      */
@@ -91,7 +91,7 @@ public class Arquivo {
             contentType = new MimetypesFileTypeMap().getContentType(getArquivo());
         }
 
-        carregarLinhas();
+        //carregarLinhas();
     }
 
     /**
@@ -265,25 +265,33 @@ public class Arquivo {
         return arquivo.getAbsolutePath().replace(pathBaseComparacao, "");
     }
 
+    
+    int tamanhoA = -1;
     /**
      * Calcula o tamanho das linhas sem match, desconsiderando os espa�os em branco.
      * 
      * @return tamanho as linhas
      */
     public int getTamanhoAtual() {
-        int tamanho = 0;
+ 
+        if (tamanhoA < 0) {
+            int tamanho = 0;
+            carregarLinhas();
+            for (LineGrain linha : getLinhasSemMatch()) {
+                String line = linha.getGrain();
 
-        for (LineGrain linha : getLinhasSemMatch()) {
-            String line = linha.getGrain();
-
-            for (int i = 0; i < line.length(); i++) {
-                if (line.charAt(i) != ' ') {
-                    tamanho++;
+                for (int i = 0; i < line.length(); i++) {
+                    if (line.charAt(i) != ' ') {
+                        tamanho++;
+                    }
                 }
             }
+            linhas = new ArrayList<Linha>();        
+            tamanhoA = tamanho;
         }
-
-        return tamanho;
+        
+        return tamanhoA;
+//        return tamanho;
     }
 
     /**

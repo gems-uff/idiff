@@ -15,8 +15,9 @@ import java.util.logging.Logger;
  * @author Eraldo
  */
 public class Processo extends Thread{
-    private final SplashScreen s;
-    private final MainDDiff aThis;
+    private SplashScreen s;
+    private MainDDiff aThis;
+    private DDiffProgress dp;
 
     Processo(SplashScreen s, MainDDiff aThis) {
         this.s = s;
@@ -28,19 +29,57 @@ public class Processo extends Thread{
         
         this.s = new SplashScreen();
     }
-
-
+    
+    ProgressMessager p;
+    
+    Processo(ProgressMessager p, MainDDiff aThis) {
+        this.aThis = aThis;
+        this.p = p;
+    }
+    
+    Processo(DDiffProgress dp, MainDDiff aThis) {
+        this.aThis = aThis;
+        this.dp = dp;
+    }
+    
     public void run() {
-        //s.setVisible(true);     
+        if (dp != null) {           
+            
+            dp.setMessage("");
+            
+            int i = 0;
+            while (!dp.isVisible() && i < 1000) {
+                i++;
+                try {
+                    sleep(10);                    
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Processo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            try {
+                dp.setMessage("Loading directories tree.");
+                aThis.loadTree();
+            } catch (DiretorioDiffException ex) {
+                Logger.getLogger(Processo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aThis.execute();
+            dp.setVisible(false);
+        } else {
         
-        try {
-            aThis.loadTree();
-        } catch (DiretorioDiffException ex) {
-            Logger.getLogger(Processo.class.getName()).log(Level.SEVERE, null, ex);
+            //s.setVisible(true);     
+
+            try {
+                aThis.loadTree();
+            } catch (DiretorioDiffException ex) {
+                Logger.getLogger(Processo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aThis.execute();
+            Splash.close();
+            //s.setVisible(false);
+            aThis.setVisible(true);
+            
         }
-        aThis.execute();
-        //s.setVisible(false);
-        aThis.setVisible(true);
     }
     
 }

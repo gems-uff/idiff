@@ -1,5 +1,6 @@
 package details;
 
+import diretorioDiff.ProgressMessager;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,6 +13,7 @@ import java.awt.SplashScreen;
  */
 public class Splash {
 
+    
     static void renderSplashFrame(Graphics2D g, int frame, String str) {
         g.setComposite(AlphaComposite.Clear);
         g.fillRect(120, 140, 200, 40);
@@ -31,5 +33,16 @@ public class Splash {
         } catch (InterruptedException e) {
         }
         splash.close();
+    }
+
+    public static void setMessage(String message) {
+        final SplashScreen splash = SplashScreen.getSplashScreen();
+        Graphics2D g = splash.createGraphics();
+        renderSplashFrame(g, 1, message);
+        splash.update();
+    }
+    
+    public static void close() {
+        SplashScreen.getSplashScreen().close();
     }
 }

@@ -57,7 +57,7 @@ public class DiretorioSerializado {
 		if (!diretorio.isHidden()) {			
 			File[] filhos = diretorio.listFiles();
 			
-			if (filhos.length > 0) {
+			if (filhos != null && filhos.length > 0) {
 				for (File filho : filhos) {
 					if(filho.isFile()) {
 						adicionarArquivo(filho);
