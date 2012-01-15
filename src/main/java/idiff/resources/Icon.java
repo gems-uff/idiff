@@ -14,6 +14,6 @@ public class Icon {
      * @return 
      */
     public static Image getIcon() {
-        return new ImageIcon("src/main/resources/components/icons/logoIDiff.png").getImage();
+        return new ImageIcon("src/main/resources/gui/icons/iDiff.png").getImage();
     }
 }

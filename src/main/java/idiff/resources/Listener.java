@@ -1,7 +1,7 @@
 package idiff.resources;
 
 import ilcs.grain.GrainBean;
-import components.GrainHighLight;
+import gui.components.resources.GrainHighLight;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
