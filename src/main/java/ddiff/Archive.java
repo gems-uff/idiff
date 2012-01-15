@@ -24,10 +24,10 @@ import ilcs.grain.LineGrain;
  * @author Eraldo
  * 
  */
-public class Arquivo {
+public class Archive {
 
     /**
-     * Arquivo representado.
+     * Archive representado.
      */
     private File arquivo = null;
     /**
@@ -37,7 +37,7 @@ public class Arquivo {
     /**
      * Linhas do arquivo
      */
-    private List<Linha> linhas =  new ArrayList<Linha>();
+    private List<Line> linhas =  new ArrayList<Line>();
     /**
      * Id como refer�ncia ao diret�rio base de compara��o
      */
@@ -74,12 +74,12 @@ public class Arquivo {
      * Construtor padr�o
      * 
      * @param arquivo
-     *            Arquivo que deve ser representado.
+     *            Archive que deve ser representado.
      * @param id
      * 
      * @param pathBaseComparacao
      */
-    public Arquivo(File arquivo, int id, String pathBaseComparacao) {
+    public Archive(File arquivo, int id, String pathBaseComparacao) {
         this.arquivo = arquivo;
         this.id = id;
         this.pathBaseComparacao = pathBaseComparacao;
@@ -126,14 +126,14 @@ public class Arquivo {
      */
     private void carregarLinhas() {
         if (isArquivo() || isText()) {
-            linhas = new ArrayList<Linha>();
+            linhas = new ArrayList<Line>();
             String line = null;
             BufferedReader reader = null;
             try {
                 int idStart = 0;
                 reader = new BufferedReader(new FileReader(getArquivo()));
                 while ((line = reader.readLine()) != null) {
-                    linhas.add(new Linha(line, linhas.size() + 1, idStart));
+                    linhas.add(new Line(line, linhas.size() + 1, idStart));
                     idStart = idStart + line.length() + 1;
                 }
             } catch (Exception e) {
@@ -208,11 +208,11 @@ public class Arquivo {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Arquivo)) {
+        if (!(obj instanceof Archive)) {
             return false;
         }
 
-        Arquivo other = (Arquivo) obj;
+        Archive other = (Archive) obj;
 
         if (!isArquivo()) {
             if (other.isArquivo()) {
@@ -233,11 +233,11 @@ public class Arquivo {
         return true;
     }
 
-    public void setLinhas(List<Linha> linhas) {
+    public void setLinhas(List<Line> linhas) {
         this.linhas = linhas;
     }
 
-    public List<Linha> getLinhas() {
+    public List<Line> getLinhas() {
         return linhas;
     }
 
@@ -286,7 +286,7 @@ public class Arquivo {
                     }
                 }
             }
-            linhas = new ArrayList<Linha>();        
+            linhas = new ArrayList<Line>();        
             tamanhoA = tamanho;
         }
         
@@ -298,9 +298,9 @@ public class Arquivo {
      * Retorna as linhas sem match
      * @return Uma lista com as linhas sem match
      */
-    private List<Linha> getLinhasSemMatch() {
-        List<Linha> linhasSemMatch = new ArrayList<Linha>();
-        for (Linha linha : getLinhas()) {
+    private List<Line> getLinhasSemMatch() {
+        List<Line> linhasSemMatch = new ArrayList<Line>();
+        for (Line linha : getLinhas()) {
             if (!linha.isMatch()) {
                 linhasSemMatch.add(linha);
             }

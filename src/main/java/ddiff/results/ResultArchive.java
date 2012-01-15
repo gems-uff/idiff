@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ilcs.grain.Grain;
-import ddiff.Arquivo;
+import ddiff.Archive;
 
 
-public class ResultadoArquivo {
+public class ResultArchive {
 
-	private Arquivo base;
-	private Arquivo para;
-	private TipoResultado tipo;
+	private Archive base;
+	private Archive para;
+	private TypeResult tipo;
 	private int similaridade = 0;
 	private boolean escolhaHungaro = false;
 	private List<Grain> grainsFrom = new ArrayList<Grain>();
@@ -23,15 +23,15 @@ public class ResultadoArquivo {
 	 * @param arquivo2
 	 * @param tipo
 	 */
-	public ResultadoArquivo(Arquivo arquivo1, Arquivo arquivo2,
-			TipoResultado tipo) {
+	public ResultArchive(Archive arquivo1, Archive arquivo2,
+			TypeResult tipo) {
 		this.base = arquivo1;
 		this.para = arquivo2;
 		this.tipo = tipo;
 		
 	}
 
-	public ResultadoArquivo(Arquivo arquivo, TipoResultado tipo) {
+	public ResultArchive(Archive arquivo, TypeResult tipo) {
 		
 		switch (tipo) {
 			case REMOVED:
@@ -49,24 +49,24 @@ public class ResultadoArquivo {
 		this.tipo = tipo;
 	}
 
-	public ResultadoArquivo(Arquivo base, Arquivo comparado, int similaridade) {
+	public ResultArchive(Archive base, Archive comparado, int similaridade) {
 		this.base = base;
 		this.para = comparado;
 		this.similaridade = similaridade;		
 		
 		
-		if (similaridade == Resultado.PERCENTUAL_IDENTICO) {
+		if (similaridade == Result.PERCENTUAL_IDENTICO) {
 			if (base.getPathRelativo().equalsIgnoreCase(comparado.getPathRelativo())) {
-				this.tipo = TipoResultado.UNCHANGED;				
+				this.tipo = TypeResult.UNCHANGED;				
 			} else {
-				this.tipo = TipoResultado.MOVED;
+				this.tipo = TypeResult.MOVED;
 			}
 		} else {
-			this.tipo = TipoResultado.CHANGED;
+			this.tipo = TypeResult.CHANGED;
 		}	
 	}
 
-	public ResultadoArquivo(Arquivo base, Arquivo comparado,
+	public ResultArchive(Archive base, Archive comparado,
 			int similaridade, List<Grain> grainsFrom, List<Grain> grainsTo) {
 		this(base, comparado, similaridade);
 		this.grainsFrom = grainsFrom;
@@ -141,28 +141,28 @@ public class ResultadoArquivo {
 	/**
 	 * @return the base
 	 */
-	public Arquivo getBase() {
+	public Archive getBase() {
 		return base;
 	}
 
 	/**
 	 * @param base the base to set
 	 */
-	public void setBase(Arquivo base) {
+	public void setBase(Archive base) {
 		this.base = base;
 	}
 
 	/**
 	 * @return the para
 	 */
-	public Arquivo getPara() {
+	public Archive getPara() {
 		return para;
 	}
 
 	/**
 	 * @return the tipo
 	 */
-	public TipoResultado getTipo() {
+	public TypeResult getTipo() {
 		return tipo;
 	}
 

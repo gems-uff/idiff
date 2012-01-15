@@ -5,7 +5,7 @@ import java.util.List;
 
 import ilcs.grain.Grain;
 
-import ddiff.Arquivo;
+import ddiff.Archive;
 
 
 /**
@@ -14,7 +14,7 @@ import ddiff.Arquivo;
  * @author Eraldo
  *
  */
-public class Resultado {
+public class Result {
 
 	/**
 	 * Valor correspondente ao percentual id�ntico.
@@ -24,7 +24,7 @@ public class Resultado {
 	/**
 	 * Resultados para arquivos.
 	 */
-	private List<ResultadoArquivo> resultadosArquivo =  new ArrayList<ResultadoArquivo>();
+	private List<ResultArchive> resultadosArquivo =  new ArrayList<ResultArchive>();
 
 	/**
 	 * 
@@ -35,9 +35,9 @@ public class Resultado {
 	/**
 	 * Adiciona um resultado na lista de resultados para Arquivos.
 	 * 
-	 * @param resultadoArquivo Resultado
+	 * @param resultadoArquivo Result
 	 */
-	private void add(ResultadoArquivo resultadoArquivo) {
+	private void add(ResultArchive resultadoArquivo) {
 		resultadosArquivo.add(resultadoArquivo);
 	}	
 	
@@ -45,7 +45,7 @@ public class Resultado {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		for (ResultadoArquivo resultadoArquivo : resultadosArquivo) {
+		for (ResultArchive resultadoArquivo : resultadosArquivo) {
 			sb.append(resultadoArquivo);
 			sb.append("\n");
 			sb.append("\n");
@@ -57,53 +57,53 @@ public class Resultado {
 	/**
 	 * Adiciona um resultado do tipo DELETADO.
 	 * 
-	 * @param deletado Arquivo que foi removido do diret�rio base.
+	 * @param deletado Archive que foi removido do diret�rio base.
 	 */
-	public void addDeletado(Arquivo deletado) {
-		add(new ResultadoArquivo(deletado, TipoResultado.REMOVED));
+	public void addDeletado(Archive deletado) {
+		add(new ResultArchive(deletado, TypeResult.REMOVED));
 		
 	}
 
 	/**
 	 * Adiciona um resultado do tipo ADICIONADO.
 	 * 
-	 * @param adicionado Arquivo que foi adicionado no diret�rio comparado.
+	 * @param adicionado Archive que foi adicionado no diret�rio comparado.
 	 */
-	public void addAdicionado(Arquivo adicionado) {
-		add(new ResultadoArquivo(adicionado, TipoResultado.ADDED));
+	public void addAdicionado(Archive adicionado) {
+		add(new ResultArchive(adicionado, TypeResult.ADDED));
 	}
 
 	/**
 	 * Adiciona um resultado que pode ser do tipo INALTERADO, EDITADO ou MOVIDO.
-	 * @param base Arquivo base da comparação.
-	 * @param comparado Arquivo comparado.
+	 * @param base Archive base da comparação.
+	 * @param comparado Archive comparado.
 	 * @param similaridade Grau de similaridade entre os arquivos.
 	 */
-	public void add(Arquivo base, Arquivo comparado, int similaridade) {
-		add(new ResultadoArquivo(base, comparado, similaridade));		
+	public void add(Archive base, Archive comparado, int similaridade) {
+		add(new ResultArchive(base, comparado, similaridade));		
 	}
 	
 	/**
 	 * Adiciona um resultado que pode ser do tipo INALTERADO, EDITADO ou MOVIDO.
-	 * @param base Arquivo base da comparação.
-	 * @param comparado Arquivo comparado.
+	 * @param base Archive base da comparação.
+	 * @param comparado Archive comparado.
 	 * @param similaridade Grau de similaridade entre os arquivos.
-	 * @param grainsFrom Resultado ILCS from.
-	 * @param grainsTo Resultado ILCS to.
+	 * @param grainsFrom Result ILCS from.
+	 * @param grainsTo Result ILCS to.
 	 */
-	public void add(Arquivo base, Arquivo comparado, int similaridade, List<Grain> grainsFrom, List<Grain> grainsTo) {
-		add(new ResultadoArquivo(base, comparado, similaridade, grainsFrom, grainsTo));		
+	public void add(Archive base, Archive comparado, int similaridade, List<Grain> grainsFrom, List<Grain> grainsTo) {
+		add(new ResultArchive(base, comparado, similaridade, grainsFrom, grainsTo));		
 	}
 
 	/**
 	 * Marca um resultado como escolha do Algoritmo Húngaro.
 	 *  
-	 * @param base Arquivo base da comparação.
-	 * @param comparado Arquivo comparado.
+	 * @param base Archive base da comparação.
+	 * @param comparado Archive comparado.
 	 */
-	public void setEscolhaHungaro(Arquivo base, Arquivo comparado) {
+	public void setEscolhaHungaro(Archive base, Archive comparado) {
             
-            for (ResultadoArquivo resultado : resultadosArquivo) {
+            for (ResultArchive resultado : resultadosArquivo) {
                 
            	if (resultado.getBase() != null && resultado.getBase().getId() == base.getId() 
                     && resultado.getPara() != null	&& resultado.getPara().getId() == comparado.getId()) {
@@ -116,15 +116,15 @@ public class Resultado {
 	/**
 	 * @return the resultadosArquivo
 	 */
-	public List<ResultadoArquivo> getResultadosArquivo() {
+	public List<ResultArchive> getResultadosArquivo() {
 		return resultadosArquivo;
 	}
 
 	public List<Integer> getToFilesIds(int idArquivo) {
 		ArrayList<Integer> lista = new ArrayList<Integer>();
 		
-		List<ResultadoArquivo> resultados = getResultadosByFrom(idArquivo);
-		for (ResultadoArquivo resultadoArquivo : resultados) {
+		List<ResultArchive> resultados = getResultadosByFrom(idArquivo);
+		for (ResultArchive resultadoArquivo : resultados) {
 			if (resultadoArquivo.haveTo()) {
 				lista.add(resultadoArquivo.getPara().getId());
 			}
@@ -134,10 +134,10 @@ public class Resultado {
 		return lista;
 	}
 
-	public List<ResultadoArquivo> getResultadosByFrom(int idArquivo) {
-		ArrayList<ResultadoArquivo> lista = new ArrayList<ResultadoArquivo>();
+	public List<ResultArchive> getResultadosByFrom(int idArquivo) {
+		ArrayList<ResultArchive> lista = new ArrayList<ResultArchive>();
 		
-		for (ResultadoArquivo resultado : resultadosArquivo) {
+		for (ResultArchive resultado : resultadosArquivo) {
 			if (resultado.haveFrom() && resultado.getBase().getId() == idArquivo) {
 				lista.add(resultado);
 			}
@@ -146,10 +146,10 @@ public class Resultado {
 		return lista;
 	}
 
-	public List<ResultadoArquivo> getResultadosByTo(int idArquivo) {
-		ArrayList<ResultadoArquivo> lista = new ArrayList<ResultadoArquivo>();
+	public List<ResultArchive> getResultadosByTo(int idArquivo) {
+		ArrayList<ResultArchive> lista = new ArrayList<ResultArchive>();
 		
-		for (ResultadoArquivo resultado : resultadosArquivo) {
+		for (ResultArchive resultado : resultadosArquivo) {
 			if (resultado.haveTo() && resultado.getPara().getId() == idArquivo) {
 				lista.add(resultado);
 			}

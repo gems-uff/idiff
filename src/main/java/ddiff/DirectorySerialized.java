@@ -12,13 +12,13 @@ import java.util.List;
  * @author Eraldo
  *
  */
-public class DiretorioSerializado {
+public class DirectorySerialized {
 
 	/**
 	 * Lista com os arquivos contidos no diret�rio.
 	 * 
 	 */
-	private List<Arquivo> arquivos = new ArrayList<Arquivo>();
+	private List<Archive> arquivos = new ArrayList<Archive>();
 	
 	/**
 	 * Id do diret�rio.
@@ -36,12 +36,12 @@ public class DiretorioSerializado {
 	 * 
 	 * @param diretorio Diret�rio a ser representado.
 	 * @param id Id do diret�rio.
-	 * @throws DiretorioDiffException caso o arquivo n�o exista ou n�o seja um diret�rio.
+	 * @throws DDiffException caso o arquivo n�o exista ou n�o seja um diret�rio.
 	 */
-	public DiretorioSerializado(File diretorio, int id) throws DiretorioDiffException {
+	public DirectorySerialized(File diretorio, int id) throws DDiffException {
 		this.diretorio = diretorio;
 		if (Util.isNotValidDirectory(diretorio)) {
-			throw new DiretorioDiffException("Invalid directory '" + diretorio.getAbsolutePath() + "'.");
+			throw new DDiffException("Invalid directory '" + diretorio.getAbsolutePath() + "'.");
 		}
 		
 		carregarArquivos(diretorio);
@@ -74,14 +74,14 @@ public class DiretorioSerializado {
 	/**
 	 * Adiciona um novo arquivo a lista do diret�rio
 	 * 
-	 * @param filho Arquivo
+	 * @param filho Archive
 	 */
 	private void adicionarArquivo(File filho) {
 		if (filho.isHidden()) {
 			return;
 		}
 		
-		arquivos.add(new Arquivo(filho, arquivos.size() + 1, diretorio.getAbsolutePath()));
+		arquivos.add(new Archive(filho, arquivos.size() + 1, diretorio.getAbsolutePath()));
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class DiretorioSerializado {
 	 * 
 	 * @return A lista de arquivos.
 	 */
-	public List<Arquivo> getArquivos() {
+	public List<Archive> getArquivos() {
 		return arquivos;
 	}
 
@@ -109,7 +109,7 @@ public class DiretorioSerializado {
 	 * 
 	 * @return Retorna o arquivo ou null caso n�o exista arquivo com este �ndice.
 	 */
-	public Arquivo get(int indice) {
+	public Archive get(int indice) {
 		if (indice < 0 || arquivos.size() < indice) {
 			return null;
 		}
@@ -122,10 +122,10 @@ public class DiretorioSerializado {
 	 * 
 	 * @return A lista de arquivos.
 	 */
-	public List<Arquivo> getArquivosSemMatch() {
-		List<Arquivo> arquivosSemMatch = new ArrayList<Arquivo>();
+	public List<Archive> getArquivosSemMatch() {
+		List<Archive> arquivosSemMatch = new ArrayList<Archive>();
 		
-		for (Arquivo arquivo : arquivos) {
+		for (Archive arquivo : arquivos) {
 			if(!arquivo.isMatch()) {
 				arquivosSemMatch.add(arquivo);
 			}

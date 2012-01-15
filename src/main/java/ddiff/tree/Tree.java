@@ -21,43 +21,43 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import ddiff.DiretorioDiffException;
+import ddiff.DDiffException;
 import ddiff.Util;
-import ddiff.results.Resultado;
-import ddiff.results.ResultadoArquivo;
+import ddiff.results.Result;
+import ddiff.results.ResultArchive;
 
 /**
  * @author eborel
  * 
  */
-public class Arvore extends JTree {
+public class Tree extends JTree {
 
     /**
      * Serialização.
      */
     private static final long serialVersionUID = -4235871073840441251L;
     private int idNodeTemp = 0;
-    private Arvore associada = null;
-    private List<No> nodes = new ArrayList<No>();
-    private Resultado resultado = null;
+    private Tree associada = null;
+    private List<Node> nodes = new ArrayList<Node>();
+    private Result resultado = null;
     private boolean base = false;
     private DefaultTreeModel modelTree;
     private NodeRenderer renderer;
-    private No selectedNode = null;
+    private Node selectedNode = null;
 
-    public No getSelectedNode() {
+    public Node getSelectedNode() {
         return selectedNode;
     }
 
-    private Arvore(File diretorio) {
+    private Tree(File diretorio) {
         this(diretorio, null);
     }
 
-    public void setAssociada(Arvore associada) {
+    public void setAssociada(Tree associada) {
         this.associada = associada;
     }
 
-    private Arvore(File diretorio, Arvore associada) {
+    private Tree(File diretorio, Tree associada) {
         super();
 
         this.associada = associada;
@@ -107,26 +107,26 @@ public class Arvore extends JTree {
         });
     }
 
-    public static Arvore getBaseTree(File directory)
-            throws DiretorioDiffException {
+    public static Tree getBaseTree(File directory)
+            throws DDiffException {
         if (Util.isNotValidDirectory(directory)) {
-            throw new DiretorioDiffException("Invalid directory.");
+            throw new DDiffException("Invalid directory.");
         }
 
-        return new Arvore(directory);
+        return new Tree(directory);
     }
 
-    public static Arvore getComparedTree(File directory, Arvore base)
-            throws DiretorioDiffException {
+    public static Tree getComparedTree(File directory, Tree base)
+            throws DDiffException {
         if (Util.isNotValidDirectory(directory)) {
-            throw new DiretorioDiffException("Invalid directory.");
+            throw new DDiffException("Invalid directory.");
         }
 
         if (base == null || !base.isBase()) {
-            throw new DiretorioDiffException("Invalid base tree.");
+            throw new DDiffException("Invalid base tree.");
         }
 
-        return new Arvore(directory, base);
+        return new Tree(directory, base);
     }
 
     /**
@@ -136,9 +136,9 @@ public class Arvore extends JTree {
 
         TreePath tp = getPathForLocation(me.getX(), me.getY());
 
-        if (tp != null && tp.getLastPathComponent() instanceof No) {
+        if (tp != null && tp.getLastPathComponent() instanceof Node) {
             if (associada != null && resultado != null) {
-                No no = (No) tp.getLastPathComponent();
+                Node no = (Node) tp.getLastPathComponent();
                 if (no.getId() != -1) {
                     if (!no.isBaseSelection() && no.getIdStart() == -1) {
                         clearNodeSelection();
@@ -167,8 +167,8 @@ public class Arvore extends JTree {
         }
     }
 
-    /*    public void setSelectedNode(No no) {
-    No selected = selectedNode;
+    /*    public void setSelectedNode(Node no) {
+    Node selected = selectedNode;
     if (selected != null && no.isSelected()) {
     clearSelectedNode();
     if (selected.equals(no)) {//desmarcar
@@ -180,7 +180,7 @@ public class Arvore extends JTree {
     selectedNode = no;
     }
      */
-    private void setSelectedNode(No no) {
+    private void setSelectedNode(Node no) {
         if (no.isBaseSelection() || no.getIdStart() != -1) {
             if (selectedNode != null) {
                 if (selectedNode.equals(no)) {
@@ -203,7 +203,7 @@ public class Arvore extends JTree {
      * 
      */
     private void clearNodeSelection() {
-        for (No no : getNodes()) {
+        for (Node no : getNodes()) {
             no.clearSelection();
         }
         selectedNode = null;
@@ -253,7 +253,7 @@ public class Arvore extends JTree {
             for (Integer id : ids) {
 
                 if (id.intValue() > 0) {
-                    No no = getNo(id.intValue());
+                    Node no = getNo(id.intValue());
                     no.setIdStart(idStart);
 
                     TreePath path = new TreePath(no.getPath());
@@ -285,7 +285,7 @@ public class Arvore extends JTree {
     /**
      * @param idNo2
      */
-    private No getNo(int idNo2) {
+    private Node getNo(int idNo2) {
         if (idNo2 > 0 && idNo2 <= nodes.size()) {
             return nodes.get(idNo2 - 1);
         }
@@ -293,12 +293,12 @@ public class Arvore extends JTree {
         return null;
     }
 
-    private No loadNodes(File arquivo) {
+    private Node loadNodes(File arquivo) {
         idNodeTemp = 0;
         return loadNodes(arquivo, false);
     }
 
-    private No loadNodes(File arquivo, boolean removeBase) {
+    private Node loadNodes(File arquivo, boolean removeBase) {
         String nomeNo = arquivo.getAbsolutePath();
         if (removeBase) {
             nomeNo = nomeNo.replace(arquivo.getParent(), "");
@@ -308,11 +308,11 @@ public class Arvore extends JTree {
             }
         }
 
-        No node;
+        Node node;
         File[] filhos = arquivo.listFiles();
 
         if (arquivo.isDirectory() && filhos != null && filhos.length > 0) {
-            node = new No(nomeNo, -1, isBase());
+            node = new Node(nomeNo, -1, isBase());
             for (File filho : filhos) {
                 if (!filho.isHidden()) {
                     node.add(loadNodes(filho, true));
@@ -320,7 +320,7 @@ public class Arvore extends JTree {
             }
         } else {
             idNodeTemp++;
-            node = new No(nomeNo, idNodeTemp, isBase());
+            node = new Node(nomeNo, idNodeTemp, isBase());
         }
 
         if (node.getId() != -1) {
@@ -333,15 +333,15 @@ public class Arvore extends JTree {
     /**
      * @return Getter para <code>associada</code>.
      */
-    public Arvore getAssociada() {
+    public Tree getAssociada() {
         return associada;
     }
 
-    public void setResultado(Resultado resultado) {
+    public void setResultado(Result resultado) {
         this.resultado = resultado;
 
         if (resultado != null) {
-            for (ResultadoArquivo resultadoArquivo : resultado.getResultadosArquivo()) {
+            for (ResultArchive resultadoArquivo : resultado.getResultadosArquivo()) {
                 if (isBase()) {
                     if (resultadoArquivo.haveFrom()) {
                         getNo(resultadoArquivo.getBase().getId()).addResultado(
@@ -359,14 +359,14 @@ public class Arvore extends JTree {
         modelTree.reload();
     }
 
-    public Resultado getResultado() {
+    public Result getResultado() {
         return resultado;
     }
 
     /**
      * @return the nodes
      */
-    public List<No> getNodes() {
+    public List<Node> getNodes() {
         return nodes;
     }
 
@@ -403,14 +403,14 @@ public class Arvore extends JTree {
         }
     }
 
-    public No getNoSelecionado() {
+    public Node getNoSelecionado() {
         TreePath[] ps = getSelectionPaths();
 
         if (ps.length > 0) {
             Object obj = ps[0].getLastPathComponent();
 
-            if (obj instanceof No) {
-                return (No) obj;
+            if (obj instanceof Node) {
+                return (Node) obj;
             }
         }
 
@@ -418,7 +418,7 @@ public class Arvore extends JTree {
     }
 
     public void expandNodesWithDiff() {
-        for (No no : nodes) {
+        for (Node no : nodes) {
             if (no.isModified()) {
                 expandParents(new TreePath(no.getPath()));
             }

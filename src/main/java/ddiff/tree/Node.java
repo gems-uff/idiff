@@ -7,14 +7,14 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
-import ddiff.results.ResultadoArquivo;
-import ddiff.results.TipoResultado;
+import ddiff.results.ResultArchive;
+import ddiff.results.TypeResult;
 
 /**
  * @author eborel
  *
  */
-public class No extends DefaultMutableTreeNode {
+public class Node extends DefaultMutableTreeNode {
 
     /**
      * Serialização
@@ -22,12 +22,12 @@ public class No extends DefaultMutableTreeNode {
     private static final long serialVersionUID = -7645350569868965158L;
     private final int id;
     private final boolean base;
-    private List<ResultadoArquivo> resultados = new ArrayList<ResultadoArquivo>();
+    private List<ResultArchive> resultados = new ArrayList<ResultArchive>();
     private boolean selected = false;
     private boolean baseSelection = false;
     private int idStart = -1;
 
-    public List<ResultadoArquivo> getResultados() {
+    public List<ResultArchive> getResultados() {
         return resultados;
     }
 
@@ -36,7 +36,7 @@ public class No extends DefaultMutableTreeNode {
      * @param idNo 
      * @param base 
      */
-    public No(String nomeNo, int idNo, boolean base) {
+    public Node(String nomeNo, int idNo, boolean base) {
         super(nomeNo);
         this.id = idNo;
         this.base = base;
@@ -70,7 +70,7 @@ public class No extends DefaultMutableTreeNode {
         if (children().hasMoreElements()) {
             return true;
         } else {
-            for (ResultadoArquivo resultado : resultados) {
+            for (ResultArchive resultado : resultados) {
                 return resultado.isDirectory();
             }
         }
@@ -82,7 +82,7 @@ public class No extends DefaultMutableTreeNode {
         String text = "";
 
         if (!resultados.isEmpty()) {
-            ResultadoArquivo resultadoArquivo = resultados.get(0);
+            ResultArchive resultadoArquivo = resultados.get(0);
             if (!isBase()) {
                 if (resultadoArquivo.haveFrom()) {
                     if (resultadoArquivo.isEscolhaHungaro()) {
@@ -99,16 +99,16 @@ public class No extends DefaultMutableTreeNode {
         return text;
     }
 
-    ResultadoArquivo getResultInReference() {
+    ResultArchive getResultInReference() {
         if (idStart != -1) {
             if (isBase()) {
-                for (ResultadoArquivo resultadoArq1 : resultados) {
+                for (ResultArchive resultadoArq1 : resultados) {
                     if (resultadoArq1.isIdTo(idStart)) {
                         return resultadoArq1;
                     }
                 }
             } else {
-                for (ResultadoArquivo resultadoArq1 : resultados) {
+                for (ResultArchive resultadoArq1 : resultados) {
                     if (resultadoArq1.isIdFrom(idStart)) {
                         return resultadoArq1;
                     }
@@ -119,7 +119,7 @@ public class No extends DefaultMutableTreeNode {
         return null;
     }
 
-    public void addResultado(ResultadoArquivo resultado) {
+    public void addResultado(ResultArchive resultado) {
         resultados.add(resultado);
     }
 
@@ -137,7 +137,7 @@ public class No extends DefaultMutableTreeNode {
     public List<Integer> getIdsRelacionados() {
         ArrayList<Integer> ids = new ArrayList<Integer>();
 
-        for (ResultadoArquivo resultado : resultados) {
+        for (ResultArchive resultado : resultados) {
             if (isBase() && resultado.haveTo()) {
                 ids.add(resultado.getPara().getId());
             } else if (!isBase() && resultado.haveFrom()) {
@@ -152,8 +152,8 @@ public class No extends DefaultMutableTreeNode {
         if (isDirectory()) {
             if (children != null) {
                 for (Object obj : children) {
-                    if (obj instanceof No) {
-                        No no = (No) obj;
+                    if (obj instanceof Node) {
+                        Node no = (Node) obj;
 
                         if (no.isModified()) {
                             return true;
@@ -163,8 +163,8 @@ public class No extends DefaultMutableTreeNode {
             }
         }
 
-        for (ResultadoArquivo resultado : resultados) {
-            if (resultado.getTipo() != TipoResultado.UNCHANGED) {
+        for (ResultArchive resultado : resultados) {
+            if (resultado.getTipo() != TypeResult.UNCHANGED) {
                 return true;
             }
         }
@@ -187,7 +187,7 @@ public class No extends DefaultMutableTreeNode {
     }
 
     public boolean isHugarian() {
-        ResultadoArquivo resultInReference = getResultInReference();
+        ResultArchive resultInReference = getResultInReference();
         if (resultInReference == null) {
             return false;
         }
@@ -196,7 +196,7 @@ public class No extends DefaultMutableTreeNode {
     }
 
     public int getSimilaridade() {
-        ResultadoArquivo resultInReference = getResultInReference();
+        ResultArchive resultInReference = getResultInReference();
         if (resultInReference == null) {
             return 0;
         }
@@ -220,8 +220,8 @@ public class No extends DefaultMutableTreeNode {
 
     public boolean haveChildModified() {
         for (Object obj : children) {
-            if (obj instanceof No) {
-                No no = (No) obj;
+            if (obj instanceof Node) {
+                Node no = (Node) obj;
 
                 if (no.isModified()) {
                     return true;
@@ -251,10 +251,10 @@ public class No extends DefaultMutableTreeNode {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof No)) {
+        if (!(obj instanceof Node)) {
             return false;
         }
-        No other = (No) obj;
+        Node other = (Node) obj;
         if (id != other.id) {
             return false;
         }

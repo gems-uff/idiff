@@ -5,7 +5,7 @@
 package components;
 
 import idiff.Splash;
-import ddiff.DiretorioDiffException;
+import ddiff.DDiffException;
 import ddiff.ProgressMessager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,7 +60,7 @@ public class Processo extends Thread{
             try {
                 dp.setMessage("Loading directories tree.");
                 aThis.loadTree();
-            } catch (DiretorioDiffException ex) {
+            } catch (DDiffException ex) {
                 Logger.getLogger(Processo.class.getName()).log(Level.SEVERE, null, ex);
             }
             aThis.execute();
@@ -71,7 +71,7 @@ public class Processo extends Thread{
 
             try {
                 aThis.loadTree();
-            } catch (DiretorioDiffException ex) {
+            } catch (DDiffException ex) {
                 Logger.getLogger(Processo.class.getName()).log(Level.SEVERE, null, ex);
             }
             aThis.execute();

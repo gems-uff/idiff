@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import ddiff.results.ResultadoArquivo;
-import ddiff.results.TipoResultado;
+import ddiff.results.ResultArchive;
+import ddiff.results.TypeResult;
 
 public class NodeRenderer extends DefaultTreeCellRenderer {
     
@@ -34,8 +34,8 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
         Component base = super.getTreeCellRendererComponent(tree, value, sel,
                 expanded, leaf, row, hasFocus);
         
-        if (value instanceof No) {
-            No no = (No) value;
+        if (value instanceof Node) {
+            Node no = (Node) value;
             
             JCheckBox checkbox = new JCheckBox();
             
@@ -87,14 +87,14 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
         return base;
     }
     
-    private String getExtraText(No no) {
+    private String getExtraText(Node no) {
         String text = "";
         if (no.isModified()) {
             if (no.isDirectory() && no.children().hasMoreElements()) {
                 text += " *";
             } else {
-                ResultadoArquivo resultado = no.getResultInReference();
-                if (resultado != null && !resultado.getTipo().equals(TipoResultado.MOVED)) {
+                ResultArchive resultado = no.getResultInReference();
+                if (resultado != null && !resultado.getTipo().equals(TypeResult.MOVED)) {
                     text += " (" + no.getSimilaridade() + "% similar";
                     
                     if (no.isHugarian()) {
@@ -109,8 +109,8 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
         return text;
     }
     
-    private Color getColor(No no) {
-        for (ResultadoArquivo resultado : no.getResultados()) {
+    private Color getColor(Node no) {
+        for (ResultArchive resultado : no.getResultados()) {
             if (no.isBaseSelection() || no.getIdStart() != -1) {
                 return resultado.getTipo().getHigthLigthcolor();
             }
@@ -121,7 +121,7 @@ public class NodeRenderer extends DefaultTreeCellRenderer {
         return null;
     }
     
-    private Icon getIcon(No no, boolean expanded) {
+    private Icon getIcon(Node no, boolean expanded) {
         if (no.isDirectory()) {
             if (expanded) {
                 return getDefaultOpenIcon();

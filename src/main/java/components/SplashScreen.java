@@ -23,106 +23,106 @@ import javax.swing.border.BevelBorder;
  * @author Leo Murta (murta@ics.uci.edu, murta@cos.ufrj.br) - Aug 25, 2004
  */
 public class SplashScreen extends JDialog implements ProgressMessager {
-	
-	/**
-	 * Message of current ArchTrace status
-	 */
-	JLabel statusLabel;
-	
-	/**
-	 * Message of current memory usage
-	 */
-	JLabel memoryLabel;
-	
-	/**
-	 * Construct a modal splash screen
-	 */
-	public SplashScreen(JFrame owner) {
-		super(owner, true);
-		this.setLocationRelativeTo(owner);
-		this.init();
-	}
-	
-	/**
-	 * Construct a non-modal splash screen
-	 */
-	public SplashScreen() {
-		super();
-		this.init();
-	}
-		
-	/**
-	 * Create/Configure the splash screen
-	 */
-	private void init() {
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBorder(BorderFactory.createEtchedBorder());
-		panel.setBackground(new Color(245, 245, 245));
-		
-		memoryLabel = new JLabel();
-		memoryLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel.add(memoryLabel, BorderLayout.NORTH);
 
-		JLabel mainLabel = new JLabel("ArchTrace", SwingConstants.CENTER);
-		mainLabel.setFont(new Font("SansSerif", Font.PLAIN, 72));
-		panel.add(mainLabel, BorderLayout.CENTER);		
-		
-		statusLabel = new JLabel();
-		statusLabel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-		panel.add(statusLabel, BorderLayout.SOUTH);
+    /**
+     * Message of current ArchTrace status
+     */
+    JLabel statusLabel;
+    /**
+     * Message of current memory usage
+     */
+    JLabel memoryLabel;
 
-		this.setUndecorated(true);
-		this.setContentPane(panel);
-		this.setSize(400, 200);
-		this.setLocationRelativeTo(null);
-		this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-	}
+    /**
+     * Construct a modal splash screen
+     */
+    public SplashScreen(JFrame owner) {
+        super(owner, true);
+        this.setLocationRelativeTo(owner);
+        this.init();
+    }
 
-	/**
-	 * Write a new status message
-	 */
-	public void setStatus(String message) {
-		statusLabel.setText(message);
-		updateMemory();
-	}
-	
-	/**
-	 * Update the memory message
-	 */
-	public void updateMemory() {
-		long memory = Runtime.getRuntime().totalMemory();
-		memoryLabel.setText("Memory used: " + Long.toString(Math.round(memory / Math.pow(2, 20))) + " MB");
-	}
+    /**
+     * Construct a non-modal splash screen
+     */
+    public SplashScreen() {
+        super();
+        this.init();
+    }
 
-	/**
-	 * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionStarted(java.lang.String)
-	 */
-	public void connectionStarted(String message) {
-		setStatus(message);		
-	}
+    /**
+     * Create/Configure the splash screen
+     */
+    private void init() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEtchedBorder());
+        panel.setBackground(new Color(245, 245, 245));
 
-	/**
-	 * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionProgress(java.lang.String)
-	 */
-	public void connectionProgress(String message) {
-		setStatus(message);		
-	}
+        memoryLabel = new JLabel();
+        memoryLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        panel.add(memoryLabel, BorderLayout.NORTH);
 
-	/**
-	 * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionFinished(java.lang.String)
-	 */
-	public void connectionFinished(String message) {
-		setStatus(message);		
-	}
+        JLabel mainLabel = new JLabel("ArchTrace", SwingConstants.CENTER);
+        mainLabel.setFont(new Font("SansSerif", Font.PLAIN, 72));
+        panel.add(mainLabel, BorderLayout.CENTER);
 
-	/**
-	 * @see java.awt.Component#setVisible(boolean)
-	 */
-	public void setVisible(boolean visible) {
-		this.setLocationRelativeTo(this.getOwner());
-		this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-		super.setVisible(visible);
-	}
+        statusLabel = new JLabel();
+        statusLabel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        panel.add(statusLabel, BorderLayout.SOUTH);
+
+        this.setUndecorated(true);
+        this.setContentPane(panel);
+        this.setSize(400, 200);
+        this.setLocationRelativeTo(null);
+        this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+    }
+
+    /**
+     * Write a new status message
+     */
+    public void setStatus(String message) {
+        statusLabel.setText(message);
+        updateMemory();
+    }
+
+    /**
+     * Update the memory message
+     */
+    public void updateMemory() {
+        long memory = Runtime.getRuntime().totalMemory();
+        memoryLabel.setText("Memory used: " + Long.toString(Math.round(memory / Math.pow(2, 20))) + " MB");
+    }
+
+    /**
+     * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionStarted(java.lang.String)
+     */
+    public void connectionStarted(String message) {
+        setStatus(message);
+    }
+
+    /**
+     * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionProgress(java.lang.String)
+     */
+    public void connectionProgress(String message) {
+        setStatus(message);
+    }
+
+    /**
+     * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionFinished(java.lang.String)
+     */
+    public void connectionFinished(String message) {
+        setStatus(message);
+    }
+
+    /**
+     * @see java.awt.Component#setVisible(boolean)
+     */
+    @Override
+    public void setVisible(boolean visible) {
+        this.setLocationRelativeTo(this.getOwner());
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        super.setVisible(visible);
+    }
 
     @Override
     public void setMessage(String message) {

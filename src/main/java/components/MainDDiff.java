@@ -3,13 +3,13 @@ package components;
 import ilcs.DiffException;
 import idiff.resources.Icon;
 import idiff.resources.Laf;
-import ddiff.Arquivo;
-import ddiff.DiretorioDiff;
-import ddiff.DiretorioDiffException;
-import ddiff.tree.Arvore;
-import ddiff.tree.No;
-import ddiff.results.Resultado;
-import ddiff.results.ResultadoArquivo;
+import ddiff.Archive;
+import ddiff.Ddiff;
+import ddiff.DDiffException;
+import ddiff.tree.Tree;
+import ddiff.tree.Node;
+import ddiff.results.Result;
+import ddiff.results.ResultArchive;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,8 +29,8 @@ public class MainDDiff extends JFrame {
 
     public static final int LEFT_DIRECTORY = 1;
     public static final int RIGHT_DIRECTORY = 2;
-    private Arvore fromTree;
-    private Arvore toTree;
+    private Tree fromTree;
+    private Tree toTree;
     private String granularity;
     private File from;
     private File to;
@@ -98,7 +98,7 @@ public class MainDDiff extends JFrame {
      * @param to
      * @return 
      */
-    private boolean isQuiteSimilar(No from, No to) {
+    private boolean isQuiteSimilar(Node from, Node to) {
         return (from.getSimilaridade() == 0 && to.getSimilaridade() > 50);
     }
 
@@ -108,7 +108,7 @@ public class MainDDiff extends JFrame {
      * @param noTo
      * @return 
      */
-    public boolean isSimilar(No noFrom, No noTo) {
+    public boolean isSimilar(Node noFrom, Node noTo) {
         return (isQuiteSimilar(noFrom, noTo) || (isQuiteSimilar(noTo, noFrom)));
     }
 
@@ -154,7 +154,7 @@ public class MainDDiff extends JFrame {
      * @return
      * @throws HeadlessException 
      */
-    public boolean verifyError(No noFrom, No noTo) throws HeadlessException {
+    public boolean verifyError(Node noFrom, Node noTo) throws HeadlessException {
         if ((noFrom == null) && (noTo == null)) {
             showError("Select one file");
             return true;
@@ -171,8 +171,8 @@ public class MainDDiff extends JFrame {
      * @param no
      * @param idDirectory 
      */
-    private void initOverView(No no, int idDirectory) {
-        ResultadoArquivo resultado = no.getResultados().get(0);
+    private void initOverView(Node no, int idDirectory) {
+        ResultArchive resultado = no.getResultados().get(0);
         switch (idDirectory) {
             case LEFT_DIRECTORY:
                 showFileOverView(resultado.getBase().getArquivo(), no.getResultados(), LEFT_DIRECTORY);
@@ -199,18 +199,18 @@ public class MainDDiff extends JFrame {
      */
     public void execute() {
 
-        Resultado resultado = DiretorioDiff.compararDiretorios(from, to, progressMessager);
+        Result resultado = Ddiff.compararDiretorios(from, to, progressMessager);
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
     }
 
     /**
      * 
-     * @throws DiretorioDiffException 
+     * @throws DDiffException 
      */
-    public void loadTree() throws DiretorioDiffException {
-        fromTree = Arvore.getBaseTree(from);
-        toTree = Arvore.getComparedTree(to, fromTree);
+    public void loadTree() throws DDiffException {
+        fromTree = Tree.getBaseTree(from);
+        toTree = Tree.getComparedTree(to, fromTree);
 
         scrollTreeFrom.setViewportView(fromTree);
         scrollTreeTo.setViewportView(toTree);
@@ -223,8 +223,8 @@ public class MainDDiff extends JFrame {
     @Action
     public void drill() {
         if (toTree != null && fromTree != null) {
-            No noTo = toTree.getSelectedNode();
-            No noFrom = fromTree.getSelectedNode();
+            Node noTo = toTree.getSelectedNode();
+            Node noFrom = fromTree.getSelectedNode();
 
             if ((noFrom == null) || (noTo == null)) {
                 showError("Select two files");
@@ -232,8 +232,8 @@ public class MainDDiff extends JFrame {
             }
 
             try {
-                Arquivo fileFrom = noFrom.getResultados().get(0).getBase();
-                Arquivo fileTo = noTo.getResultados().get(0).getPara();
+                Archive fileFrom = noFrom.getResultados().get(0).getBase();
+                Archive fileTo = noTo.getResultados().get(0).getPara();
 
                 showILCS(fileFrom.getArquivo(), fileTo.getArquivo(), granularity, tags, isSimilar(noFrom, noTo));
 
@@ -280,8 +280,8 @@ public class MainDDiff extends JFrame {
     @Action
     public void overView() {
         if (toTree != null || fromTree != null) {
-            No noFrom = fromTree.getSelectedNode();
-            No noTo = toTree.getSelectedNode();
+            Node noFrom = fromTree.getSelectedNode();
+            Node noTo = toTree.getSelectedNode();
 
             if (verifyError(noFrom, noTo)) {
                 return;
@@ -301,7 +301,7 @@ public class MainDDiff extends JFrame {
      * @param result
      * @param idDirectory 
      */
-    private void showFileOverView(File file, List<ResultadoArquivo> result, int idDirectory) {
+    private void showFileOverView(File file, List<ResultArchive> result, int idDirectory) {
         MainFDiff.setInstance(file, result, idDirectory);
         MainFDiff.getInstance().setVisible(true);
     }
@@ -310,7 +310,7 @@ public class MainDDiff extends JFrame {
      * 
      * @param tree 
      */
-    private void expandNodesDiff(Arvore tree) {
+    private void expandNodesDiff(Tree tree) {
         if (tree != null) {
             tree.expandNodesWithDiff();
         }

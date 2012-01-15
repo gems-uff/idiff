@@ -71,11 +71,11 @@ public class AboutIDIFF extends javax.swing.JFrame {
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
 
-        jLabel17.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel17.setText("1) ");
         jLabel17.setName("jLabel17"); // NOI18N
 
-        jLabel18.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel18.setText("TEXTO");
         jLabel18.setName("jLabel18"); // NOI18N
 
@@ -83,11 +83,11 @@ public class AboutIDIFF extends javax.swing.JFrame {
         setTitle("About IDIFF");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel1.setText("is able to detect differences and refactoring of software artifacts.");
         jLabel1.setName("jLabel1"); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 18));
         jLabel2.setText("IDIFF");
         jLabel2.setName("jLabel2"); // NOI18N
 
@@ -96,132 +96,132 @@ public class AboutIDIFF extends javax.swing.JFrame {
         jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
         jLabel3.setName("jLabel3"); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel4.setForeground(new java.awt.Color(0, 0, 51));
         jLabel4.setText("User Instructions: ");
         jLabel4.setName("jLabel4"); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel5.setText("1) ");
         jLabel5.setName("jLabel5"); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel6.setText("Double-click the icon to access the application ");
         jLabel6.setName("jLabel6"); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel7.setText("Selecting two directories and then click the ");
         jLabel7.setName("jLabel7"); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel8.setText("2) ");
         jLabel8.setName("jLabel8"); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel9.setText("DDIFF (Directory DIFF)"); // NOI18N
         jLabel9.setName("jLabel9"); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel10.setText("3) ");
         jLabel10.setName("jLabel10"); // NOI18N
 
-        jLabel11.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel11.setText("To run the");
         jLabel11.setName("jLabel11"); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel12.setText("4)");
         jLabel12.setName("jLabel12"); // NOI18N
 
-        jLabel13.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/project.png"))); // NOI18N
         jLabel13.setToolTipText("");
         jLabel13.setName("jLabel13"); // NOI18N
 
-        jLabel14.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/change.png"))); // NOI18N
         jLabel14.setToolTipText("");
         jLabel14.setName("jLabel14"); // NOI18N
 
         jLabel16.setBackground(new java.awt.Color(255, 255, 204));
-        jLabel16.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel16.setForeground(new java.awt.Color(51, 0, 51));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("All results are displayed using color and mouse events");
         jLabel16.setName("jLabel16"); // NOI18N
 
-        jLabel21.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel21.setName("jLabel21"); // NOI18N
 
-        jLabel22.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/components/icons/execute.png"))); // NOI18N
         jLabel22.setName("jLabel22"); // NOI18N
 
-        jLabel23.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel23.setText("Run");
         jLabel23.setName("jLabel23"); // NOI18N
 
-        jLabel24.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel24.setText("button.");
         jLabel24.setName("jLabel24"); // NOI18N
 
-        jLabel25.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel25.setText("is displayed. Wait for the results.");
         jLabel25.setName("jLabel25"); // NOI18N
 
-        jLabel26.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel26.setText("The screen will display * in all subdirectories that contains");
         jLabel26.setName("jLabel26"); // NOI18N
 
-        jLabel27.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel27.setText("select two files with ");
         jLabel27.setName("jLabel27"); // NOI18N
 
-        jLabel28.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel28.setText("ILCS (Iterative LCS - DIFF2)");
         jLabel28.setName("jLabel28"); // NOI18N
 
-        jLabel29.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel29.setText("similarity percentage, and click the");
         jLabel29.setName("jLabel29"); // NOI18N
 
-        jLabel30.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel30.setText("button");
         jLabel30.setName("jLabel30"); // NOI18N
 
-        jLabel31.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel31.setText("+ Change the perspective to results analysis");
         jLabel31.setName("jLabel31"); // NOI18N
 
-        jLabel32.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel32.setText("FDIFF (File DIFF - File Analyzer)");
         jLabel32.setName("jLabel32"); // NOI18N
 
-        jLabel33.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel33.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel33.setText("and click the");
         jLabel33.setName("jLabel33"); // NOI18N
 
-        jLabel34.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel34.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel34.setText("select only one file.");
         jLabel34.setName("jLabel34"); // NOI18N
 
-        jLabel35.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel35.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel35.setText("button");
         jLabel35.setName("jLabel35"); // NOI18N
 
-        jLabel36.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel36.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel36.setText("To run the");
         jLabel36.setName("jLabel36"); // NOI18N
 
-        jLabel37.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel37.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel37.setText("5)");
         jLabel37.setName("jLabel37"); // NOI18N
 
-        jLabel38.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel38.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel38.setText("+ Select a file in the combo to filter the results.");
         jLabel38.setName("jLabel38"); // NOI18N
 
-        jLabel39.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel39.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel39.setText("files with similarity percentage.");
         jLabel39.setName("jLabel39"); // NOI18N
 
@@ -375,7 +375,7 @@ public class AboutIDIFF extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel35))
+                            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39)

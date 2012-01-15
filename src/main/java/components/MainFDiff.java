@@ -5,8 +5,8 @@ import idiff.resources.IDIFFColor;
 import idiff.resources.Icon;
 import idiff.resources.Laf;
 import idiff.resources.Warning;
-import ddiff.results.ResultadoArquivo;
-import ddiff.results.TipoResultado;
+import ddiff.results.ResultArchive;
+import ddiff.results.TypeResult;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,7 +45,7 @@ public class MainFDiff extends javax.swing.JFrame {
      * @param result
      * @param idDirectory 
      */
-    public synchronized static void setInstance(File file, List<ResultadoArquivo> result, int idDirectory) {
+    public synchronized static void setInstance(File file, List<ResultArchive> result, int idDirectory) {
         if (instance != null) {
             instance.dispose();
         }
@@ -71,7 +71,7 @@ public class MainFDiff extends javax.swing.JFrame {
      * @param result
      * @param idDirectory  
      */
-    public MainFDiff(File file, List<ResultadoArquivo> result, int idDirectory) {
+    public MainFDiff(File file, List<ResultArchive> result, int idDirectory) {
         init();
         try {
             start(file, result, idDirectory, false);
@@ -90,7 +90,7 @@ public class MainFDiff extends javax.swing.JFrame {
         return selectedItem.equals("Show All Similarities/Refactoring");
     }
 
-    private void start(File file, List<ResultadoArquivo> result, int idDirectory, boolean isRepaint) throws IOException {
+    private void start(File file, List<ResultArchive> result, int idDirectory, boolean isRepaint) throws IOException {
         fileComponent.setFile(pane, panel, file);
         showSimilarity(result, idDirectory, isRepaint);
         addComboListener(file, refactoringCombo, result, idDirectory);
@@ -100,13 +100,13 @@ public class MainFDiff extends javax.swing.JFrame {
         return isFileSimilarity(fileName) || showAllSimilarity();
     }
 
-    private void showSimilarity(List<ResultadoArquivo> listResult, int idDirectory, boolean isRepaint) {
-        for (ResultadoArquivo result : listResult) {
+    private void showSimilarity(List<ResultArchive> listResult, int idDirectory, boolean isRepaint) {
+        for (ResultArchive result : listResult) {
             printResult(result, idDirectory, isRepaint);
         }
     }
 
-    private void addComboListener(final File file, JComboBox combo, final List<ResultadoArquivo> listResult, final int idDirectory) {
+    private void addComboListener(final File file, JComboBox combo, final List<ResultArchive> listResult, final int idDirectory) {
         combo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,7 +117,7 @@ public class MainFDiff extends javax.swing.JFrame {
         });
     }
 
-    private void restartComponents(File file, List<ResultadoArquivo> result, int idDirectory) {
+    private void restartComponents(File file, List<ResultArchive> result, int idDirectory) {
         fileComponent.clear(pane);
         try {
             start(file, result, idDirectory, true);
@@ -140,8 +140,8 @@ public class MainFDiff extends javax.swing.JFrame {
      * @param result
      * @param idDirectory 
      */
-    private void printResult(ResultadoArquivo result, int idDirectory, boolean isRepaint) {
-        if (result.getTipo() == TipoResultado.CHANGED) {
+    private void printResult(ResultArchive result, int idDirectory, boolean isRepaint) {
+        if (result.getTipo() == TypeResult.CHANGED) {
             showRefactory(result, idDirectory, isRepaint);
         } else {
             Warning.show(WarningDialog);
@@ -153,7 +153,7 @@ public class MainFDiff extends javax.swing.JFrame {
      * @param result
      * @param idDirectory 
      */
-    private void showRefactory(ResultadoArquivo result, int idDirectory, boolean isRepaint) {
+    private void showRefactory(ResultArchive result, int idDirectory, boolean isRepaint) {
         File file = null;
         switch (idDirectory) {
             case MainDDiff.LEFT_DIRECTORY:

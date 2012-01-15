@@ -6,9 +6,9 @@ package ddiff;
  * @author Eraldo
  *
  */
-public class DiretorioDiffException extends Exception {
+public class DDiffException extends Exception {
 
-	public DiretorioDiffException(String mensagem) {
+	public DDiffException(String mensagem) {
 		super(mensagem);
 	}
 

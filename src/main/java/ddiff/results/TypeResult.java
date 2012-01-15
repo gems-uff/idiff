@@ -3,7 +3,7 @@ package ddiff.results;
 import idiff.resources.IDIFFColor;
 import java.awt.Color;
 
-public enum TipoResultado {
+public enum TypeResult {
 
     UNCHANGED(IDIFFColor.getUnchangedColor(), new Color(240, 240, 240), "Unchanged"),
     REMOVED(IDIFFColor.getRemovedColor(), IDIFFColor.getRemovedColor(), "Removed"),
@@ -15,7 +15,7 @@ public enum TipoResultado {
     private final Color higthLigthcolor;
     private final String label;
 
-    private TipoResultado(Color color, Color higthLigthcolor, String label) {
+    private TypeResult(Color color, Color higthLigthcolor, String label) {
         this.higthLigthcolor = higthLigthcolor;
         this.color = color;
         this.label = label;

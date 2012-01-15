@@ -11,7 +11,7 @@ import ilcs.grain.Grain;
 import ilcs.ILCSBean;
 import ilcs.result.IResultDiff;
 import ddiff.hungarianAlgorithm.HungarianAlgorithm;
-import ddiff.results.Resultado;
+import ddiff.results.Result;
 
 /**
  * Realiza diff de diret�rios.
@@ -19,21 +19,21 @@ import ddiff.results.Resultado;
  * @author Eraldo
  * 
  */
-public class DiretorioDiff {
+public class Ddiff {
 
     /**
      * Diret�rio serializado 1
      */
-    private DiretorioSerializado dirSerializado1 = null;
+    private DirectorySerialized dirSerializado1 = null;
     /**
      * Diret�rio serializado 2
      */
-    private DiretorioSerializado dirSerializado2 = null;
-    private Resultado resultado;
+    private DirectorySerialized dirSerializado2 = null;
+    private Result resultado;
     private int iteracao;
 
     private final ProgressMessager progressMessager;
-    public DiretorioDiff(ProgressMessager progressMessager) {
+    public Ddiff(ProgressMessager progressMessager) {
         this.progressMessager = progressMessager;
     }
 
@@ -69,9 +69,9 @@ public class DiretorioDiff {
      * @param nomeDiretorio1 Nome do diret�rio 1
      * @param nomeDiretorio2 Nome do diret�tio 2
      * 
-     * @return Resultado da compara��o.
+     * @return Result da compara��o.
      */
-    public static Resultado compararDiretorios(String nomeDiretorio1,
+    public static Result compararDiretorios(String nomeDiretorio1,
             String nomeDiretorio2) {
         ProgressMessager defaultProgressMessager = new ProgressMessager() {
         	
@@ -117,9 +117,9 @@ public class DiretorioDiff {
      *            - Diret�rio 1
      * @param diretorio2
      *            - Diret�rio 2
-     * @return Resultado da compara��o.
+     * @return Result da compara��o.
      */
-    public static Resultado compararDiretorios(File diretorio1, File diretorio2) {
+    public static Result compararDiretorios(File diretorio1, File diretorio2) {
         ProgressMessager defaultProgressMessager = new ProgressMessager() {
         	
             @Override
@@ -163,14 +163,14 @@ public class DiretorioDiff {
      *            - Diret�rio 1
      * @param diretorio2
      *            - Diret�rio 2
-     * @return Resultado da compara��o.
+     * @return Result da compara��o.
      */
-    public static Resultado compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager) {
-        return new DiretorioDiff(progressMessager).compararDiretoriosInterno(diretorio1, diretorio2);
+    public static Result compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager) {
+        return new Ddiff(progressMessager).compararDiretoriosInterno(diretorio1, diretorio2);
     }
 
-    private Resultado compararDiretoriosInterno(File diretorio1, File diretorio2) {
-        resultado = new Resultado();
+    private Result compararDiretoriosInterno(File diretorio1, File diretorio2) {
+        resultado = new Result();
         iteracao = 0;
 
         try {
@@ -191,7 +191,7 @@ public class DiretorioDiff {
                 iteracaoHungaroILCS();
                 break;
             }
-        } catch (DiretorioDiffException e) {
+        } catch (DDiffException e) {
             System.out.println("Erro: " + e.getMessage());
         }
 
@@ -199,14 +199,14 @@ public class DiretorioDiff {
     }
 
     private void marcarArquivosInclassificaveis() {
-        for (Arquivo arquivo : dirSerializado1.getArquivosSemMatch()) {
+        for (Archive arquivo : dirSerializado1.getArquivosSemMatch()) {
             if (!arquivo.isArquivo() || !arquivo.isText()) {
                 resultado.addDeletado(arquivo);
                 arquivo.setMatch(true);
             }
         }
 
-        for (Arquivo arquivo : dirSerializado2.getArquivosSemMatch()) {
+        for (Archive arquivo : dirSerializado2.getArquivosSemMatch()) {
             if (!arquivo.isArquivo() || !arquivo.isText()) {
                 resultado.addAdicionado(arquivo);
                 arquivo.setMatch(true);
@@ -221,8 +221,8 @@ public class DiretorioDiff {
      * conjunto de pares.
      */
     private void iteracaoHungaroILCS() {
-        List<Arquivo> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatch();
-        List<Arquivo> arquivosSemMatch2 = dirSerializado2.getArquivosSemMatch();
+        List<Archive> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatch();
+        List<Archive> arquivosSemMatch2 = dirSerializado2.getArquivosSemMatch();
 
         int tamanhoHungaro = Math.max(arquivosSemMatch1.size(),
                 arquivosSemMatch2.size());
@@ -235,12 +235,12 @@ public class DiretorioDiff {
         progressMessager.setMessage("Find similarity of files.");
 
         for (int i = 0; i < arquivosSemMatch1.size(); i++) {
-            Arquivo base = arquivosSemMatch1.get(i);
+            Archive base = arquivosSemMatch1.get(i);
 
             boolean baseExcluido = true;
 
             for (int j = 0; j < arquivosSemMatch2.size(); j++) {
-                Arquivo comparado = arquivosSemMatch2.get(j);
+                Archive comparado = arquivosSemMatch2.get(j);
                 File fileBase = base.getArquivo();
                 File fileComparado = comparado.getArquivo();
 
@@ -303,7 +303,7 @@ public class DiretorioDiff {
         if (isPrimeiraIteracao()) {
             for (int i = 0; i < arquivosSemMatch2.size(); i++) {
                 if (adicionados[i]) {
-                    Arquivo arquivo2 = arquivosSemMatch2.get(i);
+                    Archive arquivo2 = arquivosSemMatch2.get(i);
                     arquivo2.setMatch(true);
                     resultado.addAdicionado(arquivo2);
                 }
@@ -318,8 +318,8 @@ public class DiretorioDiff {
             int[] linhaHungaro = resultadoHungaro[i];
             
             if (linhaHungaro[0] < arquivosSemMatch1.size() && linhaHungaro[1] < arquivosSemMatch2.size()) {	            
-	            Arquivo base = arquivosSemMatch1.get(linhaHungaro[0]);            
-	            Arquivo comparado = arquivosSemMatch2.get(linhaHungaro[1]);
+	            Archive base = arquivosSemMatch1.get(linhaHungaro[0]);            
+	            Archive comparado = arquivosSemMatch2.get(linhaHungaro[1]);
 	            
 	            resultado.setEscolhaHungaro(base, comparado);
             }
@@ -388,20 +388,20 @@ public class DiretorioDiff {
      * sejam excluidos da pr�xima execu��o.
      */
     private void buscaArquivosIdenticos() {
-        List<Arquivo> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatch();
+        List<Archive> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatch();
         for (int i = 0; i < arquivosSemMatch1.size(); i++) {
-            Arquivo arquivo1 = arquivosSemMatch1.get(i);
+            Archive arquivo1 = arquivosSemMatch1.get(i);
 
-            List<Arquivo> arquivosSemMatch2 = dirSerializado2.getArquivosSemMatch();
+            List<Archive> arquivosSemMatch2 = dirSerializado2.getArquivosSemMatch();
 
             for (int j = 0; j < arquivosSemMatch2.size(); j++) {
-                Arquivo arquivo2 = arquivosSemMatch2.get(j);
+                Archive arquivo2 = arquivosSemMatch2.get(j);
 
                 if (comparaArquivos(arquivo1, arquivo2)) {
                     arquivo1.setMatch(true);
                     arquivo2.setMatch(true);
 
-                    resultado.add(arquivo1, arquivo2, Resultado.PERCENTUAL_IDENTICO);
+                    resultado.add(arquivo1, arquivo2, Result.PERCENTUAL_IDENTICO);
                 }
             }
         }
@@ -414,17 +414,17 @@ public class DiretorioDiff {
      *            Diret�rio da esquerda
      * @param diretorio2
      *            Diret�rio da direita
-     * @throws DiretorioDiffException
+     * @throws DDiffException
      *             Erro na serializa��o de algum diret�rio
      */
     private void serializarDiretorios(File diretorio1,
-            File diretorio2) throws DiretorioDiffException {
-        dirSerializado1 = new DiretorioSerializado(diretorio1, 1);
-        dirSerializado2 = new DiretorioSerializado(diretorio2, 2);
+            File diretorio2) throws DDiffException {
+        dirSerializado1 = new DirectorySerialized(diretorio1, 1);
+        dirSerializado2 = new DirectorySerialized(diretorio2, 2);
     }
 
     /**
-     * Compara duas entidades do tipo <code>br.com.diff.Arquivo</code>
+     * Compara duas entidades do tipo <code>br.com.diff.Archive</code>
      * considerando o Hash MD5 de seu conte�do.<br>
      * 
      * @param arquivo1
@@ -434,7 +434,7 @@ public class DiretorioDiff {
      * 
      * @return Verdadeiro caso sejam iguais.
      */
-    private boolean comparaArquivos(Arquivo arquivo1, Arquivo arquivo2) {
+    private boolean comparaArquivos(Archive arquivo1, Archive arquivo2) {
         return arquivo1 != null && arquivo1.equals(arquivo2);
     }
 }

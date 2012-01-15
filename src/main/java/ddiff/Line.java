@@ -8,14 +8,14 @@ import ilcs.grain.LineGrain;
  * @author Eraldo
  *
  */
-public class Linha extends LineGrain {
+public class Line extends LineGrain {
 
     /**
      * Guarda se a linha tem algum match.
      */
     private boolean match = false;
 
-    public Linha(String line, int idReference, int start) {
+    public Line(String line, int idReference, int start) {
         super(line, idReference, start);
     }
 
