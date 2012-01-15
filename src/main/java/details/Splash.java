@@ -1,6 +1,6 @@
 package details;
 
-import diretorioDiff.ProgressMessager;
+import ddiff.ProgressMessager;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;

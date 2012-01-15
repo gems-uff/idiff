@@ -1,6 +1,6 @@
 package details;
 
-import algorithms.GrainBean;
+import ilcs.grain.GrainBean;
 import java.awt.Color;
 import javax.swing.JTextPane;
 import javax.swing.text.Style;

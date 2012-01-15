@@ -1,13 +1,13 @@
 package components;
 
 import details.Scroll;
-import algorithms.Diff;
-import algorithms.DiffException;
-import algorithms.FileGrain;
-import algorithms.Grain;
-import algorithms.ILCSBean;
-import algorithms.IResultDiff;
-import algorithms.Result;
+import ilcs.Diff;
+import ilcs.DiffException;
+import ilcs.grain.FileGrain;
+import ilcs.grain.Grain;
+import ilcs.ILCSBean;
+import ilcs.result.IResultDiff;
+import ilcs.Result;
 import details.Icon;
 import details.Laf;
 import java.awt.Color;

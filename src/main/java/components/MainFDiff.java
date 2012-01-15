@@ -1,12 +1,12 @@
 package components;
 
-import algorithms.Grain;
+import ilcs.grain.Grain;
 import details.IDIFFColor;
 import details.Icon;
 import details.Laf;
 import details.Warning;
-import diretorioDiff.resultados.ResultadoArquivo;
-import diretorioDiff.resultados.TipoResultado;
+import ddiff.results.ResultadoArquivo;
+import ddiff.results.TipoResultado;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -269,14 +269,18 @@ public class MainFDiff extends javax.swing.JFrame {
         jSeparator1.setName("jSeparator1"); // NOI18N
         jToolBar1.add(jSeparator1);
 
-        refactoringCombo.setMaximumRowCount(100);
+        refactoringCombo.setMaximumRowCount(500);
         refactoringCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Show All Similarities/Refactoring" }));
         refactoringCombo.setToolTipText("Similarities/Refactoring List Found");
         refactoringCombo.setAutoscrolls(true);
-        refactoringCombo.setMaximumSize(new java.awt.Dimension(675, 28));
-        refactoringCombo.setMinimumSize(new java.awt.Dimension(675, 28));
+        refactoringCombo.setDoubleBuffered(true);
+        refactoringCombo.setFocusCycleRoot(true);
+        refactoringCombo.setFocusTraversalPolicyProvider(true);
+        refactoringCombo.setMaximumSize(new java.awt.Dimension(900, 28));
+        refactoringCombo.setMinimumSize(new java.awt.Dimension(900, 28));
         refactoringCombo.setName("refactoringCombo"); // NOI18N
-        refactoringCombo.setPreferredSize(new java.awt.Dimension(675, 28));
+        refactoringCombo.setOpaque(true);
+        refactoringCombo.setPreferredSize(new java.awt.Dimension(900, 28));
         jToolBar1.add(refactoringCombo);
 
         panel.setBorder(javax.swing.BorderFactory.createTitledBorder("File Name"));
@@ -295,7 +299,7 @@ public class MainFDiff extends javax.swing.JFrame {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelLayout.setVerticalGroup(
@@ -309,11 +313,11 @@ public class MainFDiff extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 963, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(35, Short.MAX_VALUE))
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

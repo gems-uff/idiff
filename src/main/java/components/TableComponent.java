@@ -1,7 +1,7 @@
 package components;
 
-import algorithms.Grain;
-import algorithms.ILCSBean;
+import ilcs.grain.Grain;
+import ilcs.ILCSBean;
 import java.awt.Color;
 import java.util.Iterator;
 import java.util.List;

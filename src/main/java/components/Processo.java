@@ -5,8 +5,8 @@
 package components;
 
 import details.Splash;
-import diretorioDiff.DiretorioDiffException;
-import diretorioDiff.ProgressMessager;
+import ddiff.DiretorioDiffException;
+import ddiff.ProgressMessager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

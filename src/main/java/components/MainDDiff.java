@@ -1,17 +1,17 @@
 package components;
 
-import algorithms.DiffException;
+import ilcs.DiffException;
 import details.Icon;
 import details.Laf;
 import details.Splash;
-import diretorioDiff.Arquivo;
-import diretorioDiff.DiretorioDiff;
-import diretorioDiff.DiretorioDiffException;
-import diretorioDiff.ProgressMessager;
-import diretorioDiff.arvore.Arvore;
-import diretorioDiff.arvore.No;
-import diretorioDiff.resultados.Resultado;
-import diretorioDiff.resultados.ResultadoArquivo;
+import ddiff.Arquivo;
+import ddiff.DiretorioDiff;
+import ddiff.DiretorioDiffException;
+import ddiff.ProgressMessager;
+import ddiff.tree.Arvore;
+import ddiff.tree.No;
+import ddiff.results.Resultado;
+import ddiff.results.ResultadoArquivo;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileNotFoundException;

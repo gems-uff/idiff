@@ -1,6 +1,6 @@
 package components;
 
-import algorithms.GrainBean;
+import ilcs.grain.GrainBean;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;

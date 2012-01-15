@@ -1,6 +1,6 @@
 package components;
 
-import diretorioDiff.ProgressMessager;
+import ddiff.ProgressMessager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;

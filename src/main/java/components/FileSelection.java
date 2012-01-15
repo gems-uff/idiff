@@ -1,6 +1,6 @@
 package components;
 
-import algorithms.DiffException;
+import ilcs.DiffException;
 import details.Icon;
 import details.Laf;
 import java.io.File;

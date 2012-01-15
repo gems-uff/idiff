@@ -1,7 +1,7 @@
 package components;
 
-import algorithms.ILCSBean;
-import algorithms.IResultDiff;
+import ilcs.ILCSBean;
+import ilcs.result.IResultDiff;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

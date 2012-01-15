@@ -1,6 +1,6 @@
 package details;
 
-import algorithms.GrainBean;
+import ilcs.grain.GrainBean;
 import components.GrainHighLight;
 import java.awt.Color;
 import java.awt.Point;
