@@ -1,11 +1,11 @@
 package components;
 
-import details.Listener;
-import details.IDIFFStyles;
+import idiff.resources.Listener;
+import idiff.resources.IDIFFStyles;
 import ilcs.grain.Grain;
 import ilcs.grain.GrainBean;
 import ilcs.result.IResultDiff;
-import details.IDIFFColor;
+import idiff.resources.IDIFFColor;
 import java.awt.Color;
 import java.util.Iterator;
 import javax.swing.JScrollPane;

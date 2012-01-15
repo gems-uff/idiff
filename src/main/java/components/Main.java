@@ -1,6 +1,6 @@
 package components;
 
-import details.Splash;
+import idiff.Splash;
 
 public class Main {
 

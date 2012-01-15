@@ -3,8 +3,8 @@
  */
 package components;
 
-import details.Icon;
-import details.Laf;
+import idiff.resources.Icon;
+import idiff.resources.Laf;
 import org.jdesktop.application.Action;
 
 /**

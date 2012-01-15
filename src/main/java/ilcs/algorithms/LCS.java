@@ -4,7 +4,7 @@ import ilcs.result.ResultLCS;
 import ilcs.Result;
 import ilcs.result.IResultLCS;
 import ilcs.ILCSBean;
-import ilcs.IDiff;
+import idiff.IDiff;
 import ilcs.DiffException;
 import ilcs.grain.Grain;
 import ilcs.algorithms.LCSBean.Arrow;

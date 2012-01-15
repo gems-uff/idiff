@@ -1,6 +1,6 @@
 package ddiff.results;
 
-import details.IDIFFColor;
+import idiff.resources.IDIFFColor;
 import java.awt.Color;
 
 public enum TipoResultado {

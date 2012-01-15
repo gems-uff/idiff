@@ -1,6 +1,8 @@
-package ilcs;
+package idiff;
 
 import ilcs.DiffException;
+import ilcs.DiffException;
+import ilcs.ILCSBean;
 import ilcs.grain.Grain;
 import java.io.File;
 import java.util.List;

@@ -1,5 +1,6 @@
 package ilcs;
 
+import idiff.IDiff;
 import ilcs.result.IResultDiff;
 import ilcs.algorithms.Algorithm;
 import ilcs.grain.Grain;

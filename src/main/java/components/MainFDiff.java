@@ -1,10 +1,10 @@
 package components;
 
 import ilcs.grain.Grain;
-import details.IDIFFColor;
-import details.Icon;
-import details.Laf;
-import details.Warning;
+import idiff.resources.IDIFFColor;
+import idiff.resources.Icon;
+import idiff.resources.Laf;
+import idiff.resources.Warning;
 import ddiff.results.ResultadoArquivo;
 import ddiff.results.TipoResultado;
 import java.awt.Color;
@@ -269,7 +269,7 @@ public class MainFDiff extends javax.swing.JFrame {
         jSeparator1.setName("jSeparator1"); // NOI18N
         jToolBar1.add(jSeparator1);
 
-        refactoringCombo.setMaximumRowCount(500);
+        refactoringCombo.setMaximumRowCount(5);
         refactoringCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Show All Similarities/Refactoring" }));
         refactoringCombo.setToolTipText("Similarities/Refactoring List Found");
         refactoringCombo.setAutoscrolls(true);

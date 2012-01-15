@@ -4,7 +4,7 @@
  */
 package components;
 
-import details.Splash;
+import idiff.Splash;
 import ddiff.DiretorioDiffException;
 import ddiff.ProgressMessager;
 import java.util.logging.Level;

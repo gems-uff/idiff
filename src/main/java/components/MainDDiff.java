@@ -1,13 +1,11 @@
 package components;
 
 import ilcs.DiffException;
-import details.Icon;
-import details.Laf;
-import details.Splash;
+import idiff.resources.Icon;
+import idiff.resources.Laf;
 import ddiff.Arquivo;
 import ddiff.DiretorioDiff;
 import ddiff.DiretorioDiffException;
-import ddiff.ProgressMessager;
 import ddiff.tree.Arvore;
 import ddiff.tree.No;
 import ddiff.results.Resultado;

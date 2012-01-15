@@ -1,8 +1,8 @@
 package components;
 
 import ilcs.DiffException;
-import details.Icon;
-import details.Laf;
+import idiff.resources.Icon;
+import idiff.resources.Laf;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

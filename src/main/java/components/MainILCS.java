@@ -1,6 +1,6 @@
 package components;
 
-import details.Scroll;
+import idiff.resources.Scroll;
 import ilcs.Diff;
 import ilcs.DiffException;
 import ilcs.grain.FileGrain;
@@ -8,8 +8,8 @@ import ilcs.grain.Grain;
 import ilcs.ILCSBean;
 import ilcs.result.IResultDiff;
 import ilcs.Result;
-import details.Icon;
-import details.Laf;
+import idiff.resources.Icon;
+import idiff.resources.Laf;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -47,7 +47,7 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
-import wrap.Wrap;
+import idiff.wrap.Wrap;
 
 /**
  * MainILCS
