@@ -4,7 +4,6 @@
  */
 package gui.components.resources;
 
-import idiff.Splash;
 import ddiff.DDiffException;
 import ddiff.ProgressMessager;
 import gui.DDiffProgress;
@@ -77,7 +76,7 @@ public class Processo extends Thread {
                 Logger.getLogger(Processo.class.getName()).log(Level.SEVERE, null, ex);
             }
             aThis.execute();
-            Splash.close();
+            SplashScreen.close();
             //s.setVisible(false);
             aThis.setVisible(true);
 

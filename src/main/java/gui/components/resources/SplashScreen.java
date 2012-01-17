@@ -24,6 +24,9 @@ import javax.swing.border.BevelBorder;
  */
 public class SplashScreen extends JDialog implements ProgressMessager {
 
+    static void close() {
+        SplashScreen.close();
+    }
     /**
      * Message of current ArchTrace status
      */
