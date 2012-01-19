@@ -3,34 +3,25 @@ package motivatingexample;
 public class Person {
 
     private String _name;
-    private String _officeAreaCode;
-    private String _officeNumber;
-
-    public void setName(String name) {
-        this._name = name;
-    }
+    private TelephoneNumber _officeTelephone = new TelephoneNumber();
 
     public String getName() {
         return _name;
     }
 
-    public void setOfficeAreaCode(String arg) {
-        this._officeAreaCode = arg;
-    }
-
-    public String getOfficeAreaCode() {
-        return _officeAreaCode;
-    }
-
     public String getTelephoneNumber() {
-        return ("(" + _officeAreaCode + ")" + _officeNumber);
+        return _officeTelephone.getTelephoneNumber();
     }
 
-    public void setOfficeNumber(String arg) {
-        this._officeNumber = arg;
+    public TelephoneNumber getOfficeTelephone() {
+        return _officeTelephone;
     }
 
-    public String getOfficeNumber() {
-        return _officeNumber;
+    public void setName(String arg) {
+        this._name = arg;
+    }
+
+    public void setOfficeTelephone(TelephoneNumber _officeTelephone) {
+        this._officeTelephone = _officeTelephone;
     }
 }
