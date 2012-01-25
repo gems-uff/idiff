@@ -7,7 +7,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>diffProject</name>
-    <url>http://maven.apache.org</url>
+    <url>http://gems.ic.uff.br</url> <!-- Aqui eh a URL do Seu projeto Fernanda -->
+    
     <build>
         <plugins>
             <plugin>
@@ -19,25 +20,43 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>    
-            <plugin>   
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
-
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.2</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.2</version>
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>true</addClasspath>
                             <mainClass>idiff.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
-              
             </plugin>
         </plugins>
     </build>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
+    
     <scm>
         <developerConnection>gems</developerConnection>
         <url>https://gems.ic.uff.br/svn/gems/diff/trunk/diffProject</url>
@@ -100,12 +119,7 @@
             <groupId>org.jdesktop</groupId>
             <artifactId>beansbinding</artifactId>
             <version>1.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>2.3.1</version>
-            
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <description>UFF
