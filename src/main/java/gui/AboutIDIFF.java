@@ -21,7 +21,7 @@ public class AboutIDIFF extends javax.swing.JFrame {
     private void init() {
         Laf.setlaf();
         setLocationRelativeTo(null);
-        setIconImage(Icon.getIcon());
+        setIconImage(new Icon().getIcon());
     }
 
     /** This method is called from within the constructor to

@@ -65,7 +65,7 @@ public class MainFDiff extends javax.swing.JFrame {
         initComponents();
         Laf.setlaf();
         setLocationRelativeTo(null);
-        setIconImage(Icon.getIcon());
+        setIconImage(new Icon().getIcon());
     }
 
     /** Creates new form FileOverView

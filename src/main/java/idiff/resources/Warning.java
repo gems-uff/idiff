@@ -1,7 +1,6 @@
 package idiff.resources;
 
-import idiff.resources.Laf;
-import idiff.resources.Icon;
+import java.awt.Image;
 import javax.swing.JDialog;
 
 /**
@@ -16,7 +15,7 @@ public class Warning {
     public static void show(JDialog Warning) {
         Laf.setlaf();
         Warning.setLocationRelativeTo(null);
-        Warning.setIconImage(Icon.getIcon());
+        Warning.setIconImage(new Icon().getIcon());
         Warning.setVisible(true);
     }
 
@@ -24,5 +23,9 @@ public class Warning {
         if (warning.isVisible()) {
             warning.dispose();
         }
+    }
+
+    private static void setIconImage(Image icon) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

@@ -13,7 +13,7 @@ public class Icon {
      * 
      * @return 
      */
-    public static Image getIcon() {
-        return new ImageIcon("src/main/resources/gui/icons/iDiff.png").getImage();
+    public Image getIcon() {
+        return new ImageIcon(getClass().getResource("/gui/icons/iDiff.png")).getImage();
     }
 }

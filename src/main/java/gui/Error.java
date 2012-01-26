@@ -21,7 +21,7 @@ public class Error extends javax.swing.JDialog {
         Laf.setlaf();
         initComponents();
         setLocationRelativeTo(null);
-        setIconImage(Icon.getIcon());
+        setIconImage(new Icon().getIcon());
     }
 
     /**

@@ -48,7 +48,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.Application;
-import org.jdesktop.application.ResourceMap;
 import org.jdesktop.layout.GroupLayout;
 import org.jdesktop.layout.LayoutStyle;
 import idiff.wrap.Wrap;
@@ -228,7 +227,7 @@ public final class MainILCS extends javax.swing.JFrame {
     private void init() {
         Laf.setlaf();
         setLocationRelativeTo(null);
-        setIconImage(Icon.getIcon());
+        setIconImage(new Icon().getIcon());
     }
 
     /**

@@ -263,7 +263,7 @@ public class MainDDiff extends JFrame {
     private void init() {
         Laf.setlaf();
         setLocationRelativeTo(null);
-        setIconImage(Icon.getIcon());
+        setIconImage(new Icon().getIcon());
         this.setExtendedState(MAXIMIZED_BOTH);  
     }
 
