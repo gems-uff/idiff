@@ -192,7 +192,7 @@ public class MainDDiff extends JFrame {
      */
     public void execute() {
 
-        Result resultado = Ddiff.compararDiretorios(from, to, progressMessager);
+        Result resultado = Ddiff.compararDiretorios(from, to, progressMessager,granularity,tags);
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
     }

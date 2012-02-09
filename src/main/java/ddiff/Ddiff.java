@@ -31,10 +31,15 @@ public class Ddiff {
     private DirectorySerialized dirSerializado2 = null;
     private Result resultado;
     private int iteracao;
+    private String granularity;    
+    private String tags;
 
     private final ProgressMessager progressMessager;
-    public Ddiff(ProgressMessager progressMessager) {
+
+    public Ddiff(ProgressMessager progressMessager,String granularity, String tags) {
         this.progressMessager = progressMessager;
+        this.granularity = granularity;
+        this.tags = tags;
     }
 
     /**
@@ -71,18 +76,18 @@ public class Ddiff {
      * 
      * @return Result da compara��o.
      */
-    public static Result compararDiretorios(String nomeDiretorio1,
+  /*AQUI  public static Result compararDiretorios(String nomeDiretorio1,
             String nomeDiretorio2) {
         ProgressMessager defaultProgressMessager = new ProgressMessager() {
-        	
-        	@Override
-        public void setMessage(String message) {
-        		System.out.println(message);
-        }
+
+            @Override
+            public void setMessage(String message) {
+                System.out.println(message);
+            }
         };
 
         return compararDiretorios(new File(nomeDiretorio1), new File(nomeDiretorio2), defaultProgressMessager);
-    }
+    }*/
 
     /**
      * Realiza a compara��o entre dois diret�rios. <br>
@@ -119,17 +124,17 @@ public class Ddiff {
      *            - Diret�rio 2
      * @return Result da compara��o.
      */
-    public static Result compararDiretorios(File diretorio1, File diretorio2) {
+   /*AQUIpublic static Result compararDiretorios(File diretorio1, File diretorio2) {
         ProgressMessager defaultProgressMessager = new ProgressMessager() {
-        	
+
             @Override
             public void setMessage(String message) {
                 System.out.println(message);
             }
         };
         return compararDiretorios(diretorio1, diretorio2, defaultProgressMessager);
-    }
-    
+    }*/
+
     /**
      * Realiza a compara��o entre dois diret�rios. <br>
      * Segue os seguintes passos: <br>
@@ -165,10 +170,9 @@ public class Ddiff {
      *            - Diret�rio 2
      * @return Result da compara��o.
      */
-    public static Result compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager) {
-        return new Ddiff(progressMessager).compararDiretoriosInterno(diretorio1, diretorio2);
+    public static Result compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager,String granularity, String tags) {
+        return new Ddiff(progressMessager,granularity,tags).compararDiretoriosInterno(diretorio1, diretorio2);
     }
-
     private Result compararDiretoriosInterno(File diretorio1, File diretorio2) {
         resultado = new Result();
         iteracao = 0;
@@ -251,7 +255,8 @@ public class Ddiff {
                 Diff diff = new Diff(fileBase, fileComparado);
                 try {
                     ILCSBean iLCSBean = new ILCSBean(fileBase, fileComparado);
-                    iLCSBean.setGranularity("LINE");
+                    iLCSBean.setGranularity(this.granularity);
+                    iLCSBean.setTags(this.tags);
                     IResultDiff compare = diff.compare(baseGrain, iLCSBean);
 
                     grainsTo.addAll(compare.getGrainsTo());
@@ -316,12 +321,12 @@ public class Ddiff {
 
         for (int i = 0; i < arquivosSemMatch1.size(); i++) {
             int[] linhaHungaro = resultadoHungaro[i];
-            
-            if (linhaHungaro[0] < arquivosSemMatch1.size() && linhaHungaro[1] < arquivosSemMatch2.size()) {	            
-	            Archive base = arquivosSemMatch1.get(linhaHungaro[0]);            
-	            Archive comparado = arquivosSemMatch2.get(linhaHungaro[1]);
-	            
-	            resultado.setEscolhaHungaro(base, comparado);
+
+            if (linhaHungaro[0] < arquivosSemMatch1.size() && linhaHungaro[1] < arquivosSemMatch2.size()) {
+                Archive base = arquivosSemMatch1.get(linhaHungaro[0]);
+                Archive comparado = arquivosSemMatch2.get(linhaHungaro[1]);
+
+                resultado.setEscolhaHungaro(base, comparado);
             }
         }
     }
@@ -341,25 +346,25 @@ public class Ddiff {
      * @return Matriz com o resultado do Algoritmo H�ngaro
      */
     private int[][] executaHungaro(int[][] matrizILCS) {
-    	int novaColuna = matrizILCS[0].length;
-    	
-    	if (matrizILCS.length > matrizILCS[0].length) {
-			novaColuna = matrizILCS.length - matrizILCS[0].length;
-		}
-    	
-		double[][] matrizSimilaridade = new double[matrizILCS.length][novaColuna];
-		
-		for (int i = 0; i < matrizSimilaridade.length; i++) {
-			for (int j = 0; j < matrizSimilaridade[i].length; j++) {
-				if (i < matrizILCS.length && j < matrizILCS[0].length) {
-					matrizSimilaridade[i][j] = matrizILCS[i][j];
-				} else {
-					matrizSimilaridade[i][j] = 0;
-				}
-			}
-		}
-		
-		return HungarianAlgorithm.hgAlgorithm(matrizSimilaridade, "max");    	
+        int novaColuna = matrizILCS[0].length;
+
+        if (matrizILCS.length > matrizILCS[0].length) {
+            novaColuna = matrizILCS.length - matrizILCS[0].length;
+        }
+
+        double[][] matrizSimilaridade = new double[matrizILCS.length][novaColuna];
+
+        for (int i = 0; i < matrizSimilaridade.length; i++) {
+            for (int j = 0; j < matrizSimilaridade[i].length; j++) {
+                if (i < matrizILCS.length && j < matrizILCS[0].length) {
+                    matrizSimilaridade[i][j] = matrizILCS[i][j];
+                } else {
+                    matrizSimilaridade[i][j] = 0;
+                }
+            }
+        }
+
+        return HungarianAlgorithm.hgAlgorithm(matrizSimilaridade, "max");
     }
 
     /**

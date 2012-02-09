@@ -217,9 +217,12 @@ public class MainFDiff extends javax.swing.JFrame {
         WarningDialog.setName("WarningDialog"); // NOI18N
         WarningDialog.setResizable(false);
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainFDiff.class);
+        jLabel1.setIcon(resourceMap.getIcon("jLabel1.icon")); // NOI18N
         jLabel1.setToolTipText("");
         jLabel1.setName("jLabel1"); // NOI18N
 
+        warningMsg.setFont(resourceMap.getFont("warningMsg.font")); // NOI18N
         warningMsg.setForeground(new java.awt.Color(0, 0, 102));
         warningMsg.setText("Refactoring Not Found");
         warningMsg.setName("warningMsg"); // NOI18N
@@ -232,7 +235,7 @@ public class MainFDiff extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(warningMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addComponent(warningMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                 .addContainerGap())
         );
         WarningDialogLayout.setVerticalGroup(
@@ -254,7 +257,6 @@ public class MainFDiff extends javax.swing.JFrame {
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance().getContext().getActionMap(MainFDiff.class, this);
         jButton1.setAction(actionMap.get("back")); // NOI18N
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance().getContext().getResourceMap(MainFDiff.class);
         jButton1.setIcon(resourceMap.getIcon("jButton1.icon")); // NOI18N
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
         jButton1.setToolTipText(resourceMap.getString("jButton1.toolTipText")); // NOI18N
