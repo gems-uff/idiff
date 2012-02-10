@@ -112,7 +112,7 @@ public final class MainILCS extends javax.swing.JFrame {
 
         initialSteps(fileFrom, fileTo, granularity, tags, getPerspective(isQuiteSimilar));
         Scroll.adjustmentScroll(leftScrollPane, rightScrollPane);
-        this.setExtendedState(MAXIMIZED_BOTH);  
+        this.setExtendedState(MAXIMIZED_BOTH);
 
         setListenerRadioButton();
 

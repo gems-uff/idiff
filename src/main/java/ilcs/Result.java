@@ -85,4 +85,8 @@ public class Result implements IResultDiff {
     public void setDifferences(List<Grain> differences) {
         this.differences = differences;
     }
+
+    public static void clean() {
+        resultInstance = null;
+    }
 }

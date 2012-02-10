@@ -29,14 +29,13 @@ public class Ddiff {
      * Diret�rio serializado 2
      */
     private DirectorySerialized dirSerializado2 = null;
-    private Result resultado;
+    private Result resultado = null;
     private int iteracao;
-    private String granularity;    
+    private String granularity;
     private String tags;
-
     private final ProgressMessager progressMessager;
 
-    public Ddiff(ProgressMessager progressMessager,String granularity, String tags) {
+    public Ddiff(ProgressMessager progressMessager, String granularity, String tags) {
         this.progressMessager = progressMessager;
         this.granularity = granularity;
         this.tags = tags;
@@ -76,103 +75,102 @@ public class Ddiff {
      * 
      * @return Result da compara��o.
      */
-  /*AQUI  public static Result compararDiretorios(String nomeDiretorio1,
-            String nomeDiretorio2) {
-        ProgressMessager defaultProgressMessager = new ProgressMessager() {
-
-            @Override
-            public void setMessage(String message) {
-                System.out.println(message);
-            }
-        };
-
-        return compararDiretorios(new File(nomeDiretorio1), new File(nomeDiretorio2), defaultProgressMessager);
-    }*/
-
-    /**
-     * Realiza a compara��o entre dois diret�rios. <br>
-     * Segue os seguintes passos: <br>
-     * <ol>
-     * 	<li>Organiza os arquivos contidos nos dois diret�rios como uma lista
-     * 		(incluindo os filhos recursivamente).
-     * 	</li>
-     * 	<li>
-     * 		Gera um c�digo hash MD5 com o conte�do de cada arquivo.</li>
-     * 	<li>
-     * 		Compara os hashs de cada um dos arquivos de cada diret�rio e marca os
-     * 		que s�o identicos com o valor 100 em uma matriz de equival�ncia
-     * 	</li>
-     * 	<li>
-     * 		Monta uma matriz com o percentual de igualdade calculado pelo LCS
-     * 		entre os arquivos que n�o se mostraram id�nticos no passo anterior.
-     * 	</li>
-     * 	<li>
-     * 		Calcula atrav�s do algoritmo H�ngaro quais s�o os matches mais
-     * 		pr�ximos entre os itens da matriz anterior
-     * 	</li>
-     * 	<li>
-     * 		Devolve os valores para a matriz de equival�ncia
-     * 	</li>
-     * 	<li>
-     * 		Analisa a matriz de equival�ncia e de acordo com ela popula a classe Delta
-     * 	</li>
-     * </ol>
-     * 
-     * @param diretorio1
-     *            - Diret�rio 1
-     * @param diretorio2
-     *            - Diret�rio 2
-     * @return Result da compara��o.
-     */
-   /*AQUIpublic static Result compararDiretorios(File diretorio1, File diretorio2) {
-        ProgressMessager defaultProgressMessager = new ProgressMessager() {
-
-            @Override
-            public void setMessage(String message) {
-                System.out.println(message);
-            }
-        };
-        return compararDiretorios(diretorio1, diretorio2, defaultProgressMessager);
-    }*/
-
-    /**
-     * Realiza a compara��o entre dois diret�rios. <br>
-     * Segue os seguintes passos: <br>
-     * <ol>
-     * 	<li>Organiza os arquivos contidos nos dois diret�rios como uma lista
-     * 		(incluindo os filhos recursivamente).
-     * 	</li>
-     * 	<li>
-     * 		Gera um c�digo hash MD5 com o conte�do de cada arquivo.</li>
-     * 	<li>
-     * 		Compara os hashs de cada um dos arquivos de cada diret�rio e marca os
-     * 		que s�o identicos com o valor 100 em uma matriz de equival�ncia
-     * 	</li>
-     * 	<li>
-     * 		Monta uma matriz com o percentual de igualdade calculado pelo LCS
-     * 		entre os arquivos que n�o se mostraram id�nticos no passo anterior.
-     * 	</li>
-     * 	<li>
-     * 		Calcula atrav�s do algoritmo H�ngaro quais s�o os matches mais
-     * 		pr�ximos entre os itens da matriz anterior
-     * 	</li>
-     * 	<li>
-     * 		Devolve os valores para a matriz de equival�ncia
-     * 	</li>
-     * 	<li>
-     * 		Analisa a matriz de equival�ncia e de acordo com ela popula a classe Delta
-     * 	</li>
-     * </ol>
-     * 
-     * @param diretorio1
-     *            - Diret�rio 1
-     * @param diretorio2
-     *            - Diret�rio 2
-     * @return Result da compara��o.
-     */
-    public static Result compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager,String granularity, String tags) {
-        return new Ddiff(progressMessager,granularity,tags).compararDiretoriosInterno(diretorio1, diretorio2);
+    /*AQUI  public static Result compararDiretorios(String nomeDiretorio1,
+    String nomeDiretorio2) {
+    ProgressMessager defaultProgressMessager = new ProgressMessager() {
+    
+    @Override
+    public void setMessage(String message) {
+    System.out.println(message);
     }
+    };
+    
+    return compararDiretorios(new File(nomeDiretorio1), new File(nomeDiretorio2), defaultProgressMessager);
+    }*/
+    /**
+     * Realiza a compara��o entre dois diret�rios. <br>
+     * Segue os seguintes passos: <br>
+     * <ol>
+     * 	<li>Organiza os arquivos contidos nos dois diret�rios como uma lista
+     * 		(incluindo os filhos recursivamente).
+     * 	</li>
+     * 	<li>
+     * 		Gera um c�digo hash MD5 com o conte�do de cada arquivo.</li>
+     * 	<li>
+     * 		Compara os hashs de cada um dos arquivos de cada diret�rio e marca os
+     * 		que s�o identicos com o valor 100 em uma matriz de equival�ncia
+     * 	</li>
+     * 	<li>
+     * 		Monta uma matriz com o percentual de igualdade calculado pelo LCS
+     * 		entre os arquivos que n�o se mostraram id�nticos no passo anterior.
+     * 	</li>
+     * 	<li>
+     * 		Calcula atrav�s do algoritmo H�ngaro quais s�o os matches mais
+     * 		pr�ximos entre os itens da matriz anterior
+     * 	</li>
+     * 	<li>
+     * 		Devolve os valores para a matriz de equival�ncia
+     * 	</li>
+     * 	<li>
+     * 		Analisa a matriz de equival�ncia e de acordo com ela popula a classe Delta
+     * 	</li>
+     * </ol>
+     * 
+     * @param diretorio1
+     *            - Diret�rio 1
+     * @param diretorio2
+     *            - Diret�rio 2
+     * @return Result da compara��o.
+     */
+    /*AQUIpublic static Result compararDiretorios(File diretorio1, File diretorio2) {
+    ProgressMessager defaultProgressMessager = new ProgressMessager() {
+    
+    @Override
+    public void setMessage(String message) {
+    System.out.println(message);
+    }
+    };
+    return compararDiretorios(diretorio1, diretorio2, defaultProgressMessager);
+    }*/
+    /**
+     * Realiza a compara��o entre dois diret�rios. <br>
+     * Segue os seguintes passos: <br>
+     * <ol>
+     * 	<li>Organiza os arquivos contidos nos dois diret�rios como uma lista
+     * 		(incluindo os filhos recursivamente).
+     * 	</li>
+     * 	<li>
+     * 		Gera um c�digo hash MD5 com o conte�do de cada arquivo.</li>
+     * 	<li>
+     * 		Compara os hashs de cada um dos arquivos de cada diret�rio e marca os
+     * 		que s�o identicos com o valor 100 em uma matriz de equival�ncia
+     * 	</li>
+     * 	<li>
+     * 		Monta uma matriz com o percentual de igualdade calculado pelo LCS
+     * 		entre os arquivos que n�o se mostraram id�nticos no passo anterior.
+     * 	</li>
+     * 	<li>
+     * 		Calcula atrav�s do algoritmo H�ngaro quais s�o os matches mais
+     * 		pr�ximos entre os itens da matriz anterior
+     * 	</li>
+     * 	<li>
+     * 		Devolve os valores para a matriz de equival�ncia
+     * 	</li>
+     * 	<li>
+     * 		Analisa a matriz de equival�ncia e de acordo com ela popula a classe Delta
+     * 	</li>
+     * </ol>
+     * 
+     * @param diretorio1
+     *            - Diret�rio 1
+     * @param diretorio2
+     *            - Diret�rio 2
+     * @return Result da compara��o.
+     */
+    public static Result compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager, String granularity, String tags) {
+        return new Ddiff(progressMessager, granularity, tags).compararDiretoriosInterno(diretorio1, diretorio2);
+    }
+
     private Result compararDiretoriosInterno(File diretorio1, File diretorio2) {
         resultado = new Result();
         iteracao = 0;
@@ -255,7 +253,7 @@ public class Ddiff {
                 Diff diff = new Diff(fileBase, fileComparado);
                 try {
                     ILCSBean iLCSBean = new ILCSBean(fileBase, fileComparado);
-                    iLCSBean.setGranularity(this.granularity);
+                    iLCSBean.setGranularity(setGrainName(this.granularity));
                     iLCSBean.setTags(this.tags);
                     IResultDiff compare = diff.compare(baseGrain, iLCSBean);
 
@@ -383,6 +381,13 @@ public class Ddiff {
         }
 
         return true;
+    }
+
+    private String setGrainName(String granularity) {
+        if ("Word (Default)".equals(granularity)) {
+            return "Word";
+        }
+        return granularity;
     }
 
     /**

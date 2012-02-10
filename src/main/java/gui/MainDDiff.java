@@ -37,7 +37,6 @@ public class MainDDiff extends JFrame {
     private File to;
     private String tags;
     private static MainDDiff instance;
-    //private SplashScreen splash;
 
     /**
      * getInstance

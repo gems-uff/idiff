@@ -34,6 +34,7 @@ public class Diff {
      */
     public IResultDiff compare(Grain grain, ILCSBean iLCSBean) throws DiffException {
         IDiff comparator = Algorithm.getComparator();
+        Result.clean();
         Result.getResult().setDifferences(comparator.idiff(this.fileVersionOne, this.fileVersionTwo, grain, iLCSBean));
         return Result.getResult();
     }
