@@ -276,13 +276,9 @@ public class Ddiff {
                 }
 
                 int similaridade = 0;
-
-                if (base.getTamanhoAtual() > 0) {
-                    similaridade = qtdeCharsIguais * 100 / base.getTamanhoAtual();
-                }
-
-                if (similaridade == 100 && comparado.getTamanhoAtual() > 0) {
-                    similaridade = qtdeCharsIguais * 100 / comparado.getTamanhoAtual();
+                int tamanhoTotal = base.getTamanhoAtual() + comparado.getTamanhoAtual();                
+                if (tamanhoTotal > 0) {
+                	similaridade = qtdeCharsIguais * 200 / tamanhoTotal;
                 }
 
                 progressMessager.setMessage("Comparing '" + base.getArquivo().getName() + "' and '" + comparado.getArquivo().getName() + "'.");
