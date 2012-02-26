@@ -3,6 +3,7 @@ package gui;
 import gui.components.TreeComponent;
 import gui.components.FileComponent;
 import gui.components.TableComponent;
+import idiff.experiments.XLSFile;
 import idiff.resources.Scroll;
 import ilcs.Diff;
 import ilcs.DiffException;
@@ -59,6 +60,7 @@ import idiff.wrap.Wrap;
 public final class MainILCS extends javax.swing.JFrame {
 
     private static MainILCS instance;
+    XLSFile xls = new XLSFile("IDIFF Experiments", "c:\\");
 
     /**
      * Set instance
@@ -516,7 +518,12 @@ public final class MainILCS extends javax.swing.JFrame {
      * Start Table
      */
     private void startTable() {
-        tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails, ilcsBean);
+        try {
+            xls.createSheet("idiff(" + ilcsBean.getFileFrom().getName() + "," + ilcsBean.getFileTo().getName() + ")");
+        } finally {
+            tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails, ilcsBean, xls);
+            xls.close();
+        }
     }
 
     /**
