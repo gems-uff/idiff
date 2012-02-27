@@ -47,11 +47,11 @@ public class TableComponent {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
 
-        createLineTitle(xls, "Moves Retrieved");
+        xls.createLineTitle(xls, "Moves Retrieved");
         printMoves(it1, it2, tableDetails, ilcsb.getPerspective(), xls);
 
         if (ilcsb.getPerspective() == 1) {
-            createLineTitle(xls, "Differences Retrieved");
+            xls.createLineTitle(xls, "Differences Retrieved");
             printDifferences(diferences, tableDetails, xls);
         }
         printNotFound(tableDetails);
@@ -60,12 +60,6 @@ public class TableComponent {
         tableDetails.setRowSelectionAllowed(true);
     }
 
-    private void createLineTitle(XLSFile xls, String title) {
-        xls.createNextRow();
-        HSSFCell cell = xls.getNewCell();
-        cell.setCellValue(title);
-        xls.createNextRow();
-    }
 
     /**
      * Print Differences not found
@@ -90,12 +84,12 @@ public class TableComponent {
             if (grain != null) {
                 switch (grain.getSituation()) {
                     case REMOVED:
-                        insertCell(xls, new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
+                        xls.insertCell(xls, new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
                         ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
                         tableDetails.setForeground(Color.BLACK);
                         break;
                     case ADDED:
-                        insertCell(xls, new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
+                        xls.insertCell(xls, new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
                         ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
                         tableDetails.setForeground(Color.BLACK);
                         break;
@@ -116,7 +110,7 @@ public class TableComponent {
             Grain grain2 = it2.next();
 
             if (verifyConditions(grain1, grain2, perpective)) {
-                insertCell(xls, new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
+                xls.insertCell(xls, new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
                 ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
                 tableDetails.setForeground(Color.BLACK);
             }
@@ -204,13 +198,5 @@ public class TableComponent {
         }
     }
 
-    private void insertCell(XLSFile xls, Object[] contents) {
-        xls.createNextRow();
-        HSSFCell cell = xls.getNewCell();
-        for (int i = 0; i < contents.length; i++) {
-            cell.setCellValue(contents[i].toString());
-            cell = xls.getNewCell();
-        }
 
-    }
 }

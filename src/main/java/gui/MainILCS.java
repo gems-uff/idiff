@@ -519,7 +519,7 @@ public final class MainILCS extends javax.swing.JFrame {
      */
     private void startTable() {
         try {
-            xls.createSheet("idiff(" + ilcsBean.getFileFrom().getName() + "," + ilcsBean.getFileTo().getName() + ")");
+            xls.createSheet("idiff(" + ilcsBean.getFileFrom().getName() + ")");
         } finally {
             tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails, ilcsBean, xls);
             xls.close();
