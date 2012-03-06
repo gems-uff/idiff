@@ -28,10 +28,10 @@ public class XLSFile {
     private HSSFSheet sheet[] = new HSSFSheet[100];
     private HSSFRow row;
     private boolean exist;
-    private int planilhaAtual = 0;
-    private int linhaAtual = -1;
-    private int colunaAtual = 0;
-    private int MAX_LINHAS = 65535;
+    private int currentSheet = 0;
+    private int currentLine = -1;
+    private int currentColumn = 0;
+    private int MAX_ROWS = 65535;
 
     public XLSFile(String fileName, String dirName) {
         this.fileName = fileName;
@@ -59,12 +59,13 @@ public class XLSFile {
     }
 
     public void createSheet(String sheetName) {
-        if ((sheetName != null && sheet[planilhaAtual] != null) && (sheetName.equals(sheet[planilhaAtual].getSheetName()))) {
-            workbook.removeSheetAt(workbook.getSheetIndex(sheetName));
-            this.linhaAtual = -1;
+        this.currentLine = -1;
+        this.currentColumn = 0;
 
+        if ((sheetName != null && sheet[currentSheet] != null) && (sheetName.equals(sheet[currentSheet].getSheetName()))) {
+            workbook.removeSheetAt(workbook.getSheetIndex(sheetName));
         }
-        sheet[planilhaAtual] = workbook.createSheet(sheetName);
+        sheet[currentSheet] = workbook.createSheet(sheetName);
     }
 
     private void readFile() {
@@ -77,26 +78,25 @@ public class XLSFile {
         } catch (IOException ex) {
             Logger.getLogger(XLSFile.class.getName()).log(Level.SEVERE, null, ex);
         }
-        planilhaAtual = workbook.getNumberOfSheets() - 1;
-        sheet[planilhaAtual] = workbook.getSheetAt(planilhaAtual);
-        linhaAtual = sheet[planilhaAtual].getLastRowNum();
+        currentSheet = workbook.getNumberOfSheets() - 1;
+        sheet[currentSheet] = workbook.getSheetAt(currentSheet);
+        currentLine = sheet[currentSheet].getLastRowNum();
     }
 
     public HSSFCell getNewCell() {
-        return row.createCell(colunaAtual++);
+        return row.createCell(currentColumn++);
     }
 
     public void createNextRow() {
-        colunaAtual = 0;
+        currentColumn = 0;
 
-        if (++linhaAtual >= MAX_LINHAS) {
-            System.out.println("Limite de linhas da planilha alcanÃ§ado, continuando listagem na prÃ³xima");
-            planilhaAtual++;
-            linhaAtual = 0;
-            sheet[planilhaAtual] = workbook.createSheet(this.fileName + "_" + planilhaAtual);
+        if (++currentLine >= MAX_ROWS) {
+            currentSheet++;
+            currentLine = 0;
+            sheet[currentSheet] = workbook.createSheet(this.fileName + "_" + currentSheet);
         }
 
-        row = sheet[planilhaAtual].createRow(linhaAtual);
+        row = sheet[currentSheet].createRow(currentLine);
     }
 
     public void close() {

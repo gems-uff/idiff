@@ -61,7 +61,7 @@ import idiff.wrap.Wrap;
 public final class MainILCS extends javax.swing.JFrame {
 
     private static MainILCS instance;
-    private XLSFile xls = new XLSFile("IDIFF Experiments", "c:/Users/Sisi/Documents");
+    private XLSFile xls = new XLSFile("IDIFF Experiments", "c:/Users/Sisi/Documents/");
 
     /**
      * Set instance
@@ -520,7 +520,7 @@ public final class MainILCS extends javax.swing.JFrame {
      */
     private void startTable() {
         try {
-            getXls().createSheet("idiff(" + ilcsBean.getFileFrom().getName() + ")");
+            getXls().createSheet("idiff(" + ilcsBean.getFileFrom().getName() + ") - " + ilcsBean.getGranularity() + " grain");
         } finally {
             tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails, ilcsBean, getXls());
             getXls().close();
