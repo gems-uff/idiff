@@ -69,15 +69,7 @@ public class XLSFile {
     }
 
     private boolean sheetExist(String sheetName) {
-       // for (int i = 0; i < sheet.length; i++) {
-         //   if ((sheet[i] != null) && sheetName.equals(sheet[i].getSheetName())) {
-           //     return true;
-       //     }
-        //}
-       // return false;
         return (workbook.getSheet(sheetName) != null);
-            
-        //}
     }
 
     private void readFile() {
