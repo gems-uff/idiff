@@ -139,7 +139,6 @@ public class XLSFile {
             cell.setCellValue(contents[i].toString());
             cell = xls.getNewCell();
         }
-        xls.createNextRow();
     }
 
     public void createLineTitle(XLSFile xls, String title) {
