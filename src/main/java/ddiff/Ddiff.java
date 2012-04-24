@@ -165,7 +165,10 @@ public class Ddiff {
      *            - Diret�rio 1
      * @param diretorio2
      *            - Diret�rio 2
-     * @return Result da compara��o.
+     * @param progressMessager 
+     * @param granularity 
+     * @param tags 
+     * @return Result da comparacao.
      */
     public static Result compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager, String granularity, String tags) {
         return new Ddiff(progressMessager, granularity, tags).compararDiretoriosInterno(diretorio1, diretorio2);

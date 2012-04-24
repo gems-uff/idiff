@@ -1,6 +1,5 @@
 package idiff.wrap;
 
-import idiff.wrap.WrapColumnFactory;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.StyledEditorKit;
 import javax.swing.text.ViewFactory;
@@ -10,6 +9,7 @@ import javax.swing.text.ViewFactory;
  * @author Fernanda Floriano Silva
  */
 public class WrapEditorKit extends StyledEditorKit {
+    private static final long serialVersionUID = 1L;
 
     private ViewFactory defaultFactory = new WrapColumnFactory();
 

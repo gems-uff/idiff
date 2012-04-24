@@ -91,7 +91,7 @@
           <Group type="102" attributes="0">
               <Component id="jToolBar1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panel" min="-2" max="-2" attributes="0"/>
+              <Component id="panel" min="-2" pref="607" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -154,7 +154,6 @@
               <Dimension value="[900, 28]"/>
             </Property>
             <Property name="name" type="java.lang.String" value="refactoringCombo" noResource="true"/>
-            <Property name="opaque" type="boolean" value="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[900, 28]"/>
             </Property>

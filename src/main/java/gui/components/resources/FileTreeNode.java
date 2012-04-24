@@ -12,6 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Fernanda Floriano Silva
  */
 public class FileTreeNode extends DefaultMutableTreeNode {
+    private static final long serialVersionUID = 1L;
 
     /**
      * 

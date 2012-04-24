@@ -25,6 +25,7 @@ import org.jdesktop.application.Action;
  * MainFDiff
  * @author Fernanda Floriano Silva
  */
+@SuppressWarnings("serial")
 public class MainFDiff extends javax.swing.JFrame {
 
     public static final int LEFT_DIRECTORY = 1;

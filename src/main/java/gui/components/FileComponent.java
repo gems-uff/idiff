@@ -84,6 +84,8 @@ public class FileComponent {
 
     /**
      * init
+     * @param editorPane 
+     * @param panel 
      * @param file
      * @throws MalformedURLException
      * @throws IOException 

@@ -23,6 +23,7 @@ import javax.swing.border.BevelBorder;
  * @author Leo Murta (murta@ics.uci.edu, murta@cos.ufrj.br) - Aug 25, 2004
  */
 public class SplashScreen extends JDialog implements ProgressMessager {
+    private static final long serialVersionUID = 1L;
 
     static void close() {
         SplashScreen.close();
@@ -82,6 +83,7 @@ public class SplashScreen extends JDialog implements ProgressMessager {
 
     /**
      * Write a new status message
+     * @param message 
      */
     public void setStatus(String message) {
         statusLabel.setText(message);
@@ -97,6 +99,7 @@ public class SplashScreen extends JDialog implements ProgressMessager {
     }
 
     /**
+     * @param message 
      * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionStarted(java.lang.String)
      */
     public void connectionStarted(String message) {
@@ -104,6 +107,7 @@ public class SplashScreen extends JDialog implements ProgressMessager {
     }
 
     /**
+     * @param message 
      * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionProgress(java.lang.String)
      */
     public void connectionProgress(String message) {
@@ -111,6 +115,7 @@ public class SplashScreen extends JDialog implements ProgressMessager {
     }
 
     /**
+     * @param message 
      * @see edu.uci.ics.archtrace.connectors.ConnectionListener#connectionFinished(java.lang.String)
      */
     public void connectionFinished(String message) {
@@ -118,6 +123,7 @@ public class SplashScreen extends JDialog implements ProgressMessager {
     }
 
     /**
+     * @param visible 
      * @see java.awt.Component#setVisible(boolean)
      */
     @Override

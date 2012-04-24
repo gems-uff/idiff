@@ -8,6 +8,7 @@ import idiff.resources.Laf;
  * @author Fernanda Floriano Silva
  */
 public class AboutTeam extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Creates new form AboutTeam

@@ -1,7 +1,5 @@
 package ilcs.result;
 
-import ilcs.result.IResultLCS;
-import ilcs.DiffException;
 import ilcs.DiffException;
 import ilcs.grain.Grain;
 import java.util.Iterator;

@@ -12,8 +12,12 @@ import ddiff.ProgressMessager;
  * @author Eraldo
  */
 public class DDiffProgress extends javax.swing.JDialog implements ProgressMessager {
+    private static final long serialVersionUID = 1L;
 
-    /** Creates new form DDiffProgress */
+    /** Creates new form DDiffProgress
+     * @param parent
+     * @param modal  
+     */
     public DDiffProgress(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         

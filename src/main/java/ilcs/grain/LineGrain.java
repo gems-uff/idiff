@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * LineGrain
@@ -48,7 +49,7 @@ public class LineGrain extends Grain {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         int id = 0;
         int idStart = 0;
-        while ((line = reader.readLine()) != null) {
+        while (((line = reader.readLine()) != null) && (!islineTag(line, ilcsb.getTags()))) {
             id++;
             LineGrain lineGrain = new LineGrain(line, id, idStart);
             lineGrain.setIdFile(idFile);
@@ -73,5 +74,23 @@ public class LineGrain extends Grain {
         } catch (IOException ex) {
             throw new DiffException(ex, DiffException.MSG_INVALID_START_LINE_GRANULARITY);
         }
+    }
+
+    private boolean islineTag(String line, String tags) {
+        if (!line.equals("")) { //Existe conteúdo a ser comparado
+            Pattern p = Pattern.compile(tags);
+            String[] token = p.split(line);
+            return ((allTokensEmpty(token)) ? true : false);
+        }
+        return false;
+    }
+
+    private boolean allTokensEmpty(String[] token) {
+        for (int i = 0; i < token.length; i++) {
+            if (!token[i].equals("")) {
+                return false;
+            }
+        }
+        return true; 
     }
 }

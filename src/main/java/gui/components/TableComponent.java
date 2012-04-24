@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import org.apache.poi.hssf.usermodel.HSSFCell;
 
 /**
  * TableComponent
@@ -41,7 +40,8 @@ public class TableComponent {
      * @param list2
      * @param diferences 
      * @param tableDetails
-     * @param ilcsb  
+     * @param ilcsb
+     * @param xls  
      */
     public void printTableLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences, JTable tableDetails, ILCSBean ilcsb, XLSFile xls) {
         Iterator<Grain> it1 = list1.iterator();

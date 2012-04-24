@@ -520,7 +520,7 @@ public final class MainILCS extends javax.swing.JFrame {
      */
     private void startTable() {
         try {
-            getXls().createSheet("idiff(" + ilcsBean.getFileFrom().getName() + ") - " + ilcsBean.getGranularity() + " grain");
+            getXls().createSheet("idiff(" + ilcsBean.getFileFrom().getName().substring(0,9) + ") - " + ilcsBean.getGranularity());
         } finally {
             tableComponent.printTableLines(result.getGrainsFrom(), result.getGrainsTo(), result.getDifferences(), tableDetails, ilcsBean, getXls());
             getXls().close();

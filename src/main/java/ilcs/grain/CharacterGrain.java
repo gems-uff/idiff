@@ -2,7 +2,6 @@ package ilcs.grain;
 
 import ilcs.algorithms.Algorithm;
 import ilcs.DiffException;
-import ilcs.grain.GrainBean;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;

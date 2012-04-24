@@ -1,6 +1,5 @@
 package idiff.wrap;
 
-import idiff.wrap.NoWrapParagraphView;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.BoxView;
 import javax.swing.text.ComponentView;

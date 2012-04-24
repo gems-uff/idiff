@@ -1,6 +1,5 @@
 package ilcs.grain;
 
-import ilcs.grain.GrainBean;
 import ilcs.grain.Grain.LevelGranularity;
 
 /**

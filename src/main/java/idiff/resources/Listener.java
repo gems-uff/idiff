@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 /**

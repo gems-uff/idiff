@@ -26,7 +26,8 @@ public class FileChooser extends JFileChooser {
 
     /**
      * 
-     * @param tField 
+     * @param tField
+     * @param parent  
      */
     public void setFileChooser(JTextField tField, FileSelection parent) {
         getFileChooser().setDialogTitle("File Chooser");
