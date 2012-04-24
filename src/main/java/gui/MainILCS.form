@@ -41,7 +41,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="toolBar" alignment="0" pref="1439" max="32767" attributes="0"/>
+          <Component id="toolBar" alignment="0" pref="1447" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="mainSplitPane" pref="1427" max="32767" attributes="0"/>

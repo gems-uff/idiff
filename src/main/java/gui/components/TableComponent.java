@@ -1,6 +1,5 @@
 package gui.components;
 
-import idiff.experiments.XLSFile;
 import ilcs.grain.Grain;
 import ilcs.ILCSBean;
 import java.awt.Color;
@@ -41,18 +40,15 @@ public class TableComponent {
      * @param diferences 
      * @param tableDetails
      * @param ilcsb
-     * @param xls  
      */
-    public void printTableLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences, JTable tableDetails, ILCSBean ilcsb, XLSFile xls) {
+    public void printTableLines(List<Grain> list1, List<Grain> list2, List<Grain> diferences, JTable tableDetails, ILCSBean ilcsb) {
         Iterator<Grain> it1 = list1.iterator();
         Iterator<Grain> it2 = list2.iterator();
 
-        xls.createLineTitle(xls, "Moves Retrieved");
-        printMoves(it1, it2, tableDetails, ilcsb.getPerspective(), xls);
+        printMoves(it1, it2, tableDetails, ilcsb.getPerspective());
 
         if (ilcsb.getPerspective() == 1) {
-            xls.createLineTitle(xls, "Differences Retrieved");
-            printDifferences(diferences, tableDetails, xls);
+            printDifferences(diferences, tableDetails);
         }
         printNotFound(tableDetails);
 
@@ -78,18 +74,16 @@ public class TableComponent {
      * @param diferences
      * @param tableDetails 
      */
-    private void printDifferences(List<Grain> diferences, JTable tableDetails, XLSFile xls) {
+    private void printDifferences(List<Grain> diferences, JTable tableDetails) {
         for (Iterator<Grain> it = diferences.iterator(); it.hasNext();) {
             Grain grain = it.next();
             if (grain != null) {
                 switch (grain.getSituation()) {
                     case REMOVED:
-                        xls.insertCell(xls, new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
                         ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
                         tableDetails.setForeground(Color.BLACK);
                         break;
                     case ADDED:
-                        xls.insertCell(xls, new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
                         ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), "---", printTableReference(grain.getOriginalReference())});
                         tableDetails.setForeground(Color.BLACK);
                         break;
@@ -104,13 +98,12 @@ public class TableComponent {
      * @param it2
      * @param tableDetails 
      */
-    private void printMoves(Iterator<Grain> it1, Iterator<Grain> it2, JTable tableDetails, int perpective, XLSFile xls) {
+    private void printMoves(Iterator<Grain> it1, Iterator<Grain> it2, JTable tableDetails, int perpective) {
         while (it1.hasNext() || it2.hasNext()) {
             Grain grain1 = it1.next();
             Grain grain2 = it2.next();
 
             if (verifyConditions(grain1, grain2, perpective)) {
-                xls.insertCell(xls, new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
                 ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
                 tableDetails.setForeground(Color.BLACK);
             }
