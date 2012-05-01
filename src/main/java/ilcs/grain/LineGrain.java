@@ -49,12 +49,15 @@ public class LineGrain extends Grain {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         int id = 0;
         int idStart = 0;
-        while (((line = reader.readLine()) != null) && (!islineTag(line, ilcsb.getTags()))) {
+        while (((line = reader.readLine()) != null)) {
             id++;
             LineGrain lineGrain = new LineGrain(line, id, idStart);
             lineGrain.setIdFile(idFile);
-            finalList.add(lineGrain);
+            if (!islineTag(line, ilcsb.getTags())) {
+                finalList.add(lineGrain);
+            }
             idStart = idStart + line.length() + 1;
+
         }
         return finalList;
     }
@@ -91,6 +94,6 @@ public class LineGrain extends Grain {
                 return false;
             }
         }
-        return true; 
+        return true;
     }
 }
