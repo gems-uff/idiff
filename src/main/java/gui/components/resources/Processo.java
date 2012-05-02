@@ -67,9 +67,6 @@ public class Processo extends Thread {
             aThis.execute();
             dp.setVisible(false);
         } else {
-
-            //s.setVisible(true);     
-
             try {
                 aThis.loadTree();
             } catch (DDiffException ex) {
@@ -77,7 +74,6 @@ public class Processo extends Thread {
             }
             aThis.execute();
             SplashScreen.close();
-            //s.setVisible(false);
             aThis.setVisible(true);
 
         }

@@ -18,7 +18,7 @@ public class ResultArchive {
 	private List<Grain> grainsTo = new ArrayList<Grain>();
 
 	/**
-	 * Cria uma classe para representar o resultado da compara��o entre arquivos
+	 * Cria uma classe para representar o resultado da comparacao entre arquivos
 	 * @param arquivo1
 	 * @param arquivo2
 	 * @param tipo

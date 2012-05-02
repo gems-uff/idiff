@@ -1,7 +1,7 @@
 package ddiff;
 
 /**
- * Exce��es lan�adas pelo processso de Diff em diret�rios
+ * Excecoes lancadas pelo processso de Diff em diretorios
  * 
  * @author Eraldo
  *
@@ -13,7 +13,7 @@ public class DDiffException extends Exception {
 	}
 
 	/**
-	 * Serializa��o
+	 * Serializacao
 	 */
 	private static final long serialVersionUID = -115586961436156258L;
 

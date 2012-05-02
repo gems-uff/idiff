@@ -17,12 +17,9 @@ import javax.swing.border.BevelBorder;
 
 /**
  * Splash screen used in long operations to inform the user about progress.
- *  - ArchTrace loading
- *  - Architecture/Repository loading
- *
- * @author Leo Murta (murta@ics.uci.edu, murta@cos.ufrj.br) - Aug 25, 2004
  */
 public class SplashScreen extends JDialog implements ProgressMessager {
+
     private static final long serialVersionUID = 1L;
 
     static void close() {
@@ -66,7 +63,7 @@ public class SplashScreen extends JDialog implements ProgressMessager {
         memoryLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         panel.add(memoryLabel, BorderLayout.NORTH);
 
-        JLabel mainLabel = new JLabel("ArchTrace", SwingConstants.CENTER);
+        JLabel mainLabel = new JLabel("IDIFF", SwingConstants.CENTER);
         mainLabel.setFont(new Font("SansSerif", Font.PLAIN, 72));
         panel.add(mainLabel, BorderLayout.CENTER);
 

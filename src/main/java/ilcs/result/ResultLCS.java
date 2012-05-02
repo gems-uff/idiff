@@ -31,17 +31,6 @@ public class ResultLCS implements IResultLCS {
     }
 
     /**
-     * Verify if is same reference
-     * @param grain
-     * @param lcsList
-     * @param i
-     * @return boolean
-     */
-    private boolean isSameReference(Grain grain, List<Grain> lcsList, int i) {
-        return grain.getOriginalReference().get(0) == lcsList.get(i).getOriginalReference().get(0);
-    }
-
-    /**
      * Verify if is same start position
      * @param grain
      * @param lcsList

@@ -167,19 +167,6 @@ public class Tree extends JTree {
         }
     }
 
-    /*    public void setSelectedNode(Node no) {
-    Node selected = selectedNode;
-    if (selected != null && no.isSelected()) {
-    clearSelectedNode();
-    if (selected.equals(no)) {//desmarcar
-    no.setSelected(false);
-    return;
-    }
-    }
-    no.setSelected(!no.isSelected());
-    selectedNode = no;
-    }
-     */
     private void setSelectedNode(Node no) {
         if (no.isBaseSelection() || no.getIdStart() != -1) {
             if (selectedNode != null) {
@@ -199,9 +186,6 @@ public class Tree extends JTree {
         }
     }
 
-    /**
-     * 
-     */
     private void clearNodeSelection() {
         for (Node no : getNodes()) {
             no.clearSelection();

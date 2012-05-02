@@ -3,7 +3,7 @@ package ddiff;
 import ilcs.grain.LineGrain;
 
 /**
- * Representa o grao linha para diff de diret�rios
+ * Representa o grao linha para diff de diretorios
  * 
  * @author Eraldo
  *

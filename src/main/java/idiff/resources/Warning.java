@@ -1,6 +1,5 @@
 package idiff.resources;
 
-import java.awt.Image;
 import javax.swing.JDialog;
 
 /**
@@ -24,9 +23,5 @@ public class Warning {
         if (warning.isVisible()) {
             warning.dispose();
         }
-    }
-
-    private static void setIconImage(Image icon) {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

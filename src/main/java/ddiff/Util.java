@@ -20,7 +20,7 @@ public class Util {
     /**
      * Cria um array de inteiros e atribui um valor padr�o para cada posi��o.
      * @param tamanho Tamanho do array
-     * @param padrao Valor padr�o
+     * @param padrao Valor padrao
      * @return array criado.
      */
     public static int[] criarArray(int tamanho, int padrao) {
@@ -46,7 +46,7 @@ public class Util {
     /**
      * Cria um array de booleanos e atribui um valor padr�o para cada posicao.
      * @param tamanho Tamanho do array
-     * @param padrao Valor padr�o
+     * @param padrao Valor padrao
      * @return array criado.
      */
     public static boolean[] criarArray(int tamanho, boolean padrao) {

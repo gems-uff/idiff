@@ -1,16 +1,7 @@
-/*
- * DDiffProgress.java
- *
- * Created on 14/01/2012, 12:18:01
- */
 package gui;
 
 import ddiff.ProgressMessager;
 
-/**
- *
- * @author Eraldo
- */
 public class DDiffProgress extends javax.swing.JDialog implements ProgressMessager {
     private static final long serialVersionUID = 1L;
 

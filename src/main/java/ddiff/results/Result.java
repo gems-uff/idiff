@@ -9,7 +9,7 @@ import ddiff.Archive;
 
 
 /**
- * Representa o resultado de compara��o entre dois diret�rios
+ * Representa o resultado de comparacao entre dois diretorios
  * 
  * @author Eraldo
  *
@@ -17,7 +17,7 @@ import ddiff.Archive;
 public class Result {
 
 	/**
-	 * Valor correspondente ao percentual id�ntico.
+	 * Valor correspondente ao percentual identico.
 	 */
 	public static final int PERCENTUAL_IDENTICO = 100;
 	
@@ -67,7 +67,7 @@ public class Result {
 	/**
 	 * Adiciona um resultado do tipo ADICIONADO.
 	 * 
-	 * @param adicionado Archive que foi adicionado no diret�rio comparado.
+	 * @param adicionado Archive que foi adicionado no diretorio comparado.
 	 */
 	public void addAdicionado(Archive adicionado) {
 		add(new ResultArchive(adicionado, TypeResult.ADDED));

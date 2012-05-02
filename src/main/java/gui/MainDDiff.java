@@ -30,6 +30,7 @@ public class MainDDiff extends JFrame {
 
     public static final int LEFT_DIRECTORY = 1;
     public static final int RIGHT_DIRECTORY = 2;
+    public static final int SIMILARITY_AVG = 50;
     private Tree fromTree;
     private Tree toTree;
     private String granularity;
@@ -98,7 +99,7 @@ public class MainDDiff extends JFrame {
      * @return 
      */
     private boolean isQuiteSimilar(Node from, Node to) {
-        return (from.getSimilaridade() == 0 && to.getSimilaridade() > 50);
+        return (from.getSimilaridade() == 0 && to.getSimilaridade() > SIMILARITY_AVG);
     }
 
     /**

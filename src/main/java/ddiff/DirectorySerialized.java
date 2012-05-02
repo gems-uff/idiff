@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * Guarda uma representa��o do diret�rio com os arquivos armazenados em uma lista.
+ * Guarda uma representacao do diretorio com os arquivos armazenados em uma lista.
  * 
  * @author Eraldo
  *
@@ -15,28 +15,28 @@ import java.util.List;
 public class DirectorySerialized {
 
 	/**
-	 * Lista com os arquivos contidos no diret�rio.
+	 * Lista com os arquivos contidos no diretorio.
 	 * 
 	 */
 	private List<Archive> arquivos = new ArrayList<Archive>();
 	
 	/**
-	 * Id do diret�rio.
+	 * Id do diretorio.
 	 */
 	private int id;
 
 	/**
-	 * Diret�rio base
+	 * Diretario base
 	 */
 	private File diretorio;
 
 		
 	/**
-	 * Construtor padr�o.
+	 * Construtor padrao.
 	 * 
-	 * @param diretorio Diret�rio a ser representado.
-	 * @param id Id do diret�rio.
-	 * @throws DDiffException caso o arquivo n�o exista ou n�o seja um diret�rio.
+	 * @param diretorio Diretorio a ser representado.
+	 * @param id Id do diretorio.
+	 * @throws DDiffException caso o arquivo nao exista ou nao seja um diretorio.
 	 */
 	public DirectorySerialized(File diretorio, int id) throws DDiffException {
 		this.diretorio = diretorio;
@@ -49,9 +49,9 @@ public class DirectorySerialized {
 	}
 
 	/**
-	 * Carrega os arquivos do diret�rio para a lista de arquivos.
+	 * Carrega os arquivos do diretorio para a lista de arquivos.
 	 * 
-	 * @param diretorio Diret�rio do qual ser�o lidos os arquivos.
+	 * @param diretorio Diretorio do qual serao lidos os arquivos.
 	 */
 	private void carregarArquivos(File diretorio) {
 		if (!diretorio.isHidden()) {			
@@ -72,7 +72,7 @@ public class DirectorySerialized {
 	}
 
 	/**
-	 * Adiciona um novo arquivo a lista do diret�rio
+	 * Adiciona um novo arquivo a lista do diretorio
 	 * 
 	 * @param filho Archive
 	 */
@@ -94,7 +94,7 @@ public class DirectorySerialized {
 	}
 
 	/**
-	 * Retorna o numero de arquivos contidos no diret�rio representado.
+	 * Retorna o numero de arquivos contidos no diretorio representado.
 	 * 
 	 * @return tamanho da lista de arquivos
 	 */
@@ -105,9 +105,9 @@ public class DirectorySerialized {
 	/**
 	 * Rretorna o arquivo pelo indice na lista.
 	 * 
-	 * @param indice Posi��o do arquivo na lista.
+	 * @param indice Posicao do arquivo na lista.
 	 * 
-	 * @return Retorna o arquivo ou null caso n�o exista arquivo com este �ndice.
+	 * @return Retorna o arquivo ou null caso nao exista arquivo com este indice.
 	 */
 	public Archive get(int indice) {
 		if (indice < 0 || arquivos.size() < indice) {
@@ -118,7 +118,7 @@ public class DirectorySerialized {
 	}
 
 	/**
-	 * Getter para a lista de arquivos ainda n�o verificados.
+	 * Getter para a lista de arquivos ainda nao verificados.
 	 * 
 	 * @return A lista de arquivos.
 	 */
