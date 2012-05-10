@@ -255,7 +255,7 @@ public class FileSelection extends javax.swing.JFrame {
         jPanel7.setName("jPanel7"); // NOI18N
 
         granularityComboBox.setMaximumRowCount(4);
-        granularityComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Word (Default)", "File", "Line", "Character" }));
+        granularityComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Word (Default)", "Line", "Character" }));
         granularityComboBox.setName("granularityComboBox"); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
