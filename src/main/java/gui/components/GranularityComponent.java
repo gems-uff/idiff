@@ -9,6 +9,7 @@ import ilcs.result.IResultDiff;
 import idiff.resources.IDIFFColor;
 import java.awt.Color;
 import java.util.Iterator;
+import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -45,6 +46,9 @@ public class GranularityComponent {
         }
     }
 
+    private boolean isSamePosition(Grain grain1, Grain grain2) {
+             return (grain1.getOriginalReference().equals(grain2.getOriginalReference()));        
+    }
     /**
      * 
      * @param grain1
@@ -55,10 +59,14 @@ public class GranularityComponent {
     private boolean verifyConditions(Grain grain1, Grain grain2, int perpective) {
         boolean condition = (grain1 != null) || (grain2 != null);
         if (perpective == 1) {
-            return ((condition) && (((grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1))));
+            return ((condition) && (verifyIdIteration(grain1, grain2)) && (!isSamePosition(grain1, grain2)));
         } else {
             return condition;
         }
+    }
+
+    private boolean verifyIdIteration(Grain grain1, Grain grain2) {
+        return (grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1);
     }
 
     /**

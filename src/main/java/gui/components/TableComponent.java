@@ -56,7 +56,6 @@ public class TableComponent {
         tableDetails.setRowSelectionAllowed(true);
     }
 
-
     /**
      * Print Differences not found
      * @param tableDetails 
@@ -120,10 +119,14 @@ public class TableComponent {
     private boolean verifyConditions(Grain grain1, Grain grain2, int perpective) {
         boolean condition = (grain1 != null) || (grain2 != null);
         if (perpective == 1) {
-            return ((condition) && (((grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1))));
+            return ((condition) && (verifyIdIteration(grain1, grain2)) && (!isSamePosition(grain1, grain2)));
         } else {
             return condition;
         }
+    }
+
+    private boolean verifyIdIteration(Grain grain1, Grain grain2) {
+        return (grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1);
     }
 
     /**
@@ -191,5 +194,13 @@ public class TableComponent {
         }
     }
 
-
+    /**
+     * Verify Position
+     * @param grain1
+     * @param grain2
+     * @return 
+     */
+    private boolean isSamePosition(Grain grain1, Grain grain2) {
+        return (grain1.getOriginalReference().equals(grain2.getOriginalReference()));
+    }
 }
