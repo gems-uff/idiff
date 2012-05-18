@@ -102,31 +102,11 @@ public class TableComponent {
             Grain grain1 = it1.next();
             Grain grain2 = it2.next();
 
-            if (verifyConditions(grain1, grain2, perpective)) {
+            if (ComponentsFactory.verifyConditions(grain1, grain2, perpective)) {
                 ((DefaultTableModel) tableDetails.getModel()).addRow(new String[]{grain1.getGrain(), "MOVED", printTableReference(grain1.getOriginalReference()), printTableReference(grain2.getOriginalReference())});
                 tableDetails.setForeground(Color.BLACK);
             }
         }
-    }
-
-    /**
-     * 
-     * @param grain1
-     * @param grain2
-     * @param perpective
-     * @return boolean
-     */
-    private boolean verifyConditions(Grain grain1, Grain grain2, int perpective) {
-        boolean condition = (grain1 != null) || (grain2 != null);
-        if (perpective == 1) {
-            return ((condition) && (verifyIdIteration(grain1, grain2)) && (!isSamePosition(grain1, grain2)));
-        } else {
-            return condition;
-        }
-    }
-
-    private boolean verifyIdIteration(Grain grain1, Grain grain2) {
-        return (grain1.getIdIteration() != 1) && (grain2.getIdIteration() != 1);
     }
 
     /**
@@ -192,15 +172,5 @@ public class TableComponent {
         for (int i = 0; i < rowCount; i++) {
             ((DefaultTableModel) tableDetails.getModel()).removeRow(0);
         }
-    }
-
-    /**
-     * Verify Position
-     * @param grain1
-     * @param grain2
-     * @return 
-     */
-    private boolean isSamePosition(Grain grain1, Grain grain2) {
-        return (grain1.getOriginalReference().equals(grain2.getOriginalReference()));
     }
 }

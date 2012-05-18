@@ -57,6 +57,7 @@ public class LCS implements IDiff {
         int idIteration = 0;
         while (grain.canReduceGranularity(iLCSBean.getGranularity())) {
             grain.reduceGranularity();
+            idIteration=0;
             try {
                 grain.init(fileVersionOne, fileVersionTwo, grain.getLevelGrain(), result, iLCSBean);
             } catch (IOException ex) {
