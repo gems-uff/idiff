@@ -199,7 +199,7 @@ public class LCS implements IDiff {
      * @return boolean
      */
     private boolean compare(Grain grainOne, Grain grainTwo) {
-        return grainOne.getGrain().compareTo(grainTwo.getGrain()) == 0;
+        return grainOne.getGrain().trim().compareTo(grainTwo.getGrain().trim()) == 0;
     }
 
     /**

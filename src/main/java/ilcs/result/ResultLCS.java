@@ -112,7 +112,7 @@ public class ResultLCS implements IResultLCS {
      */
     private boolean comparePosition(List<Grain> lcsList, Grain grain) {
         for (int i = 0; i < lcsList.size(); i++) {
-            if (isSameStartPosition(grain, lcsList, i)) { //|| isSameReference(grain, lcsList, i)) {
+            if (isSameStartPosition(grain, lcsList, i)) { 
                 return true;
             }
         }
