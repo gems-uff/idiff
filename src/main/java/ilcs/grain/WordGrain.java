@@ -68,12 +68,12 @@ public class WordGrain extends Grain {
         int id = idReference;
         int position = startPosition;
         for (int i = 0; i < token.length; i++) {
-            id++;
-            WordGrain wordGrain = setData(token[i], grain, id, position);
-            if (!wordGrain.getGrain().equals("")) {
+            if (!token[i].equals("")) {
+                id++;
+                WordGrain wordGrain = setData(token[i], grain, id, position);
                 finalList.add(wordGrain);
             }
-            position = setStartPosition(position, wordGrain.getGrain());
+            position = setStartPosition(position, token[i]);
         }
     }
 
