@@ -277,8 +277,7 @@ public class FileSelection extends javax.swing.JFrame {
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Select Tabs"));
         jPanel9.setName("jPanel9"); // NOI18N
 
-        dot.setFont(new java.awt.Font("sansserif", 1, 12));
-        dot.setSelected(true);
+        dot.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         dot.setText(".");
         dot.setName("dot"); // NOI18N
         dot.addActionListener(new java.awt.event.ActionListener() {
@@ -287,28 +286,23 @@ public class FileSelection extends javax.swing.JFrame {
             }
         });
 
-        semicolon.setFont(new java.awt.Font("sansserif", 1, 12));
-        semicolon.setSelected(true);
+        semicolon.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         semicolon.setText(";");
         semicolon.setName("semicolon"); // NOI18N
 
-        comma.setFont(new java.awt.Font("sansserif", 1, 12));
-        comma.setSelected(true);
+        comma.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         comma.setText(",");
         comma.setName("comma"); // NOI18N
 
-        key.setFont(new java.awt.Font("sansserif", 1, 12));
-        key.setSelected(true);
+        key.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         key.setText("{ }");
         key.setName("key"); // NOI18N
 
-        brackets.setFont(new java.awt.Font("sansserif", 1, 12));
-        brackets.setSelected(true);
+        brackets.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         brackets.setText("[ ]");
         brackets.setName("brackets"); // NOI18N
 
-        parenthesis.setFont(new java.awt.Font("sansserif", 1, 12));
-        parenthesis.setSelected(true);
+        parenthesis.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         parenthesis.setText("( )");
         parenthesis.setName("parenthesis"); // NOI18N
 
