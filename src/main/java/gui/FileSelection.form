@@ -480,6 +480,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="sansserif" size="12" style="1"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="."/>
                         <Property name="name" type="java.lang.String" value="dot" noResource="true"/>
                       </Properties>
@@ -492,6 +493,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="sansserif" size="12" style="1"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value=";"/>
                         <Property name="name" type="java.lang.String" value="semicolon" noResource="true"/>
                       </Properties>
@@ -501,6 +503,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="sansserif" size="12" style="1"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value=","/>
                         <Property name="name" type="java.lang.String" value="comma" noResource="true"/>
                       </Properties>
@@ -510,6 +513,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="sansserif" size="12" style="1"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="{ }"/>
                         <Property name="name" type="java.lang.String" value="key" noResource="true"/>
                       </Properties>
@@ -519,6 +523,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="sansserif" size="12" style="1"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="[ ]"/>
                         <Property name="name" type="java.lang.String" value="brackets" noResource="true"/>
                       </Properties>
@@ -528,6 +533,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="sansserif" size="12" style="1"/>
                         </Property>
+                        <Property name="selected" type="boolean" value="true"/>
                         <Property name="text" type="java.lang.String" value="( )"/>
                         <Property name="name" type="java.lang.String" value="parenthesis" noResource="true"/>
                       </Properties>

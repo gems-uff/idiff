@@ -53,9 +53,7 @@ public class LineGrain extends Grain {
             id++;
             LineGrain lineGrain = new LineGrain(line, id, idStart);
             lineGrain.setIdFile(idFile);
-            if (!islineTag(line, ilcsb.getTags())) {
-                finalList.add(lineGrain);
-            }
+            finalList.add(lineGrain);
             idStart = idStart + line.length() + 1;
 
         }
@@ -77,23 +75,5 @@ public class LineGrain extends Grain {
         } catch (IOException ex) {
             throw new DiffException(ex, DiffException.MSG_INVALID_START_LINE_GRANULARITY);
         }
-    }
-
-    private boolean islineTag(String line, String tags) {
-        if (!line.equals("")) { //Existe conteúdo a ser comparado
-            Pattern p = Pattern.compile(tags);
-            String[] token = p.split(line);
-            return ((allTokensEmpty(token)) ? true : false);
-        }
-        return false;
-    }
-
-    private boolean allTokensEmpty(String[] token) {
-        for (int i = 0; i < token.length; i++) {
-            if (!token[i].equals("")) {
-                return false;
-            }
-        }
-        return true;
     }
 }
