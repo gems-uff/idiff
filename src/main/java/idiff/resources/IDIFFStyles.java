@@ -12,6 +12,11 @@ import javax.swing.text.StyledDocument;
  * @author Fernanda Floriano Silva
  */
 public class IDIFFStyles {
+    public static final int ADD_STYLE = 8;
+    public static final int DISABLE_STYLE = 13;
+    public static final int MOVE_STYLE = 9;
+    public static final int REMOVE_STYLE = 11;
+    public static final int UNCHANGED_STYLE = 14;
 
     /**
      * Constructor
@@ -96,19 +101,19 @@ public class IDIFFStyles {
      */
     static void addStyle(StyledDocument doc, String style) {
         switch (style.length()) {
-            case 8:
+            case ADD_STYLE:
                 IDIFFStyles.setAddStyle(doc);
                 break;
-            case 9:
+            case MOVE_STYLE:
                 IDIFFStyles.setMoveStyle(doc);
                 break;
-            case 11:
+            case REMOVE_STYLE:
                 IDIFFStyles.setRemoveStyle(doc);
                 break;
-            case 13:
+            case DISABLE_STYLE:
                 IDIFFStyles.setDisabledStyle(doc);
                 break;
-            case 14:
+            case UNCHANGED_STYLE:
                 IDIFFStyles.setUnchangedStyle(doc);
                 break;
         }

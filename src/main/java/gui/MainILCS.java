@@ -239,11 +239,8 @@ public final class MainILCS extends javax.swing.JFrame {
      * @return String
      */
     private String setWordGrainName(String granularity) {
-        if ("Word (Default)".equals(granularity)) {
-            return "Word";
-        }
-        return granularity;
-    }
+        return (("Word (Default)".equals(granularity))? "Word" : granularity);
+     }
 
     /** This method is called from within the constructor to
      * initialize the form.

@@ -38,13 +38,19 @@ public class ResultLCS implements IResultLCS {
      * @return 
      */
     private boolean isSameStartPosition(Grain grain, List<Grain> lcsList, int i) {
-        if (grain.getGrainBean().getStartPosition() == lcsList.get(i).getGrainBean().getStartPosition()) {
-            if (grain.getIdFile() == lcsList.get(i).getIdFile()) {
-                return true;
-            }
-            return false;
-        }
-        return false;
+        return (isSamePosition(grain, lcsList, i)? true : false);
+    }
+
+    private boolean isSamePosition(Grain grain, List<Grain> lcsList, int i) {
+        return isEqualStartPosition(grain, lcsList, i) && isEqualIdFile(grain, lcsList, i);
+    }
+
+    private boolean isEqualIdFile(Grain grain, List<Grain> lcsList, int i) {
+        return grain.getIdFile() == lcsList.get(i).getIdFile();
+    }
+
+    private boolean isEqualStartPosition(Grain grain, List<Grain> lcsList, int i) {
+        return grain.getGrainBean().getStartPosition() == lcsList.get(i).getGrainBean().getStartPosition();
     }
 
     /**
@@ -86,10 +92,7 @@ public class ResultLCS implements IResultLCS {
      * @return boolean
      */
     private boolean isContext(Grain grain) {
-        if (grain == null) {
-            return false;
-        }
-        return (lcsContains(grain));
+        return ((grain == null)? false : lcsContains(grain));
     }
 
     /**
@@ -98,10 +101,7 @@ public class ResultLCS implements IResultLCS {
      * @return boolean
      */
     private boolean lcsContains(Grain grain) {
-        if (this.lcs.contains(grain)) {
-            return comparePosition(this.lcs, grain);
-        }
-        return false;
+        return ((this.lcs.contains(grain)) ? comparePosition(this.lcs, grain) : false);
     }
 
     /**
@@ -125,10 +125,7 @@ public class ResultLCS implements IResultLCS {
      * @return boolean
      */
     private boolean isAdding(Grain grain) {
-        if ((grain == null)) {
-            return false;
-        }
-        return (!lcsContains(grain));
+        return ((grain == null) ? false : !lcsContains(grain));
     }
 
     /**
@@ -137,10 +134,7 @@ public class ResultLCS implements IResultLCS {
      * @return boolean
      */
     private boolean isRemoving(Grain grain) {
-        if ((grain == null)) {
-            return false;
-        }
-        return (!lcsContains(grain));
+        return ((grain == null) ? false : !lcsContains(grain));
     }
 
     /**

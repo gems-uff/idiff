@@ -45,8 +45,6 @@ public class FileSelection extends javax.swing.JFrame {
     private void init() {
         Laf.setlaf();
         setIconImage(new Icon().getIcon());
-        //  setIconImage(icon.getImage());
-
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -511,11 +509,8 @@ private void dotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
      * @return 
      */
     private String setTag(String tag, boolean selected, String separator) {
-        if (selected) {
-            return tag + separator;
-        }
-        return tag;
-    }
+        return (selected?(tag + separator):tag);
+   }
 
     /**
      * Show error frame
