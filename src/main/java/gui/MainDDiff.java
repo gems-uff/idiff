@@ -11,6 +11,7 @@ import ddiff.tree.Tree;
 import ddiff.tree.Node;
 import ddiff.results.Result;
 import ddiff.results.ResultArchive;
+import idiff.resources.Constants;
 import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,9 +29,6 @@ import org.jdesktop.application.Action;
  */
 public class MainDDiff extends JFrame {
 
-    public static final int LEFT_DIRECTORY = 1;
-    public static final int RIGHT_DIRECTORY = 2;
-    public static final int SIMILARITY_AVG = 50;
     private Tree fromTree;
     private Tree toTree;
     private String granularity;
@@ -99,7 +97,7 @@ public class MainDDiff extends JFrame {
      * @return 
      */
     private boolean isQuiteSimilar(Node from, Node to) {
-        return (from.getSimilaridade() == 0 && to.getSimilaridade() > SIMILARITY_AVG);
+        return (from.getSimilaridade() == 0 && to.getSimilaridade() > Constants.SIMILARITY_AVG);
     }
 
     /**
@@ -167,11 +165,11 @@ public class MainDDiff extends JFrame {
     private void initOverView(Node no, int idDirectory) {
         ResultArchive resultado = no.getResultados().get(0);
         switch (idDirectory) {
-            case LEFT_DIRECTORY:
-                showFileOverView(resultado.getBase().getArquivo(), no.getResultados(), LEFT_DIRECTORY);
+            case Constants.LEFT_DIRECTORY:
+                showFileOverView(resultado.getBase().getArquivo(), no.getResultados(), Constants.LEFT_DIRECTORY);
                 break;
-            case RIGHT_DIRECTORY:
-                showFileOverView(resultado.getPara().getArquivo(), no.getResultados(), RIGHT_DIRECTORY);
+            case Constants.RIGHT_DIRECTORY:
+                showFileOverView(resultado.getPara().getArquivo(), no.getResultados(), Constants.RIGHT_DIRECTORY);
                 break;
         }
     }
@@ -281,9 +279,9 @@ public class MainDDiff extends JFrame {
             }
 
             if (noFrom != null) {
-                initOverView(noFrom, LEFT_DIRECTORY);
+                initOverView(noFrom, Constants.LEFT_DIRECTORY);
             } else {
-                initOverView(noTo, RIGHT_DIRECTORY);
+                initOverView(noTo, Constants.RIGHT_DIRECTORY);
             }
         }
     }

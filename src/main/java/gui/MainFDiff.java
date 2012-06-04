@@ -9,6 +9,7 @@ import idiff.resources.Laf;
 import idiff.resources.Warning;
 import ddiff.results.ResultArchive;
 import ddiff.results.TypeResult;
+import idiff.resources.Constants;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,8 +29,6 @@ import org.jdesktop.application.Action;
 @SuppressWarnings("serial")
 public class MainFDiff extends javax.swing.JFrame {
 
-    public static final int LEFT_DIRECTORY = 1;
-    public static final int RIGHT_DIRECTORY = 2;
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
     private String selectedItem = "Show All Similarities/Refactoring";
@@ -159,11 +158,11 @@ public class MainFDiff extends javax.swing.JFrame {
     private void showRefactory(ResultArchive result, int idDirectory, boolean isRepaint) {
         File file = null;
         switch (idDirectory) {
-            case MainDDiff.LEFT_DIRECTORY:
+            case Constants.LEFT_DIRECTORY:
                 file = result.getPara().getArquivo();
                 setRefactory(result.getGrainsTo(), file.getAbsolutePath());
                 break;
-            case MainDDiff.RIGHT_DIRECTORY:
+            case Constants.RIGHT_DIRECTORY:
                 file = result.getBase().getArquivo();
                 setRefactory(result.getGrainsFrom(), file.getAbsolutePath());
                 break;

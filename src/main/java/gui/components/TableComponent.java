@@ -1,5 +1,6 @@
 package gui.components;
 
+import idiff.resources.Constants;
 import ilcs.grain.Grain;
 import ilcs.ILCSBean;
 import java.awt.Color;
@@ -64,7 +65,6 @@ public class TableComponent {
         if (tableDetails.getRowCount() == 0) {
             ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{" Differences not found ", "---", "---", "---"});
             tableDetails.setForeground(Color.RED);
-
         }
     }
 
@@ -76,7 +76,7 @@ public class TableComponent {
     private void printDifferences(List<Grain> diferences, JTable tableDetails) {
         for (Iterator<Grain> it = diferences.iterator(); it.hasNext();) {
             Grain grain = it.next();
-            if (grain != null) {
+            if ((grain != null)&&(!grain.getGrain().equals(Constants.SPACE))){
                 switch (grain.getSituation()) {
                     case REMOVED:
                         ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});

@@ -1,5 +1,6 @@
 package ilcs.grain;
 
+import idiff.resources.Constants;
 import ilcs.algorithms.Algorithm;
 import ilcs.DiffException;
 import ilcs.ILCSBean;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -45,15 +47,36 @@ public class WordGrain extends Grain {
         for (Iterator<Grain> it = list.iterator(); it.hasNext();) {
             Grain grain = it.next();
             if (grain != null) {
-                Pattern p = Pattern.compile(ilcsB.getTags());
-                String[] token = p.split(grain.getGrain());
+                String[] token = separateWords(ilcsB, grain);
                 int idReference = 0;
                 int startPosition = grain.getGrainBean().getStartPosition();
                 setWordData(token, idReference, grain, startPosition, finalList);
             }
-
+            
         }
         return finalList;
+    }
+
+    private StringBuffer separateTagsWithSpaces(Matcher m) {
+        StringBuffer sb = new StringBuffer();
+        while (m.find()) {
+            m.appendReplacement(sb, Constants.TAB + m.group() + Constants.TAB);                    
+        }
+        m.appendTail(sb);
+        return sb;
+    }
+
+    private String[] separateWords(ILCSBean ilcsB, Grain grain) {
+        StringBuffer sb = matchWords(ilcsB, grain);
+        String[] token = sb.toString().split(Constants.TAB);
+        return token;
+    }
+
+    private StringBuffer matchWords(ILCSBean ilcsB, Grain grain) {
+        Pattern r = Pattern.compile(ilcsB.getTags());
+        Matcher m = r.matcher(grain.getGrain());
+        StringBuffer sb = separateTagsWithSpaces(m);
+        return sb;
     }
 
     /**
@@ -84,7 +107,7 @@ public class WordGrain extends Grain {
      * @return int
      */
     private int setStartPosition(int startPosition, String word) {
-        return (startPosition + word.length() + 1);
+        return (startPosition + word.length());
     }
 
     /**

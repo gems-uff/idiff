@@ -12,6 +12,7 @@ import ilcs.ILCSBean;
 import ilcs.result.IResultDiff;
 import ddiff.hungarianAlgorithm.HungarianAlgorithm;
 import ddiff.results.Result;
+import idiff.resources.Constants;
 
 /**
  * Realiza diff de diretorios.
@@ -319,7 +320,7 @@ public class Ddiff {
                     arquivo1.setMatch(true);
                     arquivo2.setMatch(true);
 
-                    resultado.add(arquivo1, arquivo2, Result.PERCENTUAL_IDENTICO);
+                    resultado.add(arquivo1, arquivo2, Constants.PERCENTUAL_IDENTICO);
                 }
             }
         }

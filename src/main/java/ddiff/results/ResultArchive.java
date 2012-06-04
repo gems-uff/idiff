@@ -5,6 +5,7 @@ import java.util.List;
 
 import ilcs.grain.Grain;
 import ddiff.Archive;
+import idiff.resources.Constants;
 
 
 public class ResultArchive {
@@ -55,7 +56,7 @@ public class ResultArchive {
 		this.similaridade = similaridade;		
 		
 		
-		if (similaridade == Result.PERCENTUAL_IDENTICO) {
+		if (similaridade == Constants.PERCENTUAL_IDENTICO) {
 			if (base.getPathRelativo().equalsIgnoreCase(comparado.getPathRelativo())) {
 				this.tipo = TypeResult.UNCHANGED;				
 			} else {

@@ -3,6 +3,7 @@ package gui;
 import gui.components.TreeComponent;
 import gui.components.FileComponent;
 import gui.components.TableComponent;
+import idiff.resources.Constants;
 import idiff.resources.Scroll;
 import ilcs.Diff;
 import ilcs.DiffException;
@@ -58,9 +59,7 @@ import idiff.wrap.Wrap;
  */
 @SuppressWarnings("serial")
 public final class MainILCS extends javax.swing.JFrame {
-    public static final int DIFF_PERSPECTIVE = 1;
-    public static final int SIMILARITY_PERSPECTIVE = 2;
-
+   
     private static MainILCS instance;
 
     /**
@@ -127,8 +126,8 @@ public final class MainILCS extends javax.swing.JFrame {
      * Set Listener for checkBox
      */
     private void setListenerRadioButton() throws FileNotFoundException, IOException {
-        setListenerRadioButton(diffRadioButton, DIFF_PERSPECTIVE);
-        setListenerRadioButton(similarRadioButton, SIMILARITY_PERSPECTIVE);
+        setListenerRadioButton(diffRadioButton, Constants.DIFF_PERSPECTIVE);
+        setListenerRadioButton(similarRadioButton, Constants.SIMILARITY_PERSPECTIVE);
     }
 
     /**
@@ -139,10 +138,10 @@ public final class MainILCS extends javax.swing.JFrame {
     public int getPerspective(boolean isQuiteSimilar) {
         if (isQuiteSimilar) {
             setRadios(true, false);
-            return DIFF_PERSPECTIVE;
+            return Constants.DIFF_PERSPECTIVE;
         } else {
             setRadios(false, true);
-            return SIMILARITY_PERSPECTIVE;
+            return Constants.SIMILARITY_PERSPECTIVE;
         }
     }
 

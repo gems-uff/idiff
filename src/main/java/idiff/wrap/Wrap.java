@@ -1,5 +1,6 @@
 package idiff.wrap;
 
+import idiff.resources.Constants;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -16,8 +17,6 @@ import javax.swing.text.StyledDocument;
  * @author Fernanda Floriano Silva
  */
 public class Wrap {
-
-    public static final String LINE_BREAK_ATTRIBUTE_NAME = "line_break_attribute";
 
     /**
      * 
@@ -52,7 +51,7 @@ public class Wrap {
             } else {
                 attrs = new SimpleAttributeSet();
             }
-            attrs.addAttribute(LINE_BREAK_ATTRIBUTE_NAME, Boolean.TRUE);
+            attrs.addAttribute(Constants.LINE_BREAK_ATTRIBUTE_NAME, Boolean.TRUE);
             doc.insertString(offs, "\r", attrs);
             pane.setCaretPosition(offs + 1);
         } catch (BadLocationException ex) {
