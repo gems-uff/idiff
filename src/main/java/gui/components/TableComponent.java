@@ -57,6 +57,10 @@ public class TableComponent {
         tableDetails.setRowSelectionAllowed(true);
     }
 
+    private boolean isEmptyContent(Grain grain) {
+        return grain.getGrain().trim().isEmpty();
+    }
+
     /**
      * Print Differences not found
      * @param tableDetails 
@@ -76,7 +80,7 @@ public class TableComponent {
     private void printDifferences(List<Grain> diferences, JTable tableDetails) {
         for (Iterator<Grain> it = diferences.iterator(); it.hasNext();) {
             Grain grain = it.next();
-            if ((grain != null)&&(!grain.getGrain().equals(Constants.SPACE))){
+            if ((grain != null)&&(!isEmptyContent(grain))){
                 switch (grain.getSituation()) {
                     case REMOVED:
                         ((DefaultTableModel) tableDetails.getModel()).addRow(new Object[]{grain.getGrain(), grain.getSituation(), printTableReference(grain.getOriginalReference()), "---"});
