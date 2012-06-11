@@ -20,14 +20,6 @@ public class Line extends LineGrain {
     }
 
     /**
-     * Setter para o campo match
-     * @param match Novo valor para o campo match
-     */
-    public void setMatch(boolean match) {
-        this.match = match;
-    }
-
-    /**
      * Getter para o campo match
      * @return valor do campo match
      */

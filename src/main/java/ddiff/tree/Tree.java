@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ddiff.tree;
 
 import java.awt.Dimension;
@@ -44,20 +41,21 @@ public class Tree extends JTree {
     private DefaultTreeModel modelTree;
     private NodeRenderer renderer;
     private Node selectedNode = null;
+    private int threshold;
 
     public Node getSelectedNode() {
         return selectedNode;
     }
 
-    private Tree(File diretorio) {
-        this(diretorio, null);
+    private Tree(File diretorio,int threshold) {
+        this(diretorio, null,threshold);
     }
 
     public void setAssociada(Tree associada) {
         this.associada = associada;
     }
 
-    private Tree(File diretorio, Tree associada) {
+    private Tree(File diretorio, Tree associada,int threshold) {
         super();
 
         this.associada = associada;
@@ -71,7 +69,7 @@ public class Tree extends JTree {
         setModel(modelTree);
         getSelectionModel().setSelectionMode(
                 TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
-        renderer = new NodeRenderer();
+        renderer = new NodeRenderer(threshold);
         setCellRenderer(renderer);
 
         setUI(new BasicTreeUI());
@@ -107,16 +105,16 @@ public class Tree extends JTree {
         });
     }
 
-    public static Tree getBaseTree(File directory)
+    public static Tree getBaseTree(File directory,int threshold)
             throws DDiffException {
         if (Util.isNotValidDirectory(directory)) {
             throw new DDiffException("Invalid directory.");
         }
 
-        return new Tree(directory);
+        return new Tree(directory,threshold);
     }
 
-    public static Tree getComparedTree(File directory, Tree base)
+    public static Tree getComparedTree(File directory, Tree base,int threshold)
             throws DDiffException {
         if (Util.isNotValidDirectory(directory)) {
             throw new DDiffException("Invalid directory.");
@@ -126,7 +124,7 @@ public class Tree extends JTree {
             throw new DDiffException("Invalid base tree.");
         }
 
-        return new Tree(directory, base);
+        return new Tree(directory, base,threshold);
     }
 
     /**

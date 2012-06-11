@@ -91,7 +91,7 @@ public class WordGrain extends Grain {
         int id = idReference;
         int position = startPosition;
         for (int i = 0; i < token.length; i++) {
-            if (!token[i].equals("")) {
+            if (!token[i].trim().equals("")) {
                 id++;
                 WordGrain wordGrain = setData(token[i], grain, id, position);
                 finalList.add(wordGrain);

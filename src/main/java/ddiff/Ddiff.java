@@ -78,9 +78,10 @@ public class Ddiff {
      * @param progressMessager 
      * @param granularity 
      * @param tags 
+     * @param threshold 
      * @return Result da comparacao.
      */
-    public static Result compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager, String granularity, String tags) {
+    public static Result compararDiretorios(File diretorio1, File diretorio2, ProgressMessager progressMessager, String granularity, String tags, int threshold) {
         return new Ddiff(progressMessager, granularity, tags).compararDiretoriosInterno(diretorio1, diretorio2);
     }
 
@@ -189,9 +190,9 @@ public class Ddiff {
                 }
 
                 int similaridade = 0;
-                int tamanhoTotal = base.getTamanhoAtual() + comparado.getTamanhoAtual();                
+                int tamanhoTotal = base.getTamanhoAtual() + comparado.getTamanhoAtual();
                 if (tamanhoTotal > 0) {
-                	similaridade = qtdeCharsIguais * 200 / tamanhoTotal;
+                    similaridade = qtdeCharsIguais * 200 / tamanhoTotal;
                 }
 
                 progressMessager.setMessage("Comparing '" + base.getArquivo().getName() + "' and '" + comparado.getArquivo().getName() + "'.");
@@ -281,17 +282,12 @@ public class Ddiff {
      * @return <code>true</code> ou <code>false</code>.
      */
     private boolean canProcurarMatch() {
-        if (dirSerializado1.getArquivosSemMatch().isEmpty()) {
-            return false;
-        }
-
-        if (dirSerializado2.getArquivosSemMatch().isEmpty()) {
-            return false;
-        }
-
-        return true;
+    return (hasFilesForMatch(dirSerializado1)||hasFilesForMatch(dirSerializado2));
     }
 
+    private boolean hasFilesForMatch(DirectorySerialized dir) {
+        return !dir.getArquivosSemMatch().isEmpty();
+    }
     private String setGrainName(String granularity) {
         if ("Word (Default)".equals(granularity)) {
             return "Word";

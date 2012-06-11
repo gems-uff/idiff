@@ -35,6 +35,7 @@ public class MainDDiff extends JFrame {
     private File from;
     private File to;
     private String tags;
+    private int threshold;
     private static MainDDiff instance;
 
     /**
@@ -50,13 +51,14 @@ public class MainDDiff extends JFrame {
      * @param directoryFrom
      * @param directoryTo
      * @param granularity
-     * @param tags 
+     * @param tags
+     * @param threshold  
      */
-    public synchronized static void setInstance(File directoryFrom, File directoryTo, String granularity, String tags) {
+    public synchronized static void setInstance(File directoryFrom, File directoryTo, String granularity, String tags, int threshold) {
         if (instance != null) {
             instance.dispose();
         }
-        instance = new MainDDiff(directoryFrom, directoryTo, granularity, tags);
+        instance = new MainDDiff(directoryFrom, directoryTo, granularity, tags,threshold);
     }
 
     /**
@@ -78,16 +80,26 @@ public class MainDDiff extends JFrame {
      * @param directoryFrom
      * @param directoryTo
      * @param granularity
-     * @param tags 
+     * @param tags
+     * @param threshold  
      */
-    public MainDDiff(File directoryFrom, File directoryTo, String granularity, String tags) {
+    public MainDDiff(File directoryFrom, File directoryTo, String granularity, String tags, int threshold) {
         super();
         initComponents();
         init();
+        setDirectories(directoryFrom, directoryTo);
+        setVariables(granularity, tags, threshold);
+    }
+
+    private void setDirectories(File directoryFrom, File directoryTo) {
         from = directoryFrom;
         to = directoryTo;
+    }
+
+    private void setVariables(String granularity, String tags, int threshold) {
         this.granularity = granularity;
         this.tags = tags;
+        this.threshold = threshold;
     }
 
     /**
@@ -190,7 +202,7 @@ public class MainDDiff extends JFrame {
      */
     public void execute() {
 
-        Result resultado = Ddiff.compararDiretorios(from, to, progressMessager,granularity,tags);
+        Result resultado = Ddiff.compararDiretorios(from, to, progressMessager,granularity,tags,threshold);
         fromTree.setResultado(resultado);
         toTree.setResultado(resultado);
     }
@@ -200,8 +212,8 @@ public class MainDDiff extends JFrame {
      * @throws DDiffException 
      */
     public void loadTree() throws DDiffException {
-        fromTree = Tree.getBaseTree(from);
-        toTree = Tree.getComparedTree(to, fromTree);
+        fromTree = Tree.getBaseTree(from,threshold);
+        toTree = Tree.getComparedTree(to, fromTree,threshold);
 
         scrollTreeFrom.setViewportView(fromTree);
         scrollTreeTo.setViewportView(toTree);

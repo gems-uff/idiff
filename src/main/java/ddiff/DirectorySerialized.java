@@ -1,10 +1,8 @@
 package ddiff;
 
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Guarda uma representacao do diretorio com os arquivos armazenados em uma lista.
@@ -14,130 +12,87 @@ import java.util.List;
  */
 public class DirectorySerialized {
 
-	/**
-	 * Lista com os arquivos contidos no diretorio.
-	 * 
-	 */
-	private List<Archive> arquivos = new ArrayList<Archive>();
-	
-	/**
-	 * Id do diretorio.
-	 */
-	private int id;
+    /**
+     * Lista com os arquivos contidos no diretorio.
+     * 
+     */
+    private List<Archive> arquivos = new ArrayList<Archive>();
+    /**
+     * Id do diretorio.
+     */
+    private int id;
+    /**
+     * Diretario base
+     */
+    private File diretorio;
 
-	/**
-	 * Diretario base
-	 */
-	private File diretorio;
+    /**
+     * Construtor padrao.
+     * 
+     * @param diretorio Diretorio a ser representado.
+     * @param id Id do diretorio.
+     * @throws DDiffException caso o arquivo nao exista ou nao seja um diretorio.
+     */
+    public DirectorySerialized(File diretorio, int id) throws DDiffException {
+        this.diretorio = diretorio;
+        if (Util.isNotValidDirectory(diretorio)) {
+            throw new DDiffException("Invalid directory '" + diretorio.getAbsolutePath() + "'.");
+        }
 
-		
-	/**
-	 * Construtor padrao.
-	 * 
-	 * @param diretorio Diretorio a ser representado.
-	 * @param id Id do diretorio.
-	 * @throws DDiffException caso o arquivo nao exista ou nao seja um diretorio.
-	 */
-	public DirectorySerialized(File diretorio, int id) throws DDiffException {
-		this.diretorio = diretorio;
-		if (Util.isNotValidDirectory(diretorio)) {
-			throw new DDiffException("Invalid directory '" + diretorio.getAbsolutePath() + "'.");
-		}
-		
-		carregarArquivos(diretorio);
-		this.id = id;
-	}
+        carregarArquivos(diretorio);
+        this.id = id;
+    }
 
-	/**
-	 * Carrega os arquivos do diretorio para a lista de arquivos.
-	 * 
-	 * @param diretorio Diretorio do qual serao lidos os arquivos.
-	 */
-	private void carregarArquivos(File diretorio) {
-		if (!diretorio.isHidden()) {			
-			File[] filhos = diretorio.listFiles();
-			
-			if (filhos != null && filhos.length > 0) {
-				for (File filho : filhos) {
-					if(filho.isFile()) {
-						adicionarArquivo(filho);
-					} else {
-						carregarArquivos(filho);
-					}
-				}
-			} else {
-				adicionarArquivo(diretorio);
-			}
-		}
-	}
+    /**
+     * Carrega os arquivos do diretorio para a lista de arquivos.
+     * 
+     * @param diretorio Diretorio do qual serao lidos os arquivos.
+     */
+    private void carregarArquivos(File diretorio) {
+        if (!diretorio.isHidden()) {
+            File[] filhos = diretorio.listFiles();
 
-	/**
-	 * Adiciona um novo arquivo a lista do diretorio
-	 * 
-	 * @param filho Archive
-	 */
-	private void adicionarArquivo(File filho) {
-		if (filho.isHidden()) {
-			return;
-		}
-		
-		arquivos.add(new Archive(filho, arquivos.size() + 1, diretorio.getAbsolutePath()));
-	}
+            if (filhos != null && filhos.length > 0) {
+                for (File filho : filhos) {
+                    if (filho.isFile()) {
+                        adicionarArquivo(filho);
+                    } else {
+                        carregarArquivos(filho);
+                    }
+                }
+            } else {
+                adicionarArquivo(diretorio);
+            }
+        }
+    }
 
-	/**
-	 * Getter para a lista de arquivos.
-	 * 
-	 * @return A lista de arquivos.
-	 */
-	public List<Archive> getArquivos() {
-		return arquivos;
-	}
+    /**
+     * Adiciona um novo arquivo a lista do diretorio
+     * 
+     * @param filho Archive
+     */
+    private void adicionarArquivo(File filho) {
+        if (filho.isHidden()) {
+            return;
+        }
 
-	/**
-	 * Retorna o numero de arquivos contidos no diretorio representado.
-	 * 
-	 * @return tamanho da lista de arquivos
-	 */
-	public int tamanho() {
-		return arquivos.size();
-	}
-	
-	/**
-	 * Rretorna o arquivo pelo indice na lista.
-	 * 
-	 * @param indice Posicao do arquivo na lista.
-	 * 
-	 * @return Retorna o arquivo ou null caso nao exista arquivo com este indice.
-	 */
-	public Archive get(int indice) {
-		if (indice < 0 || arquivos.size() < indice) {
-			return null;
-		}
-		
-		return arquivos.get(indice);
-	}
+        arquivos.add(new Archive(filho, arquivos.size() + 1, diretorio.getAbsolutePath()));
+    }
 
-	/**
-	 * Getter para a lista de arquivos ainda nao verificados.
-	 * 
-	 * @return A lista de arquivos.
-	 */
-	public List<Archive> getArquivosSemMatch() {
-		List<Archive> arquivosSemMatch = new ArrayList<Archive>();
-		
-		for (Archive arquivo : arquivos) {
-			if(!arquivo.isMatch()) {
-				arquivosSemMatch.add(arquivo);
-			}
-		}
-		
-		return arquivosSemMatch;
-	}
+    /**
+     * Getter para a lista de arquivos ainda nao verificados.
+     * 
+     * @return A lista de arquivos.
+     */
+    public List<Archive> getArquivosSemMatch() {
+        List<Archive> arquivosSemMatch = new ArrayList<Archive>();
 
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
+        for (Archive arquivo : arquivos) {
+            if (!arquivo.isMatch()) {
+                arquivosSemMatch.add(arquivo);
+            }
+        }
+
+        return arquivosSemMatch;
+    }
 }

@@ -1,9 +1,5 @@
-/**
- * 
- */
 package ddiff.tree;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -49,23 +45,6 @@ public class Node extends DefaultMutableTreeNode {
         return id;
     }
 
-    /**
-     * @return the color
-     */
-    public Color getColor() {
-        if (!resultados.isEmpty()) {
-            if (baseSelection) {
-                return resultados.get(0).getTipo().getColor();
-            }
-
-            if (idStart != -1) {
-                return resultados.get(0).getTipo().getHigthLigthcolor();
-            }
-        }
-
-        return null;
-    }
-
     public boolean isDirectory() {
         if (children().hasMoreElements()) {
             return true;
@@ -76,27 +55,6 @@ public class Node extends DefaultMutableTreeNode {
         }
 
         return false;
-    }
-
-    public String getToolType() {
-        String text = "";
-
-        if (!resultados.isEmpty()) {
-            ResultArchive resultadoArquivo = resultados.get(0);
-            if (!isBase()) {
-                if (resultadoArquivo.haveFrom()) {
-                    if (resultadoArquivo.isEscolhaHungaro()) {
-                        text += " * ";
-                    }
-
-                    text += " ";
-                    text += resultadoArquivo.getSimilaridade();
-                    text += "%";
-                }
-            }
-        }
-
-        return text;
     }
 
     ResultArchive getResultInReference() {

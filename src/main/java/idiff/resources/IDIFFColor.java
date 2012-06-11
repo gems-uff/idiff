@@ -9,6 +9,10 @@ import java.util.Random;
  */
 public class IDIFFColor {
 
+    public static Color getExtraTextColor() {
+        return Color.RED;
+    }
+
     /**
      * Get removed color
      * @return Color

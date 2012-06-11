@@ -18,18 +18,6 @@ public class Util {
     }
 
     /**
-     * Cria um array de inteiros e atribui um valor padr�o para cada posi��o.
-     * @param tamanho Tamanho do array
-     * @param padrao Valor padrao
-     * @return array criado.
-     */
-    public static int[] criarArray(int tamanho, int padrao) {
-        int[] array = new int[tamanho];
-        Arrays.fill(array, padrao);
-        return array;
-    }
-
-    /**
      * Atribui o valor padrao a cada elemento da matriz.
      * 
      * @param matriz Matriz
@@ -60,18 +48,9 @@ public class Util {
      * @return
      */
     public static boolean isValidDirectory(File directory) {
-        if (directory == null) {
+        if ((directory == null) || (directory.isHidden()) || (!directory.isDirectory())) {
             return false;
         }
-
-        if (directory.isHidden()) {
-            return false;
-        }
-
-        if (!directory.isDirectory()) {
-            return false;
-        }
-
         return true;
     }
 
