@@ -144,6 +144,7 @@ public class LCS implements IDiff {
      * @param j
      */
     private void printLCS(List<Grain> lcs, int i, int j, int iteration) {
+       try {
         Result finalResult = Result.getResult();
 
         if (i == 0 || j == 0) {
@@ -168,6 +169,9 @@ public class LCS implements IDiff {
                 printLCS(lcs, i, j - 1, iteration);
             }
         }
+       }catch (Exception e) {
+           System.out.println("dddddddd");
+       }
     }
 
     /**

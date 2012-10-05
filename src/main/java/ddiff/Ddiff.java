@@ -13,6 +13,8 @@ import ilcs.result.IResultDiff;
 import ddiff.hungarianAlgorithm.HungarianAlgorithm;
 import ddiff.results.Result;
 import idiff.resources.Constants;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Realiza diff de diretorios.
@@ -115,14 +117,14 @@ public class Ddiff {
     }
 
     private void marcarArquivosInclassificaveis() {
-        for (Archive arquivo : dirSerializado1.getArquivosSemMatch()) {
+        for (Archive arquivo : dirSerializado1.getArquivosSemMatch().values()) {
             if (!arquivo.isArquivo() || !arquivo.isText()) {
                 resultado.addDeletado(arquivo);
                 arquivo.setMatch(true);
             }
         }
 
-        for (Archive arquivo : dirSerializado2.getArquivosSemMatch()) {
+        for (Archive arquivo : dirSerializado2.getArquivosSemMatch().values()) {
             if (!arquivo.isArquivo() || !arquivo.isText()) {
                 resultado.addAdicionado(arquivo);
                 arquivo.setMatch(true);
@@ -137,8 +139,8 @@ public class Ddiff {
      * conjunto de pares.
      */
     private void iteracaoHungaroILCS() {
-        List<Archive> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatch();
-        List<Archive> arquivosSemMatch2 = dirSerializado2.getArquivosSemMatch();
+        List<Archive> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatchToList();
+        List<Archive> arquivosSemMatch2 = dirSerializado2.getArquivosSemMatchToList();
 
         int tamanhoHungaro = Math.max(arquivosSemMatch1.size(),
                 arquivosSemMatch2.size());
@@ -303,21 +305,18 @@ public class Ddiff {
      * sejam excluidos da proxima execucao.
      */
     private void buscaArquivosIdenticos() {
-        List<Archive> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatch();
-        for (int i = 0; i < arquivosSemMatch1.size(); i++) {
-            Archive arquivo1 = arquivosSemMatch1.get(i);
+        Collection<Archive> arquivosSemMatch1 = dirSerializado1.getArquivosSemMatch().values();
+        
+        for (Archive arquivo1 : arquivosSemMatch1) {
+            Map<String, Archive> arquivosSemMatch2 = dirSerializado2.getArquivosSemMatch();
+            
+            if (arquivosSemMatch2.containsKey(arquivo1.getHash())) {
+                Archive arquivo2 = arquivosSemMatch2.get(arquivo1.getHash());
+                
+                arquivo1.setMatch(true);
+                arquivo2.setMatch(true);
 
-            List<Archive> arquivosSemMatch2 = dirSerializado2.getArquivosSemMatch();
-
-            for (int j = 0; j < arquivosSemMatch2.size(); j++) {
-                Archive arquivo2 = arquivosSemMatch2.get(j);
-
-                if (comparaArquivos(arquivo1, arquivo2)) {
-                    arquivo1.setMatch(true);
-                    arquivo2.setMatch(true);
-
-                    resultado.add(arquivo1, arquivo2, Constants.PERCENTUAL_IDENTICO);
-                }
+                resultado.add(arquivo1, arquivo2, Constants.PERCENTUAL_IDENTICO);
             }
         }
     }
@@ -336,20 +335,5 @@ public class Ddiff {
             File diretorio2) throws DDiffException {
         dirSerializado1 = new DirectorySerialized(diretorio1, 1);
         dirSerializado2 = new DirectorySerialized(diretorio2, 2);
-    }
-
-    /**
-     * Compara duas entidades do tipo <code>br.com.diff.Archive</code>
-     * considerando o Hash MD5 de seu conteado.<br>
-     * 
-     * @param arquivo1
-     *            Primeiro arquivo.
-     * @param arquivo2
-     *            Segundo arquivo.
-     * 
-     * @return Verdadeiro caso sejam iguais.
-     */
-    private boolean comparaArquivos(Archive arquivo1, Archive arquivo2) {
-        return arquivo1 != null && arquivo1.equals(arquivo2);
     }
 }

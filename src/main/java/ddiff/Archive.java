@@ -188,6 +188,8 @@ public class Archive {
                 throw new RuntimeException("Nao foi possivel carregar o arquivo.",
                         e);
             }
+        } else {
+            hash = getPathRelativo();
         }
     }
 

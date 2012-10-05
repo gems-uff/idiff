@@ -3,6 +3,8 @@ package ddiff;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Guarda uma representacao do diretorio com os arquivos armazenados em uma lista.
@@ -16,7 +18,7 @@ public class DirectorySerialized {
      * Lista com os arquivos contidos no diretorio.
      * 
      */
-    private List<Archive> arquivos = new ArrayList<Archive>();
+    private Map<String, Archive> arquivos = new HashMap<String, Archive>();
     /**
      * Id do diretorio.
      */
@@ -75,24 +77,34 @@ public class DirectorySerialized {
         if (filho.isHidden()) {
             return;
         }
+        Archive archive = new Archive(filho, arquivos.size() + 1, diretorio.getAbsolutePath());
 
-        arquivos.add(new Archive(filho, arquivos.size() + 1, diretorio.getAbsolutePath()));
+        arquivos.put(archive.getHash(), archive);
     }
 
+    /**
+     * Getter para o mapa de arquivos ainda nao verificados.
+     * 
+     * @return O mapa de arquivos.
+     */
+    public Map<String, Archive> getArquivosSemMatch() {
+        Map<String, Archive> arquivosSemMatch = new HashMap<String, Archive>();
+
+        for (Archive arquivo : arquivos.values()) {
+            if (!arquivo.isMatch()) {
+                arquivosSemMatch.put(arquivo.getHash(), arquivo);
+            }
+        }
+
+        return arquivosSemMatch;
+    }
+    
     /**
      * Getter para a lista de arquivos ainda nao verificados.
      * 
      * @return A lista de arquivos.
      */
-    public List<Archive> getArquivosSemMatch() {
-        List<Archive> arquivosSemMatch = new ArrayList<Archive>();
-
-        for (Archive arquivo : arquivos) {
-            if (!arquivo.isMatch()) {
-                arquivosSemMatch.add(arquivo);
-            }
-        }
-
-        return arquivosSemMatch;
+    public List<Archive> getArquivosSemMatchToList() {
+        return new ArrayList<Archive>(getArquivosSemMatch().values());
     }
 }
