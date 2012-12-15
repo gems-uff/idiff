@@ -62,11 +62,9 @@ public class AboutIDIFF extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
@@ -117,7 +115,7 @@ public class AboutIDIFF extends javax.swing.JFrame {
         jLabel8.setName("jLabel8"); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("sansserif", 1, 14));
-        jLabel9.setText("DDIFF (Directory DIFF)"); // NOI18N
+        jLabel9.setText("DDIFF (Directory Diff)"); // NOI18N
         jLabel9.setName("jLabel9"); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("sansserif", 1, 14));
@@ -173,15 +171,15 @@ public class AboutIDIFF extends javax.swing.JFrame {
         jLabel26.setName("jLabel26"); // NOI18N
 
         jLabel27.setFont(new java.awt.Font("sansserif", 0, 14));
-        jLabel27.setText("select two files with ");
+        jLabel27.setText("select two files with similarity percentage ");
         jLabel27.setName("jLabel27"); // NOI18N
 
         jLabel28.setFont(new java.awt.Font("sansserif", 1, 14));
-        jLabel28.setText("ILCS (Iterative LCS - DIFF2)");
+        jLabel28.setText("FDiff (File Diff)");
         jLabel28.setName("jLabel28"); // NOI18N
 
         jLabel29.setFont(new java.awt.Font("sansserif", 0, 14));
-        jLabel29.setText("similarity percentage, and click the");
+        jLabel29.setText("and click the");
         jLabel29.setName("jLabel29"); // NOI18N
 
         jLabel30.setFont(new java.awt.Font("sansserif", 0, 14));
@@ -192,25 +190,17 @@ public class AboutIDIFF extends javax.swing.JFrame {
         jLabel31.setText("+ Change the perspective to results analysis");
         jLabel31.setName("jLabel31"); // NOI18N
 
-        jLabel32.setFont(new java.awt.Font("sansserif", 1, 14));
-        jLabel32.setText("FDIFF (File DIFF - File Analyzer)");
-        jLabel32.setName("jLabel32"); // NOI18N
-
         jLabel33.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel33.setText("and click the");
         jLabel33.setName("jLabel33"); // NOI18N
 
         jLabel34.setFont(new java.awt.Font("sansserif", 0, 14));
-        jLabel34.setText("select only one file.");
+        jLabel34.setText("Select only one file.");
         jLabel34.setName("jLabel34"); // NOI18N
 
         jLabel35.setFont(new java.awt.Font("sansserif", 0, 14));
         jLabel35.setText("button");
         jLabel35.setName("jLabel35"); // NOI18N
-
-        jLabel36.setFont(new java.awt.Font("sansserif", 0, 14));
-        jLabel36.setText("To run the");
-        jLabel36.setName("jLabel36"); // NOI18N
 
         jLabel37.setFont(new java.awt.Font("sansserif", 1, 14));
         jLabel37.setText("5)");
@@ -295,19 +285,15 @@ public class AboutIDIFF extends javax.swing.JFrame {
                                                 .addComponent(jLabel37)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel38)
                                                     .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(jLabel36)
+                                                        .addComponent(jLabel34)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jLabel32)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jLabel34))
-                                                    .addGroup(layout.createSequentialGroup()
                                                         .addComponent(jLabel33)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(jLabel13)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jLabel35))
-                                                    .addComponent(jLabel38)))))))))
+                                                        .addComponent(jLabel35))))))))))
                     .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -364,22 +350,25 @@ public class AboutIDIFF extends javax.swing.JFrame {
                             .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel31)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel37)
-                            .addComponent(jLabel36)
-                            .addComponent(jLabel32)
-                            .addComponent(jLabel34))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel37)
+                                            .addComponent(jLabel34)
+                                            .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(25, 25, 25))
+                                    .addComponent(jLabel35)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel16)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -407,11 +396,9 @@ public class AboutIDIFF extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
