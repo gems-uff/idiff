@@ -31,7 +31,7 @@ public class MainFDiff extends javax.swing.JFrame {
 
     private FileComponent fileComponent = new FileComponent();
     private static MainFDiff instance;
-    private String selectedItem = "Show All Similarities/Refactoring";
+    private String selectedItem = "Show All Similarities";
 
     /**
      * getInstance
@@ -85,11 +85,11 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private boolean isFileSimilarity(String fileName) {
-        return selectedItem.equals("Show Similarity with " + fileName);
+        return selectedItem.equals("Show Similarities with " + fileName);
     }
 
     private boolean showAllSimilarity() {
-        return selectedItem.equals("Show All Similarities/Refactoring");
+        return selectedItem.equals("Show All Similarities");
     }
 
     private void start(File file, List<ResultArchive> result, int idDirectory, boolean isRepaint) throws IOException {
@@ -173,7 +173,7 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private void setCombo(File file) {
-        refactoringCombo.addItem("Show Similarity with " + file.getAbsolutePath());
+        refactoringCombo.addItem("Show Similarities with " + file.getAbsolutePath());
     }
 
     private void setRefactory(List<Grain> grains, String fileName) {
@@ -186,7 +186,7 @@ public class MainFDiff extends javax.swing.JFrame {
     }
 
     private String getMsgRefactory(String fileName) {
-        return "Similarity found with " + fileName;
+        return "Similarities found with " + fileName;
     }
 
     /** This method is called from within the constructor to
@@ -273,8 +273,8 @@ public class MainFDiff extends javax.swing.JFrame {
         jToolBar1.add(jSeparator1);
 
         refactoringCombo.setMaximumRowCount(5);
-        refactoringCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Show All Similarities/Refactoring" }));
-        refactoringCombo.setToolTipText("Similarities/Refactoring List Found");
+        refactoringCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Show All Similarities" }));
+        refactoringCombo.setToolTipText("Similarities/Refactorings List Found");
         refactoringCombo.setAutoscrolls(true);
         refactoringCombo.setDoubleBuffered(true);
         refactoringCombo.setFocusCycleRoot(true);
@@ -282,7 +282,6 @@ public class MainFDiff extends javax.swing.JFrame {
         refactoringCombo.setMaximumSize(new java.awt.Dimension(900, 28));
         refactoringCombo.setMinimumSize(new java.awt.Dimension(900, 28));
         refactoringCombo.setName("refactoringCombo"); // NOI18N
-        refactoringCombo.setOpaque(true);
         refactoringCombo.setPreferredSize(new java.awt.Dimension(900, 28));
         jToolBar1.add(refactoringCombo);
 
@@ -308,7 +307,7 @@ public class MainFDiff extends javax.swing.JFrame {
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -327,7 +326,7 @@ public class MainFDiff extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
