@@ -151,14 +151,14 @@ public class Archive {
     }
 
     /**
-     * Gera um codigo hash MD5 com o conteudo do arquivo representado.
+     * Gera um codigo hash SHA-1 com o conteudo do arquivo representado.
      * 
-     * @return Codigo hash MD5
+     * @return Codigo hash SHA-1
      */
     private void gerarHash() {
         if (isArquivo()) {
             try {
-                MessageDigest digest = MessageDigest.getInstance("MD5");
+                MessageDigest digest = MessageDigest.getInstance("SHA1");
                 InputStream is = new FileInputStream(getArquivo());
                 byte[] buffer = new byte[8192];
                 String output = "";
@@ -167,8 +167,8 @@ public class Archive {
                     while ((read = is.read(buffer)) > 0) {
                         digest.update(buffer, 0, read);
                     }
-                    byte[] md5sum = digest.digest();
-                    BigInteger bigInt = new BigInteger(1, md5sum);
+                    byte[] sha1Sum = digest.digest();
+                    BigInteger bigInt = new BigInteger(1, sha1Sum);
                     output = bigInt.toString(16);
                 } catch (IOException e) {
                     throw new RuntimeException(
@@ -183,7 +183,7 @@ public class Archive {
                 }
                 hash = output;
             } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException("Algoritmo MD5 nao foi encontrado.", e);
+                throw new RuntimeException("Algoritmo SHA1 nao foi encontrado.", e);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException("Nao foi possivel carregar o arquivo.",
                         e);
