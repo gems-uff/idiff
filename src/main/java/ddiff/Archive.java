@@ -16,6 +16,13 @@ import java.util.List;
 import javax.activation.MimetypesFileTypeMap;
 
 import ilcs.grain.LineGrain;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jmimemagic.Magic;
+import net.sf.jmimemagic.MagicException;
+import net.sf.jmimemagic.MagicMatchNotFoundException;
+import net.sf.jmimemagic.MagicParseException;
+
 
 /**
  * Guarda a representacao do arquivo que deve ser comparado.
@@ -98,7 +105,18 @@ public class Archive {
      * @return
      */
     public boolean isText() {
-        return !(new MimetypesFileTypeMap().getContentType(getArquivo())).startsWith("image");
+        String mimeType = null;
+        try {
+            mimeType = Magic.getMagicMatch(getArquivo(), false).getMimeType();
+        } catch (MagicParseException ex) {
+            Logger.getLogger(Archive.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MagicMatchNotFoundException ex) {
+            Logger.getLogger(Archive.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
+        } catch (MagicException ex) {
+            Logger.getLogger(Archive.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (null != mimeType) && (mimeType.startsWith("text"));
     }
 
     /**
