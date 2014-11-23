@@ -1,6 +1,9 @@
 package gui;
 
 import ddiff.ProgressMessager;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DDiffProgress extends javax.swing.JDialog implements ProgressMessager {
     private static final long serialVersionUID = 1L;
@@ -75,8 +78,10 @@ public class DDiffProgress extends javax.swing.JDialog implements ProgressMessag
 
     @Override
     public void setMessage(String message) {
+        DateFormat formato = new SimpleDateFormat("HH:mm:ss.SSS");
+
         messageLabel.setText(message);
         messageLabel.setToolTipText(message);
-        System.out.println(message);
+        System.out.println(message + formato.format(new Date()));
     }    
 }
