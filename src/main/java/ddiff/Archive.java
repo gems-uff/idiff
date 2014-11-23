@@ -13,7 +13,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.activation.MimetypesFileTypeMap;
 
 import ilcs.grain.LineGrain;
@@ -99,26 +98,7 @@ public class Archive {
      * @return
      */
     public boolean isText() {
-        if (contentType.startsWith("text")) {
-            return true;
-        }
-
-        if (contentType.equalsIgnoreCase("application/octet-stream")) {
-            String lowerCase = getArquivo().getName().toLowerCase();
-            if (lowerCase.endsWith(".java")) {
-                return true;
-            }
-
-            if (lowerCase.endsWith(".form")) {
-                return true;
-            }
-
-            if (lowerCase.endsWith(".properties")) {
-                return true;
-            }
-        }
-
-        return false;
+        return !(new MimetypesFileTypeMap().getContentType(getArquivo())).startsWith("image");
     }
 
     /**
