@@ -320,6 +320,7 @@ public class Ddiff {
             }
         }
     }
+
     /**
      * Serializa os diretorios que serao comparados.
      * 
