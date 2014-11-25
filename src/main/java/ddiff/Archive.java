@@ -107,11 +107,11 @@ public class Archive {
     public boolean isText() {
         String mimeType = null;
         try {
-            mimeType = Magic.getMagicMatch(getArquivo(), false).getMimeType();
+            if (getArquivo() != null && !getArquivo().isHidden())
+                mimeType = Magic.getMagicMatch(getArquivo(), false).getMimeType();
         } catch (MagicParseException ex) {
             Logger.getLogger(Archive.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MagicMatchNotFoundException ex) {
-            Logger.getLogger(Archive.class.getName()).log(Level.SEVERE, null, ex);
             return true;
         } catch (MagicException ex) {
             Logger.getLogger(Archive.class.getName()).log(Level.SEVERE, null, ex);
