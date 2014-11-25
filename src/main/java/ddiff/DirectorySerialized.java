@@ -79,7 +79,10 @@ public class DirectorySerialized {
         }
         Archive archive = new Archive(filho, arquivos.size() + 1, diretorio.getAbsolutePath());
 
-        arquivos.put(archive.getHash(), archive);
+        if (!arquivos.containsKey(archive.getHash()))
+            arquivos.put(archive.getHash(), archive);
+        else
+            arquivos.put(archive.getHash() + arquivos.size(), archive);
     }
 
     /**
@@ -92,7 +95,10 @@ public class DirectorySerialized {
 
         for (Archive arquivo : arquivos.values()) {
             if (!arquivo.isMatch()) {
-                arquivosSemMatch.put(arquivo.getHash(), arquivo);
+                if (!arquivosSemMatch.containsKey(arquivo.getHash()))
+                    arquivosSemMatch.put(arquivo.getHash(), arquivo);
+                else
+                    arquivosSemMatch.put(arquivo.getHash()+arquivosSemMatch.size(), arquivo);
             }
         }
 
