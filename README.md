@@ -1,24 +1,24 @@
-#About
+# About
 
 A diff tool aware of refactoring-related changes.
 
-#Team
+# Team
 
 * Fernanda Floriano
 * Eraldo Borel
 * Evandro Lopes
 * Leonardo Murta
 
-#Documentation
+# Documentation
 
 * [Wiki](https://github.com/gems-uff/idiff/wiki)
 
-#Development
+# Development
 
 * [Source Code](https://github.com/gems-uff/idiff)
 * [Issue Tracking](https://github.com/gems-uff/idiff/issues)
 
-#License
+# License
 
 Copyright (c) 2014 Universidade Federal Fluminense (UFF)  
   
