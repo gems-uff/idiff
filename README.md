@@ -18,6 +18,18 @@ A diff tool aware of refactoring-related changes.
 * [Source Code](https://github.com/gems-uff/idiff)
 * [Issue Tracking](https://github.com/gems-uff/idiff/issues)
 
+# Installation (command line)
+
+* git clone https://github.com/gems-uff/idiff
+
+* cd idiff
+
+* mvn clean install
+
+# Usage (inside project root path)
+
+* mvn exec:java
+
 # License
 
 Copyright (c) 2014 Universidade Federal Fluminense (UFF)  
