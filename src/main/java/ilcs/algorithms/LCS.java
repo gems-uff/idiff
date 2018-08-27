@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
 
 /**
  * LCS
@@ -23,6 +25,7 @@ public class LCS implements IDiff {
     private LCSBean[][] arrayLcs;
     private List<Grain> linesFileOne = new ArrayList<Grain>();
     private List<Grain> columnFileTwo = new ArrayList<Grain>();
+    private static final Logger logger = LogManager.getLogger(LCS.class);
 
     /**
      * Constructor
@@ -169,8 +172,8 @@ public class LCS implements IDiff {
                 printLCS(lcs, i, j - 1, iteration);
             }
         }
-       }catch (Exception e) {
-           System.out.println("dddddddd");
+       } catch (Exception e) {
+           logger.error(e.getMessage());
        }
     }
 

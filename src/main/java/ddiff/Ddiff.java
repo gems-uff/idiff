@@ -15,6 +15,8 @@ import ddiff.results.Result;
 import idiff.resources.Constants;
 import java.util.Collection;
 import java.util.Map;
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
 
 /**
  * Realiza diff de diretorios.
@@ -37,6 +39,7 @@ public class Ddiff {
     private String granularity;
     private String tags;
     private final ProgressMessager progressMessager;
+    private static final Logger logger = LogManager.getLogger(Ddiff.class);
 
     public Ddiff(ProgressMessager progressMessager, String granularity, String tags) {
         this.progressMessager = progressMessager;
@@ -110,7 +113,7 @@ public class Ddiff {
                 break;
             }
         } catch (DDiffException e) {
-            System.out.println("Erro: " + e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return resultado;
